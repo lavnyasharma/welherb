@@ -1,0 +1,13 @@
+<p-carousel [value]="testimonials" [numVisible]="3" [numScroll]="3" [responsiveOptions]="responsiveOptions" [circular]="true" [autoplayInterval]="3000">
+    <ng-template pTemplate="item" let-testimonial>
+      <p-card class="testimonial-card">
+        <ng-template pTemplate="header">
+          <img [src]="testimonial.image" alt="Testimonial image" class="testimonial-image"/>
+        </ng-template>
+        <h3>{{testimonial.name}}</h3>
+        <h4>{{testimonial.position}}</h4>
+        <p>{{testimonial.testimonial}}</p>
+      </p-card>
+    </ng-template>
+  </p-carousel>
+  

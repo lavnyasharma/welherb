@@ -1,0 +1,25 @@
+/* our-roots.component.scss */
+body {
+  font-family: 'Arial', sans-serif;
+}
+
+.bg-light {
+  background-color: #f8f8f8;
+}
+
+.header-img {
+  width: 100%;
+  height: 200px;
+  background-color: #d4e0d4;
+}
+
+.balance-img {
+  height: 150px;
+  width: auto;
+  margin: auto;
+}
+
+.divider {
+  border-top: 1px solid #ddd;
+  margin: 2rem 0;
+}

@@ -1,0 +1,28 @@
+/* You can add global styles to this file, and also import other style files */
+@import "primeicons/primeicons.css";
+html {
+
+    scroll-behavior: smooth;
+ 
+}
+
+body {
+    font-family: var(--font-family);
+    font-weight: normal;
+    background: var(--surface-ground);
+    color: var(--text-color);
+    margin: 0px !important;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.p-card{
+    box-shadow: none;
+    background: none;
+}
+.card {
+    background: var(--surface-card);
+  
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}

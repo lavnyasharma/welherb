@@ -1,0 +1,39 @@
+<div class="product-card-container" [ngStyle]="{'background-color': selectedProduct.color}">
+    <!-- Product Name -->
+    <div class="product-name">
+      {{ selectedProduct.name }}
+    </div>
+  
+    <!-- Description and Buttons -->
+    <div class="product-info">
+      <div class="desc-left">
+        <h1>Helps Who?</h1>
+        <div class="description-point" *ngFor="let point of selectedProduct.shortDescLeft">{{ point }}</div>
+        <div class="learnMore">
+          <button class="learn-more-btn">Learn More</button>
+        </div>
+      </div>
+  
+      <div class="product-image">
+        <img [src]="selectedProduct.image" alt="{{ selectedProduct.name }}" />
+      </div>
+  
+      <div class="desc-right">
+        <h1>Helps How?</h1>
+        <div class="description-point" *ngFor="let point of selectedProduct.shortDescRight">{{ point }}</div>
+        <div class="buyMore">
+          <button class="buy-more-btn">Buy Now</button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Other Products Buttons -->
+    <div class="other-products">
+      <button class="other-product-btn" *ngFor="let product of products; let i = index"
+              [class.selected]="i === selectedProductIndex"
+              (click)="selectProduct(i)">
+        {{ product.name }}
+      </button>
+    </div>
+  </div>
+  

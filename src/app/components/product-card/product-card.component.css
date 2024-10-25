@@ -1,0 +1,117 @@
+.product-card-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .product-name {
+    font-size: 4.5em;
+    font-weight: bold;
+    margin: 25px;
+  }
+  
+  .product-image img {
+    width: 100%;
+    max-width: 50%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  .product-info {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 20px;
+  }
+  
+  .learnMore, .buyMore {
+    width: 100%;
+    display: flex;
+  }
+  
+  .buyMore {
+    justify-content: flex-end;
+  }
+  
+  .desc-left, .desc-right {
+    width: 48%;
+    font-size: 16px;
+  }
+  
+  .desc-left {
+    text-align: justify;
+  }
+  
+  .desc-right {
+    text-align: end;
+  }
+  
+  .description-point {
+    margin: 10px;
+  }
+  
+  .learn-more-btn, .buy-more-btn {
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+  
+  .other-products {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    width: 100%;
+  }
+  
+  .other-product-btn {
+    margin: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1em;
+    cursor: pointer;
+  }
+  
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .product-info {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .desc-left, .desc-right {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+  
+    .desc-right {
+      text-align: center;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .product-name {
+      font-size: 2em;
+    }
+  
+    .product-image img {
+      max-width: 100%;
+    }
+  
+    .learn-more-btn, .buy-more-btn, .other-product-btn {
+      font-size: 0.9em;
+      padding: 8px;
+    }
+  
+    .other-products {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
