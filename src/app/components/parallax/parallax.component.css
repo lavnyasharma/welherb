@@ -1,213 +1,241 @@
+.parallax-container {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 20px;
+  background-color: #FCF8F3;
+}
 
-  .parallax-container {
-    position: relative;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    padding: 0 20px;
-    background-color: #FCF8F3;
-  }
-  
+.small-welherb {
+  font-size: 5vw;
+  font-weight: bold;
+  text-align: center;
+  z-index: 2;
+  color: #4FAE32;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  transition: opacity 0.3s ease; /* Smooth transition for opacity */
+}
+
+.large-welherb {
+  font-size: 15vw;
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  top: 40%;
+  z-index: 1;
+  opacity: 1;
+  color: #4FAE32;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: opacity 0.3s ease; /* Smooth transition for opacity */
+}
+
+.image-container {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.bottle-image {
+  width: 35vw;
+  height: auto;
+  transform: translateY(50%);
+  opacity: 0.5;
+}
+
+.left-text, .right-text {
+  position: absolute;
+  font-size: 2vw;
+  font-weight: bold;
+  text-transform: uppercase;
+  opacity: 0;
+  white-space: nowrap;
+}
+
+.left-text {
+  left: -10vw;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.right-text {
+  right: -10vw;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* Path to better living */
+.path-to-better-living {
+  font-size: 3vw;
+  font-weight: bold;
+  text-align: center;
+  position: absolute;
+  top: 60%; /* Position this below the large Welherb */
+  color: #4FAE32;
+  text-transform: uppercase;
+  z-index: 2;
+  width: 100%;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+/* --- Next Section Styles --- */
+.next-section {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f4f4f4;
+  visibility: hidden;
+}
+
+.next-section h1 {
+  font-size: 2rem;
+  color: #000;
+}
+
+/* --- Responsive Design Adjustments --- */
+
+/* For tablets and iPads */
+@media screen and (max-width: 1024px) {
   .small-welherb {
-    font-size: 3rem;
-    font-weight: bold;
-    text-align: center;
-    z-index: 2;
-    color: #4FAE32;
-    text-transform: uppercase;
-    margin-bottom: 20px; /* Add space for smaller screens */
+      font-size: 7vw;
   }
-  
+
   .large-welherb {
-    font-size: 10rem;
-    font-weight: bold;
-    text-align: center;
-    position: absolute;
-    top: 40%;
-    z-index: 1;
-    opacity: 0;
-    color: #4FAE32;
-    text-transform: uppercase;
-    white-space: nowrap; /* Ensure text doesn't wrap */
+      font-size: 10vw;
   }
-  
-  .image-container {
-    position: relative;
-    z-index: 2;
-    /* margin-top: 100px; */
-    text-align: center; /* Center everything on smaller screens */
-  }
-  
+
   .bottle-image {
-    width: 400px;
-    height: auto;
-    transform: translateY(50%); /* Initially show half of the bottle */
-    opacity: 0.5; /* Start with partial visibility */
+      width: 40vw;
   }
-  
+
   .left-text, .right-text {
-    position: absolute;
-    font-size: 1.5rem;
-    font-weight: bold;
-    text-transform: uppercase;
-    opacity: 0; /* Hidden initially */
-    white-space: nowrap; /* Prevent text wrapping */
+      font-size: 3vw;
   }
-  
+
   .left-text {
-    left: -100px;
-    top: 50%;
-    transform: translateY(-50%);
+      left: -5vw;
   }
-  
+
   .right-text {
-    right: -100px;
-    top: 50%;
-    transform: translateY(-50%);
+      right: -5vw;
   }
-  
-  /* Hide next section until parallax is done */
-  .next-section {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: #f4f4f4;
-    visibility: hidden;
+
+  .path-to-better-living {
+      font-size: 5vw;
   }
-  
-  .next-section h1 {
-    font-size: 2rem;
-    color: #000;
+}
+
+/* For mobile screens */
+@media screen and (max-width: 768px) {
+  .small-welherb {
+      font-size: 8vw;
   }
-  
-  /* --- Responsive Design Adjustments --- */
-  
-  /* For tablets and iPads */
-  @media screen and (max-width: 1024px) {
-    .large-welherb {
-      font-size: 7rem;  /* Reduce font size for tablets */
-    }
-  
-    .bottle-image {
-      width: 300px;  /* Reduce image size */
-    }
-  
-    .left-text, .right-text {
-      font-size: 1.2rem;  /* Adjust text size */
-    }
-  
-    .left-text {
-      left: -50px;  /* Adjust position for smaller screens */
-    }
-  
-    .right-text {
-      right: -50px;
-    }
-  }
-  
-  /* For mobile screens */
-  @media screen and (max-width: 768px) {
-    .small-welherb {
-      font-size: 2.5rem;  /* Adjust small text size for mobile */
-    }
-  
-    .large-welherb {
-      font-size: 5rem;  /* Further reduce font size */
-      top: 30%;  /* Adjust position */
-    }
-  
-    .bottle-image {
-      width: 250px;  /* Reduce image size for mobile */
-    }
-  
-    .left-text, .right-text {
-      font-size: 1rem;  /* Smaller font size */
-    }
-  
-    .left-text {
-      left: -30px;  /* Further adjust positioning */
-    }
-  
-    .right-text {
-      right: -30px;
-    }
-  }
-  
-  /* For small mobile screens */
-  @media screen and (max-width: 480px) {
-    .small-welherb {
-      font-size: 2rem;
-    }
-  
-    .large-welherb {
-      font-size: 3.5rem;
+
+  .large-welherb {
+      font-size: 12vw;
       top: 25%;
-    }
-  
-    .bottle-image {
-      width: 200px;  /* Smaller image */
-    }
-  
-    .left-text, .right-text {
-      font-size: 0.8rem;  /* Even smaller text */
-    }
-  
-    .left-text {
-      left: -20px;
-    }
-  
-    .right-text {
-      right: -20px;
-    }
   }
-  
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f4f4f4;
+
+  .bottle-image {
+      width: 50vw;
+  }
+
+  .left-text, .right-text {
+      font-size: 4vw;
+  }
+
+  .left-text {
+      left: -3vw;
+  }
+
+  .right-text {
+      right: -3vw;
+  }
+
+  .path-to-better-living {
+      font-size: 6vw;
+  }
+}
+
+/* For small mobile screens */
+@media screen and (max-width: 480px) {
+  .small-welherb {
+      font-size: 10vw;
+  }
+
+  .large-welherb {
+      font-size: 15vw;
+      top: 20%;
+  }
+
+  .bottle-image {
+      width: 60vw;
+  }
+
+  .left-text, .right-text {
+      font-size: 5vw;
+  }
+
+  .left-text {
+      left: -2vw;
+  }
+
+  .right-text {
+      right: -2vw;
+  }
+
+  .path-to-better-living {
+      font-size: 8vw;
+  }
+}
+
+/* --- Body and Container Styles --- */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
 }
 
 .container {
-    text-align: center;
-
- 
-    margin: 10px;
+  text-align: center;
+  margin: 10px;
 }
 
 .box {
-    background-color: #fff;
-    border: 1px solid #4FAE32;
-    border-radius: 8px;
-    padding: 20px;
+  background-color: #fff;
+  border: 1px solid #4FAE32;
+  border-radius: 8px;
+  padding: 20px;
 }
 
 .tagline {
-    font-size: 1.5em;
-    margin: 20px 0;
+  font-size: 1.5em;
+  margin: 20px 0;
 }
 
 .icons {
-    display: flex;
-    justify-content: space-around;
-    flex-wrap: wrap;
-
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
 }
 
 .icon {
-    text-align: center;
-
+  text-align: center;
 }
 
 .icon img {
-    width: 50px;
-    height: 60px;
+  width: 50px;
+  height: 60px;
 }

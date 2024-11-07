@@ -69,7 +69,7 @@
 
 .other-products {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   overflow-x: scroll; /* Always show horizontal scrollbar */
   width: 100%;

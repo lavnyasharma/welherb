@@ -19,13 +19,11 @@ export class ParallaxComponent implements AfterViewInit {
         trigger: '.parallax-container', // Element to trigger the animation
         start: 'top top', // Start when the top of the element hits the top of the viewport
         end: 'bottom top', // End when the bottom of the element hits the top of the viewport
-        scrub: 1.5, // Smoother scroll-triggered animation (lower value = smoother)
+        scrub: 2, // Slower scrub for smoother effect (higher value = smoother)
         pin: true, // Pin the section until the parallax animation is complete
-        anticipatePin: 1, // Add smoother pinning behavior
+        anticipatePin: 3, // Even smoother pinning behavior
         onUpdate: (self) => {
-          if (self.progress === 1) {
-            document.body.style.overflow = 'auto'; // Enable scroll after animation
-          }
+          this.handleScrollEffect(self); // Add custom scroll handling logic
         }
       }
     });
@@ -35,28 +33,35 @@ export class ParallaxComponent implements AfterViewInit {
       { opacity: 0.2 }, // Start with lower opacity for a smoother fade-in
       { 
         opacity: 1, 
-        duration: 3, // Increased duration for smoothness
-        ease: 'power3.inOut' // Smoother easing function
+        duration: 6, // Increased duration for even smoother effect
+        ease: 'power4.inOut' // Smooth easing function
       }
     );
 
     // Smooth movement of large "Welherb" text upwards
     tl.to('.large-welherb', {
       y: '-80%', 
-      duration: 4, // Longer duration for a slower, smoother movement
-      ease: 'power2.inOut' // Smoother easing function
+      duration: 8, // Longer duration for even slower, smoother movement
+      ease: 'power4.inOut' // Smoother easing function
     });
 
-    // Smooth reveal of the bottle image and text
+    // Smooth reveal of the bottle image and position it between the "Well" and "Herb"
     tl.fromTo('.bottle-image', 
       { y: '50%', opacity: 0.5 }, 
       { 
         y: '0%', 
         opacity: 1, 
-        duration: 4, // Increased duration for smoothness
-        ease: 'power3.out' // Smooth easing for the reveal
+        duration: 6, // Increased duration for smoother reveal
+        ease: 'power4.out' // Smooth easing for the reveal
       }
     );
+
+    // Position the bottle between the "Well" and "Herb" text as it comes up
+    tl.to('.bottle-image', {
+      y: '10%', // Adjust to the desired position where the bottle should rest
+      duration: 4, // Duration for the transition of the bottle's final position
+      ease: 'power4.inOut' // Smooth easing for positioning
+    });
 
     // Smooth animation for the left text ("Path to")
     tl.fromTo('.left-text', 
@@ -64,10 +69,10 @@ export class ParallaxComponent implements AfterViewInit {
       { 
         x: '0%', 
         opacity: 1, 
-        duration: 4, // Smooth transition
-        ease: 'power3.out' 
+        duration: 6, // Smooth transition
+        ease: 'power4.out' 
       }, 
-      '-=1' // Overlap with previous animation for continuous flow
+      '-=2' // Overlap with previous animation for continuous flow
     );
 
     // Smooth animation for the right text ("Better living")
@@ -76,13 +81,13 @@ export class ParallaxComponent implements AfterViewInit {
       { 
         x: '0%', 
         opacity: 1, 
-        duration: 4, 
-        ease: 'power3.out' 
+        duration: 6, 
+        ease: 'power4.out' 
       }, 
-      '-=1' // Overlap with previous animation for continuous flow
+      '-=2' // Overlap with previous animation for continuous flow
     );
 
-    // Unlock scroll after the parallax finishes
+    // Scroll unlock after the parallax finishes
     ScrollTrigger.create({
       trigger: '.parallax-container',
       start: 'top top',
@@ -90,5 +95,25 @@ export class ParallaxComponent implements AfterViewInit {
       onEnter: () => document.body.style.overflow = 'hidden', // Lock scroll when entering
       onLeave: () => document.body.style.overflow = 'auto', // Unlock scroll when leaving
     });
+  }
+
+  // Handle the scroll effect to hide small Welherb and adjust the Path to Better Living text
+  private handleScrollEffect(self: any): void {
+    const smallWelherb = document.querySelector('.small-welherb') as HTMLElement;
+    const pathText = document.querySelector('.path-to-better-living') as HTMLElement;
+    
+    if (self.progress > 0.1) {  // When scrolling past a certain point (adjust as necessary)
+      // Hide the small Welherb and show the Path to Better Living
+      smallWelherb.style.opacity = '0';
+      pathText.style.opacity = '1';
+    } else {
+      // Otherwise, show the small Welherb and hide the Path to Better Living
+      smallWelherb.style.opacity = '1';
+      pathText.style.opacity = '0';
+    }
+
+    // Optionally, adjust positioning or other effects here
+    const largeWelherb = document.querySelector('.large-welherb') as HTMLElement;
+    largeWelherb.style.transform = `translateY(${self.progress * 50}%)`;  // Adjust parallax movement
   }
 }
