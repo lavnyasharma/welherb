@@ -1,10 +1,10 @@
 import {
   ChevronRightIcon
-} from "./chunk-VAVNASZN.js";
+} from "./chunk-PREYVT67.js";
 import {
   ChevronDownIcon
-} from "./chunk-SHHNAHQC.js";
-import "./chunk-JAKCMRFY.js";
+} from "./chunk-QDK4D3GO.js";
+import "./chunk-Y76SDFNG.js";
 import {
   DomHandler
 } from "./chunk-BUGEQH7Q.js";
@@ -13,21 +13,21 @@ import {
   PrimeTemplate,
   SharedModule,
   UniqueComponentId
-} from "./chunk-6ERH2WVC.js";
+} from "./chunk-EQWC62JD.js";
 import {
   animate,
   state,
   style,
   transition,
   trigger
-} from "./chunk-M3JW6CH4.js";
+} from "./chunk-WS44MMOX.js";
 import {
   CommonModule,
   NgClass,
   NgIf,
   NgStyle,
   NgTemplateOutlet
-} from "./chunk-V5KVNUUW.js";
+} from "./chunk-QASFQABX.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -72,7 +72,8 @@ import {
   ɵɵtemplate,
   ɵɵtext,
   ɵɵtextInterpolate1
-} from "./chunk-TISL3IXP.js";
+} from "./chunk-57XOOGN6.js";
+import "./chunk-GM2YTKEO.js";
 import "./chunk-WDMUDEB6.js";
 
 // node_modules/primeng/fesm2022/primeng-accordion.mjs

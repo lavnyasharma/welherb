@@ -1,0 +1,59 @@
+.container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    margin: 20px;
+}
+
+.Image, .Text {
+    flex: 1; /* Each occupies 50% of the space */
+    max-width: 50%;
+}
+
+.Image img {
+    max-width: 100%;
+    height: auto;
+   
+}
+
+.Text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.Text p {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.call {
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background-color: green;
+    color: white;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        text-align: center;
+    }
+    .Image img {
+        max-width: 100%;
+        height: auto;
+  
+    }
+    
+    .Image, .Text {
+        max-width: 100%;
+    }
+
+    .Text p {
+        font-size: 1em;
+    }
+}

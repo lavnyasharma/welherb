@@ -10,15 +10,11 @@
       </button>
     </div>
   </div>
-   
-    
-    
-    
-    <div class="image-grid">
-      <div class="image-item" *ngFor="let image of images">
-        <img [src]="image.url" alt="{{ image.name }}" />
-        <div class="image-overlay">{{ image.name }}</div>
-      </div>
+
+  <div class="image-grid">
+    <div class="image-item" *ngFor="let image of images">
+      <img [src]="image.url" [alt]="image.name" />
+      <div class="image-overlay">{{ image.name }}</div>
     </div>
   </div>
-  
+</div>

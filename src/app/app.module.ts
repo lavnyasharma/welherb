@@ -59,6 +59,8 @@ import { ProductComponent } from './modules/product/product.component';
 import { ParallaxComponent } from './components/parallax/parallax.component';
 import { LearnComponent } from './components/learn/learn.component';
 import { IngredientsComponent } from './components/ingredients/ingredients.component';
+import { ContactDoctorComponent } from './components/contact-doctor/contact-doctor.component';
+import { FormComponent } from './components/form/form.component';
 
 @NgModule({
   declarations: [
@@ -75,10 +77,13 @@ import { IngredientsComponent } from './components/ingredients/ingredients.compo
     ParallaxComponent,
     LearnComponent,
     IngredientsComponent,
+    ContactDoctorComponent,
+    FormComponent,
   ],
   imports: [
     BrowserModule,
     BrowserModule,
+    HttpClientModule,
     BrowserAnimationsModule,
     MatIconModule,
     ButtonModule,
