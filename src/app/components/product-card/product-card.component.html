@@ -27,12 +27,12 @@
     </div>
   </div>
 
-  <!-- Other Products Buttons -->
+  <!-- Other Products Buttons with Bottle Images -->
   <div class="other-products" style="margin-top: -30px;">
     <button class="other-product-btn" *ngFor="let product of products; let i = index"
             [class.selected]="i === selectedProductIndex"
             (click)="selectProduct(i)">
-      {{ product.name }}
+      <img [src]="product.image" alt="{{ product.name }}" style="max-width: 80px; max-height: 80px;" />
     </button>
   </div>
 </div>
