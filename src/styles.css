@@ -24,5 +24,10 @@ body {
     background: var(--surface-card);
   
     border-radius: 10px;
-    margin-bottom: 1rem;
+
+}
+.p-menubar {
+
+    background-color: #fcf8f4 !important;
+    border: none !important;
 }

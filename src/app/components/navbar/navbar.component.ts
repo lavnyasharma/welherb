@@ -1,80 +1,58 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  styleUrl: './navbar.component.css'
+  styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-items: any;
+  items: any;
 
+  constructor(private router: Router) {}
 
+  ngOnInit() {
+    this.items = [
+      {
+        label: 'Shop',
+        icon: 'pi pi-cart',
+        items: [
+          { label: 'ESR', routerLink: '/shop/esr' },
+          { label: 'Thyroid', routerLink: '/shop/thyroid' },
+          { label: 'Heart', routerLink: '/shop/heart' },
+          { label: 'Blood', routerLink: '/shop/blood' },
+          { label: 'Liver', routerLink: '/shop/liver' },
+          { label: 'Gut', routerLink: '/shop/gut' },
+          { label: 'Diabetes', routerLink: '/shop/diabetes' },
+          { label: 'Prostate', routerLink: '/shop/prostate' },
+          { label: 'Migraine', routerLink: '/shop/migraine' },
+          { label: 'Ayurvedic Multivitamins', routerLink: '/shop/ayurvedic-multivitamins' },
+          { label: 'Body & Joint Pains', routerLink: '/shop/body-joint-pains' },
+          { label: 'Weight Management', routerLink: '/shop/weight-management' },
+          { label: 'Women’s Wellbeing', routerLink: '/shop/womens-wellbeing' },
+          { label: 'Men’s Wellbeing', routerLink: '/shop/mens-wellbeing' },
+          { label: 'Combos', routerLink: '/shop/combos' }
+        ]
+      },
+      {
+        label: 'Bundle Up',
+        icon: 'pi pi-box',
+        routerLink: '/bundle-up'
+      },
+      {
+        label: 'Discover',
+        icon: 'pi pi-search',
+        routerLink: '/discover'
+      },
+      {
+        label: 'Expert Help',
+        icon: 'pi pi-question-circle',
+        routerLink: '/expert-help'
+      }
+    ];
+  }
 
-    ngOnInit() {
-        this.items = [
-            {
-                label: 'Home',
-                icon: 'pi pi-home',
-                routerLink: '/home'
-            },
-            {
-                label: 'About',
-                icon: 'pi pi-star',
-                routerLink:  ['/about'] 
-            },
-            {
-                label: 'Products',
-                icon: 'pi pi-search',
-                items: [
-                    {
-                        label: 'Core',
-                        icon: 'pi pi-bolt',
-                        shortcut: '⌘+S',
-                        routerLink: '/products/core'
-                    },
-                    {
-                        label: 'Blocks',
-                        icon: 'pi pi-server',
-                        shortcut: '⌘+B',
-                        routerLink: '/products/blocks'
-                    },
-                    {
-                        label: 'UI Kit',
-                        icon: 'pi pi-pencil',
-                        shortcut: '⌘+U',
-                        routerLink: '/products/uikit'
-                    },
-                    {
-                        separator: true
-                    },
-                    {
-                        label: 'Templates',
-                        icon: 'pi pi-palette',
-                        items: [
-                            {
-                                label: 'Apollo',
-                                icon: 'pi pi-palette',
-                                badge: '2',
-                                routerLink: '/products/templates/apollo'
-                            },
-                            {
-                                label: 'Ultima',
-                                icon: 'pi pi-palette',
-                                badge: '3',
-                                routerLink: '/products/templates/ultima'
-                            }
-                        ]
-                    }
-                ]
-            },
-            {
-                label: 'Contact',
-                icon: 'pi pi-envelope',
-                badge: '3',
-                routerLink: '/contact'
-            }
-        ];
-    }
-    
-
+  navigateHome() {
+    this.router.navigate(['/home']);
+  }
 }
