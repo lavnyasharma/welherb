@@ -1,15 +1,15 @@
 .container {
-    text-align: center;
+margin: 20px;
   }
   
   .grid-heading {
     font-size: 2em;
-    margin-bottom: 0.5em;
+ 
   }
   
   .grid-description {
     font-size: 1.2em;
-    margin-bottom: 1em;
+
   }
   
   .cta-button {
@@ -21,7 +21,7 @@
     font-size: 1em;
     cursor: pointer;
     transition: background-color 0.3s;
-    margin-bottom: 1em;
+   
   }
   
   .cta-button:hover {
