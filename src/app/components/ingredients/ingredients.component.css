@@ -13,7 +13,7 @@ margin: 20px;
   }
   
   .cta-button {
-    background-color: #007bff;
+    background-color: #02b101;
     color: white;
     border: none;
     border-radius: 5px;
@@ -42,9 +42,10 @@ margin: 20px;
     position: relative;
     flex-basis: calc(100% / 7); /* 7 images in a row on large screens */
     height: 150px;
-    border: 1px solid #4FAE32;
+    
 
-    margin: 0; /* No margin to avoid gaps */
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    margin: 10px
   }
   
   .image-item img {

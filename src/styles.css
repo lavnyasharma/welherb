@@ -31,3 +31,9 @@ body {
     background-color: #fcf8f4 !important;
     border: none !important;
 }
+.gap-2{
+    gap: 1.5rem !important;
+}
+.w-8rem {
+    width: 15rem !important;
+}

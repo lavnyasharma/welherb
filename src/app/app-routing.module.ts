@@ -6,7 +6,7 @@ import { AboutComponent } from '../app/modules/about/about.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },  // Default route for home page
-  { path: 'about', component: AboutComponent },  // Route for shop page
+  { path: 'discover', component: AboutComponent },  // Route for shop page
   { path: '**', redirectTo: '', pathMatch: 'full' },  // Wildcard route, redirects to home if route is not found
 ];
 

@@ -1,4 +1,6 @@
-<p-carousel [value]="testimonials" [numVisible]="3" [numScroll]="3" [responsiveOptions]="responsiveOptions" [circular]="true" [autoplayInterval]="3000">
+<div class="carousel-container">
+  <h2 class="carousel-heading">Trust that we have earned</h2>
+  <p-carousel [value]="testimonials" [numVisible]="3" [numScroll]="3" [responsiveOptions]="responsiveOptions" [circular]="true" [autoplayInterval]="3000">
     <ng-template pTemplate="item" let-testimonial>
       <p-card class="testimonial-card">
         <ng-template pTemplate="header">
@@ -10,4 +12,4 @@
       </p-card>
     </ng-template>
   </p-carousel>
-  
+</div>

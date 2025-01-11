@@ -7,14 +7,13 @@
 }
 
 .Image, .Text {
-    flex: 1; /* Each occupies 50% of the space */
+    flex: 1; /* Each section takes up 50% of available space */
     max-width: 50%;
 }
 
 .Image img {
     max-width: 100%;
     height: auto;
-   
 }
 
 .Text {
@@ -43,12 +42,12 @@
         flex-direction: column;
         text-align: center;
     }
+
     .Image img {
         max-width: 100%;
         height: auto;
-  
     }
-    
+
     .Image, .Text {
         max-width: 100%;
     }
