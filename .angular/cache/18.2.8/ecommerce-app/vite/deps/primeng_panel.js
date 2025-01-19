@@ -6,6 +6,13 @@ import {
   RippleModule
 } from "./chunk-ZZ5ULS2O.js";
 import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger
+} from "./chunk-WS44MMOX.js";
+import {
   BaseIcon
 } from "./chunk-Y76SDFNG.js";
 import "./chunk-BUGEQH7Q.js";
@@ -15,13 +22,6 @@ import {
   SharedModule,
   UniqueComponentId
 } from "./chunk-EQWC62JD.js";
-import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger
-} from "./chunk-WS44MMOX.js";
 import {
   CommonModule,
   NgClass,

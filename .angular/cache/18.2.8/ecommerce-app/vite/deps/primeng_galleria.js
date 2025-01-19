@@ -1,12 +1,12 @@
 import {
-  ChevronLeftIcon
-} from "./chunk-YOFKLKVE.js";
-import {
   FocusTrap,
   FocusTrapModule,
   WindowMaximizeIcon,
   WindowMinimizeIcon
 } from "./chunk-H5DE333I.js";
+import {
+  ChevronLeftIcon
+} from "./chunk-YOFKLKVE.js";
 import {
   Ripple,
   RippleModule
@@ -14,6 +14,12 @@ import {
 import {
   TimesIcon
 } from "./chunk-O4VMTOKP.js";
+import {
+  animate,
+  style,
+  transition,
+  trigger
+} from "./chunk-WS44MMOX.js";
 import {
   ChevronRightIcon
 } from "./chunk-PREYVT67.js";
@@ -28,12 +34,6 @@ import {
   UniqueComponentId,
   zindexutils
 } from "./chunk-EQWC62JD.js";
-import {
-  animate,
-  style,
-  transition,
-  trigger
-} from "./chunk-WS44MMOX.js";
 import {
   CommonModule,
   DOCUMENT,

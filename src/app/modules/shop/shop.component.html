@@ -1,1 +1,89 @@
-<p>shop works!</p>
+<div class="shop-page">
+    <!-- Left Section: Image Carousel -->
+    <div class="image-carousel">
+      <div class="thumbnails">
+        <img
+          *ngFor="let thumbnail of productImages"
+          [src]="thumbnail"
+          class="thumbnail"
+          (click)="selectImage(thumbnail)"
+          [class.active]="thumbnail === selectedImage"
+          alt="Product Thumbnail"
+        />
+      </div>
+      <div class="main-image">
+        <img [src]="selectedImage" alt="Product Image" />
+      </div>
+    </div>
+  
+    <!-- Right Section: Product Details -->
+    <div class="product-details">
+      <h1 class="product-title">{{ product.title }}</h1>
+      <p class="product-subtitle">{{ product.subtitle }}</p>
+      <p class="product-price">₹{{ product.price }}</p>
+      <div class="product-rating">
+        ⭐⭐⭐⭐⭐ <span>{{ product.rating }}/5 ({{ product.reviews }} reviews)</span>
+      </div>
+  
+      <!-- Features -->
+      <div class="product-features">
+        <div>
+          <h3>Reduces:</h3>
+          <ul>
+            <li *ngFor="let reduce of product.features.reduces">{{ reduce }}</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Calms:</h3>
+          <ul>
+            <li *ngFor="let calm of product.features.calms">{{ calm }}</li>
+          </ul>
+        </div>
+        <div>
+          <h3>Boosts:</h3>
+          <ul>
+            <li *ngFor="let boost of product.features.boosts">{{ boost }}</li>
+          </ul>
+        </div>
+      </div>
+  
+      <!-- Capsule and Quantity Options -->
+      <div class="options">
+        <div class="capsule-options">
+          <span>Capsules:</span>
+          <button
+            *ngFor="let capsule of product.capsuleOptions"
+            (click)="selectCapsule(capsule)"
+            [class.active]="capsule === selectedCapsule"
+          >
+            {{ capsule }}
+          </button>
+        </div>
+        <div class="quantity-options" style="display: flex; align-items: center; gap: 10px; font-family: Arial, sans-serif; font-size: 16px;">
+            <span style="font-weight: bold; color: #333;">Quantity:</span>
+            <div style="display: flex; align-items: center; gap: 5px;">
+              <button (click)="decreaseQuantity()" style="padding: 8px 12px; background-color: #f1f1f1; border: 1px solid #ccc; border-radius: 4px; font-size: 18px; cursor: pointer; transition: background-color 0.3s ease;" 
+                onmouseover="this.style.backgroundColor='#ddd'" onmouseout="this.style.backgroundColor='#f1f1f1'">-</button>
+              <input type="number" [(ngModel)]="quantity" min="1" style="width: 50px; text-align: center; padding: 8px; border: 1px solid #ccc; border-radius: 4px; font-size: 16px; outline: none;" 
+                onfocus="this.style.borderColor='#007bff'" />
+              <button (click)="increaseQuantity()" style="padding: 8px 12px; background-color: #f1f1f1; border: 1px solid #ccc; border-radius: 4px; font-size: 18px; cursor: pointer; transition: background-color 0.3s ease;" 
+                onmouseover="this.style.backgroundColor='#ddd'" onmouseout="this.style.backgroundColor='#f1f1f1'">+</button>
+            </div>
+          </div>
+          
+      </div>
+  
+      <!-- Action Buttons -->
+      <div class="actions">
+        <button class="add-to-cart">Add to Cart</button>
+        <button class="buy-now">Buy Now</button>
+      </div>
+  
+      <!-- Offer Section -->
+      <div class="offer">
+        <p>Add 2+ remedies to save up to 15%</p>
+        <a href="#" class="bundle-link">Bundle Up</a>
+      </div>
+    </div>
+  </div>
+  

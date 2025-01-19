@@ -13,6 +13,9 @@ import {
   Ripple,
   RippleModule
 } from "./chunk-ZZ5ULS2O.js";
+import {
+  NG_VALUE_ACCESSOR
+} from "./chunk-M5EEPCMK.js";
 import "./chunk-Y76SDFNG.js";
 import {
   DomHandler
@@ -27,9 +30,6 @@ import {
   SharedModule,
   UniqueComponentId
 } from "./chunk-EQWC62JD.js";
-import {
-  NG_VALUE_ACCESSOR
-} from "./chunk-M5EEPCMK.js";
 import {
   CommonModule,
   NgClass,

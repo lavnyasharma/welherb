@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+
 // PrimeNG Modules
 import { BadgeModule } from 'primeng/badge';
 import { AvatarModule } from 'primeng/avatar';
@@ -62,6 +63,8 @@ import { IngredientsComponent } from './components/ingredients/ingredients.compo
 import { ContactDoctorComponent } from './components/contact-doctor/contact-doctor.component';
 import { FormComponent } from './components/form/form.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,6 +73,7 @@ import { FormComponent } from './components/form/form.component';
     NavbarComponent,
     FooterComponent,
     HomeComponent,
+    
     ShopComponent,
     TestimonialComponent,
     AboutComponent,
@@ -83,6 +87,7 @@ import { FormComponent } from './components/form/form.component';
   imports: [
     BrowserModule,
     BrowserModule,
+    MenubarModule,
     HttpClientModule,
     BrowserAnimationsModule,
     MatIconModule,
@@ -93,6 +98,7 @@ import { FormComponent } from './components/form/form.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    
     BadgeModule,
     AvatarModule,
     AvatarGroupModule,

@@ -37,7 +37,7 @@ export class NavbarComponent {
       {
         label: 'Bundle Up',
         icon: 'pi pi-box',
-        routerLink: '/bundle-up'
+        routerLink: (['/shop'])
       },
       {
         label: 'Discover',

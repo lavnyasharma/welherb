@@ -5,6 +5,10 @@ import {
   AutoFocus,
   AutoFocusModule
 } from "./chunk-NIIDFJAA.js";
+import {
+  NG_VALUE_ACCESSOR,
+  NgControl
+} from "./chunk-M5EEPCMK.js";
 import "./chunk-Y76SDFNG.js";
 import "./chunk-BUGEQH7Q.js";
 import {
@@ -13,10 +17,6 @@ import {
   PrimeTemplate,
   SharedModule
 } from "./chunk-EQWC62JD.js";
-import {
-  NG_VALUE_ACCESSOR,
-  NgControl
-} from "./chunk-M5EEPCMK.js";
 import {
   CommonModule,
   NgClass,

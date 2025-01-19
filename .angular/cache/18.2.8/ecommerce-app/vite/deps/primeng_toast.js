@@ -12,6 +12,15 @@ import {
   TimesIcon
 } from "./chunk-O4VMTOKP.js";
 import {
+  animate,
+  animateChild,
+  query,
+  state,
+  style,
+  transition,
+  trigger
+} from "./chunk-WS44MMOX.js";
+import {
   BaseIcon
 } from "./chunk-Y76SDFNG.js";
 import {
@@ -26,15 +35,6 @@ import {
   UniqueComponentId,
   zindexutils
 } from "./chunk-EQWC62JD.js";
-import {
-  animate,
-  animateChild,
-  query,
-  state,
-  style,
-  transition,
-  trigger
-} from "./chunk-WS44MMOX.js";
 import {
   CommonModule,
   DOCUMENT,

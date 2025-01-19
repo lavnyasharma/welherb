@@ -1,9 +1,9 @@
 import {
-  PrimeNGConfig
-} from "./chunk-EQWC62JD.js";
-import {
   NgModel
 } from "./chunk-M5EEPCMK.js";
+import {
+  PrimeNGConfig
+} from "./chunk-EQWC62JD.js";
 import {
   CommonModule
 } from "./chunk-QASFQABX.js";
@@ -139,4 +139,4 @@ export {
   InputText,
   InputTextModule
 };
-//# sourceMappingURL=chunk-PQV4WGEZ.js.map
+//# sourceMappingURL=chunk-IX2R4S52.js.map
