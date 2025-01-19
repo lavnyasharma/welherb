@@ -19,6 +19,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ButtonModule } from 'primeng/button';
 import { RippleModule } from 'primeng/ripple';
 import { CardModule } from 'primeng/card';
+
 // import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from 'primeng/checkbox';
 import { ChipsModule } from 'primeng/chips';
@@ -45,6 +46,7 @@ import { AuthModule } from './modules/auth/auth.module';
 import { CartModule } from './modules/cart/cart.module';
 import { OrderModule } from './modules/order/order.module';
 import { UserModule } from './modules/user/user.module';
+
 import { AdminModule } from './modules/admin/admin.module';
 
 // Components
@@ -65,6 +67,8 @@ import { ContactDoctorComponent } from './components/contact-doctor/contact-doct
 import { FormComponent } from './components/form/form.component';
 import { StripsComponent } from './components/strips/strips.component';
 import { IngredientsDescComponent } from './components/ingredients-desc/ingredients-desc.component';
+import { NzInputModule } from 'ng-zorro-antd/input';
+
 
 
 
@@ -95,6 +99,7 @@ import { IngredientsDescComponent } from './components/ingredients-desc/ingredie
     MenubarModule,
     HttpClientModule,
     NzIconModule,
+    NzInputModule,
     BrowserAnimationsModule,
     MatIconModule,
     ButtonModule,

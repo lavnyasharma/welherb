@@ -1,4 +1,7 @@
-
+.card{
+  padding-left: 10px;
+  padding-right: 10px;
+}
 .navbar {
     background-color: #333;
     color: white;

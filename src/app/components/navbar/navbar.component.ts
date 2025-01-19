@@ -48,6 +48,11 @@ export class NavbarComponent {
         label: 'Expert Help',
         icon: 'pi pi-question-circle',
         routerLink: '/expert-help'
+      },
+      {
+        label: 'Shop All',
+        icon: 'fa-solid fa-shop',
+        routerLink: '/shop'
       }
     ];
   }

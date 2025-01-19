@@ -7,12 +7,13 @@
                alt="Icon 1" 
                width="120px" 
                height="50px" 
-               style="mix-blend-mode: darken;"
+               style="mix-blend-mode: darken;
+               cursor: pointer;"
                (click)="navigateHome()">
         </ng-template>
 
         <ng-template pTemplate="item" let-item let-root="root">
-            <a pRipple class="flex align-items-center p-menuitem-link" [routerLink]="item.routerLink">
+            <a style="color: black;" pRipple class="flex align-items-center p-menuitem-link" [routerLink]="item.routerLink">
                 <span [class]="item.icon"></span>
                 <span class="ml-2">{{ item.label }}</span>
                 <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge"></p-badge>
@@ -23,11 +24,17 @@
 
         <ng-template pTemplate="end">
             <div class="flex align-items-center gap-2">
-                <input type="text" pInputText placeholder="Search" class="w-8rem sm:w-auto" />
+                <nz-input-group [nzSuffix]="suffixIconSearch">
+                    <input type="text" nz-input placeholder="input search text" />
+                  </nz-input-group>
+                  <ng-template #suffixIconSearch>
+                    <nz-icon nzType="search" />
+                  </ng-template>
     
-                <i class="pi pi-user" style="font-size: 1.5rem;"></i>
-                <i class="pi pi-shopping-cart" style="font-size: 1.5rem;"></i>
+                  <i class="fa-solid fa-circle-user" style="font-size: 1.5rem;"></i>
+                  <i class="fa-solid fa-bag-shopping" style="font-size: 1.5rem;"></i>
             </div>
         </ng-template>
     </p-menubar>
 </div>
+

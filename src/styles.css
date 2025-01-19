@@ -21,10 +21,16 @@ body {
     background: none;
 }
 .card {
-    background: var(--surface-card);
+    background: #fcf8f4;
   
     border-radius: 10px;
 
+}
+ul{
+    margin-bottom: 0 !important;
+}
+.ant-input-affix-wrapper{
+    border-radius: 8px;
 }
 .p-menubar {
 
@@ -37,3 +43,11 @@ body {
 .w-8rem {
     width: 15rem !important;
 }
+.ant-menu-horizontal {
+    line-height: 46px;
+    border: 0;
+    border:none !important;
+    background: #fcf8f4;
+    box-shadow: none;
+}
+
