@@ -8,18 +8,12 @@ import {
   ChevronLeftIcon
 } from "./chunk-YOFKLKVE.js";
 import {
-  Ripple,
-  RippleModule
-} from "./chunk-ZZ5ULS2O.js";
-import {
   TimesIcon
 } from "./chunk-O4VMTOKP.js";
 import {
-  animate,
-  style,
-  transition,
-  trigger
-} from "./chunk-WS44MMOX.js";
+  Ripple,
+  RippleModule
+} from "./chunk-ZZ5ULS2O.js";
 import {
   ChevronRightIcon
 } from "./chunk-PREYVT67.js";
@@ -34,6 +28,12 @@ import {
   UniqueComponentId,
   zindexutils
 } from "./chunk-EQWC62JD.js";
+import {
+  animate,
+  style,
+  transition,
+  trigger
+} from "./chunk-ZGYQWIZD.js";
 import {
   CommonModule,
   DOCUMENT,

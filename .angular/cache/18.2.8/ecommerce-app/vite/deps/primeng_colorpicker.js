@@ -3,15 +3,6 @@ import {
   AutoFocusModule
 } from "./chunk-NIIDFJAA.js";
 import {
-  NG_VALUE_ACCESSOR
-} from "./chunk-M5EEPCMK.js";
-import {
-  animate,
-  style,
-  transition,
-  trigger
-} from "./chunk-WS44MMOX.js";
-import {
   ConnectedOverlayScrollHandler,
   DomHandler
 } from "./chunk-BUGEQH7Q.js";
@@ -21,6 +12,15 @@ import {
   TranslationKeys,
   zindexutils
 } from "./chunk-EQWC62JD.js";
+import {
+  NG_VALUE_ACCESSOR
+} from "./chunk-M5EEPCMK.js";
+import {
+  animate,
+  style,
+  transition,
+  trigger
+} from "./chunk-ZGYQWIZD.js";
 import {
   CommonModule,
   DOCUMENT,

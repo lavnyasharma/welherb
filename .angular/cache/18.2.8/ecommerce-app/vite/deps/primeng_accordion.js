@@ -2,13 +2,6 @@ import {
   ChevronDownIcon
 } from "./chunk-QDK4D3GO.js";
 import {
-  animate,
-  state,
-  style,
-  transition,
-  trigger
-} from "./chunk-WS44MMOX.js";
-import {
   ChevronRightIcon
 } from "./chunk-PREYVT67.js";
 import "./chunk-Y76SDFNG.js";
@@ -21,6 +14,13 @@ import {
   SharedModule,
   UniqueComponentId
 } from "./chunk-EQWC62JD.js";
+import {
+  animate,
+  state,
+  style,
+  transition,
+  trigger
+} from "./chunk-ZGYQWIZD.js";
 import {
   CommonModule,
   NgClass,

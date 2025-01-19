@@ -3,7 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzMenuModule } from 'ng-zorro-antd/menu';
 // PrimeNG Modules
 import { BadgeModule } from 'primeng/badge';
 import { AvatarModule } from 'primeng/avatar';
@@ -93,9 +94,11 @@ import { IngredientsDescComponent } from './components/ingredients-desc/ingredie
     BrowserModule,
     MenubarModule,
     HttpClientModule,
+    NzIconModule,
     BrowserAnimationsModule,
     MatIconModule,
     ButtonModule,
+    NzMenuModule,
     RippleModule,
     CardModule,
     MenubarModule,

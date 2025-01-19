@@ -6,9 +6,9 @@ import { AboutComponent } from '../app/modules/about/about.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },  
-  { path: 'discover', component: AboutComponent },  // Route for shop page
-  { path: '**', redirectTo: '', pathMatch: 'full' },  
-  {path: 'shop', component: ShopComponent}
+  { path: 'discover', component: AboutComponent },
+  { path: 'shop', component: ShopComponent },  
+  { path: '**', redirectTo: '', pathMatch: 'full' }  
 ];
 
 @NgModule({

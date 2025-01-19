@@ -5,6 +5,9 @@ import {
   WindowMinimizeIcon
 } from "./chunk-H5DE333I.js";
 import {
+  TimesIcon
+} from "./chunk-O4VMTOKP.js";
+import {
   ButtonDirective,
   ButtonModule
 } from "./chunk-HG7UOUY7.js";
@@ -13,18 +16,7 @@ import {
   Ripple,
   RippleModule
 } from "./chunk-ZZ5ULS2O.js";
-import {
-  TimesIcon
-} from "./chunk-O4VMTOKP.js";
 import "./chunk-NIIDFJAA.js";
-import {
-  animate,
-  animation,
-  style,
-  transition,
-  trigger,
-  useAnimation
-} from "./chunk-WS44MMOX.js";
 import "./chunk-Y76SDFNG.js";
 import {
   DomHandler
@@ -39,6 +31,14 @@ import {
   UniqueComponentId,
   zindexutils
 } from "./chunk-EQWC62JD.js";
+import {
+  animate,
+  animation,
+  style,
+  transition,
+  trigger,
+  useAnimation
+} from "./chunk-ZGYQWIZD.js";
 import {
   CommonModule,
   DOCUMENT,

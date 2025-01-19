@@ -3,14 +3,6 @@ import {
   TooltipModule
 } from "./chunk-EOFHSEAZ.js";
 import {
-  Router,
-  RouterLink,
-  RouterLinkActive,
-  RouterModule
-} from "./chunk-V73FGODO.js";
-import "./chunk-AYUKNQVU.js";
-import "./chunk-UW4TM5FJ.js";
-import {
   ChevronRightIcon
 } from "./chunk-PREYVT67.js";
 import {
@@ -22,6 +14,14 @@ import {
   SharedModule,
   UniqueComponentId
 } from "./chunk-EQWC62JD.js";
+import {
+  Router,
+  RouterLink,
+  RouterLinkActive,
+  RouterModule
+} from "./chunk-V73FGODO.js";
+import "./chunk-AYUKNQVU.js";
+import "./chunk-UW4TM5FJ.js";
 import {
   CommonModule,
   NgClass,
