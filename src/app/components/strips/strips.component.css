@@ -1,0 +1,36 @@
+.container {
+    text-align: center;
+    margin: 10px;
+  }
+  
+  .box {
+    background-color: #4eae32;
+    /* border: 1px solid #4FAE32; */
+    border-radius: 8px;
+    padding: 20px;
+    color: white;
+
+  }
+  
+  .tagline {
+    font-size: 1.5em;
+    margin: 20px 0;
+  }
+  
+  .icons {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+  }
+  
+  .icon {
+    text-align: center;
+  }
+  
+  .icon img {
+    width: 50px;
+    height: 60px;
+  }
+  p{
+margin: 0;
+  }

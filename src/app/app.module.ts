@@ -62,6 +62,7 @@ import { LearnComponent } from './components/learn/learn.component';
 import { IngredientsComponent } from './components/ingredients/ingredients.component';
 import { ContactDoctorComponent } from './components/contact-doctor/contact-doctor.component';
 import { FormComponent } from './components/form/form.component';
+import { StripsComponent } from './components/strips/strips.component';
 
 
 
@@ -83,6 +84,7 @@ import { FormComponent } from './components/form/form.component';
     IngredientsComponent,
     ContactDoctorComponent,
     FormComponent,
+    StripsComponent,
   ],
   imports: [
     BrowserModule,
