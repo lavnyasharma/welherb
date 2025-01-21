@@ -1,5 +1,6 @@
 .parallax-container {
   position: relative;
+  margin-top: 60px;
   height: 100vh;
   overflow: hidden;
   display: flex;
@@ -17,7 +18,7 @@
   z-index: 2;
   color: #4FAE32;
   text-transform: uppercase;
-  margin-bottom: 20px;
+
   transition: opacity 0.3s ease; /* Smooth transition for opacity */
 }
 
@@ -50,7 +51,7 @@
 
 .left-text, .right-text {
   position: absolute;
-  font-size: 2vw;
+  font-size: 3rem;
   font-weight: bold;
   text-transform: uppercase;
   opacity: 0;
@@ -58,13 +59,13 @@
 }
 
 .left-text {
-  left: -10vw;
+  left: -18vw;
   top: 50%;
   transform: translateY(-50%);
 }
 
 .right-text {
-  right: -10vw;
+  right: -18vw;
   top: 50%;
   transform: translateY(-50%);
 }
@@ -116,19 +117,19 @@
   }
 
   .left-text, .right-text {
-      font-size: 3vw;
+      font-size: 5vw;
   }
 
   .left-text {
-      left: -5vw;
+      left: -8vw;
   }
 
   .right-text {
-      right: -5vw;
+      right: -8vw;
   }
 
   .path-to-better-living {
-      font-size: 5vw;
+      font-size: 8vw;
   }
 }
 

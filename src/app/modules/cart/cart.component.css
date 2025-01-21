@@ -4,8 +4,9 @@
     flex-wrap: wrap;
     gap: 20px;
     padding: 20px;
-    margin-top: 50px;
+   
     justify-content: space-between;
+    margin-top: 80px;
   }
   
   .cart-header {

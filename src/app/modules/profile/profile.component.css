@@ -3,6 +3,7 @@
     margin: 0 auto;
     font-family: 'Arial', sans-serif;
     padding: 50px;
+    margin-top: 80px;
     border-radius: 8px;
     max-width: 1200px; /* Restricts width */
 }
