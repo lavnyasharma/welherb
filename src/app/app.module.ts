@@ -68,6 +68,18 @@ import { FormComponent } from './components/form/form.component';
 import { StripsComponent } from './components/strips/strips.component';
 import { IngredientsDescComponent } from './components/ingredients-desc/ingredients-desc.component';
 import { NzInputModule } from 'ng-zorro-antd/input';
+import { ShopallComponent } from './modules/shopall/shopall.component';
+import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzCardModule } from 'ng-zorro-antd/card';
+
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzRateModule } from 'ng-zorro-antd/rate';
+import { NzPaginationModule } from 'ng-zorro-antd/pagination';
+import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzSliderModule } from 'ng-zorro-antd/slider';
+
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 
 
@@ -92,11 +104,20 @@ import { NzInputModule } from 'ng-zorro-antd/input';
     FormComponent,
     StripsComponent,
     IngredientsDescComponent,
+    ShopallComponent,
+
   ],
   imports: [
     BrowserModule,
+    NzSelectModule,
+    NzRateModule,
+    NzPaginationModule,
+    NzDividerModule,
+    NzCardModule,
     BrowserModule,
     MenubarModule,
+    FontAwesomeModule,
+    NzSliderModule,
     HttpClientModule,
     NzIconModule,
     NzInputModule,

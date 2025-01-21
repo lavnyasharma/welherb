@@ -17,7 +17,7 @@ export class NavbarComponent {
         label: 'Shop',
         icon: 'pi pi-cart',
         items: [
-          { label: 'ESR', routerLink: '/shop/esr' },
+          { label: 'ESR', routerLink: '/shop' },
           { label: 'Thyroid', routerLink: '/shop/thyroid' },
           { label: 'Heart', routerLink: '/shop/heart' },
           { label: 'Blood', routerLink: '/shop/blood' },
@@ -52,12 +52,15 @@ export class NavbarComponent {
       {
         label: 'Shop All',
         icon: 'fa-solid fa-shop',
-        routerLink: '/shop'
+        routerLink: '/shopall'
       }
     ];
   }
 
   navigateHome() {
     this.router.navigate(['/home']);
+  }
+  cart(){
+    this.router.navigate(['/cart']);
   }
 }

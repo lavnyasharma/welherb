@@ -1,0 +1,59 @@
+<div class="container">
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="sort">
+      <label for="sort">Sort By</label>
+      <select id="sort" [(ngModel)]="selectedSort" (change)="sortProducts()">
+        <option value="low">Price: Low to High</option>
+        <option value="high">Price: High to Low</option>
+      </select>
+    </div>
+
+    <div class="price-filter">
+      <label>Price Range</label>
+      <input
+        type="range"
+        [(ngModel)]="priceRange"
+        min="0"
+        max="5000"
+        (change)="filterByPrice()"
+      />
+      <p>Selected Range: ₹0 - ₹{{ priceRange }}</p>
+    </div>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="product-grid">
+    <div
+      class="product-card"
+      *ngFor="let product of filteredProducts"
+    >
+      <!-- Image -->
+      <div class="image-wrapper">
+        <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
+      </div>
+
+      <!-- Details -->
+      <div class="product-details">
+        <!-- Name and Price -->
+        <div class="name-price">
+          <h3 style="margin-bottom: 0;" class="product-name">{{ product.name }}</h3>
+          <p  style="margin-bottom: 0;" class="product-price">₹{{ product.price }}</p>
+        </div>
+
+        <!-- Rating -->
+        <p  style="margin-bottom: 0;" class="rating">
+          <i class="fa fa-star" aria-hidden="true"></i> {{ product.rating }}
+        </p>
+
+        <!-- Category -->
+        <p  style="margin-bottom: 0;"  class="category">{{ product.category }}</p>
+      </div>
+
+      <!-- Add to Cart Button -->
+      <button class="add-to-cart">
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Cart
+      </button>
+    </div>
+  </div>
+</div>

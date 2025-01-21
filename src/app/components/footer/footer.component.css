@@ -28,7 +28,7 @@ html,body, footer {
     box-sizing: border-box;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    padding: 0px 20px 20px 20px;;
+    padding: 20px 20px 20px 20px;;
     
   }
   .footer .footer-col h1 {

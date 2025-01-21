@@ -1,0 +1,183 @@
+/* General Styling */
+.cart-page {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    margin-top: 50px;
+    justify-content: space-between;
+  }
+  
+  .cart-header {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+  
+  .cart-items {
+    flex: 2;
+    max-width: 600px;
+  }
+  
+  .cart-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+  }
+  
+  .item-image {
+    width: 100px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+  }
+  
+  .item-details {
+    flex: 1;
+  }
+  
+  .item-name {
+    font-size: 16px;
+    font-weight: bold;
+  }
+  
+  .item-info {
+    font-size: 14px;
+    color: #888;
+  }
+  
+  .item-status {
+    font-size: 12px;
+    margin-top: 5px;
+  }
+  
+  .item-status.inStock {
+    color: green;
+  }
+  
+  .item-price {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  .remove-item {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  
+  /* Order Summary Section */
+  .order-summary {
+    flex: 1;
+    max-width: 400px;
+    border: 1px solid #ddd;
+    padding: 20px;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+  }
+  
+  .order-summary h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+  }
+  
+  .summary-detail,
+  .summary-total {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+  }
+  
+  .summary-total span:last-child {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .checkout-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .policies {
+    margin-top: 10px;
+    font-size: 12px;
+    text-align: center;
+    color: #555;
+  }
+  
+  .policies a {
+    color: #007bff;
+    text-decoration: none;
+  }
+  
+  /* Responsiveness */
+  @media (max-width: 768px) {
+    .cart-page {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .cart-items {
+      max-width: 100%;
+    }
+  
+    .order-summary {
+      max-width: 100%;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .cart-header {
+      font-size: 20px;
+      text-align: center;
+    }
+  
+    .item-image {
+      width: 80px;
+      height: 100px;
+    }
+  
+    .cart-item {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .item-details {
+      width: 100%;
+    }
+  
+    .remove-item {
+      align-self: flex-end;
+      margin-top: 10px;
+    }
+  
+    .summary-detail,
+    .summary-total {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .summary-total span:last-child {
+      align-self: flex-end;
+    }
+  
+    .checkout-btn {
+      font-size: 14px;
+    }
+  
+    .policies {
+      font-size: 10px;
+    }
+  }
+  
