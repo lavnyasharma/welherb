@@ -1,6 +1,15 @@
-app-navbar {
-    position: sticky !important;
-    top: 0; /* Stick to the top of the viewport */
-    z-index: 1000; /* Ensure it stays above other content */
-    background-color: white; /* Optional: background color for better visibility */
+#navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out; /* Smooth hiding and showing */
+}
+
+.navbar-hidden {
+    transform: translateY(-100%); /* Moves the navbar out of view */
+}
+
+.navbar-visible {
+    transform: translateY(0); /* Brings the navbar into view */
 }
