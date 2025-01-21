@@ -1,0 +1,111 @@
+<div class="profile-container">
+    <!-- Header Section -->
+    <div class="profile-header">
+        <h2>My Profile</h2>
+
+    </div>
+
+    <!-- Tabs Section -->
+    <div class="tabs">
+        <button style="border-radius: 0;" class="tab-btn" [class.active]="activeTab === 'profile'" (click)="selectTab('profile')">
+            Profile
+        </button>
+        <button style="border-radius: 0;" class="tab-btn" [class.active]="activeTab === 'orders'" (click)="selectTab('orders')">
+            My Orders
+        </button>
+        <button  style="border-radius: 0;" class="tab-btn" [class.active]="activeTab === 'password'" (click)="selectTab('password')">
+            Change Password
+        </button>
+        <button  style="border-radius: 0;" class="tab-btn" [class.active]="activeTab === 'billing'" (click)="selectTab('billing')">
+            Billing
+        </button>
+    </div>
+
+    <!-- Tab Content Section -->
+    <div class="tab-content">
+        <!-- Profile Tab -->
+        <div *ngIf="activeTab === 'profile'" class="tab-panel">
+            <h2 class="profilehead">Account information</h2>
+            <form class="profile-form">
+                <div class="profile-container-flex">
+                    <!-- Profile Picture Section (Sticky Image) -->
+                    <div class="profile-image">
+                        <img [src]="profilePicture || 'assets/dummy-avatar.png'" alt="Profile Avatar" class="avatar-img" />
+                        <input type="file" id="profilePicture" (change)="onProfilePictureChange($event)" />
+                    </div>
+
+                    <!-- Form Section -->
+                    <div class="form-section">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <input type="text" id="fullName" placeholder="John Doe" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" placeholder="john.doe@example.com" />
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone</label>
+                            <input type="tel" id="phone" placeholder="123-456-7890" />
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <textarea id="address" placeholder="123 Main Street, City"></textarea>
+                        </div>
+                        <button class="btn-primary">Save Changes</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Orders Tab -->
+        <div *ngIf="activeTab === 'orders'" class="tab-panel">
+            <div class="cart-page">
+                <div class="cart-items">
+                    <div class="cart-item" *ngFor="let item of cartItems">
+                        <img class="item-image" [src]="item.image" [alt]="item.name" />
+                        <div class="item-details">
+                            <div style="display: flex; justify-content: space-between;">
+                                <h3 class="item-name">{{ item.name }}</h3>
+                                <div class="item-price">₹{{ item.price }}</div>
+                            </div>
+                            <p class="item-info">{{ item.subtitle }} | {{ item.category }}</p>
+                            <div style="display: flex; justify-content: space-between;">
+                                <div class="item-status" [ngClass]="{ inStock: item.inStock }">
+                                    {{ item.inStock ? 'In Stock' : 'Out of Stock' }}
+                                </div>
+                                <div style="width: auto;" >Leave a Review</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Password Tab -->
+        <div *ngIf="activeTab === 'password'" class="tab-panel">
+            <h3>Change Password</h3>
+            <form class="password-form">
+                <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword" />
+                </div>
+                <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" />
+                </div>
+                <div class="form-group">
+                    <label for="confirmPassword">Confirm Password</label>
+                    <input type="password" id="confirmPassword" />
+                </div>
+                <button class="btn-primary">Update Password</button>
+            </form>
+        </div>
+
+        <!-- Billing Tab -->
+        <div *ngIf="activeTab === 'billing'" class="tab-panel">
+            <h3>Billing Information</h3>
+            <p>No billing details available yet. Please update.</p>
+        </div>
+    </div>
+</div>

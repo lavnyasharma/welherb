@@ -5,6 +5,7 @@ import { ShopComponent } from '../app/modules/shop/shop.component';
 import { AboutComponent } from '../app/modules/about/about.component';
 import { ShopallComponent } from './modules/shopall/shopall.component';
 import { CartComponent } from './modules/cart/cart.component';
+import { ProfileComponent } from './modules/profile/profile.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },  
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'shop', component: ShopComponent },  
   { path: 'shopall', component: ShopallComponent },  
   { path: 'cart', component: CartComponent },  
+  { path: 'profile', component: ProfileComponent },  
   { path: '**', redirectTo: '', pathMatch: 'full' }  
 ];
 

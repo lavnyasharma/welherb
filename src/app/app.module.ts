@@ -79,6 +79,8 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzSliderModule } from 'ng-zorro-antd/slider';
 
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AuthenticationComponent } from './modules/authentication/authentication.component';
+import { ProfileComponent } from './modules/profile/profile.component';
 
 
 
@@ -105,6 +107,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     StripsComponent,
     IngredientsDescComponent,
     ShopallComponent,
+    AuthenticationComponent,
+    ProfileComponent,
 
   ],
   imports: [

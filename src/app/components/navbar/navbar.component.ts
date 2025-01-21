@@ -63,4 +63,7 @@ export class NavbarComponent {
   cart(){
     this.router.navigate(['/cart']);
   }
+  profile(){
+    this.router.navigate(['/profile']);
+  }
 }

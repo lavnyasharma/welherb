@@ -1,0 +1,363 @@
+/* Container Styles */
+.profile-container {
+    margin: 0 auto;
+    font-family: 'Arial', sans-serif;
+    padding: 50px;
+    border-radius: 8px;
+    max-width: 1200px; /* Restricts width */
+}
+
+/* Header Section */
+.profile-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-header h2 {
+    color: #333;
+}
+
+.profilehead {
+    color: #333;
+    font-size: 30px;
+    font-weight: bold;
+    margin-bottom: 50px;
+}
+
+.profile-header p {
+    font-size: 18px;
+    color: #666;
+}
+
+/* Tabs Section */
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #dfdfdf;
+    border-top: 1px solid #dfdfdf;
+}
+
+.tab-btn {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    background: #f9fafb;
+    border: none;
+    cursor: pointer;
+}
+
+.tab-btn:hover, .tab-btn.active {
+
+    border: none;
+    border-bottom: 1px solid black;
+}
+
+/* Tab Content Section */
+.tab-content {
+    margin-top: 20px;
+}
+
+.tab-panel {
+ padding: 20px;
+
+}
+
+.tab-panel h3 {
+    margin-bottom: 15px;
+    font-size: 22px;
+    color: #333;
+}
+
+/* Forms */
+.form-group {
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: #333;
+}
+
+input, textarea, button {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 6px;
+}
+
+textarea {
+    resize: none;
+    height: 120px;
+}
+
+button.btn-primary {
+    background-color: #4fae32;
+    color: #fff;
+    border: none;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 8px;
+}
+
+button.btn-primary:hover {
+    background-color: #3a8d26;
+}
+
+/* Orders Section */
+.cart-page {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    justify-content: space-between;
+}
+
+.cart-items {
+    flex: 1;
+    min-width: 300px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    border-bottom: 1px solid #ddd;
+    padding: 12px 0;
+    transition: background-color 0.3s;
+}
+
+.cart-item:hover {
+
+}
+
+.item-image {
+    width: 120px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.item-details {
+    flex: 1;
+    width: 100%
+}
+
+.item-name {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.item-info {
+    font-size: 14px;
+    color: #888;
+}
+
+.item-status {
+    font-size: 14px;
+ 
+}
+
+.item-status.inStock {
+    color: green;
+}
+
+.item-price {
+    font-weight: bold;
+    font-size: 18px;
+    color: #333;
+}
+
+.remove-item {
+    background: none;
+    border: none;
+    color: red;
+    font-size: 14px;
+    cursor: pointer;
+    padding: 8px 12px;
+}
+
+/* Profile Container Flex Layout */
+.profile-container-flex {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+/* Profile Image Section */
+.profile-image {
+    position: sticky;
+    top: 20px;
+    flex-shrink: 0;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+/* Form Section */
+.form-section {
+    width: 100%;
+    flex-grow: 1;
+}
+
+/* Form Styling */
+.profile-form .form-group {
+    margin-bottom: 15px;
+}
+
+.profile-form label {
+    display: block;
+    font-weight: bold;
+}
+
+.profile-form input,
+.profile-form textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
+
+.profile-form button {
+    padding: 10px 20px;
+    background-color: #4fae32;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.profile-form button:hover {
+    background-color: #24670f;
+}
+
+/* Sticky Behavior on Scroll */
+.profile-image {
+    position: sticky;
+    top: 20px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .profile-container {
+  
+
+       
+    }
+    
+    .profile-container-flex {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-image {
+        position: static;
+        margin-bottom: 20px;
+    }
+
+    .avatar-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    .cart-page {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .cart-items {
+        width: 100%;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 15px;
+    }
+
+    .item-image {
+        width: 100px;
+        height: 120px;
+    }
+
+    .remove-item {
+        align-self: flex-end;
+        margin-top: 10px;
+    }
+
+    .profile-header h2 {
+        font-size: 28px;
+    }
+
+    .profilehead {
+        color: #333;
+        font-size: 28px;
+        font-weight: bold;
+        margin-bottom: 30px;
+    }
+
+    .profile-header p {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-container {
+  padding: 0;
+
+       
+    }
+    .profile-header h2 {
+        font-size: 24px;
+    }
+
+    .profile-header p {
+        font-size: 14px;
+    }
+
+    .tabs {
+        flex-direction: row;
+    }
+
+    .tab-btn {
+        padding: 14px;
+        font-size: 14px;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 12px 0;
+    }
+
+    .item-image {
+        width: 80px;
+        height: 100px;
+    }
+
+    .item-name {
+        font-size: 16px;
+    }
+
+    .item-price {
+        font-size: 16px;
+    }
+}
