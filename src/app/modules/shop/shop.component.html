@@ -20,7 +20,7 @@
     <div class="product-details">
       <h1 class="product-title">{{ product.title }}</h1>
       <p class="product-subtitle">{{ product.subtitle }}</p>
-      <p class="product-price">₹{{ product.price }}</p>
+      <p  class="product-price">₹{{ product.price }}</p>
       <div class="product-rating">
         ⭐⭐⭐⭐⭐ <span>{{ product.rating }}/5 ({{ product.reviews }} reviews)</span>
       </div>
@@ -54,6 +54,7 @@
           <button
             *ngFor="let capsule of product.capsuleOptions"
             (click)="selectCapsule(capsule)"
+            [ngStyle]="{'background-color': capsule === selectedCapsule ? color : '#f1f1f1'}"
             [class.active]="capsule === selectedCapsule"
           >
             {{ capsule }}
@@ -75,8 +76,8 @@
   
       <!-- Action Buttons -->
       <div class="actions">
-        <button class="add-to-cart">Add to Cart</button>
-        <button class="buy-now">Buy Now</button>
+        <button  [ngStyle]="{'background-color': color}" class="add-to-cart">Add to Cart</button>
+        <button  [ngStyle]="{'background-color': color}" class="buy-now">Buy Now</button>
       </div>
   
       <!-- Offer Section -->
@@ -86,6 +87,8 @@
       </div>
     </div>
   </div>
-  <app-strips></app-strips>
+  <app-strips [color]="'#ABDDF7'"></app-strips>
+  <app-prod-desc [color]="'#ABDDF7'"></app-prod-desc>
+
   <app-ingredients-desc></app-ingredients-desc>
   <app-contact-doctor></app-contact-doctor>

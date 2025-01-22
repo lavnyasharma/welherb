@@ -6,6 +6,8 @@ import { AboutComponent } from '../app/modules/about/about.component';
 import { ShopallComponent } from './modules/shopall/shopall.component';
 import { CartComponent } from './modules/cart/cart.component';
 import { ProfileComponent } from './modules/profile/profile.component';
+import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },  
@@ -13,7 +15,9 @@ const routes: Routes = [
   { path: 'shop', component: ShopComponent },  
   { path: 'shopall', component: ShopallComponent },  
   { path: 'cart', component: CartComponent },  
-  { path: 'profile', component: ProfileComponent },  
+  { path: 'profile', component: ProfileComponent }, 
+  { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }  
 ];
 

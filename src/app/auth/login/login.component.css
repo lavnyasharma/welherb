@@ -1,0 +1,146 @@
+/* General Page Background */
+
+  
+  /* Blurry Background Overlay */
+  .auth-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.8); /* Slight opacity */
+    backdrop-filter: blur(8px); /* Blurry effect */
+  }
+  
+  .auth-page::before {
+    content: '';
+    position: absolute;
+    top: -20%;
+    right: -20%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle, rgba(79, 174, 50, 0.2), transparent);
+    z-index: 1;
+  }
+  
+  /* Auth Form Container */
+  .auth-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    text-align: center;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    color: #4FAE32; /* Highlighted text color */
+  }
+  
+  p {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #666;
+  }
+  
+  /* Form Elements */
+  .form-group {
+    margin-bottom: 20px;
+    text-align: left;
+  }
+  
+  label {
+    display: block;
+    font-size: 14px;
+    color: #4FAE32;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 14px;
+  }
+  
+  input:focus {
+    outline: none;
+    border-color: #4FAE32;
+    box-shadow: 0 0 5px rgba(79, 174, 50, 0.5);
+  }
+  
+  /* Buttons */
+  .btn, .google-btn {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .btn {
+    background-color: #4FAE32;
+    color: white;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .btn:hover {
+    background-color: #3C8C29;
+  }
+  
+  .google-btn {
+    background-color: #db4437;
+    color: white;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+  }
+  
+  .google-btn:hover {
+    background-color: #c33d2e;
+  }
+  
+  a {
+    color: #4FAE32;
+    text-decoration: none;
+  }
+  
+  a:hover {
+    text-decoration: underline;
+  }
+  
+  /* Divider */
+  .divider {
+    position: relative;
+    margin: 20px 0;
+    text-align: center;
+    color: #aaa;
+  }
+  
+  .divider::before,
+  .divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: #ddd;
+  }
+  
+  .divider::before {
+    left: 0;
+  }
+  
+  .divider::after {
+    right: 0;
+  }
+  

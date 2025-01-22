@@ -64,6 +64,6 @@ export class NavbarComponent {
     this.router.navigate(['/cart']);
   }
   profile(){
-    this.router.navigate(['/profile']);
+    this.router.navigate(['/login']);
   }
 }
