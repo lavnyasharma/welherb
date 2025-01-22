@@ -54,7 +54,7 @@
           <button
             *ngFor="let capsule of product.capsuleOptions"
             (click)="selectCapsule(capsule)"
-            [ngStyle]="{'background-color': capsule === selectedCapsule ? color : '#f1f1f1'}"
+            [ngStyle]="{'background-color': capsule === selectedCapsule ? color : 'rgb(171 221 247)'}"
             [class.active]="capsule === selectedCapsule"
           >
             {{ capsule }}
@@ -62,7 +62,7 @@
         </div>
         <div class="quantity-options" style="display: flex; align-items: center; gap: 10px; font-family: Arial, sans-serif; font-size: 16px;">
           <span >Quantity:</span>
-          <div style="display: flex; align-items: center; background-color: #add8e6; border: 1px solid black; border-radius: 8px; padding:0; gap: 10px;">
+          <div style="display: flex; align-items: center; background-color: rgb(171 221 247); border: 1px solid black; border-radius: 8px; padding:0; gap: 10px;">
             <button (click)="decreaseQuantity()" style="background: none; border: none; font-size: 18px; font-weight: bold; cursor: pointer;">-</button>
             <span style="font-size: 18px; font-weight: bold;">{{quantity}}</span>
             <button (click)="increaseQuantity()" style="background: none; border: none; font-size: 18px; font-weight: bold; cursor: pointer;">+</button>

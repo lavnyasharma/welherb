@@ -1,5 +1,5 @@
 .container {
-margin: 20px;
+
   }
   
   .grid-heading {
@@ -42,10 +42,10 @@ margin: 20px;
     position: relative;
     flex-basis: calc(100% / 7); /* 7 images in a row on large screens */
     height: 150px;
-    
+    border: 1px solid #02b101;
 
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    margin: 10px
+
   }
   
   .image-item img {

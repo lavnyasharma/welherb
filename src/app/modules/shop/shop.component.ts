@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   styleUrl: './shop.component.css'
 })
 export class ShopComponent {
-  color= "#ABDDF7"
+  color= "rgb(171 221 247)"
   product = {
     title: 'ESR COUNT',
     subtitle: '100% Natural Antibiotic',
