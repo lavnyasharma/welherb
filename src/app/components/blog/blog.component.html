@@ -1,0 +1,26 @@
+<div class="blog-page">
+    <h1 class="blog-heading">The Better Living Chronicles</h1>
+  
+    <p-carousel 
+      [value]="blogs" 
+      [numVisible]="3" 
+      [numScroll]="1" 
+      [circular]="true" 
+      [responsiveOptions]="responsiveOptions" 
+      class="blog-carousel">
+      
+      <ng-template pTemplate="item" let-blog>
+        <div class="blog-item">
+          <div class="blog-image-container">
+            <img [src]="blog.image" alt="{{blog.title}}" class="blog-image" />
+          </div>
+          <div class="blog-content">
+            <h2>{{ blog.title }}</h2>
+            <p>{{ blog.description }}</p>
+            <button pButton type="button" label="Read More" class="blog-button"></button>
+          </div>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+  

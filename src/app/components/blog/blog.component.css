@@ -1,0 +1,136 @@
+/* Blog Page Styling */
+.blog-page {
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+  }
+  
+  .blog-heading {
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+    text-align: justify;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Carousel Styling */
+  .blog-carousel .blog-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #fff;
+    margin-right: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .blog-carousel .blog-image-container {
+    flex: 0 0 50%;
+    width: 100%;
+    height: auto;
+  }
+  
+  .blog-carousel .blog-image {
+    width: 100%;
+    height: 80%;
+    object-fit: cover;
+  }
+  
+  .blog-carousel .blog-content {
+    flex: 0 0 40%;
+    width: 100%;
+    padding: 1rem;
+    text-align: center;
+  }
+  
+  .blog-carousel .blog-content h2 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 0.5rem;
+  }
+  
+  .blog-carousel .blog-content p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 1rem;
+  }
+  
+  .blog-carousel .blog-button {
+    background-color: #4fae32 !important;
+    color: #fff !important;
+    border: none;
+    padding: 0.5rem 1.5rem;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .blog-carousel .blog-button:hover {
+    background-color: #3e8927 !important;
+  }
+  
+  /* Responsive Styling */
+  @media (max-width: 768px) {
+    .blog-page {
+      padding: 1rem;
+    }
+  
+    .blog-heading {
+      font-size: 1.8rem;
+      margin-bottom: 1rem;
+    }
+  
+    .blog-carousel .blog-item {
+      margin-right: 10px;
+    }
+  
+    .blog-carousel .blog-content h2 {
+      font-size: 1.2rem;
+    }
+  
+    .blog-carousel .blog-content p {
+      font-size: 0.9rem;
+    }
+  
+    .blog-carousel .blog-button {
+      padding: 0.4rem 1rem;
+      font-size: 0.9rem;
+    }
+  }
+  
+  @media (max-width: 576px) {
+    .blog-carousel .blog-item {
+      flex-direction: column;
+      margin-right: 0;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+  
+    .blog-carousel .blog-image-container {
+      flex: 0 0 auto;
+      height: 200px;
+    }
+  
+    .blog-carousel .blog-image {
+      height: 100%;
+      object-fit: cover;
+    }
+  
+    .blog-carousel .blog-content {
+      padding: 0.5rem;
+    }
+  
+    .blog-carousel .blog-content h2 {
+      font-size: 1rem;
+    }
+  
+    .blog-carousel .blog-content p {
+      font-size: 0.8rem;
+    }
+  
+    .blog-carousel .blog-button {
+      padding: 0.3rem 0.8rem;
+      font-size: 0.8rem;
+    }
+  }
+  

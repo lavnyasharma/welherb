@@ -85,6 +85,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { CheckoutComponent } from './modules/checkout/checkout.component';
 import { ProdDescComponent } from './components/prod-desc/prod-desc.component';
+import { BlogComponent } from './components/blog/blog.component';
 
 
 
@@ -117,6 +118,7 @@ import { ProdDescComponent } from './components/prod-desc/prod-desc.component';
      SignupComponent,
      CheckoutComponent,
      ProdDescComponent,
+     BlogComponent,
 
   ],
   imports: [
