@@ -1,7 +1,7 @@
 import {
   AutoFocus,
   AutoFocusModule
-} from "./chunk-NIIDFJAA.js";
+} from "./chunk-Y3I2TTJO.js";
 import {
   ConnectedOverlayScrollHandler,
   DomHandler
@@ -11,16 +11,16 @@ import {
   PrimeNGConfig,
   TranslationKeys,
   zindexutils
-} from "./chunk-EQWC62JD.js";
-import {
-  NG_VALUE_ACCESSOR
-} from "./chunk-M5EEPCMK.js";
+} from "./chunk-TETWI6TG.js";
 import {
   animate,
   style,
   transition,
   trigger
-} from "./chunk-ZGYQWIZD.js";
+} from "./chunk-D2M4V2QW.js";
+import {
+  NG_VALUE_ACCESSOR
+} from "./chunk-FS453U5G.js";
 import {
   CommonModule,
   DOCUMENT,
@@ -28,7 +28,7 @@ import {
   NgIf,
   NgStyle,
   isPlatformBrowser
-} from "./chunk-QASFQABX.js";
+} from "./chunk-7BWEPHN5.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
@@ -72,8 +72,8 @@ import {
   ɵɵstyleProp,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-57XOOGN6.js";
-import "./chunk-GM2YTKEO.js";
+} from "./chunk-JNL4SJHY.js";
+import "./chunk-6QNTARNC.js";
 import "./chunk-WDMUDEB6.js";
 
 // node_modules/primeng/fesm2022/primeng-colorpicker.mjs

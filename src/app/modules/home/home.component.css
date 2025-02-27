@@ -5,3 +5,12 @@ app-navbar {
     background-color: white; /* Optional: background color for better visibility */
     
 }
+
+app-parallax,
+app-product-card,
+app-learn,
+app-testimonial,
+app-ingredients,
+app-contact-doctor {
+  margin-bottom: 20px;
+}

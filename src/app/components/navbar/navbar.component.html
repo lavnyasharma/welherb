@@ -1,40 +1,48 @@
-<div class="card">
-    <p-menubar [model]="items">
-        <ng-template pTemplate="start">
-
-           <img 
-               src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/WhatsApp%20Image%202024-02-24%20at%2010.46%201%20(1).png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJuZXcvV2hhdHNBcHAgSW1hZ2UgMjAyNC0wMi0yNCBhdCAxMC40NiAxICgxKS5wbmciLCJpYXQiOjE3MzExNDA3OTAsImV4cCI6MTc2MjY3Njc5MH0.zSC3UOyw2x0A6VSjprW5AUD5DiWunMC9HijUTHs8AqM&t=2024-11-09T08%3A26%3A30.248Z" 
-               alt="Icon 1" 
-               width="120px" 
-               height="50px" 
-               style="mix-blend-mode: darken;
-               cursor: pointer;"
-               (click)="navigateHome()">
-        </ng-template>
-
-        <ng-template pTemplate="item" let-item let-root="root">
-            <a style="color: black;" pRipple class="flex align-items-center p-menuitem-link" [routerLink]="item.routerLink">
-                <span [class]="item.icon"></span>
-                <span class="ml-2">{{ item.label }}</span>
-                <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" [value]="item.badge"></p-badge>
-                <span *ngIf="item.shortcut" class="ml-auto border-1 surface-border border-round surface-100 text-xs p-1">{{ item.shortcut }}</span>
-                <i *ngIf="item.items" [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']"></i>
-            </a>
-        </ng-template>
-
-        <ng-template pTemplate="end">
-            <div class="flex align-items-center gap-2">
-                <nz-input-group [nzSuffix]="suffixIconSearch">
-                    <input type="text" nz-input placeholder="input search text" />
-                  </nz-input-group>
-                  <ng-template #suffixIconSearch>
-                    <nz-icon nzType="search" />
-                  </ng-template>
+<div  style="border-bottom: 1px solid rgb(224, 224, 224);">
+    <div class="offer">
+        Free Pan India Shipping above 499
+    </div>
     
-                  <i (click)="profile()"  class="fa-solid fa-circle-user" style="font-size: 1.5rem;   cursor: pointer; "></i>
-                  <i (click)="cart()" class="fa-solid fa-bag-shopping" style="font-size: 1.5rem;   cursor: pointer;"></i>
+    <div class="nav1">
+        <!-- Logo -->
+        <div class="logo" (click)="navigateHome()">
+            <img 
+                src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/welherb%20cmyk%201.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJuZXcvd2VsaGVyYiBjbXlrIDEuc3ZnIiwiaWF0IjoxNzQwMjk2OTg5LCJleHAiOjMzMjc2Mjk2OTg5fQ.LxGSaE-4s1Q4DBwWRarp5ZLIj5fa7_Uw4hyodYuuzUQ" 
+                alt="Welherb Logo"
+                width="120px" 
+                height="50px"
+                style="mix-blend-mode: darken; cursor: pointer;">
+        </div>
+    
+        <!-- Search Bar -->
+        <div class="search" style="    display: flex;
+            justify-content: center;
+        ">
+            <nz-input-group [nzSuffix]="suffixIconSearch " style="width: 40%;">
+                <input type="text" nz-input placeholder="Search here" />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+                <nz-icon nzType="search"></nz-icon>
+            </ng-template>
+        </div>
+    
+        <!-- Cart & Signup -->
+        <div class="icons">
+            <div class="cart" (click)="cart()">
+               <img  src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/Vector.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJuZXcvVmVjdG9yLnBuZyIsImlhdCI6MTc0MDI5NzQyMywiZXhwIjozMTcwNjg3NjE0MjN9.yfIrpqIWc34e6kVaR3FgiOlerqW-GGPlABqhjIejp1k">
             </div>
+            <div class="signUp">
+                <button class="signUp">Sign Up</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Menu Bar -->
+    <p-menubar [model]="items">
+        <ng-template pTemplate="item" let-item let-root="root">
+            <a pRipple class="flex align-items-center p-menuitem-link" [routerLink]="item.routerLink">
+                <span class="ml-2">{{ item.label }}</span>
+            </a>
         </ng-template>
     </p-menubar>
 </div>
-

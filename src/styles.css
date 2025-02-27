@@ -12,6 +12,7 @@ body {
     background: var(--surface-ground);
     color: var(--text-color);
     margin: 0px !important;
+    background-color: #fcf9f4 !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
@@ -51,3 +52,7 @@ ul{
     box-shadow: none;
 }
 
+a{
+    color: #20202093 !important;
+
+}

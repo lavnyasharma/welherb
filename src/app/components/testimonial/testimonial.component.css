@@ -1,45 +1,100 @@
+.testimonial-container {
+  padding: 20px;
+}
+
+/* Grid for Desktop View */
+.testimonial-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+  gap: 20px;
+}
+
 .testimonial-card {
-    text-align: center;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    border-radius: 8px;
-    margin: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .carousel-container {
-    text-align: center;
-    margin-bottom: 20px; /* optional spacing between the heading and carousel */
-  }
+  background: #fcf9f4;
+  border: 1px solid #4FAE32;
+  border-radius: 8px;
+  padding: 20px;
+  text-align: left; /* Align text to the left */
+  transition: transform 0.3s ease-in-out;
+}
+
+.testimonial-card:hover {
+  transform: translateY(-5px);
+}
+
+.stars {
+  display: flex;
+  color: #7eb36a !important;
+  font-size: 18px;
+  justify-content: flex-start; /* Align stars to the left */
+}
+
+.review {
+  font-size: 16px;
+  margin: 10px 0;
+  color: #333;
+  text-align: left; /* Align review text to the left */
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 15px;
+  justify-content: flex-start; /* Align content to the left */
+}
+.title{
   
-  .carousel-heading {
-    font-size: 30px; /* adjust as needed */
-    font-weight: bold;
-    color: #333; /* adjust color if needed */
-  }
-  .testimonial-image {
-    border-radius: 50%;
-    width: 80px;
-    height: 80px;
-    object-fit: cover;
-    margin-bottom: 10px;
-  }
   
-  h3 {
-    font-size: 1.2rem;
-    margin: 10px 0 5px;
+display: flex;
+justify-content: center;
+align-items: center;
+}
+.profile-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #7eb36a;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #000;
+  text-align: left; /* Align name to the left */
+}
+
+.subtext {
+  font-size: 14px;
+  color: #777;
+  text-align: left; /* Align subtext to the left */
+}
+
+/* Mobile View - Full Width Cards */
+@media (max-width: 768px) {
+  .testimonial-grid {
+    display: none; /* Hide grid */
   }
-  
-  h4 {
-    font-size: 1rem;
-    color: gray;
-    margin-bottom: 10px;
+
+  .testimonial-container p-carousel {
+    width: 100%;
   }
-  
-  p {
-    font-size: 0.9rem;
-    font-style: italic;
-    color: #555;
-  }
-  
+}
+.btns{
+  display: flex;
+      justify-content: center;
+      margin-top: 20px;
+}
+
+.call{
+  margin-right: 10px;
+  background-color: #02b101;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s;
+ 
+}

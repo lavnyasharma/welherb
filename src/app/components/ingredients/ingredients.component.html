@@ -1,20 +1,25 @@
 <div class="container">
   <div class="data" style="margin: 20px">
-    <h1 class="grid-heading">As Pure as They Are Potent</h1>
-    <p class="grid-description">
+    <h1 style="display: flex; justify-content: center;" class="grid-heading">As <span style="color: #9CCB3B;">Pure&nbsp;</span>  as They Are Potent</h1>
+    <p class="grid-description" style="display: flex; justify-content: center;">
       Meet the awe-inspiring Nature’s healers that lend you their superpowers to supercharge your health.
     </p>
     <div class="btn">
-      <button class="cta-button">
-        Explore Their Superpowers <span class="arrow">→</span>
-      </button>
+    
     </div>
   </div>
 
-  <div class="image-grid">
+  <div class="image-grid" style="margin-bottom: 20px;">
     <div class="image-item" *ngFor="let image of images | slice:0:-3">
       <img [src]="image.url" [alt]="image.name" />
       <div class="image-overlay">{{ image.name }}</div>
     </div>
   </div>
+
 </div>
+<div class="btn">
+  <button class="cta-button">
+    Discover Their Goodness
+  </button>
+</div>
+

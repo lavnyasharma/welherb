@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, HostListener } from '@angular/core';
 
 @Component({
   selector: 'app-testimonial',
@@ -6,55 +6,53 @@ import { Component } from '@angular/core';
   styleUrl: './testimonial.component.css'
 })
 export class TestimonialComponent {
-  testimonials: any[] = [];
-  responsiveOptions: any[];
+  testimonials = [
+    {
+      name: 'Mr. Chandan',
+      review: 'When it comes to landing pages, popups, and even emails, shorter testimonials tend to be more effective.',
+      stars: 5,
+      image: 'https://i.pravatar.cc/300'
+    },
+    {
+      name: 'Ms. Priya',
+      review: 'When it comes to landing pages, popups, and even emails, shorter testimonials tend to be more effective. ',
+      stars: 4,
+      image: 'https://i.pravatar.cc/300'
+    },
+    {
+      name: 'John Doe',
+      review: 'When it comes to landing pages, popups, and even emails, shorter testimonials tend to be more effective. ',
+      stars: 5,
+      image: 'https://i.pravatar.cc/300'
+    },
+    {
+      name: 'Sarah Smith',
+      review: 'When it comes to landing pages, popups, and even emails, shorter testimonials tend to be more effective. ',
+      stars: 5,
+      image: 'https://i.pravatar.cc/300'
+    },
+    {
+      name: 'Ankit Verma',
+      review: 'When it comes to landing pages, popups, and even emails, shorter testimonials tend to be more effective. ',
+      stars: 4,
+      image: 'https://i.pravatar.cc/300'
+    },
+    {
+      name: 'Ritika Sharma',
+      review: 'When it comes to landing pages, popups, and even emails, shorter testimonials tend to be more effective. ',
+      stars: 5,
+      image: 'https://i.pravatar.cc/300'
+    }
+  ];
 
-  constructor() {
-    this.testimonials = [
-      {
-        name: "John Doe",
-        position: "CEO at Company",
-        testimonial: "PrimeNG has greatly improved our development process!",
-        image: "https://i.pravatar.cc"
-      },
-      {
-        name: "Jane Smith",
-        position: "Marketing Head",
-        testimonial: "The UI components are amazing and easy to integrate.",
-        image: "https://i.pravatar.cc"
-      },
-      {
-        name: "Alex Johnson",
-        position: "Developer",
-        testimonial: "I highly recommend PrimeNG for fast and responsive UI development.",
-        image: "https://i.pravatar.cc"
-      },
-      {
-        name: "Michael Brown",
-        position: "Project Manager",
-        testimonial: "PrimeNG offers great components for enterprise-level applications.",
-        image: "https://i.pravatar.cc"
-      }
-    ];
+  isMobile = window.innerWidth <= 768;
 
-    this.responsiveOptions = [
-      {
-        breakpoint: '1024px',
-        numVisible: 3,
-        numScroll: 3
-      },
-      {
-        breakpoint: '768px',
-        numVisible: 2,
-        numScroll: 2
-      },
-      {
-        breakpoint: '560px',
-        numVisible: 1,
-        numScroll: 1
-      }
-    ];
+  @HostListener('window:resize', ['$event'])
+  onResize() {
+    this.isMobile = window.innerWidth <= 768;
   }
 
-
+  isMobileView(): boolean {
+    return this.isMobile;
+  }
 }

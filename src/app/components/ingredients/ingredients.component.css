@@ -11,6 +11,11 @@
     font-size: 1.2em;
 
   }
+  .btn{
+    display: flex;
+        justify-content: center;
+        margin-top: 20px;
+  }
   
   .cta-button {
     background-color: #02b101;

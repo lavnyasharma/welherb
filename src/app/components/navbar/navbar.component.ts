@@ -35,12 +35,12 @@ export class NavbarComponent {
         ]
       },
       {
-        label: 'Bundle Up',
+        label: 'Combos',
         icon: 'pi pi-box',
         routerLink: (['/shop'])
       },
       {
-        label: 'Discover',
+        label: 'About Us',
         icon: 'pi pi-search',
         routerLink: '/discover'
       },
@@ -50,7 +50,7 @@ export class NavbarComponent {
         routerLink: '/expert-help'
       },
       {
-        label: 'Shop All',
+        label: 'Reviews',
         icon: 'fa-solid fa-shop',
         routerLink: '/shopall'
       }

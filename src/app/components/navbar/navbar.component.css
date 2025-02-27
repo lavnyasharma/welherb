@@ -1,111 +1,41 @@
-.card{
-  padding-left: 10px;
-  padding-right: 10px;
+.offer {
+  display: flex;
+  justify-content: center;
+  background: #9CCB3B;
+  color: white;
+  padding: 5px;
 }
 
-.navbar {
-    background-color: #333;
-    color: white;
-    padding: 0.5rem 1rem;
-  
-    .navbar-container {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-  
-      .logo {
-        color: white;
-        text-decoration: none;
-        font-size: 1.5rem;
-        font-weight: bold;
-      }
-  
-      .search-bar {
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-  
-        input {
-          padding: 0.5rem;
-          border: none;
-          border-radius: 5px;
-        }
-  
-        button {
-          padding: 0.5rem 1rem;
-          border: none;
-          background-color: #555;
-          color: white;
-          border-radius: 5px;
-          cursor: pointer;
-  
-          &:hover {
-            background-color: #777;
-          }
-        }
-      }
-  
-      .menu {
-        display: flex;
-  
-        .nav-links {
-          display: flex;
-          list-style: none;
-          margin: 0;
-          padding: 0;
-          gap: 1rem;
-  
-          a {
-            text-decoration: none;
-            color: white;
-            font-size: 1rem;
-          }
-        }
-  
-        &.active {
-          flex-direction: column;
-          position: absolute;
-          top: 60px;
-          right: 0;
-          background-color: #333;
-          width: 100%;
-          text-align: center;
-          padding: 1rem 0;
-        }
-      }
-  
-      .hamburger {
-        display: none;
-        flex-direction: column;
-        gap: 0.25rem;
-        background: none;
-        border: none;
-        cursor: pointer;
-  
-        .bar {
-          height: 3px;
-          width: 25px;
-          background-color: white;
-        }
-      }
-    }
-  }
-  
-  @media (max-width: 768px) {
-    .search-bar {
+.nav1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background: #FCF8F3;
+}
+
+.search {
+  flex-grow: 1;
+  margin: 0 20px;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.signUp button {
+  background: #4FAE32;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 16px;
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .search {
       display: none;
-    }
-  
-    .menu {
-      display: none;
-  
-      &.active {
-        display: flex;
-      }
-    }
-  
-    .hamburger {
-      display: flex;
-    }
   }
-  
+}
