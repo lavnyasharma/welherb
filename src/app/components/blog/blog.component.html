@@ -1,26 +1,38 @@
 <div class="blog-page">
-    <h1 class="blog-heading">The Better Living Chronicles</h1>
-  
-    <p-carousel 
-      [value]="blogs" 
-      [numVisible]="3" 
-      [numScroll]="1" 
-      [circular]="true" 
-      [responsiveOptions]="responsiveOptions" 
-      class="blog-carousel">
-      
-      <ng-template pTemplate="item" let-blog>
-        <div class="blog-item">
-          <div class="blog-image-container">
-            <img [src]="blog.image" alt="{{blog.title}}" class="blog-image" />
-          </div>
-          <div class="blog-content">
-            <h2>{{ blog.title }}</h2>
-            <p>{{ blog.description }}</p>
-            <button pButton type="button" label="Read More" class="blog-button"></button>
-          </div>
+  <h1 class="blog-heading">The Better Living <span>Chronicles</span></h1>
+
+  <p-carousel 
+    [value]="blogs" 
+    [numVisible]="3" 
+    [numScroll]="1" 
+    [circular]="true" 
+    [responsiveOptions]="responsiveOptions" 
+    (onPage)="updateActiveIndex($event.page)" 
+    class="blog-carousel">
+    
+    <ng-template pTemplate="item" let-blog>
+      <div class="blog-item">
+        <div class="blog-image-container">
+          <img [src]="blog.image" alt="{{blog.title}}" class="blog-image" />
         </div>
-      </ng-template>
-    </p-carousel>
+        <div class="blog-content">
+          <h2>{{ blog.title }}</h2>
+          <p>{{ blog.description }}</p>
+          <button pButton type="button" label="Read More" class="blog-button"></button>
+        </div>
+      </div>
+    </ng-template>
+  </p-carousel>
+
+  <!-- Custom Pagination Dots -->
+  <div class="carousel-dots">
+    <span 
+      *ngFor="let blog of blogs; let i = index" 
+      class="dot" 
+      [class.active]="i === activeIndex">
+    </span>
   </div>
-  
+
+  <!-- "More Blogs" button below carousel -->
+  <button class="more-blogs-btn">More Blogs</button>
+</div>

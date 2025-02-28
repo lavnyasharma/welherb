@@ -21,6 +21,13 @@ body {
     box-shadow: none;
     background: none;
 }
+.p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
+    background-color: #4eae32 !important;
+}
+.p-carousel-items-content {
+    overflow: visible !important;
+    width: 100%;
+}
 .card {
     background: #fcf8f4;
   

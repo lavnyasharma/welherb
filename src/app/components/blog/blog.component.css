@@ -9,6 +9,8 @@
     font-size: 2rem;
     margin-bottom: 1.5rem;
     text-align: justify;
+    display: flex;
+        justify-content: center;
     font-weight: bold;
     color: #333;
   }
@@ -133,4 +135,36 @@
       font-size: 0.8rem;
     }
   }
-  
+  /* Heading Styling */
+.blog-heading {
+  font-size: 2rem;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.blog-heading span {
+  color: #4fae32; /* Green color for "Chronicles" */
+}
+
+/* "More Blogs" Button */
+.more-blogs-btn {
+  background-color: #4fae32;
+  color: white;
+  font-size: 1rem;
+  padding: 0.7rem 1.5rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 2rem;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.p-carousel-items-content {
+  overflow: visible;
+  width: 100%;
+}
+.more-blogs-btn:hover {
+  background-color: #3e8927;
+}

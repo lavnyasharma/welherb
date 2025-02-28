@@ -6,6 +6,11 @@ import { Component } from '@angular/core';
   styleUrl: './blog.component.css'
 })
 export class BlogComponent {
+  activeIndex: number = 0; // Tracks the current active slide
+
+  updateActiveIndex(newIndex: number | undefined) {
+    this.activeIndex = newIndex ?? 0; // Default to 0 if undefined
+  }
   blogs = [
     {
       title: '5 Simple Ways to Live Healthier',
