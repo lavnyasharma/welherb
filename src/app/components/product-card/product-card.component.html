@@ -1,4 +1,4 @@
-<div class="product-card-container" [ngStyle]="{'background-color': selectedProduct.color}">
+<div class="product-card-container">
   <!-- Product Name -->
   <div class="product-name">
     {{ selectedProduct.name }}
@@ -27,12 +27,12 @@
     </div>
   </div>
 
-  <!-- Other Products Buttons with Bottle Images -->
-  <div class="other-products" style="margin-top: -30px;">
+  <!-- Other Products Buttons with Names -->
+  <div class="other-products">
     <button class="other-product-btn" *ngFor="let product of products; let i = index"
             [class.selected]="i === selectedProductIndex"
             (click)="selectProduct(i)">
-      <img [src]="product.image" alt="{{ product.name }}" style="max-width: 80px; max-height: 80px;" />
+      {{ product.name }}
     </button>
   </div>
 </div>

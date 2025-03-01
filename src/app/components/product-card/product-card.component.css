@@ -1,15 +1,16 @@
 .product-card-container {
-  display: flex
-  ;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      padding: 20px;
-      margin: 0 auto;
-      width: 100%;
-      z-index: 9999999;
-      position: absolute;
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20px;
+  margin: 0 auto;
+  width: 100%;
+  z-index: 9999999;
+  position: absolute;
+  background: url('https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/Reprofix@2x-Photoroom.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJuZXcvUmVwcm9maXhAMngtUGhvdG9yb29tLnBuZyIsImlhdCI6MTc0MDg1NzIzNCwiZXhwIjoxNzQzNDQ5MjM0fQ.BMTfTifiKFEKvPGvd0UYcBhpdlsY8GfB3Q-MBG7GwEM') 
+    no-repeat center center;
+  background-size: cover;
 }
 
 .product-name {
@@ -31,7 +32,7 @@
 
 .product-image img {
   width: 100%;
-  max-width: 600px;
+
   height: auto;
   margin-bottom: 20px;
 }
@@ -75,16 +76,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  overflow-x: scroll; /* Always show horizontal scrollbar */
+  overflow-x: scroll;
   width: 100%;
   padding: 0;
+  height: 50px;
   gap: 10px;
   scroll-snap-type: x mandatory;
   scroll-behavior: smooth;
-  
-  /* WebKit properties to hide the scrollbar */
-  -ms-overflow-style: none;  /* For Internet Explorer and Edge */
-  scrollbar-width: none;  /* For Firefox */
 }
 
 .other-product-btn {
@@ -105,7 +103,7 @@
 
 /* WebKit to hide scrollbar */
 .other-products::-webkit-scrollbar {
-  display: none; /* Hides the scrollbar */
+  display: none;
 }
 
 /* Responsive Styling */

@@ -6,7 +6,11 @@ import { gsap } from 'gsap';
   templateUrl: './parallax.component.html',
   styleUrls: ['./parallax.component.css']
 })
-export class ParallaxComponent   {
+export class ParallaxComponent implements OnInit {
+
+  ngOnInit(): void {
+    
+  }
 
  
 }
