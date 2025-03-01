@@ -6,12 +6,12 @@ import {
   Directionality
 } from "./chunk-RRD7VGP5.js";
 import {
-  NzStringTemplateOutletDirective
-} from "./chunk-JQ5OKNC4.js";
-import {
   NzConfigService,
   WithConfig
 } from "./chunk-O6VXPZQH.js";
+import {
+  NzStringTemplateOutletDirective
+} from "./chunk-JQ5OKNC4.js";
 import {
   NgTemplateOutlet
 } from "./chunk-7BWEPHN5.js";
@@ -798,4 +798,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-F6MZKKRU.js.map
+//# sourceMappingURL=chunk-4BHSCJ6X.js.map

@@ -3,14 +3,14 @@ import {
   Directionality
 } from "./chunk-RRD7VGP5.js";
 import {
-  NzOutletModule,
-  NzStringTemplateOutletDirective
-} from "./chunk-JQ5OKNC4.js";
-import {
   NzConfigService,
   WithConfig,
   toCssPixel
 } from "./chunk-O6VXPZQH.js";
+import {
+  NzOutletModule,
+  NzStringTemplateOutletDirective
+} from "./chunk-JQ5OKNC4.js";
 import {
   NgTemplateOutlet
 } from "./chunk-7BWEPHN5.js";
