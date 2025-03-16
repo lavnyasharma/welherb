@@ -9,11 +9,11 @@
   /* Enable scrolling */
 
   scroll-behavior: smooth;
+  background: #FCF8F3;
   /* Optional: Enables smooth scrolling */
 }
 
 .content {
-  height: "100vh";
   display: flex;
   flex-direction: column;
   scroll-snap-align: start;
@@ -27,10 +27,12 @@
 
 
 
+
 .title {
   font-size: 2.5rem;
   font-weight: 600;
   color: #333;
+  line-height: 30px;
 
 }
 
@@ -42,6 +44,17 @@
   margin-top: 20px;
 }
 
+.title-section {
+  position: fixed
+}
+
+.arrow1 {
+  position: fixed;
+  left: 30%;
+  bottom:"10%"
+}
+
+
 .btn {
   background-color: #8bc34a;
   color: white;
@@ -50,6 +63,7 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 1rem;
+  border: 2px solid #8bc34a;
 }
 
 .btn-shop {
@@ -77,8 +91,8 @@
   max-width: 278px;
   top: 30%;
   left: 3%;
-   overflow: hidden;  
-   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  overflow: hidden;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 
 }
 
@@ -93,4 +107,54 @@
 
 .parallax-image img {
   width: 100%;
+
+}
+.arrowleft{
+  padding-top:10%
+}
+
+.arrow-title1 {
+  position: fixed;
+  /* left: 41%;
+  top:15%; */
+ 
+ pointer-events: none;
+ display: grid;
+  grid-template-columns: 180px 180px;
+}
+
+.title-2{
+ font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  line-height: 10px;
+  max-width: max-content;
+  text-align: start;
+}
+
+.title-section-2{
+  display: flex;
+  flex-direction: column;
+ 
+ 
+ min-width: max-content;
+ min-height: fit-content;
+}
+.text-2{
+  font-size: 1rem;
+  font-weight: 400;
+  color: #333;
+  display: flex;
+  justify-content: start;
+  line-height: 20px;
+  margin-right: 10px;
+  text-align: left;
+}
+
+.button-container-buy-now{
+ position: fixed;
+}
+
+.part2{
+  text-align: right;
 }

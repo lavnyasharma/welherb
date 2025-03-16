@@ -52,7 +52,7 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
   
     // Common function to create animations
     function createParallaxAnimation(target:String,trigger:String, fromVars:Object, toVars:Object) {
-      gsap.fromTo('.parallax-image', lastDirection === 1 ? fromVars : toVars, {
+      gsap.fromTo(target, lastDirection === 1 ? fromVars : toVars, {
         ...lastDirection === 1 ? toVars : fromVars,
         
         scrollTrigger: {
@@ -60,7 +60,7 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
           scroller: container,
           start: 'top 90%',
           end: 'top 50%',
-          scrub: 1.5,
+          scrub: 3,
         }
       });
     }
@@ -73,19 +73,70 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
   
     createParallaxAnimation(".parallax-image",'.sec1', 
       { bottom: '-45%', scale: 1, transform: "rotate(0deg)", left: '40%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }, 
-      { bottom: '0%', scale: 1.2, transform: "rotate(10deg)", left: '20%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }
+      { bottom: '0%', scale: 1.3, transform: "rotate(10deg)", left: '35%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }
     );
   
     createParallaxAnimation(".parallax-image",'.sec2', 
-      { bottom: '0%', scale: 1.2, transform: "rotate(10deg)", left: '20%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }, 
-      { bottom: '0%', scale: 1, transform: "rotate(5deg)", left: '30%' }
+      { bottom: '0%', scale: 1.3, transform: "rotate(10deg)", left: '35%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }, 
+      { bottom: '0%', scale: 1.2, transform: "rotate(5deg)", left: '40%' }
     );
   
     createParallaxAnimation(".parallax-image",'.sec3', 
-      { bottom: '0%', scale: 1, transform: "rotate(5deg)", left: '30%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }, 
-      { bottom: '10%', scale: 1, transform: "rotate(0deg)", left: '40%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }
+      { bottom: '0%', scale: 1.2, transform: "rotate(5deg)", left: '40%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }, 
+      { bottom: '15%', scale: 1, transform: "rotate(0deg)", left: '40%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }
     );
-  
+  // text animations
+  function createParallaxAnimationText(target:String,trigger:String, fromVars:Object, toVars:Object,start:string,end:string,scrub:number=3) {
+    gsap.fromTo(target, lastDirection === 1 ? fromVars : toVars, {
+      ...lastDirection === 1 ? toVars : fromVars,
+      
+      scrollTrigger: {
+        trigger: trigger,
+        scroller: container,
+        start: start,
+        end: end,
+        scrub: scrub,
+      }
+    });
+  }
+
+  createParallaxAnimationText(".title-section",'.sec1', 
+    { bottom:"50%",scale: 1,   ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 }, 
+    { bottom:"-40%",left:"10%",scale: 0.8,  ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 },
+    "top 90%","top 50%" ,3
+  );
+
+  // arrow animation
+  createParallaxAnimationText(".arrow1",'.sec1', 
+    { bottom:"15%",scale: 1,   ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 }, 
+    { bottom:"-40%",left:"10%",scale: 0.8,  ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 },
+    "top 90%","top 50%" ,5
+  );
+  createParallaxAnimationText(".part1",'.sec1', 
+    { bottom:"-100%",scale: 0.8,   ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 }, 
+    { top:"15%",left:"61%",scale: 1,  ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 },
+    "top 90%","top 50%" ,3
+  );
+  createParallaxAnimationText(".part2",'.sec2', 
+    { bottom:"-100%",scale: 0.8,   ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 }, 
+    { top:"35%",left:"12%",scale: 1,  ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 },
+    "top 90%","top 50%" ,3
+  );
+  createParallaxAnimationText(".part3",'.sec3', 
+    { bottom:"-100%",scale: 0.8,   ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 }, 
+    { bottom:"20%",left:"61%",scale: 1,  ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 },
+    "top 90%","top 50%" ,3
+  );
+  createParallaxAnimationText(".button-container-buy-now",'.sec3', 
+    { bottom:"-100%",scale: 0.8,   ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 }, 
+    { top:"50%",left:"12%",scale: 1,  ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 },
+    "top 90%","top 50%" ,3
+  );
+
+
+
+
+
     // Label Animations with Direction Swap
     function createLabelAnimation(trigger: String, fromX:Number, toX:Number) {
       gsap.fromTo('.labels', 
@@ -95,7 +146,7 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
             scroller: container,
             start: 'top 90%',
             end: 'top 50%',
-            scrub: 1.5
+            scrub: 3
         }}
       );
     }
