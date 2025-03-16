@@ -54,6 +54,7 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
     function createParallaxAnimation(target:String,trigger:String, fromVars:Object, toVars:Object) {
       gsap.fromTo('.parallax-image', lastDirection === 1 ? fromVars : toVars, {
         ...lastDirection === 1 ? toVars : fromVars,
+        
         scrollTrigger: {
           trigger: trigger,
           scroller: container,
@@ -66,30 +67,30 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
   
     // Apply animations dynamically
     createParallaxAnimation(".parallax-image",'.sec', 
-      { bottom: '-45%', scale: 1, transform: "rotate(0.1deg)", left: '40%', }, 
-      { bottom: '-45%', scale: 1, transform: "rotate(0.1deg)", left: '40%' }
+      { bottom: '-45%', scale: 1, transform: "rotate(0.1deg)", left: '40%',  ease: "cubic-bezier(1, 0.17, 0.31, 1)"}, 
+      { bottom: '-45%', scale: 1, transform: "rotate(0.1deg)", left: '40%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }
     );
   
     createParallaxAnimation(".parallax-image",'.sec1', 
-      { bottom: '-45%', scale: 1, transform: "rotate(0deg)", left: '40%' }, 
-      { bottom: '0%', scale: 1.2, transform: "rotate(10deg)", left: '20%' }
+      { bottom: '-45%', scale: 1, transform: "rotate(0deg)", left: '40%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }, 
+      { bottom: '0%', scale: 1.2, transform: "rotate(10deg)", left: '20%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }
     );
   
     createParallaxAnimation(".parallax-image",'.sec2', 
-      { bottom: '0%', scale: 1.2, transform: "rotate(10deg)", left: '20%' }, 
+      { bottom: '0%', scale: 1.2, transform: "rotate(10deg)", left: '20%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }, 
       { bottom: '0%', scale: 1, transform: "rotate(5deg)", left: '30%' }
     );
   
     createParallaxAnimation(".parallax-image",'.sec3', 
-      { bottom: '0%', scale: 1, transform: "rotate(5deg)", left: '30%' }, 
-      { bottom: '10%', scale: 1, transform: "rotate(0deg)", left: '40%' }
+      { bottom: '0%', scale: 1, transform: "rotate(5deg)", left: '30%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }, 
+      { bottom: '10%', scale: 1, transform: "rotate(0deg)", left: '40%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }
     );
   
     // Label Animations with Direction Swap
     function createLabelAnimation(trigger: String, fromX:Number, toX:Number) {
       gsap.fromTo('.labels', 
-        { transform: `translateX(${lastDirection === 1 ? fromX : toX}px)` }, 
-        { transform: `translateX(${lastDirection === 1 ? toX : fromX}px)`, scrollTrigger: {
+        { transform: `translateX(${lastDirection === 1 ? fromX : toX}px)`, ease: "cubic-bezier(1, 0.17, 0.31, 1)" }, 
+        { transform: `translateX(${lastDirection === 1 ? toX : fromX}px)`, ease: "cubic-bezier(1, 0.17, 0.31, 1)", scrollTrigger: {
             trigger: trigger,
             scroller: container,
             start: 'top 90%',
