@@ -8,12 +8,12 @@ import {
   ChevronRightIcon
 } from "./chunk-4N3L7MZD.js";
 import {
-  ChevronDownIcon
-} from "./chunk-JMPUF65B.js";
-import {
   Ripple,
   RippleModule
 } from "./chunk-2Z3IOJSM.js";
+import {
+  ChevronDownIcon
+} from "./chunk-JMPUF65B.js";
 import "./chunk-6HPF2Q5L.js";
 import {
   DomHandler

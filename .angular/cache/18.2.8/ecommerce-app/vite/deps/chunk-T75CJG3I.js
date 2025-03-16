@@ -1506,12 +1506,13 @@ function WithConfig() {
 }
 
 export {
+  environment,
+  warn,
+  isPresetColor,
   coerceNumberProperty,
   coerceArray,
   coerceCssPixelValue,
   coerceElement,
-  environment,
-  warn,
   arraysEqual,
   isNotNil,
   isNil,
@@ -1528,8 +1529,7 @@ export {
   ensureNumberInRange,
   getStatusClassNames,
   fromEventOutsideAngular,
-  isPresetColor,
   NzConfigService,
   WithConfig
 };
-//# sourceMappingURL=chunk-O6VXPZQH.js.map
+//# sourceMappingURL=chunk-T75CJG3I.js.map

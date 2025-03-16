@@ -8,7 +8,7 @@ import {
   POSITION_MAP,
   getPlacementName,
   zoomBigMotion
-} from "./chunk-JXXVZJPT.js";
+} from "./chunk-SLHARQNK.js";
 import {
   _getEventTarget
 } from "./chunk-Y5OPQVSO.js";
@@ -16,15 +16,15 @@ import {
   Directionality
 } from "./chunk-RRD7VGP5.js";
 import {
+  NzOutletModule,
+  NzStringTemplateOutletDirective
+} from "./chunk-JQ5OKNC4.js";
+import {
   NzConfigService,
   isNotNil,
   isPresetColor,
   toBoolean
-} from "./chunk-O6VXPZQH.js";
-import {
-  NzOutletModule,
-  NzStringTemplateOutletDirective
-} from "./chunk-JQ5OKNC4.js";
+} from "./chunk-T75CJG3I.js";
 import {
   isPlatformBrowser
 } from "./chunk-7BWEPHN5.js";
@@ -787,4 +787,4 @@ export {
   NzTooltipDirective,
   NzToolTipModule
 };
-//# sourceMappingURL=chunk-OQKVHYFB.js.map
+//# sourceMappingURL=chunk-MTKIE4KU.js.map
