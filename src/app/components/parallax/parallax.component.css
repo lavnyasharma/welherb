@@ -2,23 +2,48 @@
   position: relative;
   width: 100%;
   height: 100vh;
+  flex-direction: column;
+  scroll-snap-type: y mandatory;
+  /* x or y for direction, mandatory or proximity for behavior */
+  overflow-x: auto;
+  /* Enable scrolling */
+
+  scroll-behavior: smooth;
+  /* Optional: Enables smooth scrolling */
+}
+
+.content {
+  height: "100vh";
   display: flex;
   flex-direction: column;
+  scroll-snap-align: start;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  padding: 0 20px;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, 0.8);
 }
+
+.content:nth-child(even) {
+  background-color: rgba(0, 0, 255, 0.8);
+}
+
 .title {
   font-size: 2.5rem;
   font-weight: 600;
   color: #333;
-  
+
 }
+
 .highlight {
   color: #8bc34a;
 }
+
 .button-container {
   margin-top: 20px;
 }
+
 .btn {
   background-color: #8bc34a;
   color: white;
@@ -28,21 +53,45 @@
   cursor: pointer;
   font-size: 1rem;
 }
+
 .btn-shop {
   margin-right: 10px;
 }
+
 .btn-learn {
   background-color: white;
   color: #333;
   border: 2px solid #8bc34a;
 }
+
 .parallax-image {
-  position: absolute;
- bottom: -35%; /* Adjusted to show only the cap and a small portion of the bottle */
+  position: fixed;
+  bottom: -45%;
+  /* Adjusted to show only the cap and a small portion of the bottle */
   left: 50%;
   transform: translateX(-50%);
-  max-width: 250px;
+  max-width: 300px;
+  pointer-events: none;
 }
+
+.label-container {
+  position: absolute;
+  max-width: 278px;
+  top: 30%;
+  left: 3%;
+   overflow: hidden;  
+
+}
+
+.labels {
+  max-width: 278px;
+  top: 0;
+  left: -278px;
+  display: grid;
+  grid-template-columns: repeat(3, 278px);
+
+}
+
 .parallax-image img {
   width: 100%;
 }

@@ -1506,9 +1506,9 @@ function WithConfig() {
 }
 
 export {
+  isPresetColor,
   environment,
   warn,
-  isPresetColor,
   coerceNumberProperty,
   coerceArray,
   coerceCssPixelValue,
@@ -1532,4 +1532,4 @@ export {
   NzConfigService,
   WithConfig
 };
-//# sourceMappingURL=chunk-T75CJG3I.js.map
+//# sourceMappingURL=chunk-MGUVIJ3Z.js.map

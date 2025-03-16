@@ -1,17 +1,17 @@
 import {
   NzIconDirective,
   NzIconModule
-} from "./chunk-3KONI2QG.js";
+} from "./chunk-VJC73IGC.js";
 import {
   Directionality
 } from "./chunk-RRD7VGP5.js";
 import {
-  NzStringTemplateOutletDirective
-} from "./chunk-JQ5OKNC4.js";
-import {
   NzConfigService,
   WithConfig
-} from "./chunk-T75CJG3I.js";
+} from "./chunk-MGUVIJ3Z.js";
+import {
+  NzStringTemplateOutletDirective
+} from "./chunk-JQ5OKNC4.js";
 import {
   NgTemplateOutlet
 } from "./chunk-7BWEPHN5.js";
@@ -798,4 +798,4 @@ export {
    * License: MIT
    *)
 */
-//# sourceMappingURL=chunk-4P6AGRUK.js.map
+//# sourceMappingURL=chunk-IVM3Y5KV.js.map

@@ -4,7 +4,7 @@ import {
 import {
   NzConfigService,
   warn
-} from "./chunk-T75CJG3I.js";
+} from "./chunk-MGUVIJ3Z.js";
 import {
   DomSanitizer
 } from "./chunk-I5T3YL4O.js";
@@ -1884,4 +1884,4 @@ export {
   provideNzIconsPatch,
   NzIconModule
 };
-//# sourceMappingURL=chunk-3KONI2QG.js.map
+//# sourceMappingURL=chunk-VJC73IGC.js.map
