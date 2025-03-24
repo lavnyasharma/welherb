@@ -19,16 +19,16 @@ import {
   zindexutils
 } from "./chunk-TETWI6TG.js";
 import {
-  RouterLink,
-  RouterLinkActive,
-  RouterModule
-} from "./chunk-746FC4FE.js";
-import {
   animate,
   style,
   transition,
   trigger
 } from "./chunk-D2M4V2QW.js";
+import {
+  RouterLink,
+  RouterLinkActive,
+  RouterModule
+} from "./chunk-746FC4FE.js";
 import {
   DomSanitizer
 } from "./chunk-I5T3YL4O.js";

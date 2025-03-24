@@ -51,7 +51,7 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
     });
   
     // Common function to create animations
-    function createParallaxAnimation(target:String,trigger:String, fromVars:Object, toVars:Object) {
+    function createParallaxAnimation(target:string,trigger:string, fromVars:Object, toVars:Object) {
       gsap.fromTo(target, lastDirection === 1 ? fromVars : toVars, {
         ...lastDirection === 1 ? toVars : fromVars,
         
@@ -86,7 +86,7 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
       { bottom: '15%', scale: 1, transform: "rotate(0deg)", left: '40%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }
     );
   // text animations
-  function createParallaxAnimationText(target:String,trigger:String, fromVars:Object, toVars:Object,start:string,end:string,scrub:number=3) {
+  function createParallaxAnimationText(target:string,trigger:string, fromVars:Object, toVars:Object,start:string,end:string,scrub:number=3) {
     gsap.fromTo(target, lastDirection === 1 ? fromVars : toVars, {
       ...lastDirection === 1 ? toVars : fromVars,
       
@@ -138,7 +138,7 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
 
 
     // Label Animations with Direction Swap
-    function createLabelAnimation(trigger: String, fromX:Number, toX:Number) {
+    function createLabelAnimation(trigger: string, fromX:Number, toX:Number) {
       gsap.fromTo('.labels', 
         { transform: `translateX(${lastDirection === 1 ? fromX : toX}px)`, ease: "cubic-bezier(1, 0.17, 0.31, 1)" }, 
         { transform: `translateX(${lastDirection === 1 ? toX : fromX}px)`, ease: "cubic-bezier(1, 0.17, 0.31, 1)", scrollTrigger: {

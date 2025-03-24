@@ -1,141 +1,142 @@
 
-html,body, footer {
+
+
+
+html, body {
     margin: 0;
     padding: 0;
     font-family: Arial, Helvetica, Sans-serif;
     background-color: #0d1117;
-  }
-  .footer {
+}
+
+.footer {
     width: 100%;
-    position: relative;
-    height: auto;
     background-color: #fbf9f3;
-    color:#000;
-    border-radius: 10px;
-  }
-  .footer a{
+    color: #000;
+    padding: 40px 20px;
+}
+
+.footer a {
     text-decoration: none;
     color: inherit;
     font-weight: 400;
-  }
-  footer a:hover {
+}
+
+.footer a:hover {
     text-decoration: underline;
-  }
-  .footer .footer-col {
-    width: 190px;
-    height: auto;
-    float: left;
-    box-sizing: border-box;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    padding: 20px 20px 20px 20px;;
-    
-  }
-  .footer .footer-col h1 {
-    margin: 0;
-    padding: 0;
-    font-family: inherit;
-    font-size: 12px;
-   
-    line-height: 17px;
-    padding: 20px 0px 5px 0px;
-    footer-color: rgba(255,255,255,0.2);
-    font-weight: normal;
-    
-    text-transform: uppercase;
-    letter-spacing: 0.250em;
-  }
-  .footer .footer-col ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-  .footer .footer-col ul li {
-    footer-color: #999999;
-    font-size: 14px;
-    
-    font-family: inherit;
+}
+
+/* Footer Container */
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Footer Columns */
+.footer-col {
+    flex: 1;
+    min-width: 200px;
+    margin: 10px;
+}
+
+.footer-col h3 {
+    font-size: 16px;
     font-weight: bold;
-    padding: 5px 0px 5px 0px;
+    margin-bottom: 10px;
+}
+
+.footer-col ul {
+    
+    padding: 0;
+}
+
+.footer-col ul li {
+    font-size: 14px;
+    padding: 5px 0;
     cursor: pointer;
-    transition: .2s;
-    -webkit-transition: .2s;
-    -moz-transition: .2s;
-  }
-  .social ul li {
-    display: inline-block;
-    padding-right: 5px !important;
-  }
-  
-  .footer .footer-col ul li:hover {
-    footer-color: #ffffff;
-    transition: .1s;
-    -webkit-transition: .1s;
-    -moz-transition: .1s;
-  }
-  .footer-col i, .footer .social-icons
-  {
-    font-size:35px;
-  }
-  .clearfix {
-    clear: both;
-  }.footer-bottom {
-    padding: 15px 20px; 
+    transition: color 0.2s ease-in-out;
+}
+
+.footer-col ul li:hover {
+    color: #777;
+}
+
+/* Social Media Section */
+.footer-col.social {
     text-align: center;
-    font-size: 14px; 
-    border-top: 1px solid #ddd;
-  }
-  
-  .footer-bottom-links {
+    flex-basis: 100%;
+}
+
+.footer-logo {
+    max-width: 180px;
+    margin-bottom: 40px;
+}
+
+.social-icons {
+    display: flex;
+    /* justify-content: center; */
+    padding: 0;
+}
+.footer .footer-col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.social-icons li {
     list-style: none;
-    padding: 0; 
-    margin: 10px 0 0; 
-    display: inline-flex; 
-    gap: 15px; 
-  }
-  
-  
-  @media only screen and (min-width: 1280px) {
+    margin: 0 10px;
+}
+
+.social-icons i {
+    font-size: 28px;
+    transition: transform 0.3s ease;
+}
+
+.social-icons i:hover {
+    transform: scale(1.2);
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    text-align: center;
+    font-size: 14px;
+    border-top: 1px solid #ddd;
+    padding: 15px 0;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
     .footer-container {
-      width: 1200px;
-      margin: 0 auto;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
     }
-  }
-  @media only screen and (max-width: 1139px) {
-    .footer-container .social {
-      width: 1000px;
-      display: block;
+
+    .footer-col {
+        min-width: 100%;
     }
-    .social h1 {
-      margin: 0px;
+
+    .social-icons {
+        justify-content: center;
     }
-  }
-  @media only screen and (max-width: 950px) {
-    .footer .footer-col {
-      width: 33%;
-    }
-    .footer .footer-col h1 {
-      font-size: 14px;
-    }
-    .footer .footer-col ul li {
-      font-size: 13px;
-      font-weight: 400;
-    }
-  }
-  @media only screen and (max-width: 500px) {
-      .footer .footer-col {
-        width: 50%;
-      }
-      .footer .footer-col h1 {
+}
+
+@media screen and (max-width: 500px) {
+    .footer-col h3 {
         font-size: 14px;
-      }
-      .footer .footer-col ul li {
+    }
+
+    .footer-col ul li {
         font-size: 13px;
         font-weight: 400;
-      }
-  }
-  @media only screen and (max-width: 340px) {
-    .footer .footer-col {
-      width: 100%;
     }
-  }
+
+    .social-icons i {
+        font-size: 24px;
+    }
+}
+

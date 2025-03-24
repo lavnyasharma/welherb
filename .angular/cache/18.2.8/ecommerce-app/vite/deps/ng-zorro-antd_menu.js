@@ -1,4 +1,8 @@
 import {
+  NzIconDirective,
+  NzIconModule
+} from "./chunk-VJC73IGC.js";
+import {
   CdkConnectedOverlay,
   CdkOverlayOrigin,
   NzNoAnimationDirective,
@@ -9,10 +13,6 @@ import {
   slideMotion,
   zoomBigMotion
 } from "./chunk-G3UPTZUF.js";
-import {
-  NzIconDirective,
-  NzIconModule
-} from "./chunk-VJC73IGC.js";
 import "./chunk-65OOR6YO.js";
 import {
   Platform
@@ -27,13 +27,13 @@ import {
   NzOutletModule,
   NzStringTemplateOutletDirective
 } from "./chunk-JQ5OKNC4.js";
+import "./chunk-CXBJZMFE.js";
+import "./chunk-D2M4V2QW.js";
 import {
   NavigationEnd,
   Router,
   RouterLink
 } from "./chunk-746FC4FE.js";
-import "./chunk-CXBJZMFE.js";
-import "./chunk-D2M4V2QW.js";
 import "./chunk-I5T3YL4O.js";
 import "./chunk-DBFSOOFY.js";
 import {

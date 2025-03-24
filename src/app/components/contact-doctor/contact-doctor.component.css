@@ -3,7 +3,8 @@
     align-items: center;
     gap: 20px;
     padding: 20px;
-    margin: 20px;
+   
+    background: #fcf8f4;
 }
 
 .Image, .Text {

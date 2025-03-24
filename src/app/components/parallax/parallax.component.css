@@ -6,6 +6,7 @@
   scroll-snap-type: y mandatory;
   /* x or y for direction, mandatory or proximity for behavior */
   overflow-x: auto;
+  overflow-y: auto;
   /* Enable scrolling */
 
   scroll-behavior: smooth;
@@ -22,7 +23,7 @@
   text-align: center;
   padding: 0 20px;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.8);
+  
 }
 
 
@@ -45,7 +46,7 @@
 }
 
 .title-section {
-  position: fixed
+  /* position: fixed */
 }
 
 .arrow1 {
@@ -82,7 +83,7 @@
   /* Adjusted to show only the cap and a small portion of the bottle */
   left: 50%;
   transform: translateX(-50%);
-  max-width: 300px;
+  max-width: 295px;
   pointer-events: none;
 }
 
@@ -92,15 +93,16 @@
   top: 30%;
   left: 3%;
   overflow: hidden;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  /* box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset; */
 
 }
 
 .labels {
-  max-width: 278px;
+  max-width: 273px;
   top: 0;
   left: -278px;
-  display: grid;
+  display: grid
+;
   grid-template-columns: repeat(3, 278px);
 
 }

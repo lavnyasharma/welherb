@@ -3,10 +3,13 @@ import {
   FocusTrapModule,
   WindowMaximizeIcon,
   WindowMinimizeIcon
-} from "./chunk-T45OSDYD.js";
+} from "./chunk-5HMRUNKN.js";
 import {
   ChevronLeftIcon
 } from "./chunk-QYGU3KIG.js";
+import {
+  ChevronRightIcon
+} from "./chunk-4N3L7MZD.js";
 import {
   TimesIcon
 } from "./chunk-7WUTVCB4.js";
@@ -14,9 +17,6 @@ import {
   Ripple,
   RippleModule
 } from "./chunk-2Z3IOJSM.js";
-import {
-  ChevronRightIcon
-} from "./chunk-4N3L7MZD.js";
 import "./chunk-6HPF2Q5L.js";
 import {
   DomHandler

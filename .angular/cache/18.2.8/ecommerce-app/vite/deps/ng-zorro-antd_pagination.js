@@ -3,13 +3,13 @@ import {
   NzOptionComponent,
   NzSelectComponent,
   NzSelectModule
-} from "./chunk-X6WPHOEZ.js";
+} from "./chunk-QLGBH5ZJ.js";
 import "./chunk-IVM3Y5KV.js";
-import "./chunk-G3UPTZUF.js";
 import {
   NzIconDirective,
   NzIconModule
 } from "./chunk-VJC73IGC.js";
+import "./chunk-G3UPTZUF.js";
 import {
   NzBreakpointEnum,
   NzBreakpointService,

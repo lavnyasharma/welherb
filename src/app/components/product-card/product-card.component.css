@@ -7,7 +7,7 @@
   margin: 0 auto;
   width: 100%;
   z-index: 9999999;
-  position: absolute;
+ 
   background: url('https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/Reprofix@2x-Photoroom.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJuZXcvUmVwcm9maXhAMngtUGhvdG9yb29tLnBuZyIsImlhdCI6MTc0MDg1NzIzNCwiZXhwIjoxNzQzNDQ5MjM0fQ.BMTfTifiKFEKvPGvd0UYcBhpdlsY8GfB3Q-MBG7GwEM') 
     no-repeat center center;
   background-size: cover;

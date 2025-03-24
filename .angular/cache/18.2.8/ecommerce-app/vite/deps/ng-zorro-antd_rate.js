@@ -1,12 +1,12 @@
 import {
+  NzIconDirective,
+  NzIconModule
+} from "./chunk-VJC73IGC.js";
+import {
   NzToolTipModule,
   NzTooltipDirective
 } from "./chunk-H6S47XQO.js";
 import "./chunk-G3UPTZUF.js";
-import {
-  NzIconDirective,
-  NzIconModule
-} from "./chunk-VJC73IGC.js";
 import {
   LEFT_ARROW,
   NzDestroyService,
