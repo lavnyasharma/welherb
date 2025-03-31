@@ -1,4 +1,4 @@
-<div  style="border-bottom: 1px solid rgb(224, 224, 224);">
+<div style="border-bottom: 1px solid rgb(224, 224, 224);">
     <div class="offer">
         Free Pan India Shipping above 499
     </div>
@@ -15,10 +15,8 @@
         </div>
     
         <!-- Search Bar -->
-        <div class="search" style="    display: flex;
-            justify-content: center;
-        ">
-            <nz-input-group [nzSuffix]="suffixIconSearch " style="width: 40%;">
+        <div class="search" style="display: flex; justify-content: center;">
+            <nz-input-group [nzSuffix]="suffixIconSearch" style="width: 40%;">
                 <input type="text" nz-input placeholder="Search here" />
             </nz-input-group>
             <ng-template #suffixIconSearch>
@@ -26,15 +24,27 @@
             </ng-template>
         </div>
     
-        <!-- Cart & Signup -->
+        <!-- Cart & Profile/Signup -->
         <div class="icons">
-            <div class="cart" (click)="cart()">
-               <img  src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/Vector.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJuZXcvVmVjdG9yLnBuZyIsImlhdCI6MTc0MDI5NzQyMywiZXhwIjozMTcwNjg3NjE0MjN9.yfIrpqIWc34e6kVaR3FgiOlerqW-GGPlABqhjIejp1k">
+            <!-- Cart -->
+            <div class="cart" (click)="handleCartClick()">
+                <img src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/Vector.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJuZXcvVmVjdG9yLnBuZyIsImlhdCI6MTc0MDI5NzQyMywiZXhwIjozMTcwNjg3NjE0MjN9.yfIrpqIWc34e6kVaR3FgiOlerqW-GGPlABqhjIejp1k">
             </div>
-            <div class="signUp">
-                <button class="signUp">Sign Up</button>
+        
+            <!-- If logged in, show profile icon with dropdown -->
+            <div *ngIf="isLoggedIn; else loginTemplate" class="profile-dropdown">
+                <button pButton type="button" icon="pi pi-user" class="p-button-text" (click)="profileMenu.toggle($event)"></button>
+                <p-menu #profileMenu [popup]="true" [model]="profileItems"></p-menu>
             </div>
+        
+            <!-- If not logged in, show Sign Up button -->
+            <ng-template #loginTemplate>
+                <div class="signUp">
+                    <button class="signUp" (click)="profile()">Sign Up</button>
+                </div>
+            </ng-template>
         </div>
+        
     </div>
     
     <!-- Menu Bar -->

@@ -32,4 +32,15 @@ export class ApiService {
         this.homeProducts.next(data);
       });
   }
+  signUp(name: string, email: string, password: string) {
+    const payload = { name, email, password };
+  
+    return this.http.post<any>(`${this.proxyPrefix}/user/register`, payload);
+  }
+  
+  login(email: string, password: string) {
+    const payload = {  email, password };
+    return this.http.post<any>(`${this.proxyPrefix}/user/login`, payload);
+  }
+  
 }

@@ -39,6 +39,9 @@ import { SidebarModule } from 'primeng/sidebar';
 import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 
+import { ToastrModule } from 'ngx-toastr';
+
+
 // Custom Modules
 import { AppRoutingModule } from './app-routing.module';
 import { AuthModule } from './modules/auth/auth.module';
@@ -145,6 +148,13 @@ import { BlogComponent } from './components/blog/blog.component';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    // Required for animations
+    BrowserAnimationsModule, // Make sure this is added
+    ToastrModule.forRoot({
+      timeOut: 3000, // Toast disappears after 3 seconds
+      positionClass: 'toast-top-right', // Position of toast
+      preventDuplicates: true, // Avoid duplicate toasts
+    }),
     
     BadgeModule,
     AvatarModule,
@@ -172,6 +182,7 @@ import { BlogComponent } from './components/blog/blog.component';
     TableModule,
     ToastModule,
     AuthModule,
+    ToastrModule,
 
     CartModule,
     OrderModule,

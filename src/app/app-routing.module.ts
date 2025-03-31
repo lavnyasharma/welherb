@@ -8,14 +8,16 @@ import { CartComponent } from './modules/cart/cart.component';
 import { ProfileComponent } from './modules/profile/profile.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
+import { AuthGuard } from '../auth.guard';
+// Import Auth Guard
 
 const routes: Routes = [
   { path: '', component: HomeComponent },  
   { path: 'discover', component: AboutComponent },
   { path: 'shop', component: ShopComponent },  
   { path: 'shopall', component: ShopallComponent },  
-  { path: 'cart', component: CartComponent },  
-  { path: 'profile', component: ProfileComponent }, 
+  { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },  
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }, 
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }  

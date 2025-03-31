@@ -1,5 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../services/auth.service';
+import { MenuItem } from 'primeng/api';
+
 
 @Component({
   selector: 'app-navbar',
@@ -8,10 +11,23 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
   items: any;
+  profileItems: MenuItem[] = [];
+  isLoggedIn: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(private router: Router, private authService: AuthService) {}
 
   ngOnInit() {
+    // Subscribe to auth changes
+    this.authService.authToken$.subscribe(token => {
+      this.isLoggedIn = !!token;
+    });
+    this.isLoggedIn = this.authService.isAuthenticated();
+
+    this.profileItems = [
+      { label: 'Profile', icon: 'pi pi-user', command: () => this.profile() },
+      { label: 'Logout', icon: 'pi pi-sign-out', command: () => this.logout() }
+    ];
+
     this.items = [
       {
         label: 'Shop',
@@ -37,7 +53,7 @@ export class NavbarComponent {
       {
         label: 'Combos',
         icon: 'pi pi-box',
-        routerLink: (['/shop'])
+        routerLink: '/shop'
       },
       {
         label: 'About Us',
@@ -60,10 +76,22 @@ export class NavbarComponent {
   navigateHome() {
     this.router.navigate(['/home']);
   }
-  cart(){
-    this.router.navigate(['/cart']);
+
+  handleCartClick(): void {
+    if (this.isLoggedIn) {
+      this.router.navigate(['/cart']); // Redirect to cart page
+    } else {
+      this.router.navigate(['/login']); // Redirect to login page
+    }
   }
-  profile(){
-    this.router.navigate(['/login']);
+
+  profile() {
+ 
+    this.router.navigate(['/profile']);
+  }
+
+  logout() {
+    this.authService.logout();
+    this.router.navigate(['/']);
   }
 }
