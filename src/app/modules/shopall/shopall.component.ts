@@ -3,6 +3,7 @@ import { ApiService } from '../../../services/api.service';
 
 interface Product {
   name: string;
+  id: string;
   price: { [key: string]: number } | number;
   category: string[];
   image: string;
@@ -34,6 +35,7 @@ export class ShopallComponent implements OnInit {
         return {
           name: item.name,
           price: price,
+          id:item._id,
           category: item.categories || [],
           image: "/welherb" + item.default_image,
           rating: item.rating || 0,
@@ -66,4 +68,17 @@ export class ShopallComponent implements OnInit {
     product.selectedSize = selectedSize;
     product.displayPrice = product.price[selectedSize];
   }
+  addToCart(productId: string) {
+    this.apiService.addToCart(productId).subscribe(
+      (response) => {
+        console.log('Product added to cart successfully:', response);
+        alert('Product added to cart!');
+      },
+      (error) => {
+        console.error('Error adding product to cart:', error);
+        alert('Failed to add product to cart.');
+      }
+    );
+  }
+  
 }

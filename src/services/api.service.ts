@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { Observable, Subject, from } from "rxjs";
 
@@ -45,4 +45,14 @@ export class ApiService {
   getAllProducts(){
     return this.http.get<any[]>(this.proxyPrefix + "/products/0/100")
   }
+  addToCart(productId: string) {
+    const payload = { productId };
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem("auth_token"), // Replace with actual token retrieval logic
+      'Content-Type': 'application/json'
+    });
+  
+    return this.http.post<any>(`${this.proxyPrefix}/user/cart/add`, payload, { headers });
+  }
+  
 }
