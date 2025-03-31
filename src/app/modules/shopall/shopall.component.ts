@@ -1,91 +1,69 @@
-import { Component,NgModule } from '@angular/core';
-import { products } from './products-data';
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../../services/api.service';
 
-
-
+interface Product {
+  name: string;
+  price: { [key: string]: number } | number;
+  category: string[];
+  image: string;
+  rating?: number;
+  sizes: string[];
+  selectedSize: string;
+  displayPrice: number;
+}
 
 @Component({
   selector: 'app-shopall',
   templateUrl: './shopall.component.html',
-  styleUrl: './shopall.component.css'
+  styleUrls: ['./shopall.component.css']
 })
-export class ShopallComponent {
+export class ShopallComponent implements OnInit {
   selectedSort = 'low';
-  priceRange = 5000; // Max range
-  filteredProducts;
+  priceRange = 5000;
+  products: Product[] = [];
+  filteredProducts: Product[] = [];
 
-  products = [
-    {
-      name: 'Rainbow Love Ring',
-      price: 2457,
-      category: 'Eclipse | Ring',
-      image: 'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fuploads%2Fproducts%2F1185%2F0M1A1085.jpg&w=1200&q=75',
-      rating: 4.5
-    },
-    {
-      name: 'Royal May Ring',
-      price: 1632,
-      category: 'Cascade | Ring',
-      image: 'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fuploads%2Fproducts%2F1185%2F0M1A1085.jpg&w=1200&q=75',
-      rating: 4.3
-    },
-    {
-      name: 'Golden Bracelet',
-      price: 4567,
-      category: 'Elegance | Bracelet',
-      image: 'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fuploads%2Fproducts%2F1185%2F0M1A1085.jpg&w=1200&q=75',
-      rating: 4.8
-    },
-    {
-      name: 'Silver Charm',
-      price: 1234,
-      category: 'Amethyst | Pendant',
-      image: 'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fuploads%2Fproducts%2F1185%2F0M1A1085.jpg&w=1200&q=75',
-      rating: 4.1
-    },
-    {
-      name: 'Silver Charm',
-      price: 1234,
-      category: 'Amethyst | Pendant',
-      image: 'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fuploads%2Fproducts%2F1185%2F0M1A1085.jpg&w=1200&q=75',
-      rating: 4.1
-    },
-    {
-      name: 'Silver Charm',
-      price: 1234,
-      category: 'Amethyst | Pendant',
-      image: 'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fuploads%2Fproducts%2F1185%2F0M1A1085.jpg&w=1200&q=75',
-      rating: 4.1
-    },
-     {
-      name: 'Silver Charm',
-      price: 1234,
-      category: 'Amethyst | Pendant',
-      image: 'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fuploads%2Fproducts%2F1185%2F0M1A1085.jpg&w=1200&q=75',
-      rating: 4.1
-    },
-    
-  ];
+  constructor(private apiService: ApiService) {}
 
+  ngOnInit(): void {
+    this.apiService.getAllProducts().subscribe((data: any[]) => {
+      this.products = data.map((item) => {
+        const sizes = item.size || [];
+        const firstSize = sizes.length ? sizes[0] : null;
+        const price = typeof item.price === 'object' ? item.price : { [firstSize]: item.price };
+        return {
+          name: item.name,
+          price: price,
+          category: item.categories || [],
+          image: "/welherb" + item.default_image,
+          rating: item.rating || 0,
+          sizes: sizes,
+          selectedSize: firstSize, 
+          displayPrice: firstSize ? price[firstSize] : 0
+        };
+      });
 
-
-  constructor() {
-    this.filteredProducts = [...this.products];
+      this.filteredProducts = [...this.products];
+    });
   }
 
   sortProducts() {
-    if (this.selectedSort === 'low') {
-      this.filteredProducts.sort((a, b) => a.price - b.price);
-    } else {
-      this.filteredProducts.sort((a, b) => b.price - a.price);
-    }
+    this.filteredProducts.sort((a, b) =>
+      this.selectedSort === 'low'
+        ? a.displayPrice - b.displayPrice
+        : b.displayPrice - a.displayPrice
+    );
   }
 
   filterByPrice() {
     this.filteredProducts = this.products.filter(
-      (product) => product.price <= this.priceRange
+      (product) => product.displayPrice <= this.priceRange
     );
     this.sortProducts();
-  }  
-}
+  }
 
+  updatePrice(product: Product, selectedSize: string) {
+    product.selectedSize = selectedSize;
+    product.displayPrice = product.price[selectedSize];
+  }
+}

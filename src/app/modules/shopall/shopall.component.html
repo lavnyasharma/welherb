@@ -24,31 +24,43 @@
 
   <!-- Product Grid -->
   <div class="product-grid">
-    <div
-      class="product-card"
-      *ngFor="let product of filteredProducts"
-    >
+    <div class="product-card" *ngFor="let product of filteredProducts">
       <!-- Image -->
       <div class="image-wrapper">
         <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
       </div>
 
       <!-- Details -->
-      <div class="product-details">
-        <!-- Name and Price -->
-        <div class="name-price">
-          <h3 style="margin-bottom: 0;" class="product-name">{{ product.name }}</h3>
-          <p  style="margin-bottom: 0;" class="product-price">₹{{ product.price }}</p>
-        </div>
+ <!-- Product Details -->
+<div class="product-details">
+  <h3 class="product-name">{{ product.name }}</h3>
 
-        <!-- Rating -->
-        <p  style="margin-bottom: 0;" class="rating">
-          <i class="fa fa-star" aria-hidden="true"></i> {{ product.rating }}
-        </p>
+  <!-- Price and Size in the Same Row -->
+  <div class="price-size-row">
+    <!-- Price Display -->
+    <p class="product-price">₹{{ product.displayPrice }}</p>
 
-        <!-- Category -->
-        <p  style="margin-bottom: 0;"  class="category">{{ product.category }}</p>
-      </div>
+    <!-- Size Selection as Buttons -->
+    <div class="size-options">
+      <button
+        *ngFor="let size of product.sizes"
+        class="size-btn"
+        [class.active]="size === product.selectedSize"
+        (click)="updatePrice(product, size)"
+      >
+        {{ size }}
+      </button>
+    </div>
+  </div>
+
+  <!-- Category Tags -->
+  <div class="category-tags">
+    <span *ngFor="let category of product.category" class="category-tag">
+      {{ category }}
+    </span>
+  </div>
+</div>
+
 
       <!-- Add to Cart Button -->
       <button class="add-to-cart">

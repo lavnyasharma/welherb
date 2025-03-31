@@ -42,5 +42,7 @@ export class ApiService {
     const payload = {  email, password };
     return this.http.post<any>(`${this.proxyPrefix}/user/login`, payload);
   }
-  
+  getAllProducts(){
+    return this.http.get<any[]>(this.proxyPrefix + "/products/0/100")
+  }
 }

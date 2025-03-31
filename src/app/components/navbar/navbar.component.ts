@@ -33,6 +33,7 @@ export class NavbarComponent {
         label: 'Shop',
         icon: 'pi pi-cart',
         items: [
+          { label: 'Shop All', routerLink: '/shopall' },
           { label: 'ESR', routerLink: '/shop' },
           { label: 'Thyroid', routerLink: '/shop/thyroid' },
           { label: 'Heart', routerLink: '/shop/heart' },
