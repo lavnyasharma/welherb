@@ -45,8 +45,8 @@ export class ApiService {
   getAllProducts(){
     return this.http.get<any[]>(this.proxyPrefix + "/products/0/100")
   }
-  addToCart(productId: string) {
-    const payload = { productId };
+  addToCart(productId: string,size:string) {
+    const payload = { productId,size };
     const headers = new HttpHeaders({
       'Authorization': localStorage.getItem("auth_token"), // Replace with actual token retrieval logic
       'Content-Type': 'application/json'
@@ -54,5 +54,23 @@ export class ApiService {
   
     return this.http.post<any>(`${this.proxyPrefix}/user/cart/add`, payload, { headers });
   }
+  getCartItems(){
+
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem("auth_token"), // Replace with actual token retrieval logic
+      'Content-Type': 'application/json'
+    });
+  
+    return this.http.get<any>(`${this.proxyPrefix}/user/cart`, { headers });
+  }
+  removeCartItem(id: string) {
+    const headers = new HttpHeaders({
+      'Authorization': `${localStorage.getItem("auth_token")}`,
+
+    });
+  
+    return this.http.delete<any>(`${this.proxyPrefix}/user/cart/${id}`, { headers });
+  }
+  
   
 }

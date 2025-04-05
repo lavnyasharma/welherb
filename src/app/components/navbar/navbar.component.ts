@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { MenuItem } from 'primeng/api';
+import { CartService } from '../../../services/cart.service';
 
 
 @Component({
@@ -12,11 +13,17 @@ import { MenuItem } from 'primeng/api';
 export class NavbarComponent {
   items: any;
   profileItems: MenuItem[] = [];
+  cartItemCount = 0;
+
   isLoggedIn: boolean = false;
 
-  constructor(private router: Router, private authService: AuthService) {}
+  constructor(private router: Router, private authService: AuthService,private cartService: CartService) {}
 
   ngOnInit() {
+    this.cartService.cartItems$.subscribe(items => {
+      console.log('Cart items updated:', items);
+      this.cartItemCount = items.length;
+    });
     // Subscribe to auth changes
     this.authService.authToken$.subscribe(token => {
       this.isLoggedIn = !!token;

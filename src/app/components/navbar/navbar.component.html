@@ -28,7 +28,7 @@
         <div class="icons">
             <!-- Cart -->
             <div class="cart" (click)="handleCartClick()">
-                <img src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/Vector.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJuZXcvVmVjdG9yLnBuZyIsImlhdCI6MTc0MDI5NzQyMywiZXhwIjozMTcwNjg3NjE0MjN9.yfIrpqIWc34e6kVaR3FgiOlerqW-GGPlABqhjIejp1k">
+                <i class="pi pi-shopping-cart"></i> Cart <span *ngIf="cartItemCount > 0">({{ cartItemCount }})</span>
             </div>
         
             <!-- If logged in, show profile icon with dropdown -->

@@ -41,8 +41,8 @@ export class AuthService {
   }
 
   signup(name: string, email: string, password: string): Observable<any> {
-    const payload = { email, password };
-    return this.http.post<any>(`${this.authUrl}/user/signup`, payload).pipe(
+    const payload = { name,email, password };
+    return this.http.post<any>(`${this.authUrl}/user/register`, payload).pipe(
       tap(response => {
         if (response.token) {
           this.saveToken(response.token);

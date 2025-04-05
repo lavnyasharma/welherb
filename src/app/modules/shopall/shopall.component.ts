@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
+import { CartService } from '../../../services/cart.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 interface Product {
   name: string;
@@ -18,35 +21,59 @@ interface Product {
   templateUrl: './shopall.component.html',
   styleUrls: ['./shopall.component.css']
 })
-export class ShopallComponent implements OnInit {
+export class ShopallComponent implements OnInit, OnDestroy {
   selectedSort = 'low';
   priceRange = 5000;
   products: Product[] = [];
+  cartLoaded = false;
   filteredProducts: Product[] = [];
+  cartItemsSet = new Set<string>();
+  private destroy$ = new Subject<void>();
 
-  constructor(private apiService: ApiService) {}
+  constructor(
+    private apiService: ApiService,
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
     this.apiService.getAllProducts().subscribe((data: any[]) => {
+      console.log('API Response:', data);
       this.products = data.map((item) => {
         const sizes = item.size || [];
-        const firstSize = sizes.length ? sizes[0] : null;
+        const firstSize = sizes.length ? sizes[0] : '';
         const price = typeof item.price === 'object' ? item.price : { [firstSize]: item.price };
+        console.log(item)
         return {
           name: item.name,
           price: price,
-          id:item._id,
+          id: item._id,
           category: item.categories || [],
-          image: "/welherb" + item.default_image,
+          image: '/welherb' + item.default_image,
           rating: item.rating || 0,
           sizes: sizes,
-          selectedSize: firstSize, 
+          selectedSize: firstSize,
           displayPrice: firstSize ? price[firstSize] : 0
         };
       });
-
       this.filteredProducts = [...this.products];
     });
+
+    this.cartService.cartItems$
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(items => {
+      this.cartItemsSet = new Set(items);
+    });
+
+  this.cartService.cartLoaded
+    .pipe(takeUntil(this.destroy$))
+    .subscribe(loaded => {
+      this.cartLoaded = loaded;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 
   sortProducts() {
@@ -68,17 +95,19 @@ export class ShopallComponent implements OnInit {
     product.selectedSize = selectedSize;
     product.displayPrice = product.price[selectedSize];
   }
-  addToCart(productId: string) {
-    this.apiService.addToCart(productId).subscribe(
-      (response) => {
-        console.log('Product added to cart successfully:', response);
+
+  addToCart(productId: string, size: string) {
+    if (this.isInCart(productId)) {
+      alert('Product is already in the cart!');
+      return;
+    }
+
+        this.cartService.addToCart(productId, size);
         alert('Product added to cart!');
-      },
-      (error) => {
-        console.error('Error adding product to cart:', error);
-        alert('Failed to add product to cart.');
-      }
-    );
+     
   }
-  
+
+  isInCart(productId: string): boolean {
+    return this.cartItemsSet.has(productId);
+  }
 }

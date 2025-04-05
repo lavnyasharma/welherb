@@ -89,6 +89,7 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { CheckoutComponent } from './modules/checkout/checkout.component';
 import { ProdDescComponent } from './components/prod-desc/prod-desc.component';
 import { BlogComponent } from './components/blog/blog.component';
+import { CartService } from '../services/cart.service';
 
 
 
@@ -217,7 +218,7 @@ import { BlogComponent } from './components/blog/blog.component';
     TableModule,
     ToastModule,
   ],
-  providers: [],
+  providers: [CartService],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

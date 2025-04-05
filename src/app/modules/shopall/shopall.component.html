@@ -61,11 +61,22 @@
   </div>
 </div>
 
+<ng-container *ngIf="cartLoaded; else loadingCart">
+  <button class="add-to-cart" 
+    (click)="addToCart(product.id, product.selectedSize)" 
+    [disabled]="isInCart(product.id)">
+    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+    {{ isInCart(product.id) ? 'Item Added' : 'Add to Cart' }}
+  </button>
+</ng-container>
+<ng-template #loadingCart>
+  <button class="add-to-cart" disabled>
+    <i class="fa fa-spinner fa-spin"></i> Loading...
+  </button>
+</ng-template>
 
-      <!-- Add to Cart Button -->
-      <button class="add-to-cart" (click)="addToCart(product.id)">
-        <i class="fa fa-shopping-cart" aria-hidden="true"></i> Add to Cart
-      </button>
+
+
     </div>
   </div>
 </div>
