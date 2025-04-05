@@ -1,4 +1,5 @@
 import { Component, HostListener } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-testimonial',
@@ -6,6 +7,7 @@ import { Component, HostListener } from '@angular/core';
   styleUrl: './testimonial.component.css'
 })
 export class TestimonialComponent {
+  constructor(private router: Router) {}
   testimonials = [
     {
       name: 'Mr. Chandan',
@@ -54,5 +56,11 @@ export class TestimonialComponent {
 
   isMobileView(): boolean {
     return this.isMobile;
+  }
+  showNow(){
+    this.router.navigate(['/shopall']);
+  }
+  viewMore(){
+    this.router.navigate(['/reviews']);
   }
 }
