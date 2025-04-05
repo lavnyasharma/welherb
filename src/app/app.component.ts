@@ -31,21 +31,6 @@ export class AppComponent implements OnInit {
 
     const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
 
-    this.timeout = setTimeout(() => {
-      const navbar = document.getElementById('navbar');
-      if (navbar) {
-        if (scrollTop > this.lastScrollTop) {
-          // User is scrolling down
-          navbar.classList.remove('navbar-visible');
-          navbar.classList.add('navbar-hidden');
-        } else {
-          // User is scrolling up
-          navbar.classList.remove('navbar-hidden');
-          navbar.classList.add('navbar-visible');
-        }
-      }
-
-      this.lastScrollTop = scrollTop <= 0 ? 0 : scrollTop; // Prevent negative values
-    }, 100); // Adjust debounce delay as needed
+ 
   }
 }

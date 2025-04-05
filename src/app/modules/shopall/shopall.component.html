@@ -26,7 +26,7 @@
   <div class="product-grid">
     <div class="product-card" *ngFor="let product of filteredProducts">
       <!-- Image -->
-      <div class="image-wrapper">
+      <div class="image-wrapper" (click)="navigateToProduct(product.id)">
         <img [src]="product.image" alt="{{ product.name }}" class="product-image" />
       </div>
 

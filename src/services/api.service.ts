@@ -71,6 +71,14 @@ export class ApiService {
   
     return this.http.delete<any>(`${this.proxyPrefix}/user/cart/${id}`, { headers });
   }
+  getOneProduct(id){
+ 
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem("auth_token"), // Replace with actual token retrieval logic
+   
+    });
   
+    return this.http.get<any>(`${this.proxyPrefix}/products/${id}`, { headers });
+  }
   
 }

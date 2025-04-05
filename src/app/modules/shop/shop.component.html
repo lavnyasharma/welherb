@@ -74,7 +74,14 @@
   
       <!-- Action Buttons -->
       <div class="actions">
-        <button  [ngStyle]="{'background-color': color}" class="add-to-cart">Add to Cart</button>
+      
+        <button 
+        [ngStyle]="{'background-color': color}"
+        [disabled]="isInCart" 
+        (click)="addToCart()" 
+        class="add-to-cart">
+        {{ isInCart ? 'Added to Cart' : 'Add to Cart' }}
+      </button>
         <button  [ngStyle]="{'background-color': color}" class="buy-now">Buy Now</button>
       </div>
   

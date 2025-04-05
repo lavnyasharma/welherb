@@ -3,6 +3,7 @@ import { ApiService } from '../../../services/api.service';
 import { CartService } from '../../../services/cart.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 interface Product {
   name: string;
@@ -32,7 +33,8 @@ export class ShopallComponent implements OnInit, OnDestroy {
 
   constructor(
     private apiService: ApiService,
-    private cartService: CartService
+    private cartService: CartService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -98,16 +100,19 @@ export class ShopallComponent implements OnInit, OnDestroy {
 
   addToCart(productId: string, size: string) {
     if (this.isInCart(productId)) {
-      alert('Product is already in the cart!');
+ 
       return;
     }
 
         this.cartService.addToCart(productId, size);
-        alert('Product added to cart!');
+      
      
   }
 
   isInCart(productId: string): boolean {
     return this.cartItemsSet.has(productId);
+  }
+  navigateToProduct(productId: string) {
+    this.router.navigate(['/shop', productId]);
   }
 }

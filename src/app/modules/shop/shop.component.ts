@@ -1,44 +1,84 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { ApiService } from '../../../services/api.service'; // adjust path as needed
+import { CartService } from '../../../services/cart.service';
 
 @Component({
   selector: 'app-shop',
   templateUrl: './shop.component.html',
-  styleUrl: './shop.component.css'
+  styleUrls: ['./shop.component.css']
 })
-export class ShopComponent {
-  color= "rgb(171 221 247)"
-  product = {
-    title: 'ESR COUNT',
-    subtitle: '100% Natural Antibiotic',
-    price: 999,
-    rating: 4.7,
-    reviews: 90,
-    features: {
-      reduces: ['Joint pains', 'Sciatic ache', 'Sprain/Strain pain', 'Seasonal Body pain'],
-      calms: ['Inflammation', 'Swelling'],
-      boosts: ['Joint health', 'Strength', 'Mobility'],
-    },
-    capsuleOptions: [30, 60],
-  };
-
-  productImages = [
-    'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fuploads%2Fproducts%2F1185%2F0M1A1085.jpg&w=1200&q=75',
-    'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fuploads%2Fproducts%2F1185%2F0M1A3757.jpg&w=1200&q=75',
-    'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fuploads%2Fproducts%2F1185%2F0M1A1085.jpg&w=1200&q=75',
-    'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fuploads%2Fproducts%2F1185%2F0M1A1085.jpg&w=1200&q=75',
-  ];
-  selectedImage = this.productImages[0];
-  selectedCapsule = this.product.capsuleOptions[0];
+export class ShopComponent implements OnInit {
+  color = "rgb(171 221 247)";
+  product: any;
+  productImages: string[] = [];
+  selectedImage: string = '';
+  selectedCapsule: number = 0;
   quantity = 1;
+  isInCart: boolean = false;
 
+  constructor(
+    private route: ActivatedRoute,
+    private apiService: ApiService,
+    private cartService: CartService
+  ) {}
+
+  priceMap: any = {};
+
+  ngOnInit(): void {
+    const productId = this.route.snapshot.paramMap.get('id');
+    if (productId) {
+      this.apiService.getOneProduct(productId).subscribe((data: any) => {
+        this.priceMap = data.price;
+  
+        this.product = {
+          title: data.name,
+          subtitle: data.description,
+          price: data.price[data.size[0]], // default
+          priceMap: data.price,
+          capsuleOptions: data.size,
+          features: {
+            reduces: data.helps_how?.filter((line: string) => line.toLowerCase().includes('reduce') || line.toLowerCase().includes('arthritis') || line.toLowerCase().includes('pain')) || [],
+            calms: [], // not present in data
+            boosts: data.helps_how?.filter((line: string) => line.toLowerCase().includes('boost') || line.toLowerCase().includes('mobility') || line.toLowerCase().includes('energy')) || [],
+          },
+          rating: 4.8,
+          reviews: 132
+        };
+  
+        this.productImages = data.images?.map((img: any) => '/welherb' + img.image) || [data.default_image];
+        this.selectedImage = this.productImages[0];
+        this.selectedCapsule = data.size?.[0] || 0;
+      });
+      this.cartService.cartLoaded.subscribe((loaded) => {
+        if (loaded && productId) {
+          this.isInCart = this.cartService.isProductInCart(productId);
+        }
+      });
+    }
+  }
+  
+  addToCart() {
+    const productId = this.route.snapshot.paramMap.get('id');
+    if (!productId) return;
+  
+    if (!this.cartService.isProductInCart(productId)) {
+      this.cartService.addToCart(productId, this.selectedCapsule.toString());
+      this.isInCart = true;
+    }
+  }
+  
   selectImage(image: string) {
     this.selectedImage = image;
   }
 
   selectCapsule(capsule: number) {
     this.selectedCapsule = capsule;
+    if (this.product && this.product.price) {
+      this.product.price = this.product.priceMap?.[capsule] || this.product.price;
+    }
   }
-
+  
   increaseQuantity() {
     this.quantity++;
   }
