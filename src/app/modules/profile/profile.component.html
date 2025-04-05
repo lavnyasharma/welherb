@@ -26,37 +26,64 @@
         <!-- Profile Tab -->
         <div *ngIf="activeTab === 'profile'" class="tab-panel">
             <h2 class="profilehead">Account information</h2>
-            <form class="profile-form">
-                <div class="profile-container-flex">
-                    <!-- Profile Picture Section (Sticky Image) -->
-                    <div class="profile-image">
-                        <img [src]="profilePicture || 'assets/dummy-avatar.png'" alt="Profile Avatar" class="avatar-img" />
-                        <input type="file" id="profilePicture" (change)="onProfilePictureChange($event)" />
-                    </div>
-
-                    <!-- Form Section -->
-                    <div class="form-section">
-                        <div class="form-group">
-                            <label for="fullName">Full Name</label>
-                            <input type="text" id="fullName" placeholder="John Doe" />
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" placeholder="john.doe@example.com" />
-                        </div>
-                        <div class="form-group">
-                            <label for="phone">Phone</label>
-                            <input type="tel" id="phone" placeholder="123-456-7890" />
-                        </div>
-                        <div class="form-group">
-                            <label for="address">Address</label>
-                            <textarea id="address" placeholder="123 Main Street, City"></textarea>
-                        </div>
-                        <button class="btn-primary">Save Changes</button>
-                    </div>
+            <form class="profile-form" #profileForm="ngForm" (ngSubmit)="saveChanges(profileForm)">
+              <div class="profile-container-flex">
+                
+                <!-- Profile Picture Section -->
+                <div class="profile-image">
+                  <img [src]="profilePicture || 'assets/dummy-avatar.png'" alt="Profile Avatar" class="avatar-img" />
+                  <input type="file" id="profilePicture" (change)="onProfilePictureChange($event)" />
                 </div>
+          
+                <!-- Form Section -->
+                <div class="form-section">
+                  <div class="form-group">
+                    <label for="fullName">Full Name</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="John Doe" />
+                  </div>
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="john.doe@example.com" />
+                  </div>
+                  <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone" placeholder="123-456-7890" />
+                  </div>
+                  <div class="form-group">
+                    <label for="address">Address</label>
+                    <textarea id="address" name="address" placeholder="123 Main Street, City"></textarea>
+                  </div>
+          
+                  <!-- New Fields -->
+                  <div class="form-group">
+                    <label for="pincode">Pincode</label>
+                    <input type="number" id="pincode" name="pincode" placeholder="181121" />
+                  </div>
+                  <div class="form-group">
+                    <label for="height">Height</label>
+                    <input type="text" id="height" name="height" placeholder="4'6" />
+                  </div>
+                  <div class="form-group">
+                    <label for="weight">Weight (kg)</label>
+                    <input type="number" id="weight" name="weight" placeholder="28" />
+                  </div>
+                  <div class="form-group">
+                    <label for="gender">Gender</label>
+                    <select id="gender" name="gender">
+                      <option value="">Select Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+          
+                  <button type="submit" class="btn-primary">Save Changes</button>
+                </div>
+              </div>
             </form>
-        </div>
+          </div>
+          
+          
 
         <!-- Orders Tab -->
         <div *ngIf="activeTab === 'orders'" class="tab-panel">
@@ -85,22 +112,23 @@
         <!-- Password Tab -->
         <div *ngIf="activeTab === 'password'" class="tab-panel">
             <h3>Change Password</h3>
-            <form class="password-form">
-                <div class="form-group">
-                    <label for="currentPassword">Current Password</label>
-                    <input type="password" id="currentPassword" />
-                </div>
-                <div class="form-group">
-                    <label for="newPassword">New Password</label>
-                    <input type="password" id="newPassword" />
-                </div>
-                <div class="form-group">
-                    <label for="confirmPassword">Confirm Password</label>
-                    <input type="password" id="confirmPassword" />
-                </div>
-                <button class="btn-primary">Update Password</button>
+            <form class="password-form" (ngSubmit)="changePassword()" #passwordForm="ngForm">
+              <div class="form-group">
+                <label for="currentPassword">Current Password</label>
+                <input type="password" id="currentPassword" name="currentPassword" [(ngModel)]="passwordData.currentPassword" required />
+              </div>
+              <div class="form-group">
+                <label for="newPassword">New Password</label>
+                <input type="password" id="newPassword" name="newPassword" [(ngModel)]="passwordData.newPassword" required />
+              </div>
+              <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="passwordData.confirmPassword" required />
+              </div>
+              <button class="btn-primary" type="submit">Update Password</button>
             </form>
-        </div>
+          </div>
+          
 
         <!-- Billing Tab -->
         <div *ngIf="activeTab === 'billing'" class="tab-panel">

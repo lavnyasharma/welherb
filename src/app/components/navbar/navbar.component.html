@@ -61,11 +61,55 @@
     </div>
     
     <!-- Menu Bar -->
-    <p-menubar [model]="items">
-        <ng-template pTemplate="item" let-item let-root="root">
-            <a pRipple class="flex align-items-center p-menuitem-link" [routerLink]="item.routerLink">
-                <span class="ml-2">{{ item.label }}</span>
-            </a>
-        </ng-template>
-    </p-menubar>
+<!-- menubar.component.html -->
+<nav class="menubar">
+    <!-- Logo and Hamburger -->
+    <div class="navbar-header">
+     
+      <div class="hamburger" (click)="toggleMenu()">
+        <span [class.active]="menuOpen">&#9776;</span>
+      </div>
+    </div>
+  
+    <!-- Navigation Menu -->
+    <ul class="menu" [class.open]="menuOpen || isDesktopView">
+
+      
+      <!-- SHOP Dropdown (first item) -->
+      <li class="menu-item dropdown" [class.open]="shopDropdownOpen" (click)="toggleShopDropdown()">
+        <a>Shop</a>
+        <div class="dropdown-menu full-width" *ngIf="isDesktopView || shopDropdownOpen">
+          <div class="dropdown-columns">
+            <ng-container *ngFor="let subItem of items[0].items">
+              <div *ngIf="subItem.separator" class="dropdown-separator"></div>
+              <a *ngIf="subItem.routerLink" [routerLink]="subItem.routerLink" class="dropdown-link" (click)="closeMenu()">
+                {{ subItem.label }}
+              </a>
+              <div *ngIf="subItem.items" class="dropdown-group">
+                <div class="dropdown-group-title">{{ subItem.label }}</div>
+                <a *ngFor="let nested of subItem.items" 
+                [routerLink]="nested.routerLink" 
+                [queryParams]="nested.queryParams"
+                class="dropdown-link" 
+                (click)="closeMenu()">
+               {{ nested.label }}
+             </a>
+             
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </li>
+  
+      <!-- Other Top-Level Menu Items -->
+      <li class="menu-item" *ngFor="let item of items.slice(1)">
+        <a [routerLink]="item.routerLink" (click)="closeMenu()">{{ item.label }}</a>
+      </li>
+  
+    </ul>
+  </nav>
+  
+  
+  
+  
 </div>

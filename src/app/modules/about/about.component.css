@@ -1,101 +1,60 @@
-.main-container {
-  
-  margin: 0 auto;
-  padding: 20px;
+.container{
+ margin-top: 100px;
+  padding: 0px 80px 80px 80px;
+
 }
-
-/* Header Styling */
-.header {
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-.main-title {
-  font-size: 2.2rem;
-  font-weight: bold;
-  color: #444;
-}
-
-.main-description {
-  font-size: 1rem;
-  color: #666;
-  margin-top: 10px;
-}
-
-/* Section Styling */
-.section {
-  position: relative;
-  margin-bottom: 50px;
-  padding: 40px 20px;
-  border-radius: 10px;
-  color: #fff;
-  text-align: center;
-  background-size: cover;
-  background-position: center;
-}
-
-.anu {
-  opacity: 0.8;
-  background-image: url('https://pldwzgpchvgtdycyfaky.supabase.co/storage/v1/object/public/velonnabucket/product_thumbnails/0M1A6262.jpg');
-}
-
-.aahar {
-  opacity: 0.8;
-  background-image: url('https://pldwzgpchvgtdycyfaky.supabase.co/storage/v1/object/public/velonnabucket/product_thumbnails/0M1A6262.jpg');
-}
-
-.vyayam {
-  opacity: 0.8;
-  background-image: url('https://pldwzgpchvgtdycyfaky.supabase.co/storage/v1/object/public/velonnabucket/product_thumbnails/0M1A6262.jpg');
-}
-
-.content {
-
-  padding: 20px;
-  border-radius: 10px;
-}
-
-.section-title {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #333;
-}
-
-.section-subtitle {
-  font-size: 1.2rem;
-  font-weight: 600;
-  color: #666;
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
-.details {
+.Heading{
   display: flex;
-  justify-content: space-between;
-  gap: 20px;
+      justify-content: center;
+      font-size: 50px;
+      font-weight: bold;
+}
+.content{
+  display: flex;
+      justify-content: center;
+      font-size: 18px;
+   
+}
+.section_container{
+  padding: 60px;
+    border: 1px solid #24b04b;
+}
+.content2{
+  display: flex;
+      flex-direction: row;
+}
+.image{
+  width: 50%;
+    display: flex;
+    justify-content: flex-end;
+}
+.text{
+  width: 50%;
+}
+.head{
+  display: flex;
+    justify-content: center;
+    font-weight: 600;
+}
+.texts{  
+  text-align: justify;
 }
 
-.detail {
-  flex: 1;
-  min-width: 200px;
+.imgFlr{
+  position: relative;
+    right: 0px;
+    /* z-index: -99999; */
+    top: 400px;
+}
+.imgFlr img{
+  width: 40%;
+  margin-left: calc(100% - 250px - 10px);
+  margin-top: calc(-35vh - 150px - 10px);
+
 }
 
-.detail h4 {
-  font-size: 1rem;
-  font-weight: bold;
-  color: #333;
-}
 
-.detail p {
-  font-size: 0.9rem;
-  color: #555;
-  margin-top: 5px;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .details {
-    flex-direction: column;
-    gap: 15px;
-  }
+.imgFlrother{
+  /* position: absolute;
+  left: -143px; */
 }

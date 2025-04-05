@@ -90,6 +90,9 @@ import { CheckoutComponent } from './modules/checkout/checkout.component';
 import { ProdDescComponent } from './components/prod-desc/prod-desc.component';
 import { BlogComponent } from './components/blog/blog.component';
 import { CartService } from '../services/cart.service';
+import { ReviewsComponent } from './components/reviews/reviews.component';
+import { ExpertComponent } from './components/expert/expert.component';
+import { FaqComponent } from './components/faq/faq.component';
 
 
 
@@ -123,6 +126,9 @@ import { CartService } from '../services/cart.service';
      CheckoutComponent,
      ProdDescComponent,
      BlogComponent,
+     ReviewsComponent,
+     ExpertComponent,
+     FaqComponent,
 
   ],
   imports: [

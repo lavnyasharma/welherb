@@ -44,8 +44,16 @@ select, input {
   gap: 20px;
   grid-template-columns: repeat(3, 1fr);
   overflow-y: auto; /* Allows scrolling */
-  height: 100vh; /* Makes product grid scrollable */
+ 
 }
+.no-products {
+  text-align: center;
+  width: 100%;
+  padding: 40px 20px;
+  font-size: 1.3rem;
+  color: #666;
+}
+
 
 @media (max-width: 1024px) {
   .product-grid {

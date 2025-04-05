@@ -15,6 +15,7 @@ body {
     background-color: #fcf9f4 !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden !important;
 }
 
 .p-card{

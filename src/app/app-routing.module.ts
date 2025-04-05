@@ -9,17 +9,22 @@ import { ProfileComponent } from './modules/profile/profile.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from '../auth.guard';
+import { ReviewsComponent } from './components/reviews/reviews.component';
+import { ExpertComponent } from './components/expert/expert.component';
 // Import Auth Guard
 
 const routes: Routes = [
   { path: '', component: HomeComponent },  
   { path: 'discover', component: AboutComponent },
   {   path: 'shop/:id', component: ShopComponent },  
-  { path: 'shopall', component: ShopallComponent },  
+  { path: 'shopall', component: ShopallComponent },
+ 
   { path: 'cart', component: CartComponent, canActivate: [AuthGuard] },  
   { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] }, 
   { path: 'login', component: LoginComponent },
+  { path: 'reviews', component: ReviewsComponent },
   { path: 'signup', component: SignupComponent },
+  { path: 'expert-help', component: ExpertComponent },
   { path: '**', redirectTo: '', pathMatch: 'full' }  
 ];
 

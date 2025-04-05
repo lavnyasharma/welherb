@@ -24,6 +24,10 @@
 
   <!-- Product Grid -->
   <div class="product-grid">
+    <div *ngIf="filteredProducts.length === 0" class="no-products">
+      <p>Sorry, we didn't find any product <span style="font-size: 1.5rem;">😔</span></p>
+    </div>
+  
     <div class="product-card" *ngFor="let product of filteredProducts">
       <!-- Image -->
       <div class="image-wrapper" (click)="navigateToProduct(product.id)">

@@ -3,7 +3,7 @@ import { ApiService } from '../../../services/api.service';
 import { CartService } from '../../../services/cart.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 interface Product {
   name: string;
@@ -34,44 +34,52 @@ export class ShopallComponent implements OnInit, OnDestroy {
   constructor(
     private apiService: ApiService,
     private cartService: CartService,
-    private router: Router
+    private router: Router,  
+    private route: ActivatedRoute
+
   ) {}
 
   ngOnInit(): void {
-    this.apiService.getAllProducts().subscribe((data: any[]) => {
-      console.log('API Response:', data);
-      this.products = data.map((item) => {
-        const sizes = item.size || [];
-        const firstSize = sizes.length ? sizes[0] : '';
-        const price = typeof item.price === 'object' ? item.price : { [firstSize]: item.price };
-        console.log(item)
-        return {
-          name: item.name,
-          price: price,
-          id: item._id,
-          category: item.categories || [],
-          image: '/welherb' + item.default_image,
-          rating: item.rating || 0,
-          sizes: sizes,
-          selectedSize: firstSize,
-          displayPrice: firstSize ? price[firstSize] : 0
-        };
+    this.route.queryParams.subscribe(params => {
+      const categoryParam = params['category'];
+  
+      this.apiService.getAllProducts(categoryParam).subscribe((data: any[]) => {
+        console.log('API Response:', data);
+        this.products = data.map((item) => {
+          const sizes = item.size || [];
+          const firstSize = sizes.length ? sizes[0] : '';
+          const price = typeof item.price === 'object' ? item.price : { [firstSize]: item.price };
+          return {
+            name: item.name,
+            price: price,
+            id: item._id,
+            category: item.categories || [],
+            image: '/welherb' + item.default_image,
+            rating: item.rating || 0,
+            sizes: sizes,
+            selectedSize: firstSize,
+            displayPrice: firstSize ? price[firstSize] : 0
+          };
+        });
+  
+        this.filteredProducts = [...this.products];
+        this.filterByPrice(); // Optional: Apply price filtering if needed
       });
-      this.filteredProducts = [...this.products];
     });
-
+  
     this.cartService.cartItems$
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(items => {
-      this.cartItemsSet = new Set(items);
-    });
-
-  this.cartService.cartLoaded
-    .pipe(takeUntil(this.destroy$))
-    .subscribe(loaded => {
-      this.cartLoaded = loaded;
-    });
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(items => {
+        this.cartItemsSet = new Set(items);
+      });
+  
+    this.cartService.cartLoaded
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(loaded => {
+        this.cartLoaded = loaded;
+      });
   }
+  
 
   ngOnDestroy(): void {
     this.destroy$.next();

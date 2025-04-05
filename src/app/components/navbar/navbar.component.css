@@ -1,3 +1,4 @@
+/* Top Offer Banner */
 .offer {
   display: flex;
   justify-content: center;
@@ -6,25 +7,134 @@
   padding: 5px;
 }
 
+/* Navbar */
 .nav1 {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background: #FCF8F3;
+  background: #fcf8f4;
 }
 
+/* Main Menubar */
+.menubar {
+  display: flex;
+      flex-direction: column;
+      background-color: #fcf8f4;
+      padding: 10px 20px;
+      /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+      position: relative;
+      z-index: 1000;
+}
+
+/* Header with logo and hamburger */
+.navbar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem 1.2rem;
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.hamburger {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+/* Menu List */
+.menu {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.menu-item {
+  position: relative;
+}
+
+.menu-item a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 8px 12px;
+  display: block;
+}
+
+/* Dropdown */
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #fcf8f4;
+  padding: 1rem;
+  width: 100vw;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  flex-direction: column;
+}
+
+.dropdown-columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.dropdown-link {
+  display: block;
+  min-width: 200px;
+  padding: 6px 12px;
+  text-decoration: none;
+  color: #444;
+  background: #fcf8f4;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+
+.dropdown-link:hover {
+  background-color: #efefef;
+}
+
+.dropdown-group-title {
+  font-weight: bold;
+  margin-top: 0.5rem;
+}
+
+.dropdown-separator {
+  height: 1px;
+  background-color: #ccc;
+  margin: 0.5rem 0;
+}
+
+/* Search Bar */
 .search {
   flex-grow: 1;
   margin: 0 20px;
 }
 
+/* Icons (Cart, Account, etc.) */
 .icons {
   display: flex;
   align-items: center;
   gap: 15px;
 }
 
+/* Sign Up Button */
 .signUp button {
   background: #4FAE32;
   color: white;
@@ -34,8 +144,35 @@
   cursor: pointer;
 }
 
+/* Responsive Design */
 @media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .menu {
+    flex-direction: column;
+    display: none;
+    padding: 1rem;
+  }
+
+  .menu.open {
+    display: flex;
+  }
+
+  .dropdown-menu {
+    position: static;
+    width: 100%;
+    padding: 0.5rem 0;
+    box-shadow: none;
+  }
+
+  .dropdown-columns {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
   .search {
-      display: none;
+    display: none;
   }
 }

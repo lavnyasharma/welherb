@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ApiService } from '../../../services/api.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
@@ -6,9 +8,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent {
+  constructor(private apiService: ApiService,
+    private toastService: ToastrService
+  ){}
   activeTab: string = 'profile'; // Default to Profile tab
   profilePicture: string | null = "https://i.pravatar.cc/300"; // to store the profile picture URL
-
+  passwordData = {
+    currentPassword: '',
+    newPassword: '',
+    confirmPassword: ''
+  };
+  
     onProfilePictureChange(event: any): void {
         const file = event.target.files[0];
         if (file) {
@@ -45,5 +55,60 @@ export class ProfileComponent {
     this.activeTab = tabName;
   }
 
+  saveChanges(form: any) {
+    const formData = form.value;
   
+    const payload = {
+      name: formData.fullName,
+      email: formData.email,
+      mobile: formData.phone,
+      address: formData.address,
+      pincode: formData.pincode,
+      height: formData.height,
+      weight: formData.weight,
+      gender: formData.gender
+    };
+  
+    this.apiService.updateUserProfile(payload).subscribe(
+      res => {
+        this.toastService.success('Profile updated!');
+      },
+      err => {
+        this.toastService.error('Error updating profile');
+      }
+    );
+  }
+  changePassword() {
+    const { currentPassword, newPassword, confirmPassword } = this.passwordData;
+  
+    if (!currentPassword || !newPassword || !confirmPassword) {
+      this.toastService.error('All fields are required.');
+      return;
+    }
+  
+    if (newPassword !== confirmPassword) {
+      this.toastService.error('New and confirm passwords do not match.');
+      return;
+    }
+  
+    const payload = {
+      old_password: currentPassword,
+      new_password: newPassword
+    };
+  
+    this.apiService.changeUserPassword(payload).subscribe({
+      next: (res) => {
+        this.toastService.success('Password updated successfully!');
+        // Optional: Clear fields
+        this.passwordData = {
+          currentPassword: '',
+          newPassword: '',
+          confirmPassword: ''
+        };
+      },
+      error: (err) => {
+        this.toastService.error('Failed to update password');
+      }
+    });
+  }
 }

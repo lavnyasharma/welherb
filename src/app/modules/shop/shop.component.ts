@@ -34,6 +34,7 @@ export class ShopComponent implements OnInit {
         this.product = {
           title: data.name,
           subtitle: data.description,
+          faq: data.faq,
           price: data.price[data.size[0]], // default
           priceMap: data.price,
           capsuleOptions: data.size,
@@ -45,8 +46,12 @@ export class ShopComponent implements OnInit {
           rating: 4.8,
           reviews: 132
         };
+        console.log(data.default_image)
   
-        this.productImages = data.images?.map((img: any) => '/welherb' + img.image) || [data.default_image];
+        this.productImages = (data.images && data.images.length > 0)
+        ? data.images.map((img: any) => '/welherb' + img.image)
+        : ['/welherb' + data.default_image];
+      
         this.selectedImage = this.productImages[0];
         this.selectedCapsule = data.size?.[0] || 0;
       });
@@ -55,6 +60,7 @@ export class ShopComponent implements OnInit {
           this.isInCart = this.cartService.isProductInCart(productId);
         }
       });
+      
     }
   }
   
