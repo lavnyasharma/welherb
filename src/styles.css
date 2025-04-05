@@ -1,13 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeicons/primeicons.css";
-html {
 
+/* Import Lato from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+
+html {
     scroll-behavior: smooth;
- 
 }
 
 body {
-    font-family: var(--font-family);
+    font-family: 'Lato', sans-serif;
     font-weight: normal;
     background: var(--surface-ground);
     color: var(--text-color);
@@ -18,49 +20,53 @@ body {
     overflow-x: hidden !important;
 }
 
-.p-card{
+.p-card {
     box-shadow: none;
     background: none;
 }
+
 .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
     background-color: #4eae32 !important;
 }
+
 .p-carousel-items-content {
     overflow: visible !important;
     width: 100%;
 }
+
 .card {
     background: #fcf8f4;
-  
     border-radius: 10px;
-
 }
-ul{
+
+ul {
     margin-bottom: 0 !important;
 }
-.ant-input-affix-wrapper{
+
+.ant-input-affix-wrapper {
     border-radius: 8px;
 }
-.p-menubar {
 
+.p-menubar {
     background-color: #fcf8f4 !important;
     border: none !important;
 }
-.gap-2{
+
+.gap-2 {
     gap: 1.5rem !important;
 }
+
 .w-8rem {
     width: 15rem !important;
 }
+
 .ant-menu-horizontal {
     line-height: 46px;
-    border: 0;
-    border:none !important;
+    border: none !important;
     background: #fcf8f4;
     box-shadow: none;
 }
 
-a{
+a {
     color: #20202093 !important;
-
 }
