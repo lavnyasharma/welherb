@@ -4,6 +4,7 @@ import { CartService } from '../../../services/cart.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 interface Product {
   name: string;
@@ -35,7 +36,7 @@ export class ShopallComponent implements OnInit, OnDestroy {
     private apiService: ApiService,
     private cartService: CartService,
     private router: Router,  
-    private route: ActivatedRoute
+    private route: ActivatedRoute, private toastr: ToastrService
 
   ) {}
 
@@ -113,6 +114,7 @@ export class ShopallComponent implements OnInit, OnDestroy {
     }
 
         this.cartService.addToCart(productId, size);
+        this.toastr.success('Product added to cart', 'Success');
       
      
   }

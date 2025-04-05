@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ApiService } from '../../../services/api.service'; // adjust path as needed
 import { CartService } from '../../../services/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-shop',
@@ -20,7 +21,7 @@ export class ShopComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private apiService: ApiService,
-    private cartService: CartService
+    private cartService: CartService,private toastr: ToastrService
   ) {}
 
   priceMap: any = {};
@@ -70,6 +71,7 @@ export class ShopComponent implements OnInit {
   
     if (!this.cartService.isProductInCart(productId)) {
       this.cartService.addToCart(productId, this.selectedCapsule.toString());
+      this.toastr.success('Product added to cart', 'Success');
       this.isInCart = true;
     }
   }

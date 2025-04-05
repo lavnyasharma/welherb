@@ -1,0 +1,140 @@
+.container {
+    margin-top: 200px;
+    margin-left: 80px;
+    margin-right: 80px;
+    border: 1px solid #24b04b;
+    padding: 40px;
+  }
+  
+  .section {
+    padding: 60px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .heading1 {
+    font-size: 50px;
+  }
+  
+  .heading2 {
+    font-size: 20px;
+  }
+  
+  .heading3 {
+    font-size: 15px;
+  }
+  
+  .content {
+    display: flex;
+    gap: 51px;
+    justify-content: space-between;
+    margin-bottom: 50px;
+  }
+  
+  .content2 {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 50px;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .con1 {
+    width: 35%;
+  }
+  
+  p {
+    text-align: justify;
+  }
+  
+  h2 {
+    text-align: center;
+ 
+  }
+  
+  .conclusion {
+    text-align: justify;
+  }
+  
+  /* === BACKGROUND SECTIONS === */
+  
+  .back1, .back2, .back3 {
+    position: relative;
+    z-index: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    min-height: 100vh;
+    margin-bottom: 80px;
+  }
+  
+  .back1::before {
+    content: "";
+    position: absolute;
+    background-size: 80%;
+    inset: 0;
+    background-image: url("https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/Designer%20(47)%20Background%20Removed%201.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJuZXcvRGVzaWduZXIgKDQ3KSBCYWNrZ3JvdW5kIFJlbW92ZWQgMS5zdmciLCJpYXQiOjE3NDM4ODc3MTcsImV4cCI6MTc3NTQyMzcxN30.LXgu24jPH1zZjrZHD-z7tNOJDpbyIXE_L-vwLLmxQho");
+    opacity: 0.7;
+    z-index: -1;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  .back2::before {
+    content: "";
+    position: absolute;
+    background-size: 80%;
+    inset: 0;
+    background-image: url('https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/Designer%20(53)%201.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJuZXcvRGVzaWduZXIgKDUzKSAxLnN2ZyIsImlhdCI6MTc0Mzg4Nzc2NiwiZXhwIjoxNzc1NDIzNzY2fQ.MWQg1Wz34GvvTxK_Joa351HXyLUpueGkKZi_SP16cTo');
+    opacity: 0.7;
+    z-index: -1;
+    background-size: contain;
+    background-position: center;
+  }
+  
+  .back3::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/Designer%20(55)%20Background%20Removed%201%20(1).svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJuZXcvRGVzaWduZXIgKDU1KSBCYWNrZ3JvdW5kIFJlbW92ZWQgMSAoMSkuc3ZnIiwiaWF0IjoxNzQzODg3ODI5LCJleHAiOjE3NzU0MjM4Mjl9.3mkB1p-rrN9oS3d-6t5_7DTHYwpqwK-7tQeAP3o354U');
+    opacity: 0.7;
+    z-index: -1;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  
+  /* === RESPONSIVE MEDIA QUERY === */
+  
+  @media (max-width: 768px) {
+    .container {
+      margin-left: 20px;
+      margin-right: 20px;
+      padding: 20px;
+    }
+  
+    .heading1 {
+      font-size: 36px;
+    }
+  
+    .heading2 {
+      font-size: 18px;
+    }
+  
+    .heading3 {
+      font-size: 14px;
+    }
+  
+    .content {
+      flex-direction: column;
+      gap: 30px;
+    }
+  
+    .con1 {
+      width: 100%;
+    }
+  }
+  
