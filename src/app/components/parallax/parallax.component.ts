@@ -1,4 +1,5 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
@@ -13,7 +14,7 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
 
   @ViewChild('parallaxContainer', { static: false }) parallaxContainer!: ElementRef;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void { }
 
@@ -160,5 +161,10 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
     ScrollTrigger.refresh();
   }
   
-  
+  showNow(){
+    this.router.navigate(['/shopall']);
+  }
+  learnMore(){
+    this.router.navigate(['/discover']);
+  }
 }

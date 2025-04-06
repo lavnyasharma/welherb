@@ -24,64 +24,64 @@
     <!-- Tab Content Section -->
     <div class="tab-content">
         <!-- Profile Tab -->
-        <div *ngIf="activeTab === 'profile'" class="tab-panel">
-            <h2 class="profilehead">Account information</h2>
-            <form class="profile-form" #profileForm="ngForm" (ngSubmit)="saveChanges(profileForm)">
-              <div class="profile-container-flex">
-                
-                <!-- Profile Picture Section -->
-                <div class="profile-image">
-                  <img [src]="profilePicture || 'assets/dummy-avatar.png'" alt="Profile Avatar" class="avatar-img" />
-                  <input type="file" id="profilePicture" (change)="onProfilePictureChange($event)" />
-                </div>
-          
-                <!-- Form Section -->
-                <div class="form-section">
-                  <div class="form-group">
-                    <label for="fullName">Full Name</label>
-                    <input type="text" id="fullName" name="fullName" placeholder="John Doe" />
-                  </div>
-                  <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" placeholder="john.doe@example.com" />
-                  </div>
-                  <div class="form-group">
-                    <label for="phone">Phone</label>
-                    <input type="tel" id="phone" name="phone" placeholder="123-456-7890" />
-                  </div>
-                  <div class="form-group">
-                    <label for="address">Address</label>
-                    <textarea id="address" name="address" placeholder="123 Main Street, City"></textarea>
-                  </div>
-          
-                  <!-- New Fields -->
-                  <div class="form-group">
-                    <label for="pincode">Pincode</label>
-                    <input type="number" id="pincode" name="pincode" placeholder="181121" />
-                  </div>
-                  <div class="form-group">
-                    <label for="height">Height</label>
-                    <input type="text" id="height" name="height" placeholder="4'6" />
-                  </div>
-                  <div class="form-group">
-                    <label for="weight">Weight (kg)</label>
-                    <input type="number" id="weight" name="weight" placeholder="28" />
-                  </div>
-                  <div class="form-group">
-                    <label for="gender">Gender</label>
-                    <select id="gender" name="gender">
-                      <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-          
-                  <button type="submit" class="btn-primary">Save Changes</button>
-                </div>
+        <form *ngIf="activeTab === 'profile'" class="profile-form" (ngSubmit)="saveChanges()" #profileForm="ngForm">
+          <div class="profile-container-flex">
+            <div class="profile-image">
+              <img [src]="profilePicture || 'assets/dummy-avatar.png'" class="avatar-img" />
+              <input type="file" (change)="onProfilePictureChange($event)" />
+            </div>
+        
+            <div class="form-section">
+              <div class="form-group">
+                <label>Full Name</label>
+                <input type="text" [(ngModel)]="profileData.fullName" name="fullName" required />
               </div>
-            </form>
+        
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" [(ngModel)]="profileData.email" name="email" required />
+              </div>
+        
+              <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" [(ngModel)]="profileData.phone" name="phone" required />
+              </div>
+        
+              <div class="form-group">
+                <label>Address</label>
+                <textarea [(ngModel)]="profileData.address" name="address"></textarea>
+              </div>
+        
+              <div class="form-group">
+                <label>Pincode</label>
+                <input type="number" [(ngModel)]="profileData.pincode" name="pincode" />
+              </div>
+        
+              <div class="form-group">
+                <label>Height</label>
+                <input type="text" [(ngModel)]="profileData.height" name="height" />
+              </div>
+        
+              <div class="form-group">
+                <label>Weight</label>
+                <input type="number" [(ngModel)]="profileData.weight" name="weight" />
+              </div>
+        
+              <div class="form-group">
+                <label>Gender</label>
+                <select [(ngModel)]="profileData.gender" name="gender">
+                  <option value="">Select Gender</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+        
+              <button type="submit" class="btn-primary">Save Changes</button>
+            </div>
           </div>
+        </form>
+        
           
           
 

@@ -27,7 +27,7 @@ export class ApiService {
   }
   getHomeProducts() {
     this.http
-      .get<any[]>(this.proxyPrefix + "/products/0/5")
+      .get<any[]>(this.proxyPrefix + "/products/0/100")
       .subscribe((data: any) => {
         this.homeProducts.next(data);
       });
@@ -91,14 +91,26 @@ export class ApiService {
   
     return this.http.get<any>(`${this.proxyPrefix}/user/profile`, { headers });
   }
-  updateUserProfile(payload){
+
+  getDosage(id){
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem("auth_token"), // Replace with actual token retrieval logic
    
+    });
+  
+    return this.http.get<any>(`${this.proxyPrefix}/user/dosage/${id}`, { headers });
+  }
+
+
+  
+  updateUserProfile(payload){
+   console.log(payload)
     const headers = new HttpHeaders({
       'Authorization': localStorage.getItem("auth_token"), // Replace with actual token retrieval logic
       'Content-Type': 'application/json'
     });
   
-    return this.http.post<any>(`${this.proxyPrefix}/user/cart/add`, payload, { headers });
+    return this.http.post<any>(`${this.proxyPrefix}/user/update`, payload, { headers });
   }
   changeUserPassword(payload){
  

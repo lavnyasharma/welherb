@@ -1,4 +1,7 @@
-<app-navbar  *ngIf="!isAuthRoute" id="navbar"></app-navbar>
-<router-outlet></router-outlet>
-<app-footer *ngIf="!isAuthRoute" style="margin-bottom: 20px;    z-index: 999;
-    position: relative;"></app-footer>
+<app-navbar *ngIf="!isAuthRoute" id="navbar" [ngClass]="navbarClass"></app-navbar>
+
+<div class="content-wrapper">
+  <router-outlet></router-outlet>
+</div>
+
+<app-footer *ngIf="!isAuthRoute" style="margin-bottom: 20px; z-index: 999; position: relative;"></app-footer>

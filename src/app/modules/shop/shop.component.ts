@@ -10,6 +10,13 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./shop.component.css']
 })
 export class ShopComponent implements OnInit {
+  dosage: {
+    morning?: string;
+    afternoon?: string;
+    evening?: string;
+    error?: string;
+  } = {};
+  
   color = "rgb(171 221 247)";
   product: any;
   productImages: string[] = [];
@@ -25,6 +32,8 @@ export class ShopComponent implements OnInit {
   ) {}
 
   priceMap: any = {};
+  showModal = false;
+
 
   ngOnInit(): void {
     const productId = this.route.snapshot.paramMap.get('id');
@@ -33,12 +42,16 @@ export class ShopComponent implements OnInit {
         this.priceMap = data.price;
   
         this.product = {
+          id: data._id,
           title: data.name,
           subtitle: data.description,
           faq: data.faq,
           price: data.price[data.size[0]], // default
           priceMap: data.price,
           capsuleOptions: data.size,
+          dietary_advice: data.dietary_advice,
+          helps_how: data.helps_how,
+          helps_who : data.helps_who,
           features: {
             reduces: data.helps_how?.filter((line: string) => line.toLowerCase().includes('reduce') || line.toLowerCase().includes('arthritis') || line.toLowerCase().includes('pain')) || [],
             calms: [], // not present in data
@@ -48,10 +61,12 @@ export class ShopComponent implements OnInit {
           reviews: 132
         };
         console.log(data.default_image)
+        console.log(data.images)
   
-        this.productImages = (data.images && data.images.length > 0)
-        ? data.images.map((img: any) => '/welherb' + img.image)
-        : ['/welherb' + data.default_image];
+        this.productImages = data.images.map((image: string) => '/welherb' + image);
+        
+
+        console.log(this.productImages)
       
         this.selectedImage = this.productImages[0];
         this.selectedCapsule = data.size?.[0] || 0;
@@ -95,5 +110,28 @@ export class ShopComponent implements OnInit {
     if (this.quantity > 1) {
       this.quantity--;
     }
+  }
+  openModal(id: string) {
+    this.apiService.getDosage(id).subscribe(
+      (data: any) => {
+        if (data?.error) {
+          this.dosage = { error: 'No dosage available!' };
+        } else {
+          this.dosage = data;
+        }
+        this.showModal = true;
+      },
+      (error) => {
+        // Optional: handle request failure
+        this.dosage = { error: 'No dosage available!' };
+        this.showModal = true;
+      }
+    );
+  }
+  
+  
+  
+  closeModal() {
+    this.showModal = false;
   }
 }

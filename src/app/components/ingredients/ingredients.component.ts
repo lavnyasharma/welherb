@@ -15,7 +15,7 @@ export class IngredientsComponent implements OnInit {
       // Map the data to retrieve only the name and url for each item
       this.images = data.map((item: { name: string, url: string }) => ({
         name: item.name,
-        url: item.url
+        url:'/welherb'+ item.url
       }));
     });
   }

@@ -15,12 +15,45 @@
         <img [src]="selectedImage" alt="Product Image" />
       </div>
     </div>
-  
+  <!-- Modal -->
+
+<div class="dosage-modal" *ngIf="showModal">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <h2>Your Personalized Dosage</h2>
+
+    <div class="dosage-grid" *ngIf="!dosage?.error; else noDosage">
+      <div *ngIf="dosage?.morning">
+        <strong>🌅 Morning:</strong> {{ dosage.morning }}
+      </div>
+      <div *ngIf="dosage?.afternoon">
+        <strong>🌞 Afternoon:</strong> {{ dosage.afternoon }}
+      </div>
+      <div *ngIf="dosage?.evening">
+        <strong>🌙 Evening:</strong> {{ dosage.evening }}
+      </div>
+    </div>
+
+    <ng-template #noDosage>
+      <div class="no-dosage-msg">
+        <p>No personalized dosage for now 😔</p>
+      </div>
+    </ng-template>
+
+    <button (click)="closeModal()" class="close-btn">Close</button>
+  </div>
+</div>
+
     <!-- Right Section: Product Details -->
     <div class="product-details">
       <h1 class="product-title">{{ product.title }}</h1>
       <p class="product-subtitle">{{ product.subtitle }}</p>
+    <div class="" style="display: flex;justify-content: space-between;align-items: center;
+    ">
       <p  class="product-price">₹{{ product.price }}</p>
+<div class="actions" style="margin: 0;">
+  <button class="add-to-carts" (click)="openModal(product.id)" >Get personalized Dosage</button>
+</div>
+    </div>
       <div class="product-rating">
         ⭐⭐⭐⭐⭐ <span>{{ product.rating }}/5 ({{ product.reviews }} reviews)</span>
       </div>
@@ -94,6 +127,11 @@
   </div>
   <app-strips [color]="'#ABDDF7'"></app-strips>
   <app-prod-desc [color]="'#ABDDF7'"></app-prod-desc>
+  <app-dietry-advice 
+  [dietaryAdvice]="product.dietary_advice" 
+  [helpsHow]="product.helps_how" 
+  [helpsWho]="product.helps_who">
+</app-dietry-advice>
 
   <app-ingredients-desc></app-ingredients-desc>
   <app-faq [faq]="product.faq"></app-faq>

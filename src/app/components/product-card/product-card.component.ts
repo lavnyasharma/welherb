@@ -14,13 +14,16 @@ export class ProductCardComponent implements OnInit {
 
   constructor(private apiservice: ApiService) {
     this.apiservice.products$.subscribe(data => {
+      console.log(data);
       this.products = data.map((item: any) => ({
         name: item.name,
-        image: item.default_image,
-        shortDescLeft: item.help_how,
-        shortDescRight: item.help_who,
+        image: '/welherb' + item.background_image,
+        shortDescLeft: item.helps_how,     // <-- corrected here
+        shortDescRight: item.helps_who,    // <-- and here
         color: item.background_color
       }));
+      
+   
     });
   }
 

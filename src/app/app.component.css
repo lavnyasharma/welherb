@@ -1,15 +1,22 @@
-#navbar {
+/* This offsets the content below the fixed navbar */
+.content-wrapper {
+    padding-top: 70px; /* Match this to navbar height */
+  }
+  
+  /* Navbar transition classes */
+  #navbar {
     position: fixed;
     top: 0;
     width: 100%;
     z-index: 1000;
-    transition: transform 0.3s ease-in-out; /* Smooth hiding and showing */
-}
-
-.navbar-hidden {
-    transform: translateY(-100%); /* Moves the navbar out of view */
-}
-
-.navbar-visible {
-    transform: translateY(0); /* Brings the navbar into view */
-}
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .navbar-hidden {
+    transform: translateY(-100%);
+  }
+  
+  .navbar-visible {
+    transform: translateY(0);
+  }
+  

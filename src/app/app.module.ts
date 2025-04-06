@@ -93,6 +93,7 @@ import { CartService } from '../services/cart.service';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ExpertComponent } from './components/expert/expert.component';
 import { FaqComponent } from './components/faq/faq.component';
+import { DietryAdviceComponent } from './components/dietry-advice/dietry-advice.component';
 
 
 
@@ -129,6 +130,7 @@ import { FaqComponent } from './components/faq/faq.component';
      ReviewsComponent,
      ExpertComponent,
      FaqComponent,
+     DietryAdviceComponent,
 
   ],
   imports: [

@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -7,30 +8,32 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'ecommerce-app';
   isAuthRoute = false;
+  navbarClass = 'navbar-visible';
+  lastScrollTop = 0;
 
   constructor(private router: Router) {}
 
-
-
-  // Track scroll position
-  private lastScrollTop = 0;
-  private timeout: any;
-
   ngOnInit(): void {
-    this.router.events.subscribe(() => {
-      const authRoutes = ['/login', '/signup'];
+    const authRoutes = ['/login', '/signup'];
+
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
       this.isAuthRoute = authRoutes.includes(this.router.url);
     });
   }
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
-    clearTimeout(this.timeout);
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
-    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    if (currentScroll > this.lastScrollTop && currentScroll > 100) {
+      this.navbarClass = 'navbar-hidden'; // Hide navbar on scroll down
+    } else {
+      this.navbarClass = 'navbar-visible'; // Show navbar on scroll up
+    }
 
- 
+    this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
   }
 }

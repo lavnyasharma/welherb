@@ -8,27 +8,57 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent {
-  constructor(private apiService: ApiService,
+  constructor(
+    private apiService: ApiService,
     private toastService: ToastrService
-  ){}
-  activeTab: string = 'profile'; // Default to Profile tab
-  profilePicture: string | null = "https://i.pravatar.cc/300"; // to store the profile picture URL
+  ) {}
+
+  activeTab: string = 'profile';
+
+  profilePicture: string | null = "https://i.pravatar.cc/300";
+
   passwordData = {
     currentPassword: '',
     newPassword: '',
     confirmPassword: ''
   };
-  
-    onProfilePictureChange(event: any): void {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = (e: any) => {
-                this.profilePicture = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
-    }
+
+  // Form data bound with ngModel
+  profileData = {
+    fullName: '',
+    email: '',
+    phone: '',
+    address: '',
+    pincode: '',
+    height: '',
+    weight: '',
+    gender: ''
+  };
+
+  ngOnInit(): void {
+    this.getUserProfile();
+  }
+  getUserProfile(): void {
+    this.apiService.getUserProfile().subscribe({
+      next: (res: any) => {
+        // Prefill data from response
+        this.profileData = {
+          fullName: res.name || '',
+          email: res.email || '',
+          phone: res.mobile || '',
+          address: res.address || '',
+          pincode: res.pincode || '',
+          height: res.height || '',
+          weight: res.weight || '',
+          gender: res.gender || ''
+        };
+      },
+      error: (err) => {
+        this.toastService.error('Failed to load profile');
+      }
+    });
+  }
+
   cartItems = [
     {
       id: 1,
@@ -36,7 +66,7 @@ export class ProfileComponent {
       subtitle: 'Serenity',
       category: 'Universal',
       price: 1900,
-      image: 'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fproduct_thumbnails%2F0M1A9178.jpg&w=640&q=75', // Adjust the image path
+      image: 'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fproduct_thumbnails%2F0M1A9178.jpg&w=640&q=75',
       inStock: true,
     },
     {
@@ -45,30 +75,40 @@ export class ProfileComponent {
       subtitle: 'Lavender',
       category: 'Universal',
       price: 1800,
-      image: 'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fproduct_thumbnails%2F0M1A9178.jpg&w=640&q=75', // Adjust the image path
+      image: 'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fproduct_thumbnails%2F0M1A9178.jpg&w=640&q=75',
       inStock: true,
     },
-  ]
+  ];
 
   selectTab(tabName: string) {
-    console.log('Selected Tab:', tabName); // Debugging log
     this.activeTab = tabName;
   }
 
-  saveChanges(form: any) {
-    const formData = form.value;
-  
+  onProfilePictureChange(event: any): void {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.profilePicture = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  saveChanges() {
     const payload = {
-      name: formData.fullName,
-      email: formData.email,
-      mobile: formData.phone,
-      address: formData.address,
-      pincode: formData.pincode,
-      height: formData.height,
-      weight: formData.weight,
-      gender: formData.gender
+      name: this.profileData.fullName,
+      email: this.profileData.email,
+      mobile: this.profileData.phone,
+      address: this.profileData.address,
+      pincode: this.profileData.pincode,
+      height: this.profileData.height,
+      weight: this.profileData.weight,
+      gender: this.profileData.gender
     };
-  
+
+    console.log(payload);
+
     this.apiService.updateUserProfile(payload).subscribe(
       res => {
         this.toastService.success('Profile updated!');
@@ -78,28 +118,28 @@ export class ProfileComponent {
       }
     );
   }
+
   changePassword() {
     const { currentPassword, newPassword, confirmPassword } = this.passwordData;
-  
+
     if (!currentPassword || !newPassword || !confirmPassword) {
       this.toastService.error('All fields are required.');
       return;
     }
-  
+
     if (newPassword !== confirmPassword) {
       this.toastService.error('New and confirm passwords do not match.');
       return;
     }
-  
+
     const payload = {
       old_password: currentPassword,
       new_password: newPassword
     };
-  
+
     this.apiService.changeUserPassword(payload).subscribe({
       next: (res) => {
         this.toastService.success('Password updated successfully!');
-        // Optional: Clear fields
         this.passwordData = {
           currentPassword: '',
           newPassword: '',

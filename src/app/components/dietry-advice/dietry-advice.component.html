@@ -1,0 +1,45 @@
+<div class="container" style="padding: 2rem;">
+    <div class="row">
+      <div class="heading" style="text-align: center;">
+        <h1>First step of better living: Eating Right</h1>
+      </div>
+  
+      <!-- Dietary Advice -->
+      <div 
+        class="para" 
+        
+        *ngIf="dietaryAdvice?.length" 
+        style="font-size: 1rem; line-height: 1.6; margin-bottom: 2rem;">
+        <ng-container *ngFor="let line of dietaryAdvice">
+          {{ line }}<br />
+        </ng-container>
+      </div>
+  
+      <!-- Helps Section -->
+      <div 
+        class="benefits-container" 
+        style="display: flex; gap: 2rem; border: 1px solid #ccc; border-radius: 8px; padding: 1.5rem;"
+        *ngIf="helpsHow?.length || helpsWho?.length"
+      >
+        <!-- Helps How -->
+        <div class="helps-how" style="flex: 1; padding-right: 1rem;" *ngIf="helpsHow?.length">
+          <h3 style="margin-bottom: 1rem; font-size: 1.25rem;">Helps How</h3>
+          <ul style="list-style-type: disc; padding-left: 1.2rem; margin: 0;">
+            <li *ngFor="let item of helpsHow">{{ item }}</li>
+          </ul>
+        </div>
+  
+        <!-- Divider Line -->
+        <div style="width: 1px; background-color: #ccc;" *ngIf="helpsHow?.length && helpsWho?.length"></div>
+  
+        <!-- Helps Who -->
+        <div class="helps-who" style="flex: 1; padding-left: 1rem;" *ngIf="helpsWho?.length">
+          <h3 style="margin-bottom: 1rem; font-size: 1.25rem;">Helps Who</h3>
+          <ul style="list-style-type: disc; padding-left: 1.2rem; margin: 0;">
+            <li *ngFor="let item of helpsWho">{{ item }}</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
