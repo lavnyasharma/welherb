@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
@@ -11,6 +11,7 @@ export class AppComponent implements OnInit {
   isAuthRoute = false;
   navbarClass = 'navbar-visible';
   lastScrollTop = 0;
+
 
   constructor(private router: Router) {}
 

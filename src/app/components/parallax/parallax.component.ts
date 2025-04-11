@@ -13,158 +13,147 @@ gsap.registerPlugin(ScrollTrigger);
 export class ParallaxComponent implements OnInit, AfterViewInit {
 
   @ViewChild('parallaxContainer', { static: false }) parallaxContainer!: ElementRef;
+  lastDirection = 1;
 
   constructor(private router: Router) { }
 
   ngOnInit(): void { }
 
   ngAfterViewInit(): void {
-    this.setupScrollAnimations();
+    // Force ScrollTrigger update after view is ready
+    setTimeout(() => {
+      this.setupScrollAnimations();
+      ScrollTrigger.refresh();
+    }, 1000);
   }
 
   setupScrollAnimations() {
     const container = this.parallaxContainer.nativeElement;
-  
-    // Set ScrollTrigger to track `.parallax-container` scrolling
-    ScrollTrigger.scrollerProxy(container, {
-      scrollTop(value) {
-        return arguments.length ? container.scrollTo(0, value) : container.scrollTop;
-      },
-      getBoundingClientRect() {
-        return { top: 0, left: 0, width: window.innerWidth, height: window.innerHeight };
-      },
-    });
-  
-    // Enable GSAP Snap Scrolling
+
     ScrollTrigger.create({
-      scroller: container,
-      snap: 1 / 4, // Snap to the closest section
-    });
-  
-    let lastDirection = 1; // 1 = down, -1 = up
-  
-    // ScrollTrigger to detect direction
-    ScrollTrigger.create({
-      scroller: container,
       onUpdate: (self) => {
-        lastDirection = self.direction;
+        this.lastDirection = self.direction;
       }
     });
-  
-    // Common function to create animations
-    function createParallaxAnimation(target:string,trigger:string, fromVars:Object, toVars:Object) {
-      gsap.fromTo(target, lastDirection === 1 ? fromVars : toVars, {
-        ...lastDirection === 1 ? toVars : fromVars,
-        
-        scrollTrigger: {
-          trigger: trigger,
-          scroller: container,
-          start: 'top 90%',
-          end: 'top 50%',
-          scrub: 3,
-        }
-      });
-    }
-  
-    // Apply animations dynamically
-    createParallaxAnimation(".parallax-image",'.sec', 
-      { bottom: '-45%', scale: 1, transform: "rotate(0.1deg)", left: '40%',  ease: "cubic-bezier(1, 0.17, 0.31, 1)"}, 
-      { bottom: '-45%', scale: 1, transform: "rotate(0.1deg)", left: '40%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }
-    );
-  
-    createParallaxAnimation(".parallax-image",'.sec1', 
-      { bottom: '-45%', scale: 1, transform: "rotate(0deg)", left: '40%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }, 
-      { bottom: '0%', scale: 1.3, transform: "rotate(10deg)", left: '35%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }
-    );
-  
-    createParallaxAnimation(".parallax-image",'.sec2', 
-      { bottom: '0%', scale: 1.3, transform: "rotate(10deg)", left: '35%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }, 
-      { bottom: '0%', scale: 1.2, transform: "rotate(5deg)", left: '40%' }
-    );
-  
-    createParallaxAnimation(".parallax-image",'.sec3', 
-      { bottom: '0%', scale: 1.2, transform: "rotate(5deg)", left: '40%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }, 
-      { bottom: '15%', scale: 1, transform: "rotate(0deg)", left: '40%', ease: "cubic-bezier(1, 0.17, 0.31, 1)" }
-    );
-  // text animations
-  function createParallaxAnimationText(target:string,trigger:string, fromVars:Object, toVars:Object,start:string,end:string,scrub:number=3) {
-    gsap.fromTo(target, lastDirection === 1 ? fromVars : toVars, {
-      ...lastDirection === 1 ? toVars : fromVars,
-      
-      scrollTrigger: {
-        trigger: trigger,
-        scroller: container,
-        start: start,
-        end: end,
-        scrub: scrub,
-      }
-    });
-  }
 
-  createParallaxAnimationText(".title-section",'.sec1', 
-    { bottom:"50%",scale: 1,   ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 }, 
-    { bottom:"-40%",left:"10%",scale: 0.8,  ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 },
-    "top 90%","top 50%" ,3
-  );
-
-  // arrow animation
-  createParallaxAnimationText(".arrow1",'.sec1', 
-    { bottom:"15%",scale: 1,   ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 }, 
-    { bottom:"-40%",left:"10%",scale: 0.8,  ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 },
-    "top 90%","top 50%" ,5
-  );
-  createParallaxAnimationText(".part1",'.sec1', 
-    { bottom:"-100%",scale: 0.8,   ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 }, 
-    { top:"15%",left:"61%",scale: 1,  ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 },
-    "top 90%","top 50%" ,3
-  );
-  createParallaxAnimationText(".part2",'.sec2', 
-    { bottom:"-100%",scale: 0.8,   ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 }, 
-    { top:"35%",left:"12%",scale: 1,  ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 },
-    "top 90%","top 50%" ,3
-  );
-  createParallaxAnimationText(".part3",'.sec3', 
-    { bottom:"-100%",scale: 0.8,   ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 }, 
-    { bottom:"20%",left:"61%",scale: 1,  ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 },
-    "top 90%","top 50%" ,3
-  );
-  createParallaxAnimationText(".button-container-buy-now",'.sec3', 
-    { bottom:"-100%",scale: 0.8,   ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 }, 
-    { top:"50%",left:"12%",scale: 1,  ease: "cubic-bezier(1, 0.17, 0.31, 1)",duration: 5 },
-    "top 90%","top 50%" ,3
-  );
-
-
-
-
-
-    // Label Animations with Direction Swap
-    function createLabelAnimation(trigger: string, fromX:Number, toX:Number) {
-      gsap.fromTo('.labels', 
-        { transform: `translateX(${lastDirection === 1 ? fromX : toX}px)`, ease: "cubic-bezier(1, 0.17, 0.31, 1)" }, 
-        { transform: `translateX(${lastDirection === 1 ? toX : fromX}px)`, ease: "cubic-bezier(1, 0.17, 0.31, 1)", scrollTrigger: {
+    const createParallaxAnimation = (
+      target: string,
+      trigger: string,
+      fromVars: Object,
+      toVars: Object
+    ) => {
+      gsap.fromTo(target,
+        this.lastDirection === 1 ? fromVars : toVars,
+        {
+          ...(this.lastDirection === 1 ? toVars : fromVars),
+          scrollTrigger: {
             trigger: trigger,
-            scroller: container,
             start: 'top 90%',
             end: 'top 50%',
-            scrub: 3
-        }}
-      );
-    }
-  
+            scrub: true,
+          }
+        });
+    };
+
+    const createParallaxAnimationText = (
+      target: string,
+      trigger: string,
+      fromVars: Object,
+      toVars: Object,
+      start: string,
+      end: string,
+      scrub: number = 1
+    ) => {
+      gsap.fromTo(target,
+        this.lastDirection === 1 ? fromVars : toVars,
+        {
+          ...(this.lastDirection === 1 ? toVars : fromVars),
+          scrollTrigger: {
+            trigger,
+            start,
+            end,
+            scrub,
+          }
+        });
+    };
+
+    const createLabelAnimation = (trigger: string, fromX: number, toX: number) => {
+      gsap.fromTo('.labels',
+        { x: this.lastDirection === 1 ? fromX : toX },
+        {
+          x: this.lastDirection === 1 ? toX : fromX,
+          scrollTrigger: {
+            trigger,
+            start: 'top 90%',
+            end: 'top 50%',
+            scrub: 1
+          }
+        });
+    };
+
+    // Main image movement
+    createParallaxAnimation(".parallax-image", '.sec',
+      { bottom: '-100%', scale: 1, left: '40%', transform: 'rotate(0.1deg)' },
+      { bottom: '-45%', scale: 1, left: '40%', transform: 'rotate(0.1deg)' });
+
+    createParallaxAnimation(".parallax-image", '.sec1',
+      { bottom: '-45%', scale: 1, left: '40%', transform: 'rotate(0deg)' },
+      { bottom: '0%', scale: 1.3, left: '35%', transform: 'rotate(10deg)' });
+
+    createParallaxAnimation(".parallax-image", '.sec2',
+      { bottom: '0%', scale: 1.3, left: '35%', transform: 'rotate(10deg)' },
+      { bottom: '0%', scale: 1.2, left: '40%', transform: 'rotate(5deg)' });
+
+    createParallaxAnimation(".parallax-image", '.sec3',
+      { bottom: '0%', scale: 1.2, left: '40%', transform: 'rotate(5deg)' },
+      { bottom: '15%', scale: 1, left: '40%', transform: 'rotate(0deg)' });
+
+    // Text animations
+    createParallaxAnimationText(".title-section", '.sec1',
+      { bottom: "50%", scale: 1 },
+      { bottom: "-1000%", left: "10%", scale: 0.8 },
+      "top 90%", "top 50%");
+
+    createParallaxAnimationText(".arrow1", '.sec1',
+      { bottom: "15%", scale: 1 },
+      { bottom: "-1000%", left: "10%", scale: 0.8 },
+      "top 90%", "top 50%");
+
+    createParallaxAnimationText(".part1", '.sec1',
+      { bottom: "-1000%", scale: 0.8 },
+      { top: "15%", left: "61%", scale: 1 },
+      "top 90%", "top 50%");
+
+    createParallaxAnimationText(".part2", '.sec2',
+      { bottom: "-1000%", scale: 0.8 },
+      { top: "35%", left: "12%", scale: 1 },
+      "top 90%", "top 50%");
+
+    createParallaxAnimationText(".part3", '.sec3',
+      { bottom: "-1000%", scale: 0.8 },
+      { bottom: "20%", left: "61%", scale: 1 },
+      "top 90%", "top 50%");
+
+    createParallaxAnimationText(".button-container-buy-now", '.sec3',
+      { bottom: "-1000%", scale: 0.8 },
+      { top: "50%", left: "12%", scale: 1 },
+      "top 90%", "top 50%");
+
+    // Label scroll movement
     createLabelAnimation('.sec', 1, 0);
     createLabelAnimation('.sec1', 1, 0);
     createLabelAnimation('.sec2', -1, -278);
     createLabelAnimation('.sec3', -278, -556);
-  
-    // Refresh ScrollTrigger after DOM is ready
+
+    // Update ScrollTrigger once everything is rendered
     ScrollTrigger.refresh();
   }
-  
-  showNow(){
+
+  showNow() {
     this.router.navigate(['/shopall']);
   }
-  learnMore(){
+
+  learnMore() {
     this.router.navigate(['/discover']);
   }
 }

@@ -1,15 +1,14 @@
 .parallax-container {
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: auto;
   flex-direction: column;
-  scroll-snap-type: y mandatory;
+  
   /* x or y for direction, mandatory or proximity for behavior */
-  overflow-x: auto;
-  overflow-y: auto;
+  overflow: hidden;
   /* Enable scrolling */
 
-  scroll-behavior: smooth;
+ 
   background: #FCF8F3;
   /* Optional: Enables smooth scrolling */
 }
@@ -17,7 +16,7 @@
 .content {
   display: flex;
   flex-direction: column;
-  scroll-snap-align: start;
+ 
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -79,10 +78,6 @@
 
 .parallax-image {
   position: fixed;
-  bottom: -45%;
-  /* Adjusted to show only the cap and a small portion of the bottle */
-  left: 50%;
-  transform: translateX(-50%);
   max-width: 295px;
   pointer-events: none;
 }
