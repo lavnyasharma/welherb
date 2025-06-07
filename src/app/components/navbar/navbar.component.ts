@@ -1,29 +1,39 @@
-import { Component, HostListener } from '@angular/core';
+// navbar.component.ts
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { MenuItem } from 'primeng/api';
 import { CartService } from '../../../services/cart.service';
 import { ActivatedRoute } from '@angular/router';
 
-
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
   items: any;
   shopSections: any[] = [];
-
   profileItems: MenuItem[] = [];
   cartItemCount = 0;
   isLoggedIn: boolean = false;
-
   menuOpen = false;
   shopDropdownOpen = false;
   isDesktopView = true;
 
-  constructor(private router: Router, private route: ActivatedRoute,private authService: AuthService, private cartService: CartService) {}
+  // Scroll behavior properties
+  lastScrollTop = 0;
+  isOfferVisible = true;
+  isNavbarVisible = true;
+  scrollThreshold = 50; // Pixels to scroll before hiding offer
+  navbarHideThreshold = 100; // Additional pixels to hide navbar
+
+  constructor(
+    private router: Router, 
+    private route: ActivatedRoute,
+    private authService: AuthService, 
+    private cartService: CartService
+  ) {}
 
   ngOnInit() {
     this.cartService.cartItems$.subscribe(items => {
@@ -49,23 +59,22 @@ export class NavbarComponent {
           { label: 'Shop All', routerLink: '/shopall' },
           { separator: true },
           {
-          label: 'By Concern',
-          items: [
-            { label: 'Blood Deficiency', routerLink: ['/shopall'], queryParams: { category: 'blood-deficiency' } },
-            { label: 'Blood Pressure', routerLink: ['/shopall'], queryParams: { category: 'blood-pressure' } },
-            { label: 'Body Fatigue', routerLink: ['/shopall'], queryParams: { category: 'body-fatigue' } },
-            { label: 'Cholesterol', routerLink: ['/shopall'], queryParams: { category: 'cholesterol' } },
-            { label: 'Diabetes', routerLink: ['/shopall'], queryParams: { category: 'diabetes' } },
-            { label: 'ESR', routerLink: ['/shopall'], queryParams: { category: 'esr' } },
-            { label: 'Gut', routerLink: ['/shopall'], queryParams: { category: 'gut' } },
-            { label: 'Joint/Body Pains', routerLink: ['/shopall'], queryParams: { category: 'Joint/Body Pains' } },
-            { label: 'Liver', routerLink: ['/shopall'], queryParams: { category: 'liver' } },
-            { label: 'Multivitamins', routerLink: ['/shopall'], queryParams: { category: 'ayurvedic-multivitamins' } },
-            { label: 'Piles', routerLink: ['/shopall'], queryParams: { category: 'piles' } },
-            { label: 'Prostate', routerLink: ['/shopall'], queryParams: { category: 'prostate' } },
-            { label: 'Thyroid', routerLink: ['/shopall'], queryParams: { category: 'thyroid' } }
-          ]
-          
+            label: 'By Concern',
+            items: [
+              { label: 'Blood Deficiency', routerLink: ['/shopall'], queryParams: { category: 'blood-deficiency' } },
+              { label: 'Blood Pressure', routerLink: ['/shopall'], queryParams: { category: 'blood-pressure' } },
+              { label: 'Body Fatigue', routerLink: ['/shopall'], queryParams: { category: 'body-fatigue' } },
+              { label: 'Cholesterol', routerLink: ['/shopall'], queryParams: { category: 'cholesterol' } },
+              { label: 'Diabetes', routerLink: ['/shopall'], queryParams: { category: 'diabetes' } },
+              { label: 'ESR', routerLink: ['/shopall'], queryParams: { category: 'esr' } },
+              { label: 'Gut', routerLink: ['/shopall'], queryParams: { category: 'gut' } },
+              { label: 'Joint/Body Pains', routerLink: ['/shopall'], queryParams: { category: 'Joint/Body Pains' } },
+              { label: 'Liver', routerLink: ['/shopall'], queryParams: { category: 'liver' } },
+              { label: 'Multivitamins', routerLink: ['/shopall'], queryParams: { category: 'ayurvedic-multivitamins' } },
+              { label: 'Piles', routerLink: ['/shopall'], queryParams: { category: 'piles' } },
+              { label: 'Prostate', routerLink: ['/shopall'], queryParams: { category: 'prostate' } },
+              { label: 'Thyroid', routerLink: ['/shopall'], queryParams: { category: 'thyroid' } }
+            ]
           },
           { separator: true },
           {
@@ -115,6 +124,36 @@ export class NavbarComponent {
     this.checkViewport();
   }
 
+  @HostListener('window:scroll', [])
+  onWindowScroll(): void {
+    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+    
+    // Handle offer banner visibility
+    this.isOfferVisible = currentScroll < this.scrollThreshold;
+    
+    // Handle navbar visibility based on scroll direction
+    if (currentScroll > this.lastScrollTop && currentScroll > this.navbarHideThreshold) {
+      // Scrolling down - hide navbar
+      this.isNavbarVisible = false;
+    } else if (currentScroll < this.lastScrollTop) {
+      // Scrolling up - show navbar
+      this.isNavbarVisible = true;
+    }
+    
+    // Always show navbar when at top
+    if (currentScroll <= 10) {
+      this.isNavbarVisible = true;
+      this.isOfferVisible = true;
+    }
+    
+    this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+  }
+
+  @HostListener('window:resize', [])
+  onWindowResize() {
+    this.checkViewport();
+  }
+
   prepareShopSections() {
     const shopItems = this.items[0]?.items || [];
     this.shopSections = [];
@@ -132,11 +171,6 @@ export class NavbarComponent {
         });
       }
     }
-  }
-
-  @HostListener('window:resize', [])
-  onWindowResize() {
-    this.checkViewport();
   }
 
   checkViewport() {

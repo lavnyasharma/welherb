@@ -1,4 +1,5 @@
-import { Component, OnInit, HostListener, ElementRef, ViewChild } from '@angular/core';
+// app.component.ts
+import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 
@@ -9,9 +10,6 @@ import { filter } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   isAuthRoute = false;
-  navbarClass = 'navbar-visible';
-  lastScrollTop = 0;
-
 
   constructor(private router: Router) {}
 
@@ -23,18 +21,5 @@ export class AppComponent implements OnInit {
     ).subscribe(() => {
       this.isAuthRoute = authRoutes.includes(this.router.url);
     });
-  }
-
-  @HostListener('window:scroll', [])
-  onWindowScroll(): void {
-    const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-
-    if (currentScroll > this.lastScrollTop && currentScroll > 100) {
-      this.navbarClass = 'navbar-hidden'; // Hide navbar on scroll down
-    } else {
-      this.navbarClass = 'navbar-visible'; // Show navbar on scroll up
-    }
-
-    this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
   }
 }

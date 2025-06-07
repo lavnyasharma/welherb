@@ -1,22 +1,37 @@
-/* This offsets the content below the fixed navbar */
+/* app.component.css */
+
+/* Content wrapper for main content */
 .content-wrapper {
-    padding-top: 70px; /* Match this to navbar height */
-  }
-  
-  /* Navbar transition classes */
-  #navbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    transition: transform 0.3s ease-in-out;
-  }
-  
-  .navbar-hidden {
-    transform: translateY(-100%);
-  }
-  
-  .navbar-visible {
-    transform: translateY(0);
-  }
-  
+  padding-top: 120px; /* Space for fixed navbar with offer */
+  min-height: 100vh;
+  transition: padding-top 0.3s ease-in-out;
+  padding-top: 70px;
+}
+
+/* Reduce padding when offer is hidden */
+.content-wrapper.offer-hidden {
+  padding-top: 70px; /* Space for navbar without offer */
+}
+
+/* Ensure smooth transitions for all content */
+* {
+  box-sizing: border-box;
+}
+
+/* Global scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Remove default margin/padding that might interfere */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}

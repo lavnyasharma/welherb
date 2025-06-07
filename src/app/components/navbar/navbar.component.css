@@ -1,3 +1,24 @@
+/* Navbar Container - Fixed positioning */
+.navbar-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: #fcf8f4;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Navbar visibility states */
+.navbar-visible {
+  transform: translateY(0);
+}
+
+.navbar-hidden {
+  transform: translateY(-100%);
+}
+
 /* Top Offer Banner */
 .offer {
   display: flex;
@@ -5,6 +26,21 @@
   background: #9CCB3B;
   color: white;
   padding: 5px;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+}
+
+/* Offer visibility states */
+.offer-visible {
+  max-height: 50px;
+  opacity: 1;
+  padding: 5px;
+}
+
+.offer-hidden {
+  max-height: 0;
+  opacity: 0;
+  padding: 0;
 }
 
 /* Navbar */
@@ -19,12 +55,11 @@
 /* Main Menubar */
 .menubar {
   display: flex;
-      flex-direction: column;
-      background-color: #fcf8f4;
-      padding: 10px 20px;
-      /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
-      position: relative;
-      z-index: 1000;
+  flex-direction: column;
+  background-color: #fcf8f4;
+  padding: 10px 20px;
+  position: relative;
+  z-index: 1000;
 }
 
 /* Header with logo and hamburger */
@@ -32,7 +67,6 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  /* padding: 0.8rem 1.2rem; */
 }
 
 .logo {
@@ -45,6 +79,11 @@
   display: none;
   font-size: 1.8rem;
   cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.hamburger:hover {
+  transform: scale(1.1);
 }
 
 /* Menu List */
@@ -54,7 +93,6 @@
   gap: 1rem;
   margin: 0;
   padding: 0;
-
   align-items: center;
   flex-wrap: wrap;
 }
@@ -69,6 +107,11 @@
   font-weight: 500;
   padding: 8px 12px;
   display: block;
+  transition: color 0.2s ease;
+}
+
+.menu-item a:hover {
+  color: #4FAE32;
 }
 
 /* Dropdown */
@@ -87,6 +130,18 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   z-index: 999;
   flex-direction: column;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dropdown-columns {
@@ -103,16 +158,18 @@
   color: #444;
   background: #fcf8f4;
   border-radius: 4px;
-  transition: background 0.2s;
+  transition: all 0.2s ease;
 }
 
 .dropdown-link:hover {
   background-color: #efefef;
+  transform: translateX(5px);
 }
 
 .dropdown-group-title {
   font-weight: bold;
   margin-top: 0.5rem;
+  color: #4FAE32;
 }
 
 .dropdown-separator {
@@ -134,6 +191,14 @@
   gap: 15px;
 }
 
+.cart {
+  transition: transform 0.2s ease;
+}
+
+.cart:hover {
+  transform: scale(1.1);
+}
+
 /* Sign Up Button */
 .signUp button {
   background: #4FAE32;
@@ -142,6 +207,24 @@
   padding: 8px 15px;
   border-radius: 16px;
   cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.signUp button:hover {
+  background: #3d8a2a;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Content offset for fixed navbar */
+body {
+  padding-top: 120px; /* Adjust based on your navbar height */
+  transition: padding-top 0.3s ease;
+}
+
+/* When offer is hidden, reduce padding */
+.offer-hidden ~ * {
+  --navbar-offset: 70px; /* Reduced offset when offer is hidden */
 }
 
 /* Responsive Design */
@@ -158,6 +241,7 @@
 
   .menu.open {
     display: flex;
+    animation: slideDown 0.3s ease-out;
   }
 
   .dropdown-menu {
@@ -174,5 +258,53 @@
 
   .search {
     display: none;
+  }
+
+  .nav1 {
+    padding: 8px 15px;
+  }
+
+  .menubar {
+    padding: 8px 15px;
+  }
+
+  /* Reduce body padding on mobile */
+  body {
+    padding-top: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .offer {
+    font-size: 0.9rem;
+    padding: 3px;
+  }
+
+  .nav1 {
+    padding: 5px 10px;
+  }
+
+  .menubar {
+    padding: 5px 10px;
+  }
+
+  body {
+    padding-top: 90px;
+  }
+}
+
+/* Smooth scroll behavior for the entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Additional animation for mobile menu toggle */
+@media (max-width: 768px) {
+  .hamburger span {
+    transition: transform 0.3s ease;
+  }
+
+  .hamburger span.active {
+    transform: rotate(90deg);
   }
 }

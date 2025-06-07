@@ -1,5 +1,7 @@
-<div style="border-bottom: 1px solid rgb(224, 224, 224);">
-    <div class="offer">
+<!-- navbar.component.html -->
+<div class="navbar-container" [class.navbar-hidden]="!isNavbarVisible" [class.navbar-visible]="isNavbarVisible">
+    <!-- Offer Banner -->
+    <div class="offer" [class.offer-hidden]="!isOfferVisible" [class.offer-visible]="isOfferVisible">
         Free Pan India Shipping above 499
     </div>
     
@@ -30,7 +32,7 @@
             <div class="cart" (click)="handleCartClick()" style="position: relative; cursor: pointer;">
                 <i class="pi pi-shopping-cart" style="font-size: 20px;"></i>
                 <span *ngIf="cartItemCount > 0" 
-                      style="    position: absolute;
+                      style="position: absolute;
                       top: -6px;
                       right: -10px;
                       background-color: #24b04b;
@@ -43,7 +45,6 @@
                 </span>
             </div>
             
-        
             <!-- If logged in, show profile icon with dropdown -->
             <div *ngIf="isLoggedIn; else loginTemplate" class="profile-dropdown">
                 <button pButton type="button" icon="pi pi-user" class="p-button-text" (click)="profileMenu.toggle($event)"></button>
@@ -57,59 +58,48 @@
                 </div>
             </ng-template>
         </div>
-        
     </div>
     
     <!-- Menu Bar -->
-<!-- menubar.component.html -->
-<nav class="menubar">
-    <!-- Logo and Hamburger -->
-    <div class="navbar-header">
-     
-      <div class="hamburger" (click)="toggleMenu()">
-        <span [class.active]="menuOpen">&#9776;</span>
-      </div>
-    </div>
-  
-    <!-- Navigation Menu -->
-    <ul class="menu" [class.open]="menuOpen || isDesktopView">
-
-      
-      <!-- SHOP Dropdown (first item) -->
-      <li class="menu-item dropdown" [class.open]="shopDropdownOpen" (click)="toggleShopDropdown()">
-        <a>Shop</a>
-        <div class="dropdown-menu full-width" *ngIf="isDesktopView || shopDropdownOpen">
-          <div class="dropdown-columns">
-            <ng-container *ngFor="let subItem of items[0].items">
-              <div *ngIf="subItem.separator" class="dropdown-separator"></div>
-              <a *ngIf="subItem.routerLink" [routerLink]="subItem.routerLink" class="dropdown-link" (click)="closeMenu()">
-                {{ subItem.label }}
-              </a>
-              <div *ngIf="subItem.items" class="dropdown-group">
-                <div class="dropdown-group-title">{{ subItem.label }}</div>
-                <a *ngFor="let nested of subItem.items" 
-                [routerLink]="nested.routerLink" 
-                [queryParams]="nested.queryParams"
-                class="dropdown-link" 
-                (click)="closeMenu()">
-               {{ nested.label }}
-             </a>
-             
-              </div>
-            </ng-container>
-          </div>
+    <nav class="menubar">
+        <!-- Logo and Hamburger -->
+        <div class="navbar-header">
+            <div class="hamburger" (click)="toggleMenu()">
+                <span [class.active]="menuOpen">&#9776;</span>
+            </div>
         </div>
-      </li>
-  
-      <!-- Other Top-Level Menu Items -->
-      <li class="menu-item" *ngFor="let item of items.slice(1)">
-        <a [routerLink]="item.routerLink" (click)="closeMenu()">{{ item.label }}</a>
-      </li>
-  
-    </ul>
-  </nav>
-  
-  
-  
-  
+      
+        <!-- Navigation Menu -->
+        <ul class="menu" [class.open]="menuOpen || isDesktopView">
+            <!-- SHOP Dropdown (first item) -->
+            <li class="menu-item dropdown" [class.open]="shopDropdownOpen" (click)="toggleShopDropdown()">
+                <a>Shop</a>
+                <div class="dropdown-menu full-width" *ngIf="isDesktopView || shopDropdownOpen">
+                    <div class="dropdown-columns">
+                        <ng-container *ngFor="let subItem of items[0].items">
+                            <div *ngIf="subItem.separator" class="dropdown-separator"></div>
+                            <a *ngIf="subItem.routerLink" [routerLink]="subItem.routerLink" class="dropdown-link" (click)="closeMenu()">
+                                {{ subItem.label }}
+                            </a>
+                            <div *ngIf="subItem.items" class="dropdown-group">
+                                <div class="dropdown-group-title">{{ subItem.label }}</div>
+                                <a *ngFor="let nested of subItem.items" 
+                                   [routerLink]="nested.routerLink" 
+                                   [queryParams]="nested.queryParams"
+                                   class="dropdown-link" 
+                                   (click)="closeMenu()">
+                                   {{ nested.label }}
+                                </a>
+                            </div>
+                        </ng-container>
+                    </div>
+                </div>
+            </li>
+      
+            <!-- Other Top-Level Menu Items -->
+            <li class="menu-item" *ngFor="let item of items.slice(1)">
+                <a [routerLink]="item.routerLink" (click)="closeMenu()">{{ item.label }}</a>
+            </li>
+        </ul>
+    </nav>
 </div>
