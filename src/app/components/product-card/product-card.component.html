@@ -1,7 +1,15 @@
 <div
   class="product-card-container"
-  [ngStyle]="{ 'background-image': 'url(' + selectedProduct.image + ')' }"
+  [ngStyle]="selectedProduct?.image ? {
+    'background-image': 'url(' + selectedProduct.image + ')',
+    'background-color': '#fff'
+  } : {
+    'background-image': 'none',
+    'background-color': 'white'
+  }"
 >
+
+
   <div class="product-overlay-content">
     <div class="product-name">{{ selectedProduct.name }}</div>
 

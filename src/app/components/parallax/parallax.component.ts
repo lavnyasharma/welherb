@@ -36,6 +36,32 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
       }
     });
 
+    const createParallaxAnimationDelayed = (
+      target: string,
+      trigger: string,
+      fromVars: Object,
+      toVars: Object
+    ) => {
+      ScrollTrigger.create({
+        trigger,
+        start: 'top 90%',
+        onEnter: () => {
+          gsap.fromTo(target,
+            fromVars,
+            {
+              ...toVars,
+              scrollTrigger: {
+                trigger,
+                start: 'top 90%',
+                end: 'top 50%',
+                scrub: true,
+              }
+            });
+        },
+        once: true // Ensures the animation is only created once
+      });
+    };
+
     const createParallaxAnimation = (
       target: string,
       trigger: string,
@@ -92,19 +118,17 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
     };
 
     // Main image movement
-    createParallaxAnimation(".parallax-image", '.sec',
-      { bottom: '-100%', scale: 1, left: '40%', transform: 'rotate(0.1deg)' },
-      { bottom: '-45%', scale: 1, left: '40%', transform: 'rotate(0.1deg)' });
+   
 
-    createParallaxAnimation(".parallax-image", '.sec1',
+    createParallaxAnimationDelayed(".parallax-image", '.sec1',
       { bottom: '-45%', scale: 1, left: '40%', transform: 'rotate(0deg)' },
       { bottom: '0%', scale: 1.3, left: '35%', transform: 'rotate(10deg)' });
 
-    createParallaxAnimation(".parallax-image", '.sec2',
+    createParallaxAnimationDelayed(".parallax-image", '.sec2',
       { bottom: '0%', scale: 1.3, left: '35%', transform: 'rotate(10deg)' },
       { bottom: '0%', scale: 1.2, left: '40%', transform: 'rotate(5deg)' });
 
-    createParallaxAnimation(".parallax-image", '.sec3',
+    createParallaxAnimationDelayed(".parallax-image", '.sec3',
       { bottom: '0%', scale: 1.2, left: '40%', transform: 'rotate(5deg)' },
       { bottom: '15%', scale: 1, left: '40%', transform: 'rotate(0deg)' });
 
