@@ -1,25 +1,26 @@
 <div class="cart-page">
   <!-- Left Section: Cart Items -->
   <div class="cart-items">
-    <h1 class="cart-header">🛒 Shopping Cart</h1>
+    <h1 class="cart-header">Cart</h1>
 
     <!-- Show message if cart is empty -->
     <div *ngIf="cartItems.length === 0" class="empty-cart">
-      <p>Your cart is currently empty.</p>
+      <div class="empty-icon">🛍️</div>
+      <h3>Your cart is empty</h3>
+      <p>Add some products to get started</p>
     </div>
 
     <!-- Show cart items if not empty -->
     <div class="cart-item" *ngFor="let item of cartItems">
       <img class="item-image" [src]="item.image" [alt]="item.name" />
       <div class="item-details">
-        <div style="display: flex; justify-content: space-between;">
+        <div class="item-header">
           <h3 class="item-name">{{ item.name }}</h3>
           <div class="item-price">₹{{ item.price }}</div>
         </div>
-
         <p class="item-info">{{ item.subtitle }} | {{ item.category }}</p>
-        <div style="display: flex; justify-content: space-between;">
-          <span style="margin: 0;" class="item-status" [ngClass]="{ inStock: item.inStock }">
+        <div class="item-footer">
+          <span class="item-status" [ngClass]="{ 'in-stock': item.inStock, 'out-of-stock': !item.inStock }">
             {{ item.inStock ? 'In Stock' : 'Out of Stock' }}
           </span>
           <button class="remove-item" (click)="removeItem(item.id)">Remove</button>

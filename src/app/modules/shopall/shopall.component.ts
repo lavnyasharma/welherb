@@ -41,7 +41,6 @@ export class ShopallComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    
     this.route.queryParams.subscribe(params => {
       const categoryParam = params['category'];
   
