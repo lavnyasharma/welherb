@@ -1,21 +1,29 @@
 <div class="ingredients-container">
     <h2>Ingredients that nourish you inside-out</h2>
+    
     <div class="grid">
-        <div class="image-box" *ngFor="let ingredient of ingredients" (click)="toggleFlip(ingredient)">
-            <div class="image-inner" [class.flipped]="ingredient.flipped">
-                <!-- Front Side (Image) -->
-                <div class="image-front">
-                    <div class="header">
-                        <p class="name">{{ ingredient.name }}</p>
-                        <button class="flip-button">+</button>
+        <div class="ingredient-card" *ngFor="let ingredient of ingredients" (click)="toggleFlip(ingredient)">
+            <div class="card-inner" [class.flipped]="ingredient.flipped">
+                <!-- Front Side -->
+                <div class="card-front">
+                    <div class="card-header">
+                        <h3>{{ ingredient.name }}</h3>
+                        <button class="plus-btn" (click)="$event.stopPropagation()">+</button>
                     </div>
-                    <img [src]="ingredient.image" [alt]="ingredient.name" />
+                    <div class="image-container">
+                        <img [src]="ingredient.image" [alt]="ingredient.name" />
+                    </div>
                 </div>
 
-                <!-- Back Side (Description) -->
-                <div class="image-back">
-                    <p>{{ ingredient.description }}</p>
-                    <button class="back-button" (click)="toggleFlip(ingredient)">Back</button>
+                <!-- Back Side -->
+                <div class="card-back">
+                    <div class="back-content">
+                        <h3>{{ ingredient.name }}</h3>
+                        <p>{{ ingredient.description }}</p>
+                        <button class="back-btn" (click)="toggleFlip(ingredient); $event.stopPropagation()">
+                            ← Back
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
