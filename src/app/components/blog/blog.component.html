@@ -94,13 +94,15 @@
     </div>
 
     <!-- More Blogs Section -->
-    <div class="more-blogs-section">
-      <button class="more-blogs-btn" 
-              type="button" 
-              (click)="onMoreBlogsClick()">
-        <span>Explore All Articles</span>
-        <i class="pi pi-external-link"></i>
-      </button>
-    </div>
+  <div class="more-blogs-section">
+  <button class="more-blogs-btn" 
+          type="button" 
+          [routerLink]="'/blogs'"
+          (click)="onMoreBlogsClick()">
+    <span>Explore All Articles</span>
+    <i class="pi pi-external-link"></i>
+  </button>
+</div>
+
   </div>
 </div>
