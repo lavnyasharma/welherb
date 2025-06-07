@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { map } from "rxjs/operators";
 import { Observable, Subject, from } from "rxjs";
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -75,6 +76,7 @@ export class ApiService {
     return this.http.delete<any>(`${this.proxyPrefix}/user/cart/${id}`, { headers });
   }
   getOneProduct(id){
+
  
     const headers = new HttpHeaders({
       'Authorization': localStorage.getItem("auth_token"), // Replace with actual token retrieval logic
