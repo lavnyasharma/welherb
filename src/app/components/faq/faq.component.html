@@ -1,7 +1,10 @@
 <div class="faq-container">
     <!-- Desktop view (2-column) -->
     <div class="faq-columns">
-      <div class="faq-column">
+      <div class="faq-column one">
+        <div class="heading">
+          <h2>Crucial to Clarify</h2>
+        </div>
         <div *ngFor="let faq of leftColumn; let i = index" class="faq-item">
           <div class="faq-question" (click)="toggle(i)">
             <h3>{{ faq.question }}</h3>
@@ -10,7 +13,10 @@
           <p *ngIf="activeIndex === i" class="faq-answer">{{ faq.answer }}</p>
         </div>
       </div>
-      <div class="faq-column">
+      <div class="faq-column 2">
+           <div class="heading">
+          <h2>Your Doubts</h2>
+        </div>
         <div *ngFor="let faq of rightColumn; let i = index" class="faq-item">
           <div class="faq-question" (click)="toggle(i + leftColumn.length)">
             <h3>{{ faq.question }}</h3>
