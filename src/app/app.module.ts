@@ -94,6 +94,8 @@ import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ExpertComponent } from './components/expert/expert.component';
 import { FaqComponent } from './components/faq/faq.component';
 import { DietryAdviceComponent } from './components/dietry-advice/dietry-advice.component';
+import { IngredientsPageComponent } from './modules/ingredients-page/ingredients-page.component';
+import { ContactUsComponent } from './modules/contact-us/contact-us.component';
 
 
 
@@ -131,6 +133,8 @@ import { DietryAdviceComponent } from './components/dietry-advice/dietry-advice.
      ExpertComponent,
      FaqComponent,
      DietryAdviceComponent,
+     IngredientsPageComponent,
+     ContactUsComponent,
 
   ],
   imports: [

@@ -11,6 +11,8 @@ import { SignupComponent } from './auth/signup/signup.component';
 import { AuthGuard } from '../auth.guard';
 import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ExpertComponent } from './components/expert/expert.component';
+import { IngredientsPageComponent } from './modules/ingredients-page/ingredients-page.component';
+import { ContactUsComponent } from './modules/contact-us/contact-us.component';
 // Import Auth Guard
 
 const routes: Routes = [
@@ -24,7 +26,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'reviews', component: ReviewsComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'expert-help', component: ExpertComponent },
+  { path: 'blogs', component: ExpertComponent },
+   { path: 'ingredients', component: IngredientsPageComponent },
+    { path: 'expert-help', component: ContactUsComponent },
+  
   { path: '**', redirectTo: '', pathMatch: 'full' }  
 ];
 

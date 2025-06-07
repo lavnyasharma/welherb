@@ -1,0 +1,33 @@
+<!-- ingredients-page.component.html -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Our Apothecary</h1>
+    <p>Curated from Nature</p>
+  </div>
+</section>
+
+<div class="container">
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="loading-spinner"></div>
+    <p>Loading ingredients...</p>
+  </div>
+
+  <!-- Product Grid -->
+  <div *ngIf="!isLoading" class="product-grid">
+    <div class="product-card" *ngFor="let ingredient of images; trackBy: trackByName">
+      <img 
+        [src]="ingredient.image" 
+        [alt]="ingredient.name" 
+        class="product-image"
+
+        loading="lazy">
+      <div class="product-name">{{ ingredient.name }}</div>
+    </div>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && images.length === 0" class="empty-state">
+    <p>No ingredients available at the moment.</p>
+  </div>
+</div>

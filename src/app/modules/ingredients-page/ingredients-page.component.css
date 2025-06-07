@@ -1,0 +1,209 @@
+/* ingredients-page.component.css */
+
+/* Hero Section */
+.hero {
+    position: relative;
+    height: 300px;
+    background: url(https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/katherine-hanlon-mod2s3-qFOc-unsplash%201.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV80YjZmM2U1NS1jNmJlLTQ1ODctODEwNy0xMTZmYTM2MjU2ZjMiLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcva2F0aGVyaW5lLWhhbmxvbi1tb2QyczMtcUZPYy11bnNwbGFzaCAxLnBuZyIsImlhdCI6MTc0OTMwOTI3NSwiZXhwIjoxNzgwODQ1Mjc1fQ.lUyoHVULUV30f12OInkpGMSaSNxx4lVEPQKB1ZJ--us) center / cover;
+    display: flex
+;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    text-align: center;
+    margin-top: 90px;
+ 
+}
+
+.hero-content h1 {
+font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    letter-spacing: 2px;
+    color: white;
+}
+
+.hero-content p {
+  font-size: 1.5rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+}
+
+/* Main Container */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 1rem;
+}
+
+/* Loading State */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #90C695;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Empty State */
+.empty-state {
+  text-align: center;
+  padding: 4rem 0;
+  color: #666;
+  font-size: 1.1rem;
+}
+
+/* Product Grid */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.product-card {
+  background: white;
+  border: 2px solid #90C695;
+
+  padding: 1.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  cursor: pointer;
+}
+
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  border-color: #7AB57F;
+}
+
+.product-image {
+     margin: 0 auto;
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+    border: 2px solid #90C695;
+    transition: opacity 0.3s ease;
+    /* margin-top: 10px; */
+    padding: 10px;
+    /* object-fit: contain; */
+    /* object-fit: fill; */
+    max-width: 120px;
+    margin-top: 20px;
+
+}
+
+.product-image:hover {
+  opacity: 0.9;
+}
+
+.product-name {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+  margin-top: 1rem;
+  word-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .hero {
+    height: 250px;
+  }
+  
+  .hero-content h1 {
+    font-size: 2rem;
+  }
+  
+  .hero-content p {
+    font-size: 1.2rem;
+  }
+  
+  .container {
+    padding: 2rem 1rem;
+  }
+  
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+  }
+  
+  .product-card {
+    padding: 1rem;
+  }
+
+  .loading-container {
+    padding: 3rem 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.5rem;
+  }
+  
+  .hero-content p {
+    font-size: 1rem;
+  }
+  
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+  
+  .product-image {
+    max-width: 100px;
+    height: 100px;
+  }
+
+  .loading-container {
+    padding: 2rem 0;
+  }
+
+  .loading-spinner {
+    width: 30px;
+    height: 30px;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1200px) {
+  .product-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Extra small product cards for very small screens */
+@media (max-width: 320px) {
+  .product-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  
+  .product-image {
+    max-width: 80px;
+    height: 80px;
+  }
+  
+  .product-name {
+    font-size: 0.9rem;
+  }
+}

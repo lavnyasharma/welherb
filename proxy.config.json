@@ -1,10 +1,10 @@
 {
     "/welherb/": {
-      "target": "http://localhost:9090",
+      "target": "https://welherb.com/",
       "secure": false,
       "changeOrigin": true,
-      "logLevel": "debug",
-      "pathRewrite": {"^/welherb" : ""}
+      "logLevel": "debug"
+      
     }
   }
   
