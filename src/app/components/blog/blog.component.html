@@ -1,38 +1,106 @@
-<div class="blog-page">
-  <h1 class="blog-heading">The Better Living <span>Chronicles</span></h1>
+<div class="blog-section">
+  <div class="container">
+    <!-- Header Section -->
+    <div class="blog-header">
+      <h1 class="blog-heading">
+        The Better Living <span class="highlight">Chronicles</span>
+      </h1>
+      <p class="blog-subtitle">
+        Discover insights, tips, and stories for a healthier, happier lifestyle
+      </p>
+    </div>
 
-  <p-carousel 
-    [value]="blogs" 
-    [numVisible]="3" 
-    [numScroll]="1" 
-    [circular]="true" 
-    [responsiveOptions]="responsiveOptions" 
-    (onPage)="updateActiveIndex($event.page)" 
-    class="blog-carousel">
-    
-    <ng-template pTemplate="item" let-blog>
-      <div class="blog-item">
-        <div class="blog-image-container">
-          <img [src]="blog.image" alt="{{blog.title}}" class="blog-image" />
-        </div>
-        <div class="blog-content">
-          <h2>{{ blog.title }}</h2>
-          <p>{{ blog.description }}</p>
-          <button pButton type="button" label="Read More" class="blog-button"></button>
-        </div>
+    <!-- Blog Carousel -->
+    <div class="blog-carousel-wrapper">
+      <p-carousel
+        #blogCarousel
+        [value]="blogs"
+        [numVisible]="3"
+        [numScroll]="1"
+        [circular]="true"
+        [autoplayInterval]="0"
+        [showIndicators]="false"
+        [showNavigators]="false"
+        [responsiveOptions]="responsiveOptions"
+        (onPage)="updateActiveIndex($event)"
+        class="blog-carousel">
+        
+        <ng-template pTemplate="item" let-blog let-i="index">
+          <div class="blog-card" 
+               (click)="onBlogClick(blog, i)"
+               (touchstart)="onTouchStart($event)"
+               (touchend)="onTouchEnd($event)"
+               (keydown)="onKeyDown($event)"
+               tabindex="0">
+            <div class="blog-image-container">
+              <img [src]="blog.image" [alt]="blog.title" class="blog-image" />
+              <div class="blog-overlay">
+                <div class="blog-category">{{ blog.category }}</div>
+              </div>
+            </div>
+            
+            <div class="blog-content">
+              <div class="blog-meta">
+                <span class="blog-date">{{ blog.date }}</span>
+                <span class="blog-read-time">{{ blog.readTime }}</span>
+              </div>
+              
+              <h3 class="blog-title">{{ blog.title }}</h3>
+              <p class="blog-description">{{ blog.description }}</p>
+              
+              <div class="blog-footer">
+                <div class="author-info">
+                  <img [src]="blog.author.avatar" [alt]="blog.author.name" class="author-avatar" />
+                  <span class="author-name">{{ blog.author.name }}</span>
+                </div>
+                
+                <button class="read-more-btn" type="button" (click)="$event.stopPropagation()">
+                  <span>Read More</span>
+                  <i class="pi pi-arrow-right"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </p-carousel>
+      
+      <!-- Custom Navigation -->
+      <div class="carousel-navigation">
+        <button class="nav-btn prev" 
+                (click)="previousSlide()" 
+                type="button"
+                aria-label="Previous slide">
+          <i class="pi pi-chevron-left"></i>
+        </button>
+        <button class="nav-btn next" 
+                (click)="nextSlide()" 
+                type="button"
+                aria-label="Next slide">
+          <i class="pi pi-chevron-right"></i>
+        </button>
       </div>
-    </ng-template>
-  </p-carousel>
+    </div>
 
-  <!-- Custom Pagination Dots -->
-  <div class="carousel-dots">
-    <span 
-      *ngFor="let blog of blogs; let i = index" 
-      class="dot" 
-      [class.active]="i === activeIndex">
-    </span>
+    <!-- Custom Pagination Dots -->
+    <div class="carousel-pagination">
+      <button
+        *ngFor="let blog of blogs; let i = index"
+        class="pagination-dot"
+        [class.active]="i === activeIndex"
+        (click)="goToSlide(i)"
+        type="button"
+        [attr.aria-label]="'Go to slide ' + (i + 1)">
+      </button>
+    </div>
+
+    <!-- More Blogs Section -->
+    <div class="more-blogs-section">
+      <button class="more-blogs-btn" 
+              type="button" 
+              (click)="onMoreBlogsClick()">
+        <span>Explore All Articles</span>
+        <i class="pi pi-external-link"></i>
+      </button>
+    </div>
   </div>
-
-  <!-- "More Blogs" button below carousel -->
-  <button class="more-blogs-btn">More Blogs</button>
 </div>
