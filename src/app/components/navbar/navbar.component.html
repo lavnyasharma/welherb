@@ -16,14 +16,114 @@
                 style="mix-blend-mode: darken; cursor: pointer;">
         </div>
     
-        <!-- Search Bar -->
-        <div class="search" style="display: flex; justify-content: center;">
-            <nz-input-group [nzSuffix]="suffixIconSearch" style="width: 40%;">
-                <input type="text" nz-input placeholder="Search here" />
-            </nz-input-group>
-            <ng-template #suffixIconSearch>
-                <nz-icon nzType="search"></nz-icon>
-            </ng-template>
+        <!-- Enhanced Search Bar -->
+        <div class="search search-container" style="display: flex; justify-content: center; position: relative;">
+            <div class="search-input-wrapper" style="width: 40%; position: relative;">
+                <nz-input-group [nzSuffix]="suffixIconSearch" style="width: 100%;">
+                    <input 
+                        #searchInput
+                        type="text" 
+                        nz-input 
+                        placeholder="Search products, categories..." 
+                        [(ngModel)]="searchValue"
+                        (input)="onSearchInput($event)"
+                        (focus)="onSearchFocus()"
+                        (blur)="onSearchBlur()"
+                        autocomplete="off"
+                    />
+                </nz-input-group>
+                <ng-template #suffixIconSearch>
+                    <span class="search-suffix">
+                        <i *ngIf="isSearching" class="pi pi-spin pi-spinner" style="font-size: 14px; color: #24b04b;"></i>
+                        <i *ngIf="!isSearching && searchValue" class="pi pi-times" 
+                           style="font-size: 14px; color: #666; cursor: pointer;" 
+                           (click)="clearSearch()"></i>
+                        <i *ngIf="!isSearching && !searchValue" class="pi pi-search" style="font-size: 14px; color: #666;"></i>
+                    </span>
+                </ng-template>
+
+                <!-- Search Results Dropdown -->
+                <div class="search-results" 
+                     *ngIf="showSearchResults" 
+                     [class.search-results-visible]="showSearchResults">
+                    
+                    <!-- Loading State -->
+                    <div *ngIf="isSearching" class="search-loading">
+                        <i class="pi pi-spin pi-spinner"></i>
+                        <span>Searching...</span>
+                    </div>
+
+                    <!-- No Results -->
+                    <div *ngIf="!isSearching && searchResults.length === 0 && searchValue.length >= 3" class="search-no-results">
+                        <i class="pi pi-search"></i>
+                        <span>No products found for "{{ searchValue }}"</span>
+                        <small>Try different keywords or browse our categories</small>
+                    </div>
+
+                    <!-- Search Results -->
+                    <div *ngIf="!isSearching && searchResults.length > 0" class="search-results-list">
+                        <div class="search-results-header">
+                            <span>{{ searchResults.length }} result{{ searchResults.length > 1 ? 's' : '' }} found</span>
+                        </div>
+                        
+                        <div 
+                            *ngFor="let product of searchResults.slice(0, 8); trackBy: trackByProductId" 
+                            class="search-result-item"
+                            (click)="selectSearchResult(product)">
+                            
+                            <div class="search-result-image">
+                                <img 
+                                    *ngIf="product.default_image" 
+                                    [src]="product.default_image" 
+                                    [alt]="product.name"
+                                   
+                                />
+                           
+                            </div>
+                            
+                            <div class="search-result-content">
+                                <div class="search-result-name">{{ product.name }}</div>
+                                <div class="search-result-categories">
+                                    <span *ngFor="let category of product.categories; let last = last" class="category-tag">
+                                        {{ category }}<span *ngIf="!last">, </span>
+                                    </span>
+                                </div>
+                                <div class="search-result-description" *ngIf="product.description">
+                                    {{ product.description | slice:0:80 }}{{ product.description.length > 80 ? '...' : '' }}
+                                </div>
+                                <div class="search-result-meta">
+                                    <span class="product-type">{{ product.product_type }}</span>
+                                    <span *ngIf="product.size && product.size.length > 0" class="product-sizes">
+                                        Available in {{ product.size.join(', ') }}
+                                    </span>
+                                </div>
+                            </div>
+                            
+                            <div class="search-result-arrow">
+                                <i class="pi pi-chevron-right"></i>
+                            </div>
+                        </div>
+
+                        <!-- View All Results -->
+                        <div *ngIf="searchResults.length > 8" class="search-view-all">
+                            <button class="view-all-btn" (click)="viewAllResults()">
+                                View all {{ searchResults.length }} results
+                                <i class="pi pi-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Quick Search Suggestions -->
+                    <div *ngIf="searchValue.length < 3 && searchValue.length > 0" class="search-suggestions">
+                        <div class="search-suggestions-header">Type at least 3 characters to search</div>
+                        <div class="search-quick-links">
+                            <span class="quick-link" (click)="searchValue = 'digestick'; onSearchInput({target: {value: 'digestick'}})">Digestick</span>
+                            <span class="quick-link" (click)="searchValue = 'motion ease'; onSearchInput({target: {value: 'motion ease'}})">Motion Ease</span>
+                            <span class="quick-link" (click)="searchValue = 'powder'; onSearchInput({target: {value: 'powder'}})">Powder</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     
         <!-- Cart & Profile/Signup -->

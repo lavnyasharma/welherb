@@ -85,6 +85,15 @@ export class ApiService {
   
     return this.http.get<any>(`${this.proxyPrefix}/products/${id}`, { headers });
   }
+searchSomething(searchValue: string) {
+    const headers = new HttpHeaders({
+      'Authorization': localStorage.getItem("auth_token"),
+   
+    });
+
+  return this.http.get<any>(`${this.proxyPrefix}/products/0/100?searchValue=${searchValue}`, { headers });
+}
+
   getUserProfile(){
     const headers = new HttpHeaders({
       'Authorization': localStorage.getItem("auth_token"), // Replace with actual token retrieval logic

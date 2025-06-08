@@ -1,10 +1,13 @@
 // navbar.component.ts
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
+import { ApiService } from '../../../services/api.service'; // Add this import
 import { MenuItem } from 'primeng/api';
 import { CartService } from '../../../services/cart.service';
 import { ActivatedRoute } from '@angular/router';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-navbar',
@@ -12,6 +15,8 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
+  @ViewChild('searchInput', { static: false }) searchInput!: ElementRef;
+  
   items: any;
   shopSections: any[] = [];
   profileItems: MenuItem[] = [];
@@ -21,18 +26,26 @@ export class NavbarComponent implements OnInit {
   shopDropdownOpen = false;
   isDesktopView = true;
 
+  // Search functionality properties
+  searchValue = '';
+  searchResults: any[] = [];
+  isSearching = false;
+  showSearchResults = false;
+  searchSubject = new Subject<string>();
+
   // Scroll behavior properties
   lastScrollTop = 0;
   isOfferVisible = true;
   isNavbarVisible = true;
-  scrollThreshold = 50; // Pixels to scroll before hiding offer
-  navbarHideThreshold = 100; // Additional pixels to hide navbar
+  scrollThreshold = 50;
+  navbarHideThreshold = 100;
 
   constructor(
     private router: Router, 
     private route: ActivatedRoute,
     private authService: AuthService, 
-    private cartService: CartService
+    private cartService: CartService,
+    private apiService: ApiService // Add this
   ) {}
 
   ngOnInit() {
@@ -122,25 +135,92 @@ export class NavbarComponent implements OnInit {
 
     this.prepareShopSections();
     this.checkViewport();
+    this.setupSearchDebounce();
+  }
+
+  setupSearchDebounce() {
+    this.searchSubject.pipe(
+      debounceTime(300), // Wait 300ms after user stops typing
+      distinctUntilChanged(), // Only emit if value is different from previous
+      switchMap(searchTerm => {
+        if (searchTerm.length >= 3) {
+          this.isSearching = true;
+          return this.apiService.searchSomething(searchTerm);
+        } else {
+          this.isSearching = false;
+          this.showSearchResults = false;
+          return [];
+        }
+      })
+    ).subscribe({
+      next: (results) => {
+        this.searchResults = results || [];
+        this.isSearching = false;
+        this.showSearchResults = true;
+      },
+      error: (error) => {
+        console.error('Search error:', error);
+        this.searchResults = [];
+        this.isSearching = false;
+        this.showSearchResults = false;
+      }
+    });
+  }
+
+  onSearchInput(event: any) {
+    const value = event.target.value.trim();
+    this.searchValue = value;
+    
+    if (value.length >= 3) {
+      this.searchSubject.next(value);
+    } else {
+      this.showSearchResults = false;
+      this.searchResults = [];
+      this.isSearching = false;
+    }
+  }
+
+  onSearchFocus() {
+    if (this.searchValue.length >= 3 && this.searchResults.length > 0) {
+      this.showSearchResults = true;
+    }
+  }
+
+  onSearchBlur() {
+    // Delay hiding to allow clicking on results
+    setTimeout(() => {
+      this.showSearchResults = false;
+    }, 200);
+  }
+
+  selectSearchResult(product: any) {
+
+    this.searchValue = product.name;
+
+    // Navigate to product detail page
+  this.navigateToProduct(product._id);
+  }
+
+  clearSearch() {
+    this.searchValue = '';
+    this.searchResults = [];
+    this.showSearchResults = false;
+    this.isSearching = false;
   }
 
   @HostListener('window:scroll', [])
   onWindowScroll(): void {
     const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
     
-    // Handle offer banner visibility
     this.isOfferVisible = currentScroll < this.scrollThreshold;
     
-    // Handle navbar visibility based on scroll direction
     if (currentScroll > this.lastScrollTop && currentScroll > this.navbarHideThreshold) {
-      // Scrolling down - hide navbar
       this.isNavbarVisible = false;
+      this.showSearchResults = false; // Hide search results when navbar hides
     } else if (currentScroll < this.lastScrollTop) {
-      // Scrolling up - show navbar
       this.isNavbarVisible = true;
     }
     
-    // Always show navbar when at top
     if (currentScroll <= 10) {
       this.isNavbarVisible = true;
       this.isOfferVisible = true;
@@ -152,6 +232,15 @@ export class NavbarComponent implements OnInit {
   @HostListener('window:resize', [])
   onWindowResize() {
     this.checkViewport();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onDocumentClick(event: Event) {
+    const target = event.target as HTMLElement;
+    const searchContainer = target.closest('.search-container');
+    if (!searchContainer) {
+      this.showSearchResults = false;
+    }
   }
 
   prepareShopSections() {
@@ -222,5 +311,28 @@ export class NavbarComponent implements OnInit {
     this.authService.logout();
     this.router.navigate(['/']);
     this.closeMenu();
+  }
+
+  // Track by function for search results
+  trackByProductId(index: number, product: any): string {
+    return product._id || index;
+  }
+
+  // View all search results
+  viewAllResults() {
+    this.showSearchResults = false;
+    this.router.navigate(['/shopall'], { 
+      queryParams: { search: this.searchValue } 
+    });
+  }
+
+  // Highlight search term in text (optional utility method)
+  highlightSearchTerm(text: string, searchTerm: string): string {
+    if (!searchTerm || !text) return text;
+    const regex = new RegExp(`(${searchTerm})`, 'gi');
+    return text.replace(regex, '<span class="search-highlight">$1</span>');
+  }
+    navigateToProduct(productId: string): void {
+    this.router.navigate(['/shop', productId]);
   }
 }

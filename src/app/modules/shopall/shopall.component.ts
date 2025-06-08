@@ -413,7 +413,7 @@ private isUserAuthenticated(): boolean {
   }
 
   onImageError(event: any): void {
-    event.target.src = '/assets/images/placeholder-product.jpg';
+    // event.target.src = '/assets/images/placeholder-product.jpg';
   }
 
   getStarArray(rating: number): boolean[] {
