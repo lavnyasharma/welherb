@@ -1,8 +1,8 @@
 <!-- ingredients-page.component.html -->
 <section class="hero">
   <div class="hero-content">
-    <h1>Our Apothecary</h1>
-    <p>Curated from Nature</p>
+    <h1>Powerful <span class="highlight-green">Ingredients</span>, Multiple <span class="highlight-green">Benefits</span></h1>
+    <p>These ingredients carry the wisdom of healing: rooted in 5,000 years of Ayurvedic science. They are the force of nature that empowers our remedies. Learn why we trust them, and Why you can too!</p>
   </div>
 </section>
 
@@ -16,13 +16,23 @@
   <!-- Product Grid -->
   <div *ngIf="!isLoading" class="product-grid">
     <div class="product-card" *ngFor="let ingredient of images; trackBy: trackByName">
-      <img 
-        [src]="ingredient.image" 
-        [alt]="ingredient.name" 
-        class="product-image"
-
-        loading="lazy">
-      <div class="product-name">{{ ingredient.name }}</div>
+      <div class="product-image-container">
+        <img 
+          [src]="ingredient.image" 
+          [alt]="ingredient.name" 
+          class="product-image"
+          loading="lazy">
+      </div>
+      <div class="product-info">
+        <div class="product-name">{{ ingredient.name }}</div>
+        <div class="product-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15,3 21,3 21,9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+        </div>
+      </div>
     </div>
   </div>
 

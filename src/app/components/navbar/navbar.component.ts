@@ -168,6 +168,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onSearchInput(event: any) {
+   
     const value = event.target.value.trim();
     this.searchValue = value;
     
@@ -194,6 +195,7 @@ export class NavbarComponent implements OnInit {
   }
 
   selectSearchResult(product: any) {
+    alert(2)
 
     this.searchValue = product.name;
 

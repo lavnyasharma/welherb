@@ -1,5 +1,5 @@
 <div class="shop-container">
-  <!-- Mobile Filter Toggle -->
+  <!-- Mobile Filter Header -->
   <div class="mobile-filter-header">
     <button class="filter-toggle-btn" (click)="toggleMobileFilters()">
       <i class="fa fa-filter"></i>
@@ -217,18 +217,19 @@
             loading="lazy"
             (error)="onImageError($event)"
           />
-          <div class="image-overlay">
-            <button class="quick-view-btn" (click)="openQuickView(product); $event.stopPropagation()">
-              <i class="fa fa-eye"></i>
-              Quick View
-            </button>
-          </div>
         </div>
 
         <!-- Product Details -->
         <div class="product-details">
           <h3 class="product-name" [title]="product.name">{{ product.name }}</h3>
           
+          <!-- Category Tags -->
+          <div class="category-tags" *ngIf="product.category && product.category.length > 0">
+            <span *ngFor="let category of product.category" class="category-tag">
+              {{ category }}
+            </span>
+          </div>
+
           <!-- Rating -->
           <div class="product-rating" *ngIf="product.rating">
             <div class="stars">
@@ -255,13 +256,6 @@
                 {{ size }}
               </button>
             </div>
-          </div>
-
-          <!-- Category Tags -->
-          <div class="category-tags" *ngIf="product.category && product.category.length > 0">
-            <span *ngFor="let category of product.category" class="category-tag">
-              {{ category }}
-            </span>
           </div>
         </div>
 
