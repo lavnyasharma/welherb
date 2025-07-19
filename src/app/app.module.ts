@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
+
 // PrimeNG Modules
 import { BadgeModule } from 'primeng/badge';
 import { AvatarModule } from 'primeng/avatar';

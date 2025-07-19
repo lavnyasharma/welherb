@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CartComponent } from './cart.component';
 
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms'; // Add this import
+
 
 
 @NgModule({
@@ -9,7 +12,9 @@ import { CartComponent } from './cart.component';
     CartComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    FormsModule,
+    BrowserModule
   ]
 })
 export class CartModule { }

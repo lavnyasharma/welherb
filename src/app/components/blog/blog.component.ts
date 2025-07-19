@@ -12,67 +12,57 @@ export class BlogComponent implements OnInit, OnDestroy {
   activeIndex: number = 0;
   autoplayInterval: any;
   
-  // Enhanced blog data with more realistic content
+  // Blog data matching the image design
   blogs = [
     {
-      title: '5 Ayurvedic Herbs for Daily Wellness',
-      description: 'Explore the power of traditional herbs like Ashwagandha, Turmeric, and Brahmi to enhance your daily health routine naturally.',
+      title: 'Anupans often work synergistically with the medicine',
       image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400&h=300&fit=crop&crop=center',
-      category: 'Wellness',
-      date: 'Jan 15, 2025',
-      readTime: '5 min read',
+      category: 'Nutrition',
       author: {
-        name: 'Dr. Priya Sharma',
-        avatar: 'https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=50&h=50&fit=crop&crop=face'
-      }
+        name: 'Rasaura',
+        avatar: ''
+      },
+      views: 'View'
     },
     {
-      title: 'The Science Behind Herbal Medicine',
-      description: 'Discover how modern research validates ancient wisdom, revealing the molecular mechanisms of traditional healing practices.',
+      title: 'Anupans often work synergistically with the medicine',
       image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop&crop=center',
-      category: 'Research',
-      date: 'Jan 12, 2025',
-      readTime: '8 min read',
+      category: 'Nutrition',
       author: {
-        name: 'Dr. Rajesh Kumar',
-        avatar: 'https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=50&h=50&fit=crop&crop=face'
-      }
+        name: 'Rasaura',
+        avatar: ''
+      },
+      views: 'View'
     },
     {
-      title: 'Building Immunity Through Nutrition',
-      description: 'Learn about nutrient-rich foods and natural supplements that can strengthen your immune system throughout the seasons.',
+      title: 'Anupans often work synergistically with the medicine',
       image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=300&fit=crop&crop=center',
       category: 'Nutrition',
-      date: 'Jan 10, 2025',
-      readTime: '6 min read',
       author: {
-        name: 'Nutritionist Maya',
-        avatar: 'https://images.unsplash.com/photo-1594824804732-ca8db6dbd08c?w=50&h=50&fit=crop&crop=face'
-      }
+        name: 'Rasaura',
+        avatar: ''
+      },
+      views: 'View'
     },
     {
-      title: 'Mindful Living: Stress Management Techniques',
-      description: 'Practical approaches to managing stress through meditation, breathing exercises, and mindful daily practices.',
+      title: 'Understanding Ayurvedic Principles in Modern Life',
       image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&crop=center',
-      category: 'Mindfulness',
-      date: 'Jan 8, 2025',
-      readTime: '7 min read',
+      category: 'Wellness',
       author: {
-        name: 'Yoga Teacher Anjali',
-        avatar: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=50&h=50&fit=crop&crop=face'
-      }
+        name: 'Rasaura',
+        avatar: ''
+      },
+      views: 'View'
     },
     {
-      title: 'Seasonal Detox: Spring Cleansing Guide',
-      description: 'Gentle detoxification methods using natural ingredients to refresh your body and mind for the changing season.',
+      title: 'Natural Remedies for Better Health',
       image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop&crop=center',
-      category: 'Detox',
-      date: 'Jan 5, 2025',
-      readTime: '10 min read',
+      category: 'Remedies',
       author: {
-        name: 'Herbalist Vikram',
-        avatar: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=50&h=50&fit=crop&crop=face'
-      }
+        name: 'Rasaura',
+        avatar: ''
+      },
+      views: 'View'
     }
   ];
 

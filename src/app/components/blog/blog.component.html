@@ -1,108 +1,67 @@
 <div class="blog-section">
   <div class="container">
-    <!-- Header Section -->
+    <!-- Header Section with Navigation -->
     <div class="blog-header">
-      <h1 class="blog-heading">
-        The Better Living <span class="highlight">Chronicles</span>
-      </h1>
-      <p class="blog-subtitle">
-        Discover insights, tips, and stories for a healthier, happier lifestyle
-      </p>
-    </div>
-
-    <!-- Blog Carousel -->
-    <div class="blog-carousel-wrapper">
-      <p-carousel
-        #blogCarousel
-        [value]="blogs"
-        [numVisible]="3"
-        [numScroll]="1"
-        [circular]="true"
-        [autoplayInterval]="0"
-        [showIndicators]="false"
-        [showNavigators]="false"
-        [responsiveOptions]="responsiveOptions"
-        (onPage)="updateActiveIndex($event)"
-        class="blog-carousel">
-        
-        <ng-template pTemplate="item" let-blog let-i="index">
-          <div class="blog-card" 
-               (click)="onBlogClick(blog, i)"
-               (touchstart)="onTouchStart($event)"
-               (touchend)="onTouchEnd($event)"
-               (keydown)="onKeyDown($event)"
-               tabindex="0">
-            <div class="blog-image-container">
-              <img [src]="blog.image" [alt]="blog.title" class="blog-image" />
-              <div class="blog-overlay">
-                <div class="blog-category">{{ blog.category }}</div>
-              </div>
-            </div>
-            
-            <div class="blog-content">
-              <div class="blog-meta">
-                <span class="blog-date">{{ blog.date }}</span>
-                <span class="blog-read-time">{{ blog.readTime }}</span>
-              </div>
-              
-              <h3 class="blog-title">{{ blog.title }}</h3>
-              <p class="blog-description">{{ blog.description }}</p>
-              
-              <div class="blog-footer">
-                <div class="author-info">
-                  <img [src]="blog.author.avatar" [alt]="blog.author.name" class="author-avatar" />
-                  <span class="author-name">{{ blog.author.name }}</span>
-                </div>
-                
-                <button class="read-more-btn" type="button" (click)="$event.stopPropagation()">
-                  <span>Read More</span>
-                  <i class="pi pi-arrow-right"></i>
-                </button>
-              </div>
-            </div>
-          </div>
-        </ng-template>
-      </p-carousel>
-      
-      <!-- Custom Navigation -->
-      <div class="carousel-navigation">
-        <button class="nav-btn prev" 
-                (click)="previousSlide()" 
-                type="button"
-                aria-label="Previous slide">
-          <i class="pi pi-chevron-left"></i>
-        </button>
-        <button class="nav-btn next" 
-                (click)="nextSlide()" 
-                type="button"
-                aria-label="Next slide">
-          <i class="pi pi-chevron-right"></i>
-        </button>
+      <div class="header-content">
+        <div class="header-text">
+          <h1 class="blog-heading">The Better Living Blog</h1>
+          <p class="blog-subtitle">
+            Prevention is better than cure, always. Use these simple habits and<br>
+            systems to maintain your health using Ayurveda.
+          </p>
+        </div>
+        <div class="header-navigation">
+          <button class="nav-btn prev" 
+                  (click)="previousSlide()" 
+                  type="button"
+                  aria-label="Previous slide">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+          
+          <button class="nav-btn next" 
+                  (click)="nextSlide()" 
+                  type="button"
+                  aria-label="Next slide">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+              <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
 
-    <!-- Custom Pagination Dots -->
-    <div class="carousel-pagination">
-      <button
-        *ngFor="let blog of blogs; let i = index"
-        class="pagination-dot"
-        [class.active]="i === activeIndex"
-        (click)="goToSlide(i)"
-        type="button"
-        [attr.aria-label]="'Go to slide ' + (i + 1)">
-      </button>
+    <!-- Blog Cards Grid -->
+    <div class="blog-grid">
+      <div class="blog-card" 
+           *ngFor="let blog of blogs.slice(0, 3); let i = index"
+           (click)="onBlogClick(blog, i)"
+           tabindex="0">
+        
+        <div class="blog-image-container">
+          <img [src]="blog.image" [alt]="blog.title" class="blog-image" />
+        </div>
+        
+        <div class="blog-content">
+          <div class="blog-meta">
+            <span class="blog-category">{{ blog.category }}</span>
+            <span class="blog-separator">|</span>
+            <span class="blog-author">{{ blog.author.name }}</span>
+            <span class="blog-separator">|</span>
+            <span class="blog-views">{{ blog.views }}</span>
+          </div>
+          
+          <h3 class="blog-title">{{ blog.title }}</h3>
+          
+          <!-- Show View More button only on first card -->
+          <div class="blog-footer" *ngIf="i === 0">
+            <button class="view-more-btn" type="button" (click)="onMoreBlogsClick()">
+              View More
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
-
-    <!-- More Blogs Section -->
-  <div class="more-blogs-section">
-  <button class="more-blogs-btn" 
-          type="button" 
-          [routerLink]="'/blogs'"
-          (click)="onMoreBlogsClick()">
-    <span>Explore All Articles</span>
-    <i class="pi pi-external-link"></i>
-  </button>
-</div>
-
   </div>
 </div>
