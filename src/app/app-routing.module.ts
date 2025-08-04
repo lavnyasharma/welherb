@@ -13,6 +13,7 @@ import { ReviewsComponent } from './components/reviews/reviews.component';
 import { ExpertComponent } from './components/expert/expert.component';
 import { IngredientsPageComponent } from './modules/ingredients-page/ingredients-page.component';
 import { ContactUsComponent } from './modules/contact-us/contact-us.component';
+import { BlogOpenComponent } from './modules/blog-open/blog-open.component';
 // Import Auth Guard
 
 const routes: Routes = [
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'reviews', component: ReviewsComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'blogs', component: ExpertComponent },
+  { path: 'blogs-open', component: BlogOpenComponent },
    { path: 'ingredients', component: IngredientsPageComponent },
     { path: 'expert-help', component: ContactUsComponent },
   

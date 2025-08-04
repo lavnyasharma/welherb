@@ -1,0 +1,118 @@
+<div class="blog-container">
+  <!-- Header Section -->
+  <header class="blog-header">
+    <div class="header-content">
+      <h1 class="blog-title">{{ blogData.title }}</h1>
+      <p class="blog-subtitle">{{ blogData.subtitle }}</p>
+    </div>
+    <div class="header-meta">
+      <span class="blog-date">{{ blogData.date }}</span>
+      <div class="blog-tags">
+        <span class="tag-label">Tags:</span>
+        <span *ngFor="let tag of blogData.tags; let last = last" class="tag">
+          {{ tag }}<span *ngIf="!last"> | </span>
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Image -->
+  <div class="hero-image">
+    <img [src]="blogData.heroImage" [alt]="blogData.title" />
+  </div>
+
+  <!-- Main Content -->
+  <div class="content-wrapper">
+    <!-- Left Content -->
+    <main class="main-content">
+      <!-- Key Notes Section -->
+      <div class="key-notes">
+        <h3>Key Notes:</h3>
+        <ul>
+          <li *ngFor="let note of blogData.keyNotes">{{ note }}</li>
+        </ul>
+      </div>
+
+      <!-- Article Content -->
+      <article class="article-content">
+        <div *ngFor="let section of blogData.content" class="content-section">
+          <h2>{{ section.heading }}</h2>
+          <p>{{ section.text }}</p>
+        </div>
+      </article>
+
+      <!-- Category Tags -->
+      <div class="category-tags">
+        <span *ngFor="let category of blogData.categories" class="category-tag">
+          {{ category }}
+        </span>
+      </div>
+
+      <!-- Comments Section -->
+      <section class="comments-section">
+        <h3>Leave a comment</h3>
+        <form #commentForm="ngForm" (ngSubmit)="onSubmitComment(commentForm.value)" class="comment-form">
+          <div class="form-group">
+            <textarea 
+              name="comment" 
+              ngModel 
+              placeholder="Leave a comment" 
+              required
+              class="comment-textarea">
+            </textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <input 
+                type="text" 
+                name="name" 
+                ngModel 
+                placeholder="Your Name" 
+                required
+                class="form-input">
+            </div>
+            <div class="form-group">
+              <input 
+                type="email" 
+                name="email" 
+                ngModel 
+                placeholder="Your Email" 
+                required
+                class="form-input">
+            </div>
+          </div>
+          <button type="submit" [disabled]="!commentForm.valid" class="submit-btn">
+            Submit
+          </button>
+        </form>
+      </section>
+    </main>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <!-- Table of Contents -->
+      <div class="sidebar-section">
+        <h4>Table of Content</h4>
+        <ul class="toc-list">
+          <li *ngFor="let item of blogData.tableOfContents">
+            <a href="#" class="toc-link">{{ item }}</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Authors -->
+      <div class="sidebar-section">
+        <h4>Authors</h4>
+        <div class="authors-list">
+          <div *ngFor="let author of blogData.authors" class="author-item">
+            <img [src]="author.avatar" [alt]="author.name" class="author-avatar">
+            <div class="author-info">
+              <p class="author-name">Written by {{ author.name }}</p>
+              <p class="author-role">{{ author.role }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </div>
+</div>

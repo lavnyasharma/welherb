@@ -97,6 +97,7 @@ import { FaqComponent } from './components/faq/faq.component';
 import { DietryAdviceComponent } from './components/dietry-advice/dietry-advice.component';
 import { IngredientsPageComponent } from './modules/ingredients-page/ingredients-page.component';
 import { ContactUsComponent } from './modules/contact-us/contact-us.component';
+import { BlogOpenComponent } from './modules/blog-open/blog-open.component';
 
 
 
@@ -136,6 +137,7 @@ import { ContactUsComponent } from './modules/contact-us/contact-us.component';
      DietryAdviceComponent,
      IngredientsPageComponent,
      ContactUsComponent,
+     BlogOpenComponent,
 
   ],
   imports: [
