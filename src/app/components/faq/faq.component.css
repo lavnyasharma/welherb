@@ -1,97 +1,277 @@
-.faq-container {
-    padding: 24px;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', sans-serif;
-    margin: 50px;
-  }
-  
-  .faq-columns {
-    display: flex;
-    gap: 24px;
-  }
-  
-  .faq-column {
-    flex: 1;
-  }
-.faq-column.one {
-  background: #9AE2FA;
-  padding: 20px;
-}
-  
-  .faq-item {
-     /* background: #ffffff; */
-    /* border: 1px solid #ddd; */
-    /* border-radius: 8px; */
-    margin-bottom: 16px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
-    overflow: hidden;
-    transition: all 0.3s ease;
-  }
-  
-  .faq-question {
-display: flex
+/* Main Container */
+.main-container {
+    display: flex
 ;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    padding: 16px 20px;
-    /* background-color: #f8f9fa; */
-    font-weight: 500;
-    transition: background 0.2s;
-    /* background: black; */
-    border: 1px solid #4eae32;
+    gap: 40px;
+    padding: 40px;
+
+
+
+    justify-content: center;
+}
+
+/* Left Section */
+.left-section {
+  flex: 1;
+  max-width: 500px;
+}
+
+.main-title {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: #333;
+  margin: 0 0 40px 0;
+  letter-spacing: -0.02em;
+}
+
+.info-items {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.info-item {
+  background: #ffffff;
+  border-radius: 12px;
+  border: 1px solid #e0e0e0;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.info-item:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.expanded-item {
+  border-color: #ddd;
+}
+
+.info-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  background-color: #f8f9fa;
+  transition: background-color 0.2s ease;
+}
+
+.info-item:hover .info-header {
+  background-color: #f1f3f4;
+}
+
+.info-title {
+  font-size: 1.1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.toggle-icon {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #666;
+  transition: transform 0.3s ease;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.toggle-icon.rotated {
+  transform: rotate(45deg);
+}
+
+.info-content {
+  padding: 0 24px 24px 24px;
+  animation: slideDown 0.3s ease-out;
+}
+
+.info-content.visible {
+  display: block;
+}
+
+.info-content p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #555;
+}
+
+/* Right Section - FAQ Box */
+.right-section {
+  flex: 1;
+  max-width: 500px;
+}
+
+.faq-box {
+  background: #93D5E7;
+  border-radius: 20px;
+  padding: 32px;
+  height: fit-content;
+  box-shadow: 0 8px 32px rgba(56, 189, 248, 0.2);
+}
+
+.faq-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #000000;
+  margin: 0 0 32px 0;
+  text-align: left;
+}
+
+.faq-items {
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  border-bottom: 1px solid #f0f0f0;
+  padding-bottom: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.faq-item:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.faq-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+}
+
+.faq-question {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.faq-toggle {
+  font-size: 1.25rem;
+  font-weight: 300;
+  color: #666;
+  transition: transform 0.3s ease;
+  width: 20px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.faq-toggle.rotated {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  padding: 12px 0 0 0;
+  animation: slideDown 0.3s ease-out;
+}
+
+.faq-answer p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.5;
+  color: #666;
+}
+
+/* Animations */
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
   }
-  
-  .faq-question:hover {
-    background-color: #e9ecef;
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
-  
-  .faq-question h3 {
-    margin: 0;
-    font-size: 1rem;
-  }
-  
-  .icon {
-    font-size: 1.5rem;
-    font-weight: bold;
-    transition: transform 0.3s ease;
-    color: #007bff;
-  }
-  
-  .icon.open {
-    transform: rotate(45deg);
-  }
-  
-  .faq-answer {
-    padding: 15px;
-    font-size: 0.95rem;
-    color: #333;
-    animation: fadeIn 0.3s ease-in-out;
-  }
-  
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(-6px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-  
-  .faq-mobile {
+}
+
+/* Mobile View - Hidden by default */
+.mobile-view {
+  display: none;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .main-container {
     display: none;
   }
   
-  /* Responsive for mobile */
-  @media (max-width: 768px) {
-    .faq-columns {
-      display: none;
-    }
-  
-    .faq-mobile {
-      display: block;
-    }
+  .mobile-view {
+    display: block;
+    padding: 20px;
   }
   
+  .mobile-title {
+    font-size: 2rem;
+    font-weight: 300;
+    color: #333;
+    margin: 0 0 24px 0;
+  }
+  
+  .mobile-item {
+    background: #ffffff;
+    border-radius: 12px;
+    border: 1px solid #e0e0e0;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  
+  .mobile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px 20px;
+    background-color: #f8f9fa;
+    cursor: pointer;
+  }
+  
+  .mobile-question {
+    font-size: 1rem;
+    font-weight: 500;
+    color: #333;
+  }
+  
+  .mobile-toggle {
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: #666;
+    transition: transform 0.3s ease;
+  }
+  
+  .mobile-toggle.rotated {
+    transform: rotate(45deg);
+  }
+  
+  .mobile-answer {
+    padding: 16px 20px;
+    animation: slideDown 0.3s ease-out;
+  }
+  
+  .mobile-answer p {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+    color: #555;
+  }
+}
+
+@media (max-width: 1024px) {
+  .main-container {
+    flex-direction: column;
+    gap: 32px;
+  }
+  
+  .left-section,
+  .right-section {
+    max-width: 100%;
+  }
+}

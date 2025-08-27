@@ -1,45 +1,87 @@
-<div class="container" style="padding: 2rem;">
-    <div class="row">
-      <div class="heading" style="text-align: center;">
-        <h1>First step of better living: Eating Right</h1>
+<div class="container">
+  <!-- Header Section -->
+  <div class="header-section">
+    <h1 class="main-title">How to Use</h1>
+    <div class="switch-profile">
+      <span class="switch-text">Switch profile:</span>
+      <div class="profile-avatars">
+        <div class="avatar avatar-1"></div>
+        <div class="avatar avatar-2"></div>
+        <div class="avatar avatar-3"></div>
+        <div class="avatar avatar-4"></div>
       </div>
-  
-      <!-- Dietary Advice -->
-      <div 
-        class="para" 
-        
-        *ngIf="dietaryAdvice?.length" 
-        style="font-size: 1rem; line-height: 1.6; margin-bottom: 2rem;">
-        <ng-container *ngFor="let line of dietaryAdvice">
-          {{ line }}<br />
-        </ng-container>
-      </div>
-  
-      <!-- Helps Section -->
-      <div 
-        class="benefits-container" 
-        style="display: flex; gap: 2rem; border: 1px solid #ccc; border-radius: 8px; padding: 1.5rem;"
-        *ngIf="helpsHow?.length || helpsWho?.length"
-      >
-        <!-- Helps How -->
-        <div class="helps-how" style="flex: 1; padding-right: 1rem;" *ngIf="helpsHow?.length">
-          <h3 style="margin-bottom: 1rem; font-size: 1.25rem;">Helps How</h3>
-          <ul style="list-style-type: disc; padding-left: 1.2rem; margin: 0;">
-            <li *ngFor="let item of helpsHow">{{ item }}</li>
-          </ul>
+    </div>
+  </div>
+
+  <!-- Dietary Advice Section -->
+  <div class="para" *ngIf="dietaryAdvice?.length">
+    <ng-container *ngFor="let line of dietaryAdvice">
+      {{ line }}<br />
+    </ng-container>
+  </div>
+
+  <!-- Content Card -->
+  <div class="content-card">
+    <!-- Left Section - Helps How -->
+    <div class="left-section" *ngIf="helpsHow?.length">
+      <div class="info-section">
+        <div class="section-header">
+          <div class="plus-icon">
+            <img src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/star%20(1)%204.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvc3RhciAoMSkgNC5zdmciLCJpYXQiOjE3NTYyOTY0MTEsImV4cCI6MzY1OTUzMDc3MzY0MTF9.KlJEocKVqN72HUxE1mIKNbuYn-9Al1V8z-S6KkM6eAk" alt="Plus Icon" />
+          </div>
+          <h3>Dosage</h3>
+          <span class="tag">Not Personalised Dosage</span>
         </div>
-  
-        <!-- Divider Line -->
-        <div style="width: 1px; background-color: #ccc;" *ngIf="helpsHow?.length && helpsWho?.length"></div>
-  
-        <!-- Helps Who -->
-        <div class="helps-who" style="flex: 1; padding-left: 1rem;" *ngIf="helpsWho?.length">
-          <h3 style="margin-bottom: 1rem; font-size: 1.25rem;">Helps Who</h3>
-          <ul style="list-style-type: disc; padding-left: 1.2rem; margin: 0;">
-            <li *ngFor="let item of helpsWho">{{ item }}</li>
-          </ul>
+        <div class="section-content">
+          <ng-container *ngFor="let item of helpsHow; let i = index">
+            <p *ngIf="i === 0">{{ item }}</p>
+            <div *ngIf="i === 1" class="subsection">
+              <h4>Once BP is normal</h4>
+              <p>{{ item }}</p>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <!-- Avoid Section - if you have more helpsHow items -->
+      <div class="info-section" *ngIf="helpsHow?.length > 2">
+        <div class="section-header">
+         <div class="plus-icon">
+            <img src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/star%20(1)%204.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvc3RhciAoMSkgNC5zdmciLCJpYXQiOjE3NTYyOTY0MTEsImV4cCI6MzY1OTUzMDc3MzY0MTF9.KlJEocKVqN72HUxE1mIKNbuYn-9Al1V8z-S6KkM6eAk" alt="Plus Icon" />
+          </div>
+          <h3>Avoid</h3>
+        </div>
+        <div class="section-content">
+          <p>{{ helpsHow[2] }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Section - Helps Who -->
+    <div class="right-section" *ngIf="helpsWho?.length">
+      <div class="info-section">
+        <div class="section-header">
+         <div class="plus-icon">
+            <img src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/star%20(1)%204.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvc3RhciAoMSkgNC5zdmciLCJpYXQiOjE3NTYyOTY0MTEsImV4cCI6MzY1OTUzMDc3MzY0MTF9.KlJEocKVqN72HUxE1mIKNbuYn-9Al1V8z-S6KkM6eAk" alt="Plus Icon" />
+          </div>
+          <h3>Must</h3>
+        </div>
+        <div class="section-content">
+          <p *ngIf="helpsWho[0]">{{ helpsWho[0] }}</p>
+        </div>
+      </div>
+
+      <div class="info-section" *ngIf="helpsWho?.length > 1">
+        <div class="section-header">
+ <div class="plus-icon">
+            <img src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/star%20(1)%204.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvc3RhciAoMSkgNC5zdmciLCJpYXQiOjE3NTYyOTY0MTEsImV4cCI6MzY1OTUzMDc3MzY0MTF9.KlJEocKVqN72HUxE1mIKNbuYn-9Al1V8z-S6KkM6eAk" alt="Plus Icon" />
+          </div>
+          <h3>For Desired Results</h3>
+        </div>
+        <div class="section-content">
+          <p>{{ helpsWho[1] }}</p>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

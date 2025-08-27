@@ -1,48 +1,243 @@
 .container {
-    padding: 2rem;
+
+    padding: 65px;
+
+   
+}
+
+.header-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.switch-profile {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  order: 2;
+}
+
+.switch-text {
+  font-size: 0.875rem;
+  color: #6b7280;
+  font-weight: 500;
+}
+
+.profile-avatars {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 2px solid #e5e7eb;
+  background-size: cover;
+  background-position: center;
+}
+
+.avatar-1 {
+  background-color: #fbbf24;
+  background-image: radial-gradient(circle, #f59e0b 30%, #fbbf24 70%);
+}
+
+.avatar-2 {
+  background-color: #ef4444;
+  background-image: radial-gradient(circle, #dc2626 30%, #ef4444 70%);
+}
+
+.avatar-3 {
+  background-color: #10b981;
+  background-image: radial-gradient(circle, #059669 30%, #10b981 70%);
+}
+
+.avatar-4 {
+  background-color: #6366f1;
+  background-image: radial-gradient(circle, #4f46e5 30%, #6366f1 70%);
+}
+
+.main-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+  order: 1;
+  flex-grow: 1;
+}
+
+.content-card {
+    border-radius: 40px;
+    overflow: hidden;
+    display: grid
+;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+    /* min-height: 400px; */
+    border: 1px solid grey;
+}
+
+.left-section,
+.right-section {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.right-section {
+  border-left: 1px solid #e5e7eb;
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.plus-icon {
+  width: 20px;
+  height: 20px;
+
+
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 1rem;
+  flex-shrink: 0;
+}
+
+.section-header h3 {
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: #111827;
+  margin: 0;
+}
+
+.tag {
+  background-color: #dbeafe;
+  color: #1e40af;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.section-content {
+  padding-left: 2rem;
+  color: #374151;
+  line-height: 1.6;
+}
+
+.section-content p {
+  margin: 0 0 1rem 0;
+  font-size: 0.95rem;
+}
+
+.subsection {
+  margin-top: 1rem;
+}
+
+.subsection h4 {
+  font-weight: 600;
+  color: #111827;
+  margin: 0 0 0.5rem 0;
+  font-size: 0.95rem;
+}
+
+.para {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: #374151;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .container {
+    padding: 0.75rem;
   }
-  
-  .para {
-    font-size: 1.1rem; /* increased from 1rem */
-    line-height: 1.8;  /* improved line spacing */
-    margin-bottom: 2rem;
-    text-align: center;
+
+  .header-section {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
   }
-  
-  .benefits-container {
-    display: flex;
-    gap: 2rem;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+
+  .switch-profile {
+    order: 1;
+    align-self: flex-end;
+  }
+
+  .main-title {
+    order: 2;
+    font-size: 1.75rem;
+  }
+
+  .content-card {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .right-section {
+    border-left: none;
+    border-top: 1px solid #e5e7eb;
+  }
+
+  .left-section,
+  .right-section {
     padding: 1.5rem;
-    font-size: 1.05rem; /* increased base font size inside benefits section */
   }
-  
-  .benefits-container > div {
-    /* optional styles can go here */
+
+  .section-content {
+    padding-left: 1.5rem;
   }
-  
-  .helps-how {
-    padding-right: 1rem;
+
+  .para {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
   }
-  
-  .helps-who {
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0.5rem;
+  }
+
+  .main-title {
+    font-size: 1.5rem;
+  }
+
+  .left-section,
+  .right-section {
+    padding: 1rem;
+  }
+
+  .section-content {
     padding-left: 1rem;
   }
-  
-  .benefits-container h3 {
-    margin-bottom: 1rem;
-    font-size: 1.35rem; /* increased from 1.25rem */
+
+  .section-header {
+    gap: 0.5rem;
   }
-  
-  .benefits-container ul {
-    list-style-type: disc;
-    padding-left: 1.4rem; /* slightly more padding */
-    margin: 0;
+
+  .tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.4rem;
   }
-  
-  .divider {
-    width: 1px;
-    background-color: #ccc;
-  }
-  
+}

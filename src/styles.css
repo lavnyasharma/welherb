@@ -26,7 +26,7 @@ h1, h2, h3, h4, h5, h6 {
     font-family: 'Arima' !important;
 }
 span{
-     font-family: 'Arima'  !important;
+     /* font-family: 'Arima'  !important; */
 }
 /* Components & utility classes */
 .p-card {

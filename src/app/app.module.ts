@@ -98,6 +98,8 @@ import { DietryAdviceComponent } from './components/dietry-advice/dietry-advice.
 import { IngredientsPageComponent } from './modules/ingredients-page/ingredients-page.component';
 import { ContactUsComponent } from './modules/contact-us/contact-us.component';
 import { BlogOpenComponent } from './modules/blog-open/blog-open.component';
+import { ShopreviewsComponent } from './components/shopreviews/shopreviews.component';
+import { BetterlivingComponent } from './components/betterliving/betterliving.component';
 
 
 
@@ -138,6 +140,8 @@ import { BlogOpenComponent } from './modules/blog-open/blog-open.component';
      IngredientsPageComponent,
      ContactUsComponent,
      BlogOpenComponent,
+     ShopreviewsComponent,
+     BetterlivingComponent,
 
   ],
   imports: [

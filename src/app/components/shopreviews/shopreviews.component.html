@@ -1,0 +1,152 @@
+<div class="testimonials-container">
+  <!-- Header Section -->
+  <div class="header-section">
+   <div class="title-container">
+     <h1 class="main-title">The joy of better living</h1>
+    </div>
+      <h2 class="main-title">What Our Customers Say</h2>
+    <p class="subtitle">Health is the truest form of joy and we're grateful to help you regain it! Your words inspire us every. single. day.</p>
+    <div class="navigation-arrows">
+      <button class="nav-arrow prev-arrow" (click)="previousSlide()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m15 18-6-6 6-6"></path>
+        </svg>
+      </button>
+      <button class="nav-arrow next-arrow" (click)="nextSlide()">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="m9 18 6-6-6-6"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Testimonials Carousel -->
+  <div class="testimonials-carousel">
+    <div class="testimonials-wrapper">
+      <div class="testimonial-card" *ngFor="let testimonial of testimonials" [class.center-card]="testimonial.id === 2">
+        <div class="card-content">
+          <p class="testimonial-text">"{{ testimonial.content }}"</p>
+          <div class="author-info">
+            <div class="author-avatar">
+              <img [src]="testimonial.avatar" [alt]="testimonial.author" 
+                   onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNEREREREQiLz4KPHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSIxMCIgeT0iMTAiPgo8cGF0aCBkPSJNMTIgMTJDMTQuMjA5MSAxMiAxNiAxMC4yMDkxIDE2IDhDMTYgNS43OTA5IDE0LjIwOTEgNCAxMiA0QzkuNzkwODYgNCA4IDUuNzkwOSA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNNSAyMFY3SDE5VjIwSDVaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPC9zdmc+'" />
+            </div>
+            <div class="author-details">
+              <h4 class="author-name">{{ testimonial.author }}</h4>
+              <p class="author-title">{{ testimonial.title }}</p>
+            </div>
+          </div>
+          <div class="see-more" *ngIf="testimonial.seeMoreLink">
+            <a href="#" class="see-more-link">{{ testimonial.seeMoreLink }} →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Section with Ratings and Group Image -->
+  <div class="bottom-section">
+    <!-- Ratings Section -->
+    <div class="ratings-section">
+      <div class="rating-bars">
+        <div class="rating-row" *ngFor="let rating of ratings">
+          <span class="star-count">{{ rating.stars }}</span>
+          <span class="star-icon">★</span>
+          <div class="rating-bar">
+            <div class="rating-fill" [style.width.%]="getRatingPercentage(rating.count)"></div>
+          </div>
+          <span class="rating-count">{{ rating.count === 1100 ? '1.1k' : rating.count }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Group Image -->
+    <div class="group-image-section">
+      <div class="group-image">
+        <img src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/portrait-diverse-women-together%201.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvcG9ydHJhaXQtZGl2ZXJzZS13b21lbi10b2dldGhlciAxLnBuZyIsImlhdCI6MTc1NjI5NzE3MSwiZXhwIjoxNzg3ODMzMTcxfQ.Q5I0cdpOwt6o_4L2GhViK9xX12iDRsfb1nLe_x45D-o" 
+             alt="Happy Customers Group" 
+             onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjE1MCIgdmlld0JveD0iMCAwIDMwMCAxNTAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMTUwIiByeD0iMTAiIGZpbGw9IiNGNEY0RjQiLz4KPHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSIxMjAiIHk9IjQ1Ij4KPGNpcmNsZSBjeD0iMzAiIGN5PSIzMCIgcj0iMzAiIGZpbGw9IiNDQ0NDQ0MiLz4KPHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSIxNSIgeT0iMTUiPgo8cGF0aCBkPSJNMTIgMTJDMTQuMjA5MSAxMiAxNiAxMC4yMDkxIDE2IDhDMTYgNS43OTA5IDE0LjIwOTEgNCAxMiA0QzkuNzkwODYgNCA4IDUuNzkwOSA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNNSAyMFY3SDE5VjIwSDVaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPC9zdmc+Cjx0ZXh0IHg9IjE1MCIgeT0iMTMwIiB0ZXh0LWFuY2hvcj0ibWlkZGxlIiBmaWxsPSIjNjY2NjY2IiBmb250LXNpemU9IjE0Ij5IYXBweSBDdXN0b21lcnM8L3RleHQ+Cjwvc3ZnPgo='" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Reviews and Form Section -->
+  <div class="reviews-form-section">
+    <!-- Recent Feedback -->
+    <div class="recent-feedback">
+      <h2 class="section-title">Recent Feedback</h2>
+      <div class="reviews-list">
+        <div class="review-item" *ngFor="let review of reviews">
+          <div class="reviewer-avatar">
+            <img [src]="review.avatar" [alt]="review.author" 
+                 onerror="this.src='data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGNpcmNsZSBjeD0iMjAiIGN5PSIyMCIgcj0iMjAiIGZpbGw9IiNEREREREQiLz4KPHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4PSIxMCIgeT0iMTAiPgo8cGF0aCBkPSJNMTIgMTJDMTQuMjA5MSAxMiAxNiAxMC4yMDkxIDE2IDhDMTYgNS43OTA5IDE0LjIwOTEgNCAxMiA0QzkuNzkwODYgNCA4IDUuNzkwOSA4IDhDOCAxMC4yMDkxIDkuNzkwODYgMTIgMTIgMTJaIiBmaWxsPSJ3aGl0ZSIvPgo8cGF0aCBkPSJNNSAyMFY3SDE5VjIwSDVaIiBmaWxsPSJ3aGl0ZSIvPgo8L3N2Zz4KPC9zdmc+'" />
+          </div>
+          <div class="review-content">
+            <div class="reviewer-header">
+              <h4 class="reviewer-name">{{ review.author }}</h4>
+              <div class="review-stars">
+                <span class="star" *ngFor="let star of getStarsArray(review.stars)" [class.filled]="star === 1">★</span>
+              </div>
+            </div>
+            <p class="review-text">{{ review.content }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Add Review Form -->
+    <div class="add-review-form">
+      <h2 class="section-title">Add A Review</h2>
+      <form (ngSubmit)="submitReview()" #reviewForm="ngForm">
+        <div class="form-group">
+          <label class="form-label">Rate Our Medicines*</label>
+          <div class="star-rating">
+            <span 
+              class="rating-star" 
+              *ngFor="let star of getStarsArray(5); let i = index"
+              [class.filled]="i < newReview.rating"
+              (click)="setRating(i + 1)">★</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="name" class="form-label">Name*</label>
+          <input 
+            type="text" 
+            id="name" 
+            class="form-input" 
+            [(ngModel)]="newReview.name" 
+            name="name"
+            placeholder="Abc" 
+            required />
+        </div>
+
+        <div class="form-group">
+          <label for="email" class="form-label">Email*</label>
+          <input 
+            type="email" 
+            id="email" 
+            class="form-input" 
+            [(ngModel)]="newReview.email" 
+            name="email"
+            placeholder="Abc@gmail.com" 
+            required />
+        </div>
+
+        <div class="form-group">
+          <label for="review" class="form-label">Write Your Review*</label>
+          <textarea 
+            id="review" 
+            class="form-textarea" 
+            [(ngModel)]="newReview.review" 
+            name="review"
+            placeholder="Review comes here" 
+            rows="4" 
+            required></textarea>
+        </div>
+
+        <button type="submit" class="submit-button" [disabled]="!reviewForm.form.valid">Submit</button>
+      </form>
+    </div>
+  </div>
+</div>

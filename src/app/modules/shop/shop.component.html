@@ -1,138 +1,208 @@
-<div class="shop-page">
-    <!-- Left Section: Image Carousel -->
-    <div class="image-carousel">
-      <div class="thumbnails">
-        <img
-          *ngFor="let thumbnail of productImages"
-          [src]="thumbnail"
-          class="thumbnail"
-          (click)="selectImage(thumbnail)"
-          [class.active]="thumbnail === selectedImage"
-          alt="Product Thumbnail"
-        />
+<div class="shop-container">
+  <div class="shop-layout">
+    <!-- Left Section: Product Images -->
+    <div class="product-images">
+      <!-- Main Product Image -->
+      <div class="main-image-container">
+        <img [src]="selectedImage" [alt]="product?.title" class="main-product-image">
       </div>
-      <div class="main-image">
-        <img [src]="selectedImage" alt="Product Image" />
-      </div>
-    </div>
-  <!-- Modal -->
-
-<div class="dosage-modal" *ngIf="showModal">
-  <div class="modal-content" (click)="$event.stopPropagation()">
-    <h2>Your Personalized Dosage</h2>
-
-    <div class="dosage-grid" *ngIf="!dosage?.error; else noDosage">
-      <div *ngIf="dosage?.morning">
-        <strong>🌅 Morning:</strong> {{ dosage.morning }}
-      </div>
-      <div *ngIf="dosage?.afternoon">
-        <strong>🌞 Afternoon:</strong> {{ dosage.afternoon }}
-      </div>
-      <div *ngIf="dosage?.evening">
-        <strong>🌙 Evening:</strong> {{ dosage.evening }}
+      
+      <!-- Thumbnail Images -->
+      <div class="thumbnail-grid">
+        <img 
+          *ngFor="let image of productImages; let i = index" 
+          [src]="image" 
+          [alt]="'Product view ' + (i + 1)"
+          class="thumbnail-image"
+          [class.active]="image === selectedImage"
+          (click)="selectImage(image)">
       </div>
     </div>
-
-    <ng-template #noDosage>
-      <div class="no-dosage-msg">
-        <p>No personalized dosage for now 😔</p>
-      </div>
-    </ng-template>
-
-    <button (click)="closeModal()" class="close-btn">Close</button>
-  </div>
-</div>
 
     <!-- Right Section: Product Details -->
-    <div class="product-details">
-      <h1 class="product-title">{{ product.title }}</h1>
-      <p class="product-subtitle">{{ product.subtitle }}</p>
-    <div class="" style="display: flex;justify-content: space-between;align-items: center;
-    ">
-      <p  class="product-price">₹{{ product.price }}</p>
-<div class="actions" style="margin: 0;">
-  <button class="add-to-carts" (click)="openModal(product.id)" >Get personalized Dosage</button>
-</div>
-    </div>
-      <div class="product-rating">
-        ⭐⭐⭐⭐⭐ <span>{{ product.rating }}/5 ({{ product.reviews }} reviews)</span>
+    <div class="product-info">
+      <!-- Blood Pressure Tag -->
+      <div class="category-tag">Blood Pressure</div>
+      
+      <!-- Product Title -->
+      <h1 class="product-title">{{ product?.title || 'ARTH EASE' }}</h1>
+      
+      <!-- Rating -->
+              <div class="product-rating" style="    padding-bottom: 15px;
+    border-bottom: 1px solid rgb(200, 200, 200);">
+                <div class="stars">
+                  <i class="fa fa-star filled" *ngFor="let star of [1,2,3,4,5]"></i>
+                </div>
+                <span style="font-family: Lato !important;" class="rating-count"></span>
+              </div>
+
+      <!-- Product Description -->
+      <div class="product-description" style="    margin-top: 10px;">
+        <p class="subtitle">Ayurvedic medicine for:</p>
+        <ul class="benefits-list">
+          <li>• High ESR & inflammation</li>
+          <li>• Joint pain, swelling & fatigue</li>
+          <li>• Pus cells in reproductive & urinary tract</li>
+          <li>• Inflammation-induced conditions like Arthritis, PCOS and others.</li>
+        </ul>
       </div>
-  
-      <!-- Features -->
-      <div class="product-features">
-        <div>
-          <h3>Reduces:</h3>
-          <ul>
-            <li *ngFor="let reduce of product.features.reduces">{{ reduce }}</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Calms:</h3>
-          <ul>
-            <li *ngFor="let calm of product.features.calms">{{ calm }}</li>
-          </ul>
-        </div>
-        <div>
-          <h3>Boosts:</h3>
-          <ul>
-            <li *ngFor="let boost of product.features.boosts">{{ boost }}</li>
-          </ul>
-        </div>
+
+      <!-- Price Section -->
+      <div class="price-section">
+        <span class="current-price">₹{{ product?.price || 998 }}</span>
+        <span class="original-price">(₹499x2)</span>
       </div>
-  
-      <!-- Capsule and Quantity Options -->
-      <div class="options">
-        <div class="capsule-options">
-          <span>Capsules:</span>
-          <button
-            *ngFor="let capsule of product.capsuleOptions"
-            (click)="selectCapsule(capsule)"
-            [ngStyle]="{'background-color': capsule === selectedCapsule ? color : 'rgb(171 221 247)'}"
-            [class.active]="capsule === selectedCapsule"
-          >
-            {{ capsule }}
+
+      <!-- Product Options -->
+      <div class="product-options">
+        <!-- Radio Options -->
+        <div class="option-group">
+          <label class="option-item">
+            <input type="radio" name="product-option" value="combos" checked>
+            <span class="option-label">Combos</span>
+          </label>
+          
+          <label class="option-item">
+            <input type="radio" name="product-option" value="arth-ease">
+            <span class="option-label">Arth Ease</span>
+          </label>
+          
+          <label class="option-item">
+            <input type="radio" name="product-option" value="arth-ease-afternoon">
+            <span class="option-label">Arth Ease Afternoon</span>
+          </label>
+        </div>
+
+        <!-- Capsule Size Selection -->
+        <div class="capsule-selection">
+    <div class="capsule-size" style="    width: 45%;
+    display: flex
+;
+    justify-content: space-between;">
+            <button class="capsule-btn" 
+                  [class.active]="selectedCapsule === 30"
+                  (click)="selectCapsule(30)">
+            30 Capsules
           </button>
+          <button class="capsule-btn" 
+                  [class.active]="selectedCapsule === 60"
+                  (click)="selectCapsule(60)">
+            60 Capsules
+          </button>
+    </div>
+                  <!-- Quantity Selector -->
+        <div class="quantity-section">
+          <button class="quantity-btn" (click)="decreaseQuantity()">−</button>
+          <span class="quantity-display">{{ quantity }}</span>
+          <button class="quantity-btn" (click)="increaseQuantity()">+</button>
         </div>
-        <div class="quantity-options" style="display: flex; align-items: center; gap: 10px; font-family: Arial, sans-serif; font-size: 16px;">
-          <span >Quantity:</span>
-          <div style="display: flex; align-items: center; background-color: rgb(171 221 247); border: 1px solid black; border-radius: 8px; padding:0; gap: 10px;">
-            <button (click)="decreaseQuantity()" style="background: none; border: none; font-size: 18px; font-weight: bold; cursor: pointer;">-</button>
-            <span style="font-size: 18px; font-weight: bold;">{{quantity}}</span>
-            <button (click)="increaseQuantity()" style="background: none; border: none; font-size: 18px; font-weight: bold; cursor: pointer;">+</button>
+        </div>
+
+
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <button class="add-to-cart-btn" 
+                (click)="addToCart()" 
+                [disabled]="isInCart">
+          {{ isInCart ? 'Added To Cart' : 'Add To Cart' }}
+        </button>
+        <button class="buy-now-btn" (click)="buyNow()">
+          Buy Now
+        </button>
+      </div>
+
+      <!-- Product Features -->
+      <div class="product-features">
+        <div class="features-grid">
+          <div class="feature-item">
+            <span class="feature-icon">•</span>
+            <span class="feature-text">No added preservatives</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">•</span>
+            <span class="feature-text">No aflatoxins</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">•</span>
+            <span class="feature-text">No synthetic binders & fillers</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">•</span>
+            <span class="feature-text">No heavy metals</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">•</span>
+            <span class="feature-text">No pesticides</span>
+          </div>
+          <div class="feature-item">
+            <span class="feature-icon">•</span>
+            <span class="feature-text">No microbial & fungal contamination</span>
           </div>
         </div>
-        
-          
       </div>
-  
-      <!-- Action Buttons -->
-      <div class="actions">
-      
-        <button 
-        [ngStyle]="{'background-color': color}"
-        [disabled]="isInCart" 
-        (click)="addToCart()" 
-        class="add-to-cart">
-        {{ isInCart ? 'Added to Cart' : 'Add to Cart' }}
-      </button>
-        <button  [ngStyle]="{'background-color': color}" class="buy-now">Buy Now</button>
-      </div>
-  
-      <!-- Offer Section -->
-      <div class="offer">
-        <p>Add 2+ remedies to save up to 15%</p>
-        <a href="#" class="bundle-link">Bundle Up</a>
+
+      <!-- Not Sure Section -->
+      <div class="not-sure-section">
+        <div class="sample-offer">
+          <img src="assets/sample-bottle.png" alt="Sample" class="sample-image">
+          <div class="sample-text">
+            <h4>Not sure?</h4>
+            <p>Get a free sample at checkout</p>
+          </div>
+          <button class="sample-btn" (click)="openModal(product?.id)">
+            Buy Sample →
+          </button>
+        </div>
       </div>
     </div>
   </div>
+</div>
+
+<!-- Dosage Modal -->
+<div class="modal-overlay" *ngIf="showModal" (click)="closeModal()">
+  <div class="dosage-modal" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Your Personalized Dosage</h2>
+      <button class="close-btn" (click)="closeModal()">×</button>
+    </div>
+    
+    <div class="modal-content">
+      <div class="dosage-info" *ngIf="!dosage?.error; else noDosage">
+        <div class="dosage-item" *ngIf="dosage?.morning">
+          <span class="time-icon">🌅</span>
+          <strong>Morning:</strong> {{ dosage.morning }}
+        </div>
+        <div class="dosage-item" *ngIf="dosage?.afternoon">
+          <span class="time-icon">🌞</span>
+          <strong>Afternoon:</strong> {{ dosage.afternoon }}
+        </div>
+        <div class="dosage-item" *ngIf="dosage?.evening">
+          <span class="time-icon">🌙</span>
+          <strong>Evening:</strong> {{ dosage.evening }}
+        </div>
+      </div>
+
+      <ng-template #noDosage>
+        <div class="no-dosage">
+          <p>{{ dosage?.error || 'No personalized dosage available at the moment' }} 😔</p>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+</div>
   <app-strips [color]="'#ABDDF7'"></app-strips>
   <app-prod-desc [color]="'#ABDDF7'"></app-prod-desc>
+    <app-ingredients-desc></app-ingredients-desc>
+    <app-betterliving></app-betterliving>
   <app-dietry-advice 
   [dietaryAdvice]="product.dietary_advice" 
   [helpsHow]="product.helps_how" 
   [helpsWho]="product.helps_who">
 </app-dietry-advice>
 
-  <app-ingredients-desc></app-ingredients-desc>
+
   <app-faq [faq]="product.faq"></app-faq>
-  <app-contact-doctor></app-contact-doctor>
+  <app-shopreviews></app-shopreviews>
+  <!-- <app-contact-doctor></app-contact-doctor> -->

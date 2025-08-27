@@ -1,4 +1,42 @@
+    <div class="heroimage" >
+  <img style="    width: 100%;" src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/flat-lay-phytotherapy-still-life%201%20(1).png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvZmxhdC1sYXktcGh5dG90aGVyYXB5LXN0aWxsLWxpZmUgMSAoMSkucG5nIiwiaWF0IjoxNzU2MjkyNjU2LCJleHAiOjg4MTU2MjA2MjU2fQ.rYe2QkPvplrQOqHRdPzvT8C6zVYmcsi3lJZVv64VQig" alt="">
+</div>
 <div class="shop-container">
+
+  <!-- Filter Toggle Header (Desktop) -->
+  <div class="desktop-filter-header">
+    <button class="filter-toggle-btn" (click)="toggleDesktopFilters()">
+      <i class="fa fa-filter"></i>
+      Filter
+    </button>
+    <div class="view-options">
+      <button 
+        class="view-btn" 
+        [class.active]="gridView === '2'"
+        (click)="setGridView('2')"
+        title="2 columns"
+      >
+        <i class="fa fa-th-large"></i>
+      </button>
+      <button 
+        class="view-btn" 
+        [class.active]="gridView === '3'"
+        (click)="setGridView('3')"
+        title="3 columns"
+      >
+        <i class="fa fa-th"></i>
+      </button>
+      <button 
+        class="view-btn" 
+        [class.active]="gridView === '4'"
+        (click)="setGridView('4')"
+        title="4 columns"
+      >
+        <i class="fa fa-th"></i>
+      </button>
+    </div>
+  </div>
+
   <!-- Mobile Filter Header -->
   <div class="mobile-filter-header">
     <button class="filter-toggle-btn" (click)="toggleMobileFilters()">
@@ -11,241 +49,249 @@
     </div>
   </div>
 
-  <!-- Sidebar with overlay for mobile -->
-  <div class="sidebar-overlay" [class.active]="showMobileFilters" (click)="closeMobileFilters()"></div>
-  <div class="sidebar" [class.mobile-active]="showMobileFilters">
-    <div class="sidebar-header">
-      <h3>Filters & Sort</h3>
-      <button class="close-filters" (click)="closeMobileFilters()">
-        <i class="fa fa-times"></i>
+  <!-- Category Navigation -->
+  <!-- <div class="category-nav">
+    <button 
+      class="category-btn" 
+      [class.active]="selectedCategory === 'all'"
+      (click)="selectCategory('all')"
+    >
+      Shop All
+    </button>
+    <button 
+      class="category-btn" 
+      [class.active]="selectedCategory === 'esr'"
+      (click)="selectCategory('esr')"
+    >
+      ESR
+    </button>
+    <button 
+      class="category-btn" 
+      [class.active]="selectedCategory === 'sugar'"
+      (click)="selectCategory('sugar')"
+    >
+      Sugar
+    </button>
+    <button 
+      class="category-btn" 
+      [class.active]="selectedCategory === 'thyroid'"
+      (click)="selectCategory('thyroid')"
+    >
+      Thyroid
+    </button>
+    <div class="dropdown">
+      <button class="category-btn dropdown-toggle" (click)="toggleOthersDropdown()">
+        Others
+        <i class="fa fa-chevron-down"></i>
       </button>
-    </div>
-
-    <!-- Clear All Filters -->
-    <div class="clear-filters" *ngIf="hasActiveFilters()">
-      <button class="clear-all-btn" (click)="clearAllFilters()">
-        <i class="fa fa-refresh"></i>
-        Clear All Filters
-      </button>
-    </div>
-
-    <!-- Sort Section -->
-    <div class="filter-section sort-section">
-      <h4>
-        <i class="fa fa-sort"></i>
-        Sort By
-      </h4>
-      <div class="sort-options">
-        <label class="radio-option">
-          <input type="radio" name="sort" value="featured" [(ngModel)]="selectedSort" (change)="sortProducts()">
-          <span class="radio-custom"></span>
-          Featured
-        </label>
-        <label class="radio-option">
-          <input type="radio" name="sort" value="low" [(ngModel)]="selectedSort" (change)="sortProducts()">
-          <span class="radio-custom"></span>
-          Price: Low to High
-        </label>
-        <label class="radio-option">
-          <input type="radio" name="sort" value="high" [(ngModel)]="selectedSort" (change)="sortProducts()">
-          <span class="radio-custom"></span>
-          Price: High to Low
-        </label>
-        <label class="radio-option">
-          <input type="radio" name="sort" value="name" [(ngModel)]="selectedSort" (change)="sortProducts()">
-          <span class="radio-custom"></span>
-          Name A-Z
-        </label>
+      <div class="dropdown-menu" *ngIf="showOthersDropdown">
+        <button class="dropdown-item" (click)="selectCategory('liver')">Liver</button>
+        <button class="dropdown-item" (click)="selectCategory('heart')">Heart</button>
+        <button class="dropdown-item" (click)="selectCategory('immunity')">Immunity</button>
       </div>
     </div>
+  </div> -->
 
-    <!-- Price Range Filter -->
-    <div class="filter-section price-section">
-      <h4>
-        <i class="fa fa-rupee"></i>
-        Price Range
-      </h4>
-      <div class="price-slider-container">
-        <input
-          type="range"
-          class="price-slider"
-          [(ngModel)]="priceRange"
-          min="0"
-          max="5000"
-          step="100"
-          (input)="onPriceChange()"
-          (change)="filterByPrice()"
-        />
-        <div class="price-display">
-          <span class="price-min">₹0</span>
-          <span class="price-current">₹{{ priceRange }}</span>
-          <span class="price-max">₹5000</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Category Filter -->
-    <div class="filter-section category-section" *ngIf="availableCategories.length > 0">
-      <h4>
-        <i class="fa fa-tags"></i>
-        Categories
-      </h4>
-      <div class="category-checkboxes">
-        <label class="checkbox-option" *ngFor="let category of availableCategories">
-          <input 
-            type="checkbox" 
-            [value]="category" 
-            (change)="onCategoryChange($event)"
-            [checked]="selectedCategories.includes(category)"
-          >
-          <span class="checkbox-custom"></span>
-          {{ category }}
-          <span class="category-count">({{ getCategoryCount(category) }})</span>
-        </label>
-      </div>
-    </div>
-
-    <!-- Apply Filters Button (Mobile) -->
-    <div class="mobile-apply-filters">
-      <button class="apply-filters-btn" (click)="applyMobileFilters()">
-        Apply Filters ({{ filteredProducts.length }})
-      </button>
-    </div>
-  </div>
-
-  <!-- Main Content Area -->
-  <div class="main-content">
-    <!-- Breadcrumb -->
-    <nav class="breadcrumb">
-      <a href="/home">Home</a>
-      <i class="fa fa-angle-right"></i>
-      <span>All Products</span>
-    </nav>
-
-    <!-- Active Filters Tags -->
-    <div class="active-filters" *ngIf="hasActiveFilters()">
-      <div class="filter-tags">
-        <span class="filter-tag" *ngIf="priceRange < 5000">
-          Price: ₹0 - ₹{{ priceRange }}
-          <button (click)="clearPriceFilter()"><i class="fa fa-times"></i></button>
-        </span>
-        <span class="filter-tag" *ngFor="let category of selectedCategories">
-          {{ category }}
-          <button (click)="removeCategory(category)"><i class="fa fa-times"></i></button>
-        </span>
-      </div>
-    </div>
-
-    <!-- Results Header -->
-    <div class="results-header">
-      <h2>All Products</h2>
-      <div class="view-options">
-        <button 
-          class="view-btn" 
-          [class.active]="gridView === '2'"
-          (click)="setGridView('2')"
-          title="2 columns"
-        >
-          <i class="fa fa-th-large"></i>
-        </button>
-        <button 
-          class="view-btn" 
-          [class.active]="gridView === '3'"
-          (click)="setGridView('3')"
-          title="3 columns"
-        >
-          <i class="fa fa-th"></i>
-        </button>
-        <button 
-          class="view-btn" 
-          [class.active]="gridView === '4'"
-          (click)="setGridView('4')"
-          title="4 columns"
-        >
-          <i class="fa fa-th"></i>
+  <!-- Main Layout -->
+  <div class="main-layout">
+    <!-- Sidebar with overlay for mobile -->
+    <div class="sidebar-overlay" [class.active]="showMobileFilters || showDesktopFilters" (click)="closeMobileFilters()"></div>
+    <div class="sidebar" [class.mobile-active]="showMobileFilters" [class.desktop-active]="showDesktopFilters">
+      <div class="sidebar-header">
+        <h3>Filters & Sort</h3>
+        <button class="close-filters" (click)="closeMobileFilters()">
+          <i class="fa fa-times"></i>
         </button>
       </div>
-    </div>
 
-    <!-- Loading State -->
-    <div class="loading-state" *ngIf="isLoading">
-      <div class="loading-spinner">
-        <i class="fa fa-spinner fa-spin"></i>
-        <p>Loading products...</p>
-      </div>
-    </div>
-
-    <!-- No Products Found -->
-    <div class="no-products" *ngIf="!isLoading && filteredProducts.length === 0">
-      <div class="no-products-content">
-        <i class="fa fa-shopping-bag"></i>
-        <h3>No products found</h3>
-        <p>Sorry, we couldn't find any products matching your criteria.</p>
-        <button class="clear-filters-btn" (click)="clearAllFilters()" *ngIf="hasActiveFilters()">
+      <!-- Clear All Filters -->
+      <div class="clear-filters" *ngIf="hasActiveFilters()">
+        <button class="clear-all-btn" (click)="clearAllFilters()">
           <i class="fa fa-refresh"></i>
           Clear All Filters
         </button>
       </div>
+
+      <!-- Sort Section -->
+      <div class="filter-section sort-section">
+        <h4>
+          <i class="fa fa-sort"></i>
+          Sort By
+        </h4>
+        <div class="sort-options">
+          <label class="radio-option">
+            <input type="radio" name="sort" value="featured" [(ngModel)]="selectedSort" (change)="sortProducts()">
+            <span class="radio-custom"></span>
+            Featured
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="sort" value="low" [(ngModel)]="selectedSort" (change)="sortProducts()">
+            <span class="radio-custom"></span>
+            Price: Low to High
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="sort" value="high" [(ngModel)]="selectedSort" (change)="sortProducts()">
+            <span class="radio-custom"></span>
+            Price: High to Low
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="sort" value="name" [(ngModel)]="selectedSort" (change)="sortProducts()">
+            <span class="radio-custom"></span>
+            Name A-Z
+          </label>
+        </div>
+      </div>
+
+      <!-- Price Range Filter -->
+      <div class="filter-section price-section">
+        <h4>
+          <i class="fa fa-rupee"></i>
+          Price Range
+        </h4>
+        <div class="price-slider-container">
+          <input
+            type="range"
+            class="price-slider"
+            [(ngModel)]="priceRange"
+            min="0"
+            max="5000"
+            step="100"
+            (input)="onPriceChange()"
+            (change)="filterByPrice()"
+          />
+          <div class="price-display">
+            <span class="price-min">₹0</span>
+            <span class="price-current">₹{{ priceRange }}</span>
+            <span class="price-max">₹5000</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Category Filter -->
+      <div class="filter-section category-section" *ngIf="availableCategories.length > 0">
+        <h4>
+          <i class="fa fa-tags"></i>
+          Categories
+        </h4>
+        <div class="category-checkboxes">
+          <label class="checkbox-option" *ngFor="let category of availableCategories">
+            <input 
+              type="checkbox" 
+              [value]="category" 
+              (change)="onCategoryChange($event)"
+              [checked]="selectedCategories.includes(category)"
+            >
+            <span class="checkbox-custom"></span>
+            {{ category }}
+            <span class="category-count">({{ getCategoryCount(category) }})</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Apply Filters Button (Mobile) -->
+      <div class="mobile-apply-filters">
+        <button class="apply-filters-btn" (click)="applyMobileFilters()">
+          Apply Filters ({{ filteredProducts.length }})
+        </button>
+      </div>
     </div>
 
-    <!-- Product Grid -->
-    <div 
-      class="product-grid" 
-      [class.grid-2]="gridView === '2'"
-      [class.grid-3]="gridView === '3'"
-      [class.grid-4]="gridView === '4'"
-      *ngIf="!isLoading && filteredProducts.length > 0"
-    >
-      <div 
-        class="product-card" 
-        *ngFor="let product of filteredProducts; trackBy: trackProduct"
-        [attr.data-product-id]="product.id"
-      >
-        <!-- Product Badge -->
-        <div class="product-badges" *ngIf="product.badges">
-          <span class="badge" *ngFor="let badge of product.badges" [class]="'badge-' + badge.type">
-            {{ badge.text }}
+    <!-- Main Content Area -->
+    <div class="main-content">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb">
+        <a href="/home">Home</a>
+        <i class="fa fa-angle-right"></i>
+        <span>All Products</span>
+      </nav>
+
+      <!-- Active Filters Tags -->
+      <div class="active-filters" *ngIf="hasActiveFilters()">
+        <div class="filter-tags">
+          <span class="filter-tag" *ngIf="priceRange < 5000">
+            Price: ₹0 - ₹{{ priceRange }}
+            <button (click)="clearPriceFilter()"><i class="fa fa-times"></i></button>
+          </span>
+          <span class="filter-tag" *ngFor="let category of selectedCategories">
+            {{ category }}
+            <button (click)="removeCategory(category)"><i class="fa fa-times"></i></button>
           </span>
         </div>
+      </div>
 
-        <!-- Image Container -->
-        <div class="image-container" (click)="navigateToProduct(product.id)">
-          <img 
-            [src]="product.image" 
-            [alt]="product.name" 
-            class="product-image"
-            loading="lazy"
-            (error)="onImageError($event)"
-          />
+      <!-- Results Header -->
+      <div class="results-header">
+        <h2>Liv Renew</h2>
+        <div class="results-count-desktop">
+          {{ filteredProducts.length }} {{ filteredProducts.length === 1 ? 'Product' : 'Products' }}
         </div>
+      </div>
 
-        <!-- Product Details -->
-        <div class="product-details">
-          <h3 class="product-name" [title]="product.name">{{ product.name }}</h3>
-          
-          <!-- Category Tags -->
-          <div class="category-tags" *ngIf="product.category && product.category.length > 0">
-            <span *ngFor="let category of product.category" class="category-tag">
-              {{ category }}
-            </span>
+      <!-- Loading State -->
+      <div class="loading-state" *ngIf="isLoading">
+        <div class="loading-spinner">
+          <i class="fa fa-spinner fa-spin"></i>
+          <p>Loading products...</p>
+        </div>
+      </div>
+
+      <!-- No Products Found -->
+      <div class="no-products" *ngIf="!isLoading && filteredProducts.length === 0">
+        <div class="no-products-content">
+          <i class="fa fa-shopping-bag"></i>
+          <h3>No products found</h3>
+          <p>Sorry, we couldn't find any products matching your criteria.</p>
+          <button class="clear-filters-btn" (click)="clearAllFilters()" *ngIf="hasActiveFilters()">
+            <i class="fa fa-refresh"></i>
+            Clear All Filters
+          </button>
+        </div>
+      </div>
+
+      <!-- Product Grid -->
+      <div 
+        class="product-grid" 
+        [class.grid-2]="gridView === '2'"
+        [class.grid-3]="gridView === '3'"
+        [class.grid-4]="gridView === '4'"
+        *ngIf="!isLoading && filteredProducts.length > 0"
+      >
+        <div 
+          class="product-card" 
+          *ngFor="let product of filteredProducts; trackBy: trackProduct"
+          [attr.data-product-id]="product.id"
+        >
+          <!-- Image Container -->
+          <div class="image-container" (click)="navigateToProduct(product.id)">
+            <img 
+              [src]="product.image" 
+              [alt]="product.name" 
+              class="product-image"
+              loading="lazy"
+              (error)="onImageError($event)"
+            />
           </div>
 
-          <!-- Rating -->
-          <div class="product-rating" *ngIf="product.rating">
-            <div class="stars">
-              <i class="fa fa-star" *ngFor="let star of getStarArray(product.rating)" [class.filled]="star"></i>
+          <!-- Product Details -->
+          <div class="product-details">
+            <h3 class="product-name" [title]="product.name">{{ product.name }}</h3>
+            
+            <!-- Category Tags -->
+            <div class="category-tags" *ngIf="product.category && product.category.length > 0">
+              <span style="font-family: Lato !important;" *ngFor="let category of product.category" class="category-tag">
+                {{ category }}
+              </span>
             </div>
-            <span class="rating-count">({{ product.reviewCount || 0 }})</span>
-          </div>
+   <div style="display: flex;     justify-content: space-between; align-items: center;">
+                               <div class="price-rating-section">
+              <div class="price-container">
+                <span style="font-family: Lato !important;" class="current-price">₹{{ product.displayPrice }}</span>
+              </div>
 
-          <!-- Price and Size Row -->
-          <div class="price-size-row">
-            <div class="price-container">
-              <span class="current-price">₹{{ product.displayPrice }}</span>
+              <!-- Rating -->
+         
             </div>
-
-            <!-- Size Selection -->
-            <div class="size-options" *ngIf="product.sizes && product.sizes.length > 0">
+         <div class="size-options" *ngIf="product.sizes && product.sizes.length > 0">
               <button
                 *ngFor="let size of product.sizes"
                 class="size-btn"
@@ -255,43 +301,54 @@
               >
                 {{ size }}
               </button>
+   
+            
             </div>
+   </div>
+                 <div class="product-rating">
+                <div class="stars">
+                  <i class="fa fa-star filled" *ngFor="let star of [1,2,3,4,5]"></i>
+                </div>
+                <span style="font-family: Lato !important;" class="rating-count">({{ product.reviewCount || 90 }})</span>
+              </div>
+            <!-- Price and Rating Section -->
+     
+
+            <!-- Size Selection -->
+   
+          </div>
+
+          <!-- Add to Cart Section -->
+          <div class="cart-section">
+            <ng-container *ngIf="cartLoaded; else loadingCart">
+              <button 
+                class="add-to-cart-btn" 
+                [class.in-cart]="isInCart(product.id)"
+                (click)="handleCartAction(product)"
+              >
+                <i class="fa fa-shopping-cart"></i>
+                <span style="font-family: Lato !important;"*ngIf="!isInCart(product.id)">Add to Cart</span>
+                <span style="font-family: Lato !important;"  *ngIf="isInCart(product.id)">Add to Cart</span>
+              </button>
+            </ng-container>
+            <ng-template #loadingCart>
+              <button class="add-to-cart-btn loading" disabled>
+                <i class="fa fa-spinner fa-spin"></i>
+                Loading...
+              </button>
+            </ng-template>
           </div>
         </div>
-
-        <!-- Add to Cart Section -->
-        <div class="cart-section">
-          <ng-container *ngIf="cartLoaded; else loadingCart">
-            <button 
-              class="add-to-cart-btn" 
-              [class.in-cart]="isInCart(product.id)"
-              (click)="handleCartAction(product)"
-            >
-              <i class="fa" 
-                [class.fa-shopping-cart]="!isInCart(product.id)"
-                [class.fa-check]="isInCart(product.id)"
-              ></i>
-              <span *ngIf="!isInCart(product.id)">Add to Cart</span>
-              <span *ngIf="isInCart(product.id)">Added to Cart</span>
-            </button>
-          </ng-container>
-          <ng-template #loadingCart>
-            <button class="add-to-cart-btn loading" disabled>
-              <i class="fa fa-spinner fa-spin"></i>
-              Loading...
-            </button>
-          </ng-template>
-        </div>
       </div>
-    </div>
 
-    <!-- Load More Button -->
-    <div class="load-more-section" *ngIf="hasMoreProducts && !isLoading">
-      <button class="load-more-btn" (click)="loadMoreProducts()" [disabled]="isLoadingMore">
-        <i class="fa fa-plus" *ngIf="!isLoadingMore"></i>
-        <i class="fa fa-spinner fa-spin" *ngIf="isLoadingMore"></i>
-        {{ isLoadingMore ? 'Loading...' : 'Load More Products' }}
-      </button>
+      <!-- Load More Button -->
+      <div class="load-more-section" *ngIf="hasMoreProducts && !isLoading">
+        <button class="load-more-btn" (click)="loadMoreProducts()" [disabled]="isLoadingMore">
+          <i class="fa fa-plus" *ngIf="!isLoadingMore"></i>
+          <i class="fa fa-spinner fa-spin" *ngIf="isLoadingMore"></i>
+          {{ isLoadingMore ? 'Loading...' : 'Load More Products' }}
+        </button>
+      </div>
     </div>
   </div>
 </div>

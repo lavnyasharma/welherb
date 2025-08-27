@@ -25,6 +25,7 @@ interface Product {
   badges?: ProductBadge[];
   featured?: boolean;
   isNew?: boolean;
+  
 }
 
 @Component({
@@ -37,6 +38,7 @@ export class ShopallComponent implements OnInit, OnDestroy {
   selectedSort = 'featured';
   priceRange = 5000;
   selectedCategories: string[] = [];
+  showDesktopFilters = false;
   availableCategories: string[] = [];
   
   // Products and Display
@@ -423,4 +425,20 @@ private isUserAuthenticated(): boolean {
     }
     return stars;
   }
+  toggleDesktopFilters(): void {
+  this.showDesktopFilters = !this.showDesktopFilters;
+  
+  // Optional: Close mobile filters if they're open
+  if (this.showDesktopFilters && this.showMobileFilters) {
+    this.showMobileFilters = false;
+  }
+}
+
+// Optional: Add a method to close desktop filters (useful for overlay clicks)
+closeDesktopFilters(): void {
+  this.showDesktopFilters = false;
+}
+
+// Update the existing closeMobileFilters method to also handle desktop filters
+
 }

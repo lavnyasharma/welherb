@@ -1,16 +1,19 @@
 /* ingredients-page.component.css - Combined with Modal */
 
 /* Hero Section */
+.heroimage{
+  margin-top: 90px;
+}
 .hero {
-position: relative;
-    min-height: 400px;
-    display: flex;
+    position: relative;
+    display: flex
+;
     align-items: center;
     justify-content: center;
     color: #333;
     text-align: center;
-    margin-top: 90px;
     background-color: #fcf8f4;
+    flex-direction: column;
 }
 
 .hero-content {
