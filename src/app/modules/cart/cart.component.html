@@ -137,24 +137,62 @@
     <!-- Step 2: Delivery -->
     <div *ngIf="currentStep === 2" class="step-content">
       <div class="delivery-section">
-        <h3>Delivery address</h3>
+        <div class="delivery-header">
+          <h3>Delivery address</h3>
+
+        </div>
         
         <div class="address-options">
           <div class="address-item" 
                *ngFor="let address of deliveryAddresses"
                [class.selected]="address.selected"
+               [class.default-address]="address.address === 'Please add your delivery address below'"
                (click)="selectAddress(address.id)">
             <input type="radio" 
                    [checked]="address.selected"
                    [value]="address.id">
             <div class="address-details">
-              {{ address.address }}
+              <div *ngIf="address.address === 'Please add your delivery address below'" class="default-address-message">
+                <strong>{{ address.name }}</strong>
+                <p>{{ address.address }}</p>
+                <small>Use the form below to add your actual delivery address</small>
+              </div>
+              <div *ngIf="address.address !== 'Please add your delivery address below'" class="real-address">
+                <div class="address-header">
+                  <strong>{{ address.name }}</strong>
+                  <span class="address-type">{{ address.name === 'Home' ? '🏠' : address.name === 'Office' ? '🏢' : '📍' }}</span>
+                </div>
+                <div class="address-body">
+                  <p class="address-line">{{ address.address }}</p>
+                  <p class="address-location">{{ address.city }}, {{ address.state }} - {{ address.pincode }}</p>
+                  <div class="address-contact" *ngIf="address.phone || address.email">
+                    <span *ngIf="address.phone" class="contact-item">📞 {{ address.phone }}</span>
+                    <span *ngIf="address.email" class="contact-item">✉️ {{ address.email }}</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
 
         <div class="add-new-address">
           <h4>Add new delivery address</h4>
+          
+          
+          <!-- Pincode Response Display -->
+          <div *ngIf="pincodeResponse" class="pincode-response">
+            <div class="response-success" *ngIf="pincodeResponse.available">
+              ✅ Delivery available in your area!
+              <div class="response-details">
+                <span *ngIf="pincodeResponse.city">City: {{ pincodeResponse.city }}</span>
+                <span *ngIf="pincodeResponse.state">State: {{ pincodeResponse.state }}</span>
+                <span *ngIf="pincodeResponse.deliveryTime">Delivery Time: {{ pincodeResponse.deliveryTime }}</span>
+              </div>
+            </div>
+            <div class="response-error" *ngIf="!pincodeResponse.available">
+              ❌ Delivery not available in this pincode area
+            </div>
+          </div>
           
           <div class="form-row">
             <input type="email" 
@@ -175,6 +213,7 @@
                    placeholder="Name*">
             <input type="tel" 
                    [(ngModel)]="newAddress.phone"
+                   (input)="onMobileNumberChange()"
                    placeholder="Phone Number*">
           </div>
           
@@ -191,6 +230,19 @@
             <input type="text" 
                    [(ngModel)]="newAddress.city"
                    placeholder="City/District/Town*">
+          </div>
+          
+          <div class="address-actions">
+            <button class="add-address-btn" 
+                    (click)="addNewAddress()"
+                    [disabled]="isAddingAddress">
+              {{ isAddingAddress ? 'Adding...' : 'Add Address' }}
+            </button>
+            <button class="update-address-btn" 
+                    (click)="updateAddress()"
+                    [disabled]="isUpdatingAddress">
+              {{ isUpdatingAddress ? 'Updating...' : 'Update Selected Address' }}
+            </button>
           </div>
         </div>
       </div>
@@ -254,9 +306,74 @@
       </div>
     </div>
 
-    <!-- Step 4: FAQs/Survey -->
+    <!-- Step 4: Order Success/Review -->
     <div *ngIf="currentStep === 4" class="step-content">
-      <div class="survey-section">
+      <!-- Order Creation Loading -->
+      <div *ngIf="isCreatingOrder" class="order-loading">
+        <div class="loading-spinner"></div>
+        <h3>Creating your order...</h3>
+        <p>Please wait while we process your order</p>
+      </div>
+
+      <!-- Order Review -->
+      <div *ngIf="orderCreated && !isCreatingOrder" class="order-review">
+        <div class="review-header">
+          <div class="success-icon">✅</div>
+          <h3>Order Created Successfully!</h3>
+          <p>Please review your order details below</p>
+        </div>
+        
+        <div class="order-details-review">
+          <div class="order-info-section">
+            <h4>Order Information</h4>
+            <div class="info-item">
+              <span class="label">Order ID:</span>
+              <span class="value">{{ selectedOrder?.orderId || selectedOrder?._id || 'N/A' }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Order Total:</span>
+              <span class="value">₹{{ grandTotal }}</span>
+            </div>
+            <div class="info-item">
+              <span class="label">Payment Method:</span>
+              <span class="value">{{ selectedPaymentMethod.toUpperCase() }}</span>
+            </div>
+          </div>
+
+          <div class="delivery-info-section">
+            <h4>Delivery Information</h4>
+            <div class="delivery-address" *ngIf="selectedAddress">
+              <div class="address-item-review">
+                <strong>{{ selectedAddress.name }}</strong>
+                <p>{{ selectedAddress.address }}</p>
+                <p>{{ selectedAddress.city }}, {{ selectedAddress.state }} - {{ selectedAddress.pincode }}</p>
+                <p>📞 {{ selectedAddress.phone }}</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="items-review-section">
+            <h4>Order Items</h4>
+            <div class="items-list">
+              <div class="item-review" *ngFor="let item of cartItems">
+                <div class="item-info">
+                  <h5>{{ item.name }}</h5>
+                  <p>Size: {{ item.size }} | Qty: {{ item.quantity }}</p>
+                </div>
+                <div class="item-price">₹{{ item.price * item.quantity }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-actions">
+          <button class="btn-secondary" (click)="goToStep(3)">Back to Payment</button>
+          <button class="btn-primary" (click)="finalizeOrder()">Confirm Order</button>
+        </div>
+      </div>
+
+      <!-- Survey Section (if order not created yet) -->
+      <div *ngIf="!orderCreated && !isCreatingOrder" class="survey-section">
         <div class="offer-banner">
           <h3>Tell us and get <span class="highlight">10% OFF</span> on your next order!</h3>
         </div>
@@ -287,10 +404,11 @@
   <div class="checkout-footer">
     <button *ngIf="currentStep < 4" 
             class="continue-btn" 
-            (click)="nextStep()">
-      Continue
+            (click)="nextStep()"
+            [disabled]="isCreatingOrder">
+      {{ isCreatingOrder ? 'Processing...' : 'Continue' }}
     </button>
-    <button *ngIf="currentStep === 4" 
+    <button *ngIf="currentStep === 4 && !orderCreated" 
             class="submit-btn" 
             (click)="submitOrder()">
       Submit

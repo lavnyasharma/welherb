@@ -23,6 +23,7 @@ interface DeliveryAddress {
   state: string;
   pincode: string;
   phone: string;
+  email?: string;
   selected: boolean;
 }
 
@@ -39,28 +40,15 @@ export class CartComponent implements OnInit {
   // Cart data from your existing service
   cartItems: CartItem[] = [];
 
-  deliveryAddresses: DeliveryAddress[] = [
-    {
-      id: 1,
-      name: 'Home',
-      address: '32 Lakeview Crescent, Rosewood Heights, Pune, Maharashtra 411045, India',
-      city: 'Pune',
-      state: 'Maharashtra',
-      pincode: '411045',
-      phone: '',
-      selected: true
-    },
-    {
-      id: 2,
-      name: 'Office',
-      address: '17 Greenpark Lane, Sector 62, Noida, Uttar Pradesh 201309, India',
-      city: 'Noida',
-      state: 'Uttar Pradesh',
-      pincode: '201309',
-      phone: '',
-      selected: false
-    }
-  ];
+  deliveryAddresses: DeliveryAddress[] = [];
+  pincodeResponse: any = null;
+  isAddingAddress = false;
+  isUpdatingAddress = false;
+
+  // Order creation state
+  isCreatingOrder = false;
+  orderCreated = false;
+  selectedOrder: any = null;
 
   // Form data
   discountCode = '';
@@ -106,6 +94,12 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.selectedPaymentMethod = 'googlepay';
     this.loadCartItems();
+    
+    // Load addresses immediately and also set a timeout to ensure it loads
+    this.loadAddresses();
+    setTimeout(() => {
+      console.log('Current addresses after timeout:', this.deliveryAddresses);
+    }, 1000);
   }
 
   private loadCartItems(): void {
@@ -139,6 +133,188 @@ export class CartComponent implements OnInit {
         }
       );
     });
+  }
+
+  private loadAddresses(): void {
+    this.apiService.getAddresses().subscribe(
+      (response: any) => {
+        console.log('Addresses loaded:', response);
+        
+        // Handle direct array response or nested addresses property
+        let addresses = response;
+        if (response && response.addresses) {
+          addresses = response.addresses;
+        }
+        
+        if (addresses && Array.isArray(addresses) && addresses.length > 0) {
+          this.deliveryAddresses = addresses.map((addr: any, index: number) => ({
+            id: addr._id || index + 1,
+            name: addr.name || `Address ${index + 1}`,
+            address: addr.address || '',
+            city: addr.city || '',
+            state: addr.state || '',
+            pincode: addr.pincode || '',
+            phone: addr.mobile || addr.phone || '', // Map mobile field to phone
+            email: addr.email || '',
+            selected: index === 0 // Select first address by default
+          }));
+          console.log('Mapped addresses:', this.deliveryAddresses);
+        } else {
+          // If no addresses from API, provide a default address
+          this.deliveryAddresses = [
+            {
+              id: 1,
+              name: 'Default Address',
+              address: 'Please add your delivery address below',
+              city: '',
+              state: '',
+              pincode: '',
+              phone: '',
+              selected: true
+            }
+          ];
+        }
+      },
+      (error) => {
+        console.error('Error loading addresses:', error);
+        // Fallback to default address if API fails
+        this.deliveryAddresses = [
+          {
+            id: 1,
+            name: 'Default Address',
+            address: 'Please add your delivery address below',
+            city: '',
+            state: '',
+            pincode: '',
+            phone: '',
+            selected: true
+          }
+        ];
+      }
+    );
+  }
+
+  // Public method to refresh addresses (can be called from template if needed)
+  refreshAddresses(): void {
+    console.log('Manually refreshing addresses...');
+    this.loadAddresses();
+  }
+
+  // Update mobile number for selected address
+  updateMobileNumber(): void {
+    const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
+    if (selectedAddress && this.newAddress.phone.trim() !== '') {
+      selectedAddress.phone = this.newAddress.phone;
+      console.log('Mobile number updated for selected address:', selectedAddress);
+    }
+  }
+
+  // Update mobile number in real-time when user types
+  onMobileNumberChange(): void {
+    const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
+    if (selectedAddress) {
+      selectedAddress.phone = this.newAddress.phone;
+      console.log('Mobile number updated in real-time:', {
+        selectedAddressId: selectedAddress.id,
+        phone: selectedAddress.phone,
+        formPhone: this.newAddress.phone
+      });
+    }
+  }
+
+  // Getter to check if selected address is real (not placeholder)
+  get hasRealSelectedAddress(): boolean {
+    const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
+    return selectedAddress && selectedAddress.address !== 'Please add your delivery address below';
+  }
+
+  // Getter for selected address
+  get selectedAddress(): any {
+    return this.deliveryAddresses.find(addr => addr.selected);
+  }
+
+  // Create order before moving to review step
+  createOrderBeforeReview(): void {
+    // Validation before creating order
+    if (this.cartItems.length === 0) {
+      alert('Your cart is empty');
+      return;
+    }
+
+    const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
+    if (!selectedAddress) {
+      alert('Please select a delivery address');
+      return;
+    }
+
+    // Check if user is trying to use the default placeholder address
+    if (selectedAddress.address === 'Please add your delivery address below') {
+      alert('Please add a valid delivery address using the form below before proceeding');
+      return;
+    }
+
+    if (!this.selectedPaymentMethod) {
+      alert('Please select a payment method');
+      return;
+    }
+
+    // Check if mobile number is available
+    if (!selectedAddress.phone || selectedAddress.phone.trim() === '') {
+      alert('Please enter mobile number for the selected address');
+      return;
+    }
+
+    this.isCreatingOrder = true;
+
+    // Prepare order payload to match API structure
+    const orderPayload = {
+      products: this.cartItems.map(item => ({
+        product: item.id,
+        count: item.quantity
+      })),
+      address: [{
+        pincode: parseInt(selectedAddress.pincode) || 0,
+        name: selectedAddress.name,
+        mobile: selectedAddress.phone,
+        address: selectedAddress.address,
+        city: selectedAddress.city,
+        email: selectedAddress.email,
+        state: selectedAddress.state,
+        _id: selectedAddress.id
+      }],
+      order_type: this.selectedPaymentMethod === 'cod' ? 'COD' : 'Pre-Paid',
+      payment_amount: {
+        product_amount: this.subtotal,
+        delivery_amount: this.shipping,
+        total_amount: this.grandTotal
+      }
+    };
+
+    console.log('Creating order with payload:', orderPayload);
+
+    // Call create order API
+    this.apiService.createOrder(orderPayload).subscribe(
+      (response: any) => {
+        console.log('Order created successfully:', response);
+        this.isCreatingOrder = false;
+        this.orderCreated = true;
+        
+        // Store order response for review
+        this.selectedOrder = response;
+        
+        // Move to step 4 (review) after successful order creation
+        this.currentStep = 4;
+        
+        // Don't clear cart yet - let user review first
+        // this.cartItems = [];
+        // this.cartService.clearCart();
+      },
+      (error) => {
+        console.error('Error creating order:', error);
+        this.isCreatingOrder = false;
+        alert(`Error creating order: ${error.error?.message || error.message || 'Please try again.'}`);
+      }
+    );
   }
 
   get totalItems(): number {
@@ -211,6 +387,39 @@ export class CartComponent implements OnInit {
   }
 
   nextStep(): void {
+    // Validate mobile number when moving from step 2 (delivery) to step 3 (payment)
+    if (this.currentStep === 2) {
+      const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
+      console.log('Validating mobile number:', {
+        selectedAddress: selectedAddress,
+        formPhone: this.newAddress.phone,
+        addressPhone: selectedAddress?.phone
+      });
+      
+      if (selectedAddress && selectedAddress.address !== 'Please add your delivery address below') {
+        // Update mobile number from form to selected address
+        if (this.newAddress.phone && this.newAddress.phone.trim() !== '') {
+          selectedAddress.phone = this.newAddress.phone;
+          console.log('Updated selected address phone:', selectedAddress.phone);
+        }
+        
+        // Check if mobile number is available in the selected address
+        if (!selectedAddress.phone || selectedAddress.phone.trim() === '') {
+          console.log('Mobile number validation failed:', selectedAddress.phone);
+          alert('Please enter mobile number for the selected address');
+          return;
+        }
+        
+        console.log('Mobile number validation passed:', selectedAddress.phone);
+      }
+    }
+
+    // Create order when moving from step 3 (payment) to step 4 (review)
+    if (this.currentStep === 3) {
+      this.createOrderBeforeReview();
+      return;
+    }
+    
     if (this.currentStep < this.totalSteps) {
       this.currentStep++;
     }
@@ -251,6 +460,119 @@ export class CartComponent implements OnInit {
     this.deliveryAddresses.forEach(addr => {
       addr.selected = addr.id === addressId;
     });
+    
+    // Prefill the new address form with selected address details
+    const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
+    if (selectedAddress && selectedAddress.address !== 'Please add your delivery address below') {
+      this.newAddress = {
+        email: selectedAddress.email || '',
+        pincode: selectedAddress.pincode || '',
+        name: selectedAddress.name || '',
+        phone: selectedAddress.phone || '', // This will be empty if API doesn't return mobile
+        address: selectedAddress.address || '',
+        state: selectedAddress.state || '',
+        city: selectedAddress.city || ''
+      };
+    }
+  }
+
+  addNewAddress(): void {
+    if (!this.isNewAddressValid()) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
+    this.isAddingAddress = true;
+    const addressPayload = {
+      name: this.newAddress.name,
+      mobile: this.newAddress.phone, // API expects mobile field
+      address: this.newAddress.address,
+      city: this.newAddress.city,
+      state: this.newAddress.state,
+      pincode: this.newAddress.pincode,
+      email: this.newAddress.email
+    };
+
+    this.apiService.addAddress(addressPayload).subscribe(
+      (response: any) => {
+        console.log('Address added successfully:', response);
+        alert('Address added successfully!');
+        
+        // Clear form
+        this.newAddress = {
+          email: '',
+          pincode: '',
+          name: '',
+          phone: '',
+          address: '',
+          state: '',
+          city: ''
+        };
+        this.pincodeResponse = null;
+        
+        // Call get address API again to refresh the address list
+        this.loadAddresses();
+        this.isAddingAddress = false;
+      },
+      (error) => {
+        console.error('Error adding address:', error);
+        alert('Error adding address. Please try again.');
+        this.isAddingAddress = false;
+      }
+    );
+  }
+
+  updateAddress(): void {
+    const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
+    if (!selectedAddress) {
+      alert('Please select an address to update');
+      return;
+    }
+
+    if (!this.isNewAddressValid()) {
+      alert('Please fill in all required fields');
+      return;
+    }
+
+    this.isUpdatingAddress = true;
+    const addressPayload = {
+      addressId: selectedAddress.id,
+      name: this.newAddress.name,
+      mobile: this.newAddress.phone, // API expects mobile field
+      address: this.newAddress.address,
+      city: this.newAddress.city,
+      state: this.newAddress.state,
+      pincode: this.newAddress.pincode,
+      email: this.newAddress.email
+    };
+
+    this.apiService.updateAddress(addressPayload).subscribe(
+      (response: any) => {
+        console.log('Address updated successfully:', response);
+        alert('Address updated successfully!');
+        
+        // Clear form
+        this.newAddress = {
+          email: '',
+          pincode: '',
+          name: '',
+          phone: '',
+          address: '',
+          state: '',
+          city: ''
+        };
+        this.pincodeResponse = null;
+        
+        // Call get address API again to refresh the address list
+        this.loadAddresses();
+        this.isUpdatingAddress = false;
+      },
+      (error) => {
+        console.error('Error updating address:', error);
+        alert('Error updating address. Please try again.');
+        this.isUpdatingAddress = false;
+      }
+    );
   }
 
   checkPincode(): void {
@@ -259,28 +581,34 @@ export class CartComponent implements OnInit {
       return;
     }
 
+    if (this.newAddress.pincode.length !== 6 || !/^\d+$/.test(this.newAddress.pincode)) {
+      alert('Please enter a valid 6-digit pincode');
+      return;
+    }
+
     console.log('Checking pincode:', this.newAddress.pincode);
     
-    // Simulate pincode validation
-    if (this.newAddress.pincode.length === 6 && /^\d+$/.test(this.newAddress.pincode)) {
-      // Simulate API call to get city and state
-      setTimeout(() => {
-        // Mock response based on pincode
-        if (this.newAddress.pincode.startsWith('4')) {
-          this.newAddress.state = 'Maharashtra';
-          this.newAddress.city = 'Pune';
-        } else if (this.newAddress.pincode.startsWith('2')) {
-          this.newAddress.state = 'Uttar Pradesh';
-          this.newAddress.city = 'Noida';
+    // Call delivery availability API
+    this.apiService.getDeliveryAvailability(this.newAddress.pincode).subscribe(
+      (response: any) => {
+        console.log('Pincode response:', response);
+        this.pincodeResponse = response;
+        
+        if (response && response.available) {
+          // Auto-fill city and state from response
+          if (response.city) this.newAddress.city = response.city;
+          if (response.state) this.newAddress.state = response.state;
+          
+          alert(`✅ Delivery available in your area!\nCity: ${response.city || 'N/A'}\nState: ${response.state || 'N/A'}\nDelivery Time: ${response.deliveryTime || '2-3 days'}`);
         } else {
-          this.newAddress.state = 'Delhi';
-          this.newAddress.city = 'New Delhi';
+          alert('❌ Delivery not available in this pincode area. Please try a different pincode.');
         }
-        alert('Pincode verified! Delivery available in your area.');
-      }, 500);
-    } else {
-      alert('Please enter a valid 6-digit pincode');
-    }
+      },
+      (error) => {
+        console.error('Error checking pincode:', error);
+        alert('Error checking pincode. Please try again.');
+      }
+    );
   }
 
   selectPaymentMethod(methodId: string): void {
@@ -302,39 +630,27 @@ export class CartComponent implements OnInit {
   }
 
   submitOrder(): void {
-    // Validation before submitting
-    if (this.cartItems.length === 0) {
-      alert('Your cart is empty');
-      return;
-    }
+    // This method is no longer used as order creation happens in nextStep()
+    // Keeping for backward compatibility
+    console.log('submitOrder called - redirecting to createOrderBeforeReview');
+    this.createOrderBeforeReview();
+  }
 
-    if (this.currentStep >= 2) {
-      const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
-      if (!selectedAddress && !this.isNewAddressValid()) {
-        alert('Please select or add a delivery address');
-        return;
-      }
-    }
-
-    if (this.currentStep >= 3 && !this.selectedPaymentMethod) {
-      alert('Please select a payment method');
-      return;
-    }
-
-    console.log('Order submitted successfully!');
-    console.log('Cart items:', this.cartItems);
-    console.log('Selected address:', this.deliveryAddresses.find(addr => addr.selected));
-    console.log('New address:', this.newAddress);
-    console.log('Payment method:', this.selectedPaymentMethod);
-    console.log('Hear about us:', this.hearAboutUs);
-    console.log('Order reason:', this.orderReason);
-    console.log('Total amount:', this.grandTotal);
-
-    // Here you would typically call your API to submit the order
-    alert('Order submitted successfully! You will be redirected to payment.');
+  // Finalize order after review
+  finalizeOrder(): void {
+    // Clear cart after user confirms the order
+    this.cartItems = [];
+    this.cartService.clearCart();
     
-    // Reset form or redirect to confirmation page
-    // this.router.navigate(['/order-confirmation']);
+    // Reset form
+    this.currentStep = 1;
+    this.hearAboutUs = [];
+    this.orderReason = '';
+    this.orderCreated = false;
+    this.selectedOrder = null;
+    
+    // Show success message
+    alert('Order finalized successfully! Thank you for your purchase.');
   }
 
   private isNewAddressValid(): boolean {

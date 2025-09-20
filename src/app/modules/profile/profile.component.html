@@ -87,22 +87,66 @@
 
         <!-- Orders Tab -->
         <div *ngIf="activeTab === 'orders'" class="tab-panel">
-            <div class="cart-page">
-                <div class="cart-items">
-                    <div class="cart-item" *ngFor="let item of cartItems">
-                        <img class="item-image" [src]="item.image" [alt]="item.name" />
-                        <div class="item-details">
-                            <div style="display: flex; justify-content: space-between;">
-                                <h3 class="item-name">{{ item.name }}</h3>
-                                <div class="item-price">₹{{ item.price }}</div>
+            <div class="orders-container">
+                <div class="orders-header">
+                    <h3>My Orders</h3>
+                    <button class="refresh-btn" (click)="loadOrders()" [disabled]="isLoadingOrders">
+                        {{ isLoadingOrders ? 'Loading...' : '🔄 Refresh' }}
+                    </button>
+                </div>
+
+                <!-- Loading State -->
+                <div *ngIf="isLoadingOrders" class="loading-state">
+                    <div class="loading-spinner"></div>
+                    <p>Loading your orders...</p>
+                </div>
+
+                <!-- No Orders State -->
+                <div *ngIf="!isLoadingOrders && orders.length === 0" class="no-orders">
+                    <div class="no-orders-icon">📦</div>
+                    <h4>No orders yet</h4>
+                    <p>You haven't placed any orders yet. Start shopping to see your orders here!</p>
+                </div>
+
+                <!-- Orders List -->
+                <div *ngIf="!isLoadingOrders && orders.length > 0" class="orders-list">
+                    <div class="order-card" *ngFor="let order of orders" (click)="getOrderById(order.orderId || order._id)">
+                        <div class="order-header">
+                            <div class="order-info">
+                                <h4 class="order-id">Order #{{ order.orderId || order._id }}</h4>
+                                <p class="order-date">{{ formatDate(order.createdAt || order.created_at) }}</p>
                             </div>
-                            <p class="item-info">{{ item.subtitle }} | {{ item.category }}</p>
-                            <div style="display: flex; justify-content: space-between;">
-                                <div class="item-status" [ngClass]="{ inStock: item.inStock }">
-                                    {{ item.inStock ? 'In Stock' : 'Out of Stock' }}
+                            <div class="order-status">
+                                <span class="status-badge" [ngClass]="getStatusClass(order.status)">
+                                    {{ getOrderStatus(order.status) }}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <div class="order-details">
+                            <div class="order-items">
+                                <div class="items-count">
+                                    {{ order.products?.length || order.items?.length || 0 }} item(s)
                                 </div>
-                                <div style="width: auto;" >Leave a Review</div>
+                                <div class="order-total">
+                                    Total: ₹{{ order.totalAmount || order.total_amount || order.payment_amount?.total_amount || 0 }}
+                                </div>
                             </div>
+                            
+                            <div class="order-address" *ngIf="order.address && order.address.length > 0">
+                                <p class="address-label">Delivery Address:</p>
+                                <p class="address-text">
+                                    {{ order.address[0].name }}, {{ order.address[0].address }}, 
+                                    {{ order.address[0].city }}, {{ order.address[0].state }} - {{ order.address[0].pincode }}
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="order-actions">
+                            <button class="view-details-btn">View Details</button>
+                            <button class="track-order-btn" *ngIf="order.status !== 'delivered' && order.status !== 'cancelled'">
+                                Track Order
+                            </button>
                         </div>
                     </div>
                 </div>

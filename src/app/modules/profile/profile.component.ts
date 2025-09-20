@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { ToastrService } from 'ngx-toastr';
 
@@ -7,7 +7,7 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.css'],
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
   constructor(
     private apiService: ApiService,
     private toastService: ToastrService
@@ -16,6 +16,11 @@ export class ProfileComponent {
   activeTab: string = 'profile';
 
   profilePicture: string | null = "https://i.pravatar.cc/300";
+
+  // Orders data
+  orders: any[] = [];
+  selectedOrder: any = null;
+  isLoadingOrders = false;
 
   passwordData = {
     currentPassword: '',
@@ -82,6 +87,74 @@ export class ProfileComponent {
 
   selectTab(tabName: string) {
     this.activeTab = tabName;
+    if (tabName === 'orders') {
+      this.loadOrders();
+    }
+  }
+
+  // Load all orders
+  loadOrders(): void {
+    this.isLoadingOrders = true;
+    this.apiService.getOrders().subscribe({
+      next: (response: any) => {
+        console.log('Orders loaded:', response);
+        this.orders = response.orders || response || [];
+        this.isLoadingOrders = false;
+      },
+      error: (error) => {
+        console.error('Error loading orders:', error);
+        this.toastService.error('Failed to load orders');
+        this.isLoadingOrders = false;
+      }
+    });
+  }
+
+  // Get order by ID
+  getOrderById(orderId: string): void {
+    this.apiService.getOrderById(orderId).subscribe({
+      next: (response: any) => {
+        console.log('Order details:', response);
+        this.selectedOrder = response;
+      },
+      error: (error) => {
+        console.error('Error loading order details:', error);
+        this.toastService.error('Failed to load order details');
+      }
+    });
+  }
+
+  // Format order status
+  getOrderStatus(status: string): string {
+    const statusMap: { [key: string]: string } = {
+      'pending': 'Pending',
+      'confirmed': 'Confirmed',
+      'shipped': 'Shipped',
+      'delivered': 'Delivered',
+      'cancelled': 'Cancelled'
+    };
+    return statusMap[status] || status;
+  }
+
+  // Format order date
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('en-IN', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+  }
+
+  // Get status color class
+  getStatusClass(status: string): string {
+    const statusClasses: { [key: string]: string } = {
+      'pending': 'status-pending',
+      'confirmed': 'status-confirmed',
+      'shipped': 'status-shipped',
+      'delivered': 'status-delivered',
+      'cancelled': 'status-cancelled'
+    };
+    return statusClasses[status] || 'status-pending';
   }
 
   onProfilePictureChange(event: any): void {

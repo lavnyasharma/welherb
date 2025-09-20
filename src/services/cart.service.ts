@@ -46,6 +46,11 @@ export class CartService {
       this.cartItemsSubject.next([...this.cartItems]); // Emit updated cart
     });
   }
+
+  clearCart() {
+    this.cartItems = [];
+    this.cartItemsSubject.next([...this.cartItems]);
+  }
   
 
   isProductInCart(productId: string): boolean {
