@@ -1,123 +1,118 @@
 <div class="contact-us-container">
-  <!-- Header Section -->
-  <div class="header-section">
-    <div class="container">
-      <h1 class="page-title">Contact Us</h1>
-      <p class="page-subtitle">We'd love to hear from you. Get in touch with our Ayurveda experts.</p>
-    </div>
-  </div>
-
   <!-- Main Content -->
   <div class="main-content">
     <div class="container">
       <div class="content-grid">
         
-        <!-- Contact Form -->
+        <!-- Contact Information Section -->
+        <div class="contact-info-section">
+          <!-- Phone Card -->
+          <div class="info-card">
+            <div class="info-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+              </svg>
+            </div>
+            <div class="info-content">
+              <h3>Phone Number</h3>
+              <p>+91 9876543421</p>
+            </div>
+          </div>
+
+          <!-- Email Card -->
+          <div class="info-card">
+            <div class="info-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                <polyline points="22,6 12,13 2,6"></polyline>
+              </svg>
+            </div>
+            <div class="info-content">
+              <h3>Email Address</h3>
+              <p>www.wellherb.com</p>
+            </div>
+          </div>
+
+          <!-- Location Card -->
+          <div class="info-card">
+            <div class="info-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div class="info-content">
+              <h3>Location</h3>
+              <p>32 Wellness Street<br>Ayurveda Plaza, Mumbai<br>Maharastra 320076,<br>India</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Form Section -->
         <div class="contact-form-section">
           <div class="form-card">
-            <h2 class="form-title">Send us a Message</h2>
+            <h2 class="form-title">Contact us</h2>
+            
             <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
               
               <div class="form-row">
                 <div class="form-group">
-                  <label for="firstName">First Name *</label>
                   <input 
                     type="text" 
-                    id="firstName" 
-                    formControlName="firstName"
+                    id="name" 
+                    formControlName="name"
                     class="form-control"
-                    [class.error]="isFieldInvalid('firstName')"
-                    placeholder="Enter your first name">
-                  <div class="error-message" *ngIf="isFieldInvalid('firstName')">
-                    First name is required
-                  </div>
+                    [class.error]="isFieldInvalid('name')"
+                    placeholder="Name*">
                 </div>
                 
                 <div class="form-group">
-                  <label for="lastName">Last Name *</label>
                   <input 
-                    type="text" 
-                    id="lastName" 
-                    formControlName="lastName"
+                    type="tel" 
+                    id="phone" 
+                    formControlName="phone"
                     class="form-control"
-                    [class.error]="isFieldInvalid('lastName')"
-                    placeholder="Enter your last name">
-                  <div class="error-message" *ngIf="isFieldInvalid('lastName')">
-                    Last name is required
-                  </div>
+                    [class.error]="isFieldInvalid('phone')"
+                    placeholder="Phone*">
                 </div>
               </div>
 
               <div class="form-row">
                 <div class="form-group">
-                  <label for="email">Email Address *</label>
                   <input 
                     type="email" 
                     id="email" 
                     formControlName="email"
                     class="form-control"
                     [class.error]="isFieldInvalid('email')"
-                    placeholder="Enter your email address">
-                  <div class="error-message" *ngIf="isFieldInvalid('email')">
-                    <span *ngIf="contactForm.get('email')?.errors?.['required']">Email is required</span>
-                    <span *ngIf="contactForm.get('email')?.errors?.['email']">Please enter a valid email</span>
-                  </div>
+                    placeholder="Email*">
                 </div>
                 
                 <div class="form-group">
-                  <label for="phone">Phone Number</label>
-                  <input 
-                    type="tel" 
-                    id="phone" 
-                    formControlName="phone"
+                  <select 
+                    id="about" 
+                    formControlName="about"
                     class="form-control"
-                    placeholder="Enter your phone number">
+                    [class.error]="isFieldInvalid('about')">
+                    <option value="" disabled selected>About*</option>
+                    <option value="product-inquiry">Product Inquiry</option>
+                    <option value="order-support">Order Support</option>
+                    <option value="consultation">Consultation</option>
+                    <option value="partnership">Partnership</option>
+                    <option value="feedback">Feedback</option>
+                    <option value="other">Other</option>
+                  </select>
                 </div>
               </div>
 
               <div class="form-group full-width">
-                <label for="subject">Subject *</label>
-                <select 
-                  id="subject" 
-                  formControlName="subject"
-                  class="form-control"
-                  [class.error]="isFieldInvalid('subject')">
-                  <option value="">Select a subject</option>
-                  <option value="product-inquiry">Product Inquiry</option>
-                  <option value="order-support">Order Support</option>
-                  <option value="consultation">Ayurveda Consultation</option>
-                  <option value="partnership">Partnership</option>
-                  <option value="feedback">Feedback</option>
-                  <option value="other">Other</option>
-                </select>
-                <div class="error-message" *ngIf="isFieldInvalid('subject')">
-                  Please select a subject
-                </div>
-              </div>
-
-              <div class="form-group full-width">
-                <label for="message">Message *</label>
                 <textarea 
                   id="message" 
                   formControlName="message"
                   class="form-control textarea"
                   [class.error]="isFieldInvalid('message')"
                   rows="5"
-                  placeholder="Tell us how we can help you..."></textarea>
-                <div class="error-message" *ngIf="isFieldInvalid('message')">
-                  Message is required
-                </div>
-              </div>
-
-              <div class="form-group full-width">
-                <label class="checkbox-label">
-                  <input 
-                    type="checkbox" 
-                    formControlName="newsletter"
-                    class="checkbox-input">
-                  <span class="checkbox-custom"></span>
-                  Subscribe to our newsletter for Ayurveda tips and product updates
-                </label>
+                  placeholder="Message*"></textarea>
               </div>
 
               <button 
@@ -129,94 +124,40 @@
               </button>
 
               <div class="success-message" *ngIf="showSuccessMessage">
-                <i class="success-icon">✓</i>
-                Thank you! Your message has been sent successfully. We'll get back to you soon.
+                <span class="success-icon">✓</span>
+                Message sent successfully!
               </div>
             </form>
           </div>
         </div>
 
-        <!-- Contact Information -->
-        <div class="contact-info-section">
-          <div class="info-card">
-            <h2 class="info-title">Get in Touch</h2>
-            <p class="info-description">
-              Our Ayurveda experts are here to help you on your wellness journey. 
-              Reach out to us through any of the following channels.
-            </p>
-
-            <div class="contact-methods">
-              <div class="contact-method">
-                <div class="method-icon">
-                  <i class="icon-phone">📞</i>
-                </div>
-                <div class="method-details">
-                  <h3>Phone</h3>
-                  <p>+91 1800-123-4567</p>
-                  <p class="method-note">Mon-Fri, 9 AM - 6 PM IST</p>
-                </div>
-              </div>
-
-              <div class="contact-method">
-                <div class="method-icon">
-                  <i class="icon-email">✉️</i>
-                </div>
-                <div class="method-details">
-                  <h3>Email</h3>
-            
-                  <p class="method-note">We'll respond within 24 hours</p>
-                </div>
-              </div>
-
-              <div class="contact-method">
-                <div class="method-icon">
-                  <i class="icon-location">📍</i>
-                </div>
-                <div class="method-details">
-                  <h3>Address</h3>
-                  <p>123 Wellness Street<br>
-                     Ayurveda Plaza, Mumbai<br>
-                     Maharashtra 400001, India</p>
-                </div>
-              </div>
-
-              <div class="contact-method">
-                <div class="method-icon">
-                  <i class="icon-chat">💬</i>
-                </div>
-                <div class="method-details">
-                  <h3>Live Chat</h3>
-                  <p>Available on our website</p>
-                  <p class="method-note">Mon-Sat, 10 AM - 8 PM IST</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Expert Consultation Card -->
-          <div class="consultation-card">
-            <div class="consultation-content">
-              <h3>Need Expert Consultation?</h3>
-              <p>Book a personalized Ayurveda consultation with our certified practitioners.</p>
-              <button class="consultation-btn" (click)="bookConsultation()">
-                Book Consultation
-              </button>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
 
   <!-- FAQ Section -->
   <div class="faq-section">
-    <div class="container">
-      <h2 class="section-title">Frequently Asked Questions</h2>
+    <div class="container1">
+      <h2 class="section-title">
+        Frequently Asked Questions<br>
+        <span class="subtitle">(FAQs)</span>
+      </h2>
+      
       <div class="faq-grid">
         <div class="faq-item" *ngFor="let faq of faqs; let i = index">
           <div class="faq-question" (click)="toggleFaq(i)">
             <h3>{{ faq.question }}</h3>
-            <span class="faq-toggle" [class.active]="faq.isOpen">+</span>
+            <span class="faq-toggle" [class.active]="faq.isOpen">
+              <svg *ngIf="!faq.isOpen" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="16"></line>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+              </svg>
+              <svg *ngIf="faq.isOpen" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="8" y1="12" x2="16" y2="12"></line>
+              </svg>
+            </span>
           </div>
           <div class="faq-answer" [class.open]="faq.isOpen">
             <p>{{ faq.answer }}</p>

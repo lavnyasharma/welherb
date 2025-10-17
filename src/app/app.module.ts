@@ -100,6 +100,8 @@ import { ContactUsComponent } from './modules/contact-us/contact-us.component';
 import { BlogOpenComponent } from './modules/blog-open/blog-open.component';
 import { ShopreviewsComponent } from './components/shopreviews/shopreviews.component';
 import { BetterlivingComponent } from './components/betterliving/betterliving.component';
+import { PrivacypolicyComponent } from './components/privacypolicy/privacypolicy.component';
+import { ShippingandRefundPolicyComponent } from './components/shippingand-refund-policy/shippingand-refund-policy.component';
 
 
 
@@ -142,6 +144,8 @@ import { BetterlivingComponent } from './components/betterliving/betterliving.co
      BlogOpenComponent,
      ShopreviewsComponent,
      BetterlivingComponent,
+     PrivacypolicyComponent,
+     ShippingandRefundPolicyComponent,
 
   ],
   imports: [
