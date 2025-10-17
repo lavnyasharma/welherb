@@ -1,0 +1,238 @@
+/* shipping-refund-policy.component.css */
+
+.shipping-refund-container {
+margin-top: 90px;
+
+  padding: 40px 20px;
+
+  font-family: lato, sans-serif;
+  color: #333;
+  min-height: 100vh;
+}
+
+.page-title {
+  font-size: 42px;
+  font-weight: 600;
+  color: #222;
+  margin-bottom: 40px;
+  line-height: 1.2;
+}
+
+/* Accordion Styles */
+.accordion-item {
+
+  border: 1px solid #000000;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+
+
+.accordion-header {
+  width: 100%;
+  padding: 18px 24px;
+background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+  color: #333;
+  transition: background-color 0.3s ease;
+  text-align: left;
+}
+
+
+
+.accordion-header:focus {
+  outline: none;
+
+}
+
+.accordion-item.open .accordion-header {
+
+  border-bottom: 1px solid #ddd;
+}
+
+.accordion-title {
+  font-weight: 600;
+  color: #222;
+  font-size: 16px;
+  flex: 1;
+}
+
+.accordion-icon {
+  font-size: 20px;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+
+.accordion-item.open .accordion-icon {
+  transform: rotate(45deg);
+}
+
+.accordion-content {
+  max-height: 0;
+  overflow: hidden;
+
+  border-top: none;
+  transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out, border 0.4s ease-in-out;
+  padding: 0 24px;
+}
+
+.accordion-item.open .accordion-content {
+  max-height: 3000px;
+  padding: 24px 24px;
+  border-top: 1px solid #ddd;
+}
+
+.content-text {
+  color: #555;
+  font-size: 15px;
+  line-height: 1.8;
+}
+
+.content-text p {
+  margin-bottom: 16px;
+  text-align: justify;
+}
+
+.content-text p:last-child {
+  margin-bottom: 0;
+}
+
+.content-text h4 {
+  color: #222;
+  font-size: 16px;
+  font-weight: 600;
+  margin-top: 20px;
+  margin-bottom: 12px;
+  text-align: left;
+}
+
+.content-text h4:first-child {
+  margin-top: 0;
+}
+
+.content-text strong {
+  color: #222;
+  font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .shipping-refund-container {
+    padding: 20px 15px;
+  }
+
+  .page-title {
+    font-size: 32px;
+    margin-bottom: 25px;
+  }
+
+  .accordion-header {
+    padding: 16px 18px;
+    font-size: 15px;
+  }
+
+  .accordion-title {
+    font-size: 15px;
+  }
+
+  .accordion-content {
+    padding: 18px;
+  }
+
+  .content-text {
+    font-size: 14px;
+  }
+
+  .content-text p {
+    margin-bottom: 12px;
+    text-align: left;
+  }
+
+  .content-text h4 {
+    font-size: 15px;
+    margin-top: 16px;
+    margin-bottom: 10px;
+  }
+
+  .accordion-icon {
+    width: 20px;
+    height: 20px;
+    font-size: 18px;
+    margin-left: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .shipping-refund-container {
+    padding: 15px 10px;
+  }
+
+  .page-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .accordion-item {
+    margin-bottom: 12px;
+    border-radius: 6px;
+  }
+
+  .accordion-header {
+    padding: 14px 14px;
+    font-size: 14px;
+  }
+
+  .accordion-title {
+    font-size: 14px;
+  }
+
+  .accordion-content {
+    padding: 14px;
+  }
+
+  .content-text {
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .content-text p {
+    margin-bottom: 10px;
+    text-align: left;
+  }
+
+  .content-text h4 {
+    font-size: 14px;
+    margin-top: 14px;
+    margin-bottom: 8px;
+  }
+
+  .accordion-icon {
+    width: 18px;
+    height: 18px;
+    font-size: 16px;
+    margin-left: 10px;
+  }
+}
+
+/* Smooth transition for accordion opening/closing */
+.accordion-content {
+  max-height: 1000px;
+  overflow: hidden;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  opacity: 1;
+}

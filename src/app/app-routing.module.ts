@@ -14,6 +14,8 @@ import { ExpertComponent } from './components/expert/expert.component';
 import { IngredientsPageComponent } from './modules/ingredients-page/ingredients-page.component';
 import { ContactUsComponent } from './modules/contact-us/contact-us.component';
 import { BlogOpenComponent } from './modules/blog-open/blog-open.component';
+import { PrivacypolicyComponent } from './components/privacypolicy/privacypolicy.component';
+import { ShippingandRefundPolicyComponent } from './components/shippingand-refund-policy/shippingand-refund-policy.component';
 // Import Auth Guard
 
 const routes: Routes = [
@@ -31,6 +33,8 @@ const routes: Routes = [
   { path: 'blogs-open', component: BlogOpenComponent },
    { path: 'ingredients', component: IngredientsPageComponent },
     { path: 'expert-help', component: ContactUsComponent },
+    { path: 'privacy-policy', component: PrivacypolicyComponent },
+        { path: 'ShippingandRefundPolicy', component: ShippingandRefundPolicyComponent },
   
   { path: '**', redirectTo: '', pathMatch: 'full' }  
 ];
