@@ -13,8 +13,8 @@
           <li *ngFor="let point of selectedProduct.helps_who">{{ point }}</li>
         </ul>
         <div class="button-group">
-          <button class="learn-more-btn">Learn More</button>
-          <button class="buy-now-btn">Buy Now</button>
+          <button class="learn-more-btn" (click)="learnMore()">Learn More</button>
+          <button class="buy-now-btn" (click)="buyNow()">Buy Now</button>
         </div>
       </div>
 

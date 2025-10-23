@@ -45,7 +45,7 @@
 }
 
 .title-section {
-  /* position: fixed */
+  position: relative;
 }
 
 .arrow1 {
@@ -86,6 +86,7 @@
   position: fixed;
   max-width: 295px;
   pointer-events: none;
+  z-index: 0; /* Lower stacking so other components sit above */
 }
 
 .label-container {
@@ -157,10 +158,36 @@
 
 .button-container-buy-now{
  position: fixed;
+ z-index: 100; /* Ensure buttons are clickable */
 }
 
 .part2{
   text-align: right;
+}
+
+/* Mobile bottle - only visible on mobile */
+.mobile-bottle {
+  display: none;
+  margin-top: 30px;
+  width: 100%;
+  max-width: 250px;
+  animation: fadeInUp 0.8s ease-out;
+}
+
+.mobile-bottle img {
+  width: 100%;
+  height: auto;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .parallax-image-mobile{
@@ -174,6 +201,11 @@
 @media screen and (max-width: 768px) {
   .sec1,.sec2,.sec3,.arrow1,.arrowleft,.parallax-image{
     display: none;
+  }
+
+  /* Show mobile bottle on mobile devices */
+  .mobile-bottle {
+    display: block;
   }
 
   .title{

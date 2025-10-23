@@ -808,7 +808,7 @@
 .size-btn {
   padding: 6px 12px;
   border: 1px solid #ddd;
-  background: white;
+  background: #FCF8F3;
   color: #666;
   border-radius: 20px;
   font-size: 0.85rem;
@@ -892,7 +892,7 @@
   display: flex;
   align-items: center;
   gap: 8px;
-  background: white;
+  background: #FCF8F3;
   color: #24B04B;
   border: 2px solid #24B04B;
   padding: 14px 28px;

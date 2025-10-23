@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiService } from './../../../services/api.service';
+import { CartService } from './../../../services/cart.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-card',
@@ -13,7 +16,12 @@ export class ProductCardComponent implements OnInit {
   subProducts: any[] = [];
   selectedProductIndex: number = 0;
 
-  constructor(private apiservice: ApiService) {
+  constructor(
+    private apiservice: ApiService,
+    private cartService: CartService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {
     this.apiservice.products$.subscribe(data => {
       for (let cat of this.mainCategories) {
         this.categoryProductMap[cat] = data.filter(
@@ -59,5 +67,38 @@ export class ProductCardComponent implements OnInit {
       };
     }
     return { 'background': '#fff' };
+  }
+
+  learnMore() {
+    if (this.selectedProduct?._id) {
+      this.router.navigate(['/shop', this.selectedProduct._id]);
+    }
+  }
+
+  buyNow() {
+    if (!this.selectedProduct?._id) {
+      this.toastr.error('Product not available', 'Error');
+      return;
+    }
+
+    // Check if user is authenticated
+    const authToken = localStorage.getItem('auth_token');
+    if (!authToken) {
+      this.toastr.warning('Please login to purchase', 'Authentication Required');
+      this.router.navigate(['/login']);
+      return;
+    }
+
+    // Get the first available size or default size
+    const size = this.selectedProduct.size?.[0] || '30';
+    
+    // Add to cart
+    if (!this.cartService.isProductInCart(this.selectedProduct._id)) {
+      this.cartService.addToCart(this.selectedProduct._id, size.toString());
+      this.toastr.success('Product added to cart', 'Success');
+    }
+    
+    // Navigate to cart
+    this.router.navigate(['/cart']);
   }
 }

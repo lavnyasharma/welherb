@@ -31,7 +31,7 @@
 }
 
 .cta-button:hover {
-  background-color: #0056b3;
+  background-color: #4FAE32;
 }
 
 .arrow {
@@ -76,7 +76,7 @@
 }
 
 .image-item:hover img {
-  filter: blur(2px);
+  /* filter: blur(2px); */
 }
 
 .image-item:hover .image-overlay {

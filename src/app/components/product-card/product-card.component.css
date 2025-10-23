@@ -22,15 +22,17 @@
 }
 
 .product-content {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  width: 90vw;
-  max-width: 1200px;
-  margin-top: 8vh;
-  gap: 50px;
-  z-index: 10;
+    display: flex
+;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 90%;
+    /* max-width: 1200px; */
+    margin-top: 8vh;
+    gap: 50px;
+    z-index: 10;
 }
+
 
 .product-desc-left,
 .product-desc-right {
@@ -184,7 +186,7 @@
   }
 
   .category-tabs {
-    position: fixed;
+   
     bottom: 0;
     left: 0;
     padding: 12px 0;

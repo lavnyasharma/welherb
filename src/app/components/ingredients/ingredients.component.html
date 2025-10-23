@@ -12,7 +12,7 @@
   <div class="image-grid" style="">
     <div class="image-item" *ngFor="let image of images | slice:0:-3">
       <img [src]="image.url" [alt]="image.name" />
-      <div class="image-overlay">{{ image.name }}</div>
+
     </div>
   </div>
 </div>
