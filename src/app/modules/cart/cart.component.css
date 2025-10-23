@@ -5,10 +5,7 @@
   gap: 24px;
   padding: 20px;
   justify-content: space-between; 
-  /* max-width: 1200px; */
-      margin-top: 150px !important;
   margin: 0 auto;
-
 }
 
 .cart-header {
@@ -1964,7 +1961,7 @@ textarea:focus {
 .order-info-section,
 .delivery-info-section,
 .items-review-section {
-  background: white;
+  background: #FCF8F3;
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -2109,7 +2106,7 @@ textarea:focus {
 }
 
 .order-summary-success {
-  background: white;
+  background: #FCF8F3;
   border-radius: 8px;
   padding: 20px;
   margin: 20px 0;

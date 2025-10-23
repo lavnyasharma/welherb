@@ -1,11 +1,3 @@
-app-navbar {
-    position: sticky;
-    top: 0; /* Stick to the top of the viewport */
-    z-index: 1000; /* Ensure it stays above other content */
-    background-color: white; /* Optional: background color for better visibility */
-    
-}
-
 app-parallax,
 app-product-card,
 app-learn,

@@ -2,15 +2,14 @@
 
 /* Content wrapper for main content */
 .content-wrapper {
-  padding-top: 120px; /* Space for fixed navbar with offer */
+  padding-top: 140px; /* Space for fixed navbar with offer banner */
   min-height: 100vh;
   transition: padding-top 0.3s ease-in-out;
-  padding-top: 70px;
 }
 
-/* Reduce padding when offer is hidden */
-.content-wrapper.offer-hidden {
-  padding-top: 70px; /* Space for navbar without offer */
+/* When on auth routes (no navbar) */
+.content-wrapper.no-navbar {
+  padding-top: 0;
 }
 
 /* Ensure smooth transitions for all content */

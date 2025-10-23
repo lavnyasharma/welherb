@@ -254,17 +254,6 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-/* Content offset for fixed navbar */
-body {
-  padding-top: 120px; /* Adjust based on your navbar height */
-  transition: padding-top 0.3s ease;
-}
-
-/* When offer is hidden, reduce padding */
-.offer-hidden ~ * {
-  --navbar-offset: 70px; /* Reduced offset when offer is hidden */
-}
-
 /* Responsive Design */
 @media (max-width: 768px) {
   .hamburger {
@@ -345,11 +334,6 @@ body {
     align-items: center;
     justify-content: center;
   }
-
-  /* Reduce body padding on mobile */
-  body {
-    padding-top: 100px;
-  }
 }
 
 @media (max-width: 480px) {
@@ -364,10 +348,6 @@ body {
 
   .menubar {
     padding: 5px 10px;
-  }
-
-  body {
-    padding-top: 90px;
   }
 }
 

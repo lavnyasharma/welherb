@@ -31,7 +31,7 @@
 }
 
 .info-item {
-  background: #ffffff;
+  background: #FCF8F3;
   border-radius: 12px;
   border: 1px solid #e0e0e0;
   overflow: hidden;
@@ -123,7 +123,7 @@
 }
 
 .faq-items {
-  background: #ffffff;
+  background: #FCF8F3;
   border-radius: 16px;
   padding: 24px;
   display: flex;
@@ -223,7 +223,7 @@
   }
   
   .mobile-item {
-    background: #ffffff;
+    background: #FCF8F3;
     border-radius: 12px;
     border: 1px solid #e0e0e0;
     margin-bottom: 16px;

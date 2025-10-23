@@ -1,14 +1,12 @@
 /* Shop Container */
 .shop-container {
   padding: 20px;
-
   min-height: calc(100vh - 140px);
   background-color: #fcf8f4;
 }
 .heromage{
-    width: 100%;
-    height: auto;
-  margin-top: 150px;
+  width: 100%;
+  height: auto;
 }
 /* Desktop Filter Header */
 .desktop-filter-header {
@@ -29,7 +27,7 @@
   justify-content: space-between;
   align-items: center;
   padding: 16px 20px;
-  background: white;
+  background: #FCF8F3;
   border-radius: 8px;
   margin-bottom: 20px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -105,7 +103,7 @@
   display: flex;
   align-items: center;
   gap: 30px;
-  background: white;
+  background: #FCF8F3;
   padding: 20px;
   border-radius: 8px;
   margin-bottom: 30px;
@@ -166,7 +164,7 @@
   position: absolute;
   top: 100%;
   left: 0;
-  background: white;
+  background: #FCF8F3;
   border: 1px solid #eee;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -575,7 +573,7 @@
   justify-content: center;
   align-items: center;
   padding: 60px 20px;
-  background: white;
+  background: #FCF8F3;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
@@ -602,7 +600,7 @@
   justify-content: center;
   align-items: center;
   padding: 80px 20px;
-  background: white;
+  background: #FCF8F3;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
@@ -925,7 +923,6 @@
 
 @media (max-width: 1024px) {
   .shop-container {
-    margin-top: 100px;
     padding: 16px;
   }
   
@@ -959,7 +956,6 @@
 
 @media (max-width: 768px) {
   .shop-container {
-    margin-top: 80px;
     padding: 12px;
   }
   

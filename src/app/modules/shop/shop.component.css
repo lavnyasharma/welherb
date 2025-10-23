@@ -91,7 +91,7 @@ display: flex
 }
 
 .add-to-cart-btn {
-  background: white;
+  background: #FCF8F3;
   color: #4A90E2;
   border: 2px solid #4A90E2;
 }
@@ -210,7 +210,7 @@ display: flex
 }
 
 .dosage-modal {
-  background: white;
+  background: #FCF8F3;
   border-radius: 16px;
   max-width: 400px;
   width: 90%;
@@ -380,17 +380,13 @@ display: flex
 
 /* Main Layout */
 .shop-layout {
-display: flex
-;
-    gap: 40px;
-    align-items: flex-start;
-    background: #fcf8f4;
-    border-radius: 16px;
-    padding-top: 120px;
-    justify-content: center;
-    
-
-    
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+  background: #fcf8f4;
+  border-radius: 16px;
+  padding: 40px;
+  justify-content: center;
 }
 
 

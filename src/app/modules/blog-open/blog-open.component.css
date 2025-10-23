@@ -202,7 +202,7 @@
   font-size: 0.9rem;
   resize: vertical;
   box-sizing: border-box;
-  background-color: #ffffff;
+  background-color: #FCF8F3;
 }
 
 .form-input {
@@ -213,7 +213,7 @@
   font-family: inherit;
   font-size: 0.9rem;
   box-sizing: border-box;
-  background-color: #ffffff;
+  background-color: #FCF8F3;
 }
 
 .comment-textarea:focus,

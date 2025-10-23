@@ -3,7 +3,6 @@
     margin: 0 auto;
     font-family: 'Arial', sans-serif;
     padding: 50px;
-    margin-top: 80px;
     border-radius: 8px;
     max-width: 1200px; /* Restricts width */
 }
@@ -21,7 +20,7 @@
     padding: 10px 12px;
     border: 1px solid #ccc;
     border-radius: 8px;
-    background-color: #fff;
+    background-color: #FCF8F3;
     font-size: 16px;
     appearance: none;
     background-image: url("data:image/svg+xml;utf8,<svg fill='%23999' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
@@ -133,7 +132,7 @@
 }
 
 .order-card {
-  background: white;
+  background: #FCF8F3;
   border: 1px solid #e0e0e0;
   border-radius: 12px;
   padding: 20px;
@@ -261,7 +260,7 @@
   padding: 8px 16px;
   border: 1px solid #ddd;
   border-radius: 6px;
-  background: white;
+  background: #FCF8F3;
   color: #333;
   font-size: 14px;
   cursor: pointer;
