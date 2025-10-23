@@ -307,7 +307,7 @@
 }
 
 .quantity-btn.plus {
-  color: #007bff;
+  color: #4FAE32;
 }
 
 .quantity-btn.minus {
@@ -1261,12 +1261,12 @@ textarea:focus {
 }
 
 .address-item:hover {
-  border-color: #007bff;
+  border-color: #4FAE32;
   box-shadow: 0 2px 8px rgba(0,123,255,0.15);
 }
 
 .address-item.selected {
-  border-color: #007bff;
+  border-color: #4FAE32;
   background-color: #f8f9ff;
 }
 
@@ -1301,7 +1301,7 @@ textarea:focus {
 }
 
 .toggle-address-btn {
-  background: #007bff;
+  background: #4FAE32;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -1405,7 +1405,7 @@ textarea:focus {
 }
 
 .save-address-btn {
-  background: #007bff;
+  background: #4FAE32;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -1427,7 +1427,7 @@ textarea:focus {
   padding: 20px;
   background-color: #f8f9fa;
   border-radius: 8px;
-  border-left: 4px solid #007bff;
+  border-left: 4px solid #4FAE32;
 }
 
 .address-summary {
@@ -1447,12 +1447,12 @@ textarea:focus {
 }
 
 .payment-option:hover {
-  border-color: #007bff;
+  border-color: #4FAE32;
   background-color: #f8f9ff;
 }
 
 .payment-option.selected {
-  border-color: #007bff;
+  border-color: #4FAE32;
   background-color: #f0f8ff;
 }
 
@@ -1508,7 +1508,7 @@ textarea:focus {
 
 .review-item-price {
   font-weight: bold;
-  color: #007bff;
+  color: #4FAE32;
 }
 
 .review-totals {
@@ -1523,7 +1523,7 @@ textarea:focus {
 }
 
 .review-total-row.final-total {
-  border-top: 2px solid #007bff;
+  border-top: 2px solid #4FAE32;
   padding-top: 10px;
   margin-top: 10px;
   font-size: 18px;
@@ -1546,7 +1546,7 @@ textarea:focus {
 .selected-payment-method {
   margin-top: 8px;
   font-weight: 500;
-  color: #007bff;
+  color: #4FAE32;
 }
 
 .checkout-actions {
@@ -1572,7 +1572,7 @@ textarea:focus {
 
 .continue-btn,
 .submit-btn {
-  background: #007bff;
+  background: #4FAE32;
   color: white;
   border: none;
   padding: 12px 24px;
@@ -1679,7 +1679,7 @@ textarea:focus {
 }
 
 .update-address-btn {
-  background-color: #007bff;
+  background-color: #4FAE32;
 }
 
 .update-address-btn:hover {
@@ -1872,7 +1872,7 @@ textarea:focus {
 }
 
 .update-mobile-btn {
-  background-color: #007bff;
+  background-color: #4FAE32;
   color: white;
   border: none;
   padding: 10px 16px;

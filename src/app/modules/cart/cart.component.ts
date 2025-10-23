@@ -94,9 +94,8 @@ export class CartComponent implements OnInit {
   ngOnInit(): void {
     this.selectedPaymentMethod = 'googlepay';
     this.loadCartItems();
-    
-    // Load addresses immediately and also set a timeout to ensure it loads
     this.loadAddresses();
+    
     setTimeout(() => {
       console.log('Current addresses after timeout:', this.deliveryAddresses);
     }, 1000);
@@ -105,11 +104,10 @@ export class CartComponent implements OnInit {
   private loadCartItems(): void {
     this.cartService.cartItems$.subscribe((cartItemIds) => {
       console.log('Cart items updated:', cartItemIds);
-      // Call API to get full details of items
       this.apiService.getCartItems().subscribe(
         (response: any[]) => {
           this.cartItems = response
-            .filter(item => item?.product || item?.name) // Handle both structures
+            .filter(item => item?.product || item?.name)
             .map(item => {
               const product = item.product || item;
               const selectedSize = item.size || 30;
@@ -140,7 +138,6 @@ export class CartComponent implements OnInit {
       (response: any) => {
         console.log('Addresses loaded:', response);
         
-        // Handle direct array response or nested addresses property
         let addresses = response;
         if (response && response.addresses) {
           addresses = response.addresses;
@@ -154,13 +151,12 @@ export class CartComponent implements OnInit {
             city: addr.city || '',
             state: addr.state || '',
             pincode: addr.pincode || '',
-            phone: addr.mobile || addr.phone || '', // Map mobile field to phone
+            phone: addr.mobile || addr.phone || '',
             email: addr.email || '',
-            selected: index === 0 // Select first address by default
+            selected: index === 0
           }));
           console.log('Mapped addresses:', this.deliveryAddresses);
         } else {
-          // If no addresses from API, provide a default address
           this.deliveryAddresses = [
             {
               id: 1,
@@ -177,7 +173,6 @@ export class CartComponent implements OnInit {
       },
       (error) => {
         console.error('Error loading addresses:', error);
-        // Fallback to default address if API fails
         this.deliveryAddresses = [
           {
             id: 1,
@@ -194,13 +189,11 @@ export class CartComponent implements OnInit {
     );
   }
 
-  // Public method to refresh addresses (can be called from template if needed)
   refreshAddresses(): void {
     console.log('Manually refreshing addresses...');
     this.loadAddresses();
   }
 
-  // Update mobile number for selected address
   updateMobileNumber(): void {
     const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
     if (selectedAddress && this.newAddress.phone.trim() !== '') {
@@ -209,7 +202,6 @@ export class CartComponent implements OnInit {
     }
   }
 
-  // Update mobile number in real-time when user types
   onMobileNumberChange(): void {
     const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
     if (selectedAddress) {
@@ -222,20 +214,16 @@ export class CartComponent implements OnInit {
     }
   }
 
-  // Getter to check if selected address is real (not placeholder)
   get hasRealSelectedAddress(): boolean {
     const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
     return selectedAddress && selectedAddress.address !== 'Please add your delivery address below';
   }
 
-  // Getter for selected address
   get selectedAddress(): any {
     return this.deliveryAddresses.find(addr => addr.selected);
   }
 
-  // Create order before moving to review step
   createOrderBeforeReview(): void {
-    // Validation before creating order
     if (this.cartItems.length === 0) {
       alert('Your cart is empty');
       return;
@@ -247,7 +235,6 @@ export class CartComponent implements OnInit {
       return;
     }
 
-    // Check if user is trying to use the default placeholder address
     if (selectedAddress.address === 'Please add your delivery address below') {
       alert('Please add a valid delivery address using the form below before proceeding');
       return;
@@ -258,7 +245,6 @@ export class CartComponent implements OnInit {
       return;
     }
 
-    // Check if mobile number is available
     if (!selectedAddress.phone || selectedAddress.phone.trim() === '') {
       alert('Please enter mobile number for the selected address');
       return;
@@ -266,7 +252,6 @@ export class CartComponent implements OnInit {
 
     this.isCreatingOrder = true;
 
-    // Prepare order payload to match API structure
     const orderPayload = {
       products: this.cartItems.map(item => ({
         product: item.id,
@@ -292,19 +277,12 @@ export class CartComponent implements OnInit {
 
     console.log('Creating order with payload:', orderPayload);
 
-    // Call create order API
     this.apiService.createOrder(orderPayload).subscribe(
       (response: any) => {
         console.log('Order created successfully:', response);
         this.isCreatingOrder = false;
         this.orderCreated = true;
-        
-        // Store order response for review
         this.selectedOrder = response;
-        
-        // Clear cart immediately after successful order creation
-        this.cartItems = [];
-        this.cartService.clearCart();
         
         // Move to step 4 (review) after successful order creation
         this.currentStep = 4;
@@ -330,7 +308,7 @@ export class CartComponent implements OnInit {
   }
 
   get discount(): number {
-    return 200; // Fixed discount for demo
+    return 200;
   }
 
   get shipping(): number {
@@ -353,13 +331,10 @@ export class CartComponent implements OnInit {
     return this.discount + (this.shipping === 0 ? 80 : 0);
   }
 
-  // Missing quantity control functions
   increaseQuantity(itemId: string): void {
     const item = this.cartItems.find(item => item.id === itemId);
     if (item) {
       item.quantity++;
-      // Update cart service if needed
-      // this.cartService.updateQuantity(itemId, item.quantity);
     }
   }
 
@@ -367,8 +342,6 @@ export class CartComponent implements OnInit {
     const item = this.cartItems.find(item => item.id === itemId);
     if (item && item.quantity > 1) {
       item.quantity--;
-      // Update cart service if needed
-      // this.cartService.updateQuantity(itemId, item.quantity);
     }
   }
 
@@ -378,7 +351,7 @@ export class CartComponent implements OnInit {
   }
 
   get stepTitles(): string[] {
-    return ['Offers', 'Shipping', 'Payment', 'Review'];
+    return ['Offers', 'Delivery', 'Payment', 'Review'];
   }
 
   get currentStepTitle(): string {
@@ -387,7 +360,6 @@ export class CartComponent implements OnInit {
   }
 
   nextStep(): void {
-    // Validate mobile number when moving from step 2 (delivery) to step 3 (payment)
     if (this.currentStep === 2) {
       const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
       console.log('Validating mobile number:', {
@@ -397,13 +369,11 @@ export class CartComponent implements OnInit {
       });
       
       if (selectedAddress && selectedAddress.address !== 'Please add your delivery address below') {
-        // Update mobile number from form to selected address
         if (this.newAddress.phone && this.newAddress.phone.trim() !== '') {
           selectedAddress.phone = this.newAddress.phone;
           console.log('Updated selected address phone:', selectedAddress.phone);
         }
         
-        // Check if mobile number is available in the selected address
         if (!selectedAddress.phone || selectedAddress.phone.trim() === '') {
           console.log('Mobile number validation failed:', selectedAddress.phone);
           alert('Please enter mobile number for the selected address');
@@ -414,7 +384,6 @@ export class CartComponent implements OnInit {
       }
     }
 
-    // Create order when moving from step 3 (payment) to step 4 (review)
     if (this.currentStep === 3) {
       this.createOrderBeforeReview();
       return;
@@ -441,16 +410,12 @@ export class CartComponent implements OnInit {
       return;
     }
 
-    // Simulate discount application
     console.log('Applying discount code:', this.discountCode);
     
-    // Here you would typically call an API to validate the discount code
-    // For demo purposes, let's simulate some basic validation
     const validCodes = ['SAVE10', 'WELCOME20', 'FIRST50'];
     
     if (validCodes.includes(this.discountCode.toUpperCase())) {
       alert('Discount code applied successfully!');
-      // You would update the discount amount here based on the code
     } else {
       alert('Invalid discount code. Please try again.');
     }
@@ -461,14 +426,13 @@ export class CartComponent implements OnInit {
       addr.selected = addr.id === addressId;
     });
     
-    // Prefill the new address form with selected address details
     const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
     if (selectedAddress && selectedAddress.address !== 'Please add your delivery address below') {
       this.newAddress = {
         email: selectedAddress.email || '',
         pincode: selectedAddress.pincode || '',
         name: selectedAddress.name || '',
-        phone: selectedAddress.phone || '', // This will be empty if API doesn't return mobile
+        phone: selectedAddress.phone || '',
         address: selectedAddress.address || '',
         state: selectedAddress.state || '',
         city: selectedAddress.city || ''
@@ -485,7 +449,7 @@ export class CartComponent implements OnInit {
     this.isAddingAddress = true;
     const addressPayload = {
       name: this.newAddress.name,
-      mobile: this.newAddress.phone, // API expects mobile field
+      mobile: this.newAddress.phone,
       address: this.newAddress.address,
       city: this.newAddress.city,
       state: this.newAddress.state,
@@ -498,7 +462,6 @@ export class CartComponent implements OnInit {
         console.log('Address added successfully:', response);
         alert('Address added successfully!');
         
-        // Clear form
         this.newAddress = {
           email: '',
           pincode: '',
@@ -510,7 +473,6 @@ export class CartComponent implements OnInit {
         };
         this.pincodeResponse = null;
         
-        // Call get address API again to refresh the address list
         this.loadAddresses();
         this.isAddingAddress = false;
       },
@@ -538,7 +500,7 @@ export class CartComponent implements OnInit {
     const addressPayload = {
       addressId: selectedAddress.id,
       name: this.newAddress.name,
-      mobile: this.newAddress.phone, // API expects mobile field
+      mobile: this.newAddress.phone,
       address: this.newAddress.address,
       city: this.newAddress.city,
       state: this.newAddress.state,
@@ -551,7 +513,6 @@ export class CartComponent implements OnInit {
         console.log('Address updated successfully:', response);
         alert('Address updated successfully!');
         
-        // Clear form
         this.newAddress = {
           email: '',
           pincode: '',
@@ -563,7 +524,6 @@ export class CartComponent implements OnInit {
         };
         this.pincodeResponse = null;
         
-        // Call get address API again to refresh the address list
         this.loadAddresses();
         this.isUpdatingAddress = false;
       },
@@ -588,14 +548,12 @@ export class CartComponent implements OnInit {
 
     console.log('Checking pincode:', this.newAddress.pincode);
     
-    // Call delivery availability API
     this.apiService.getDeliveryAvailability(this.newAddress.pincode).subscribe(
       (response: any) => {
         console.log('Pincode response:', response);
         this.pincodeResponse = response;
         
         if (response && response.available) {
-          // Auto-fill city and state from response
           if (response.city) this.newAddress.city = response.city;
           if (response.state) this.newAddress.state = response.state;
           
@@ -630,26 +588,20 @@ export class CartComponent implements OnInit {
   }
 
   submitOrder(): void {
-    // This method is no longer used as order creation happens in nextStep()
-    // Keeping for backward compatibility
     console.log('submitOrder called - redirecting to createOrderBeforeReview');
     this.createOrderBeforeReview();
   }
 
-  // Finalize order after review
   finalizeOrder(): void {
-    // Clear cart after user confirms the order
     this.cartItems = [];
     this.cartService.clearCart();
     
-    // Reset form
     this.currentStep = 1;
     this.hearAboutUs = [];
     this.orderReason = '';
     this.orderCreated = false;
     this.selectedOrder = null;
     
-    // Show success message
     alert('Order finalized successfully! Thank you for your purchase.');
   }
 
@@ -663,7 +615,6 @@ export class CartComponent implements OnInit {
     );
   }
 
-  // Original checkout method from your cart component
   checkout(): void {
     if (this.currentStep < this.totalSteps) {
       this.nextStep();

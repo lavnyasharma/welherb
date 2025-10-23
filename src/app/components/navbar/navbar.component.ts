@@ -99,11 +99,24 @@ export class NavbarComponent implements OnInit {
           { separator: true },
           {
             label: 'By Benefits',
-            items: [
-              { label: "Men's Wellness", routerLink: '/shop/mens-wellbeing' },
-              { label: "Women's Wellness", routerLink: '/shop/womens-wellbeing' },
-              { label: 'Weight Management', routerLink: '/shop/weight-management' }
-            ]
+         items: [
+  { 
+    label: "Men's Wellness", 
+    routerLink: ['/shopall'], 
+    queryParams: { category: "Men's Wellness" } 
+  },
+  { 
+    label: "Women's Wellness", 
+    routerLink: ['/shopall'], 
+    queryParams: { category: "Women's Wellness" } 
+  },
+  { 
+    label: "Weight Management", 
+    routerLink: ['/shopall'], 
+    queryParams: { category: "Weight Management" } 
+  }
+]
+
           },
           { separator: true },
           {

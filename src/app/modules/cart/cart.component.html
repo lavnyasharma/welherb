@@ -187,19 +187,7 @@
             <button class="apply-btn" (click)="applyDiscount()">Apply</button>
           </div>
 
-          <div class="free-samples">
-            <h3>Get Your Free Sample</h3>
-            <p>100% Ayurvedic & Lab-tested</p>
-            
-            <div class="samples-grid">
-              <div class="sample-item" *ngFor="let item of cartItems">
-                <img [src]="item.image" [alt]="item.name">
-                <h4>{{ item.name }}</h4>
-                <p>{{ item.subtitle }}</p>
-                <span class="free-tag">Free</span>
-              </div>
-            </div>
-          </div>
+
         </div>
       </div>
 
