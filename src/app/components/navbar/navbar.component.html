@@ -1,5 +1,10 @@
 <!-- navbar.component.html -->
 <div class="navbar-container" [class.navbar-hidden]="!isNavbarVisible" [class.navbar-visible]="isNavbarVisible">
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu-overlay" 
+         [class.active]="menuOpen && !isDesktopView" 
+         (click)="closeMenu()"></div>
+    
     <!-- Offer Banner -->
     <div class="offer" [class.offer-hidden]="!isOfferVisible" [class.offer-visible]="isOfferVisible">
         Free Pan India Shipping above 499
@@ -172,8 +177,8 @@
         <!-- Navigation Menu -->
         <ul class="menu" [class.open]="menuOpen || isDesktopView">
             <!-- SHOP Dropdown (first item) -->
-            <li class="menu-item dropdown" [class.open]="shopDropdownOpen" (click)="toggleShopDropdown()">
-                <a>Shop</a>
+            <li class="menu-item dropdown" [class.open]="shopDropdownOpen">
+                <a (click)="onShopClick($event)">Shop</a>
                 <div class="dropdown-menu full-width" *ngIf="isDesktopView || shopDropdownOpen">
                     <div class="dropdown-columns">
                         <ng-container *ngFor="let subItem of items[0].items">

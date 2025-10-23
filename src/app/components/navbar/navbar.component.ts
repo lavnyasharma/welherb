@@ -64,6 +64,13 @@ export class NavbarComponent implements OnInit {
       { label: 'Logout', icon: 'pi pi-sign-out', command: () => this.logout() }
     ];
 
+    // Auto-close menu on navigation
+    this.router.events.subscribe(event => {
+      if (event.constructor.name === 'NavigationEnd') {
+        this.closeMenu();
+      }
+    });
+
     this.items = [
       {
         label: 'Shop',
@@ -86,7 +93,7 @@ export class NavbarComponent implements OnInit {
               { label: 'Multivitamins', routerLink: ['/shopall'], queryParams: { category: 'ayurvedic-multivitamins' } },
               { label: 'Piles', routerLink: ['/shopall'], queryParams: { category: 'piles' } },
               { label: 'Prostate', routerLink: ['/shopall'], queryParams: { category: 'prostate' } },
-              { label: 'Thyroid', routerLink: ['/shopall'], queryParams: { category: 'thyroid' } }
+              { label: 'Thyroid', routerLink: ['/shopall'], queryParams: { category: 'Thyroid' } }
             ]
           },
           { separator: true },
@@ -195,12 +202,10 @@ export class NavbarComponent implements OnInit {
   }
 
   selectSearchResult(product: any) {
-    alert(2)
-
     this.searchValue = product.name;
-
+    this.showSearchResults = false;
     // Navigate to product detail page
-  this.navigateToProduct(product._id);
+    this.navigateToProduct(product._id);
   }
 
   clearSearch() {
@@ -283,6 +288,14 @@ export class NavbarComponent implements OnInit {
     if (!this.isDesktopView) {
       this.shopDropdownOpen = !this.shopDropdownOpen;
     }
+  }
+
+  onShopClick(event: Event) {
+    if (!this.isDesktopView) {
+      event.preventDefault();
+      this.shopDropdownOpen = !this.shopDropdownOpen;
+    }
+    // On desktop, do nothing (hover will handle it)
   }
 
   closeMenu() {

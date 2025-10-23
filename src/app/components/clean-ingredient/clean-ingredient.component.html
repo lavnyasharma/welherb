@@ -1,0 +1,16 @@
+<div class="clean-ingredient-container">
+  <div class="content-wrapper">
+    <h2 class="main-heading">
+      Clean ingredients, traditional processes and 100 years of experience for Better Living
+    </h2>
+    
+    <div class="features-grid">
+      <div class="feature-item" *ngFor="let feature of features">
+        <div class="icon-wrapper">
+          <img [src]="feature.icon" [alt]="feature.title" class="feature-icon">
+        </div>
+        <p class="feature-title">{{ feature.title }}</p>
+      </div>
+    </div>
+  </div>
+</div>

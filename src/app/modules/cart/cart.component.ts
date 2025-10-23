@@ -272,7 +272,7 @@ export class CartComponent implements OnInit {
         product: item.id,
         count: item.quantity
       })),
-      address: [{
+      address: {
         pincode: parseInt(selectedAddress.pincode) || 0,
         name: selectedAddress.name,
         mobile: selectedAddress.phone,
@@ -281,7 +281,7 @@ export class CartComponent implements OnInit {
         email: selectedAddress.email,
         state: selectedAddress.state,
         _id: selectedAddress.id
-      }],
+      },
       order_type: this.selectedPaymentMethod === 'cod' ? 'COD' : 'Pre-Paid',
       payment_amount: {
         product_amount: this.subtotal,
@@ -302,12 +302,12 @@ export class CartComponent implements OnInit {
         // Store order response for review
         this.selectedOrder = response;
         
+        // Clear cart immediately after successful order creation
+        this.cartItems = [];
+        this.cartService.clearCart();
+        
         // Move to step 4 (review) after successful order creation
         this.currentStep = 4;
-        
-        // Don't clear cart yet - let user review first
-        // this.cartItems = [];
-        // this.cartService.clearCart();
       },
       (error) => {
         console.error('Error creating order:', error);

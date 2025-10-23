@@ -14,9 +14,9 @@ width: 100%;
     background-color: #fbf9f3;
     color: #fbf9f3;
     padding: 40px 20px;
-    z-index: 9999999;
+    z-index: 10;
     /* display: revert; */
-    position: absolute;
+    position: relative;
 }
 
 .footer a {

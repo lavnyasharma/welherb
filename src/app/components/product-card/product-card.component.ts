@@ -1,4 +1,4 @@
-import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ApiService } from './../../../services/api.service';
 
 @Component({
@@ -7,49 +7,57 @@ import { ApiService } from './../../../services/api.service';
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent implements OnInit {
-  @ViewChild('carousel', { static: false }) carousel!: ElementRef;
-  
+  mainCategories = ['ESR', 'Liver', 'Thyroid', 'Women', 'Men', 'Heart'];
+  categoryProductMap: { [key: string]: any[] } = {};
+  selectedCategoryIndex: number = 0;
+  subProducts: any[] = [];
   selectedProductIndex: number = 0;
-  products: any[] = [];
 
   constructor(private apiservice: ApiService) {
     this.apiservice.products$.subscribe(data => {
-      console.log(data);
-      this.products = data.map((item: any) => ({
-        name: item.name,
-        image: '/welherb' + item.background_image,
-        shortDescLeft: item.helps_how,     // <-- corrected here
-        shortDescRight: item.helps_who,    // <-- and here
-        color: item.background_color
-      }));
-      
-   
+      for (let cat of this.mainCategories) {
+        this.categoryProductMap[cat] = data.filter(
+          (prod: any) =>
+            prod.categories && prod.categories.map((c: string) => c.toLowerCase()).includes(cat.toLowerCase())
+        );
+      }
+      this.updateSubProducts();
     });
   }
 
-  get selectedProduct() {
-    return this.products[this.selectedProductIndex];
+  ngOnInit() {
+    this.apiservice.getHomeProducts();
   }
 
-  ngOnInit() {
-   
-
-    this.apiservice.getHomeProducts();
+  selectCategory(index: number) {
+    this.selectedCategoryIndex = index;
+    this.selectedProductIndex = 0;
+    this.updateSubProducts();
   }
 
   selectProduct(index: number) {
     this.selectedProductIndex = index;
   }
 
-  scrollLeft() {
-    if (this.carousel) {
-      this.carousel.nativeElement.scrollBy({ left: -200, behavior: 'smooth' });
-    }
+  updateSubProducts() {
+    let cat = this.mainCategories[this.selectedCategoryIndex];
+    this.subProducts = this.categoryProductMap[cat] || [];
   }
 
-  scrollRight() {
-    if (this.carousel) {
-      this.carousel.nativeElement.scrollBy({ left: 200, behavior: 'smooth' });
+  get selectedProduct() {
+    return this.subProducts[this.selectedProductIndex];
+  }
+
+  getBackgroundStyle() {
+    if (this.selectedProduct?.background_image) {
+      return {
+        'background-image': `url(/welherb${this.selectedProduct.background_image})`,
+        'background-size': 'cover',
+        'background-position': 'center center',
+        'background-repeat': 'no-repeat',
+        'image-rendering': 'crisp-edges',
+      };
     }
+    return { 'background': '#fff' };
   }
 }

@@ -1,5 +1,7 @@
 .container {
   background: #fcf8f4;
+      padding: 80px 0px 10px;
+
 }
 
 .grid-heading {
@@ -18,10 +20,10 @@
 }
 
 .cta-button {
-  background-color: #02b101;
+  background-color: #4FAE32;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 16px;
   padding: 0.7em 1.2em; /* slight padding increase */
   font-size: 1.1em; /* increased from 1em */
   cursor: pointer;

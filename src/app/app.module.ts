@@ -102,6 +102,8 @@ import { ShopreviewsComponent } from './components/shopreviews/shopreviews.compo
 import { BetterlivingComponent } from './components/betterliving/betterliving.component';
 import { PrivacypolicyComponent } from './components/privacypolicy/privacypolicy.component';
 import { ShippingandRefundPolicyComponent } from './components/shippingand-refund-policy/shippingand-refund-policy.component';
+import { HomereviewsComponent } from './components/homereviews/homereviews.component';
+import { CleanIngredientComponent } from './components/clean-ingredient/clean-ingredient.component';
 
 
 
@@ -146,6 +148,8 @@ import { ShippingandRefundPolicyComponent } from './components/shippingand-refun
      BetterlivingComponent,
      PrivacypolicyComponent,
      ShippingandRefundPolicyComponent,
+     HomereviewsComponent,
+     CleanIngredientComponent,
 
   ],
   imports: [

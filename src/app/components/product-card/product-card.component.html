@@ -1,47 +1,57 @@
-<div
-  class="product-card-container"
-  [ngStyle]="selectedProduct?.image ? {
-    'background-image': 'url(' + selectedProduct.image + ')',
-    'background-color': '#fff'
-  } : {
-    'background-image': 'none',
-    'background-color': 'white'
-  }"
->
+<div class="product-card-container" [ngStyle]="getBackgroundStyle()">
+  <ng-container *ngIf="selectedProduct; else noProduct">
+    <!-- Product Title at Top -->
+    <div class="product-title">{{ selectedProduct?.name }}</div>
 
-
-  <div class="product-overlay-content">
-    <div class="product-name">
-      <h5>
-        {{ selectedProduct.name }}
-      </h5>
-    </div>
-
-    <div class="product-info">
-      <div class="desc-left">
-        <h1>Helps How?</h1>
-        <div class="description-point" *ngFor="let point of selectedProduct.shortDescLeft">{{ point }}</div>
-        <div class="learnMore">
-          <button class="learn-more-btn" style="gap: 10px;">Learn More</button>
-          <button class="buy-more-btn">Buy Now</button>
-        </div>
-      </div>
-
-      <div class="desc-right">
+    <!-- Content Area with Helps Who and Helps How -->
+    <div class="product-content">
+      <!-- Left Side: Helps Who -->
+      <div class="product-desc-left desktop-only">
         <h1>Helps Who?</h1>
-        <div class="description-point" *ngFor="let point of selectedProduct.shortDescRight">{{ point }}</div>
-        <div class="buyMore">
-          
+        <div class="if-you">If You:</div>
+        <ul>
+          <li *ngFor="let point of selectedProduct.helps_who">{{ point }}</li>
+        </ul>
+        <div class="button-group">
+          <button class="learn-more-btn">Learn More</button>
+          <button class="buy-now-btn">Buy Now</button>
         </div>
       </div>
-    </div>
 
-    <div class="other-products">
-      <button class="other-product-btn" *ngFor="let product of products; let i = index"
-              [class.selected]="i === selectedProductIndex"
-              (click)="selectProduct(i)">
-        {{ product.name }}
-      </button>
+      <!-- Right Side: Helps How -->
+      <div class="product-desc-right desktop-only">
+        <h1>Helps How?</h1>
+        <ul>
+          <li *ngFor="let point of selectedProduct.helps_how">{{ point }}</li>
+        </ul>
+      </div>
     </div>
+  </ng-container>
+
+  <!-- No product available -->
+  <ng-template #noProduct>
+    <div class="no-product-message">
+      No products for now. Sorry for inconvenience.
+    </div>
+  </ng-template>
+
+  <!-- Sub-product selectors (if multiple products in category) -->
+  <div class="sub-product-tabs" *ngIf="subProducts.length > 1">
+    <button
+      *ngFor="let prod of subProducts; let ix = index"
+      [class.selected]="ix === selectedProductIndex"
+      (click)="selectProduct(ix)">
+      {{ prod.name }}
+    </button>
+  </div>
+
+  <!-- Category Tabs at Bottom -->
+  <div class="category-tabs">
+    <button
+      *ngFor="let cat of mainCategories; let idx = index"
+      [class.selected]="selectedCategoryIndex === idx"
+      (click)="selectCategory(idx)">
+      {{ cat }}
+    </button>
   </div>
 </div>

@@ -48,6 +48,9 @@
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  min-height: 44px;
 }
 
 .filter-toggle-btn:hover {
@@ -120,6 +123,9 @@
   cursor: pointer;
   transition: all 0.3s ease;
   position: relative;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.05);
+  min-height: 44px;
 }
 
 .category-btn:hover,
@@ -204,10 +210,12 @@
   z-index: 999;
   opacity: 0;
   transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
 .sidebar-overlay.active {
   opacity: 1;
+  pointer-events: auto;
 }
 
 .sidebar {
@@ -673,6 +681,8 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.05);
 }
 
 .product-card:hover {
@@ -809,6 +819,9 @@
   transition: all 0.3s ease;
   min-width: 40px;
   text-align: center;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  min-height: 36px;
 }
 
 .size-btn:hover:not(:disabled),
@@ -846,6 +859,9 @@
   transition: all 0.3s ease;
   background: #fbf9f3;
   color: #333333;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  min-height: 44px;
 }
 
 .add-to-cart-btn:hover:not(:disabled) {

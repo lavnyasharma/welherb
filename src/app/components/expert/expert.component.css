@@ -99,6 +99,8 @@
   background: #fbf9f3;
   border: 1px solid #f0f0f0;
   overflow: hidden;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.05);
 }
 
 .post-card:hover {
@@ -142,6 +144,7 @@
   line-height: 1.4;
   margin: 0 0 12px 0;
   color: #333;
+  font-family: lato, sans-serif;
 }
 
 .post-categories {
@@ -194,6 +197,9 @@
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  min-height: 44px;
 }
 
 .view-more-btn:hover {

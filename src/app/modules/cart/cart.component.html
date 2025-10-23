@@ -1,418 +1,426 @@
 <div class="cart-page">
-<div class="" style="flex: 0.5;">
-  <div class="cart-header">
-    <h1>My Cart({{ totalItems }})</h1>
-  </div>
-
-  <!-- Cart Items Section -->
-  <div class="cart-items">
-    <!-- Show message if cart is empty -->
-    <div *ngIf="cartItems.length === 0" class="empty-cart">
-      <div class="empty-icon">🛍️</div>
-      <h3>Your cart is empty</h3>
-      <p>Add some products to get started</p>
-    </div>
-
-    <!-- Show cart items if not empty -->
-    <div class="cart-item" *ngFor="let item of cartItems">
-      <img class="item-image" [src]="item.image" [alt]="item.name" />
-      
-      <div class="item-details">
-        <div class="item-header">
-          <div class="item-info-left">
-            <h3 class="item-name">{{ item.name }}</h3>
-            <p class="item-size">Size: {{ item.size }}</p>
-          </div>
-          <button class="remove-btn" (click)="removeItem(item.id)">Remove</button>
+  <!-- Left Side - Cart Items or Order Review -->
+  <div class="cart-section">
+    <!-- Show Order Review when order is created -->
+    <div *ngIf="orderCreated" class="order-review-left">
+      <div class="success-header">
+        <div class="success-checkmark">
+          <svg width="80" height="80" viewBox="0 0 80 80">
+            <circle cx="40" cy="40" r="38" fill="#7cb342" stroke="#689f38" stroke-width="2"/>
+            <path d="M25 40 L35 50 L55 30" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
         </div>
-        
-        <div class="item-footer">
-          <div class="quantity-controls">
-            <button 
-              class="quantity-btn minus" 
-              (click)="decreaseQuantity(item.id)"
-              [disabled]="item.quantity <= 1">
-              -
-            </button>
-            <span class="quantity">{{ item.quantity }}</span>
-            <button 
-              class="quantity-btn plus" 
-              (click)="increaseQuantity(item.id)">
-              +
-            </button>
-          </div>
-          <div class="item-price">₹{{ item.price }}</div>
+        <h2>Thank you!</h2>
+        <p>Your order has been placed</p>
+        <p class="email-note">We've sent the invoice to your email</p>
+      </div>
+
+      <div class="order-details-box">
+        <h3>Order Details</h3>
+        <div class="detail-row">
+          <span>Order number</span>
+          <span>{{ selectedOrder?.orderId || selectedOrder?._id || 'whs178627' }}</span>
+        </div>
+        <div class="detail-row">
+          <span>Date</span>
+          <span>{{ selectedOrder?.date || 'June 17, 2025' }}</span>
+        </div>
+        <div class="detail-row">
+          <span>Payment Method</span>
+          <span>{{ selectedPaymentMethod === 'googlepay' ? 'G Pay' : selectedPaymentMethod.toUpperCase() }}</span>
+        </div>
+        <div class="detail-divider"></div>
+        <div class="detail-row subtotal">
+          <span>MRP</span>
+          <span>₹{{ mrpTotal }}</span>
+        </div>
+        <div class="detail-row">
+          <span>Shipping</span>
+          <span>₹{{ shipping }}</span>
+        </div>
+        <div class="detail-row total">
+          <span>Grand Total</span>
+          <span>₹{{ grandTotal }}</span>
+        </div>
+        <div class="tax-note">(Inclusive of all taxes)</div>
+      </div>
+
+      <div class="products-box">
+        <h3>Products</h3>
+        <div class="product-list-item" *ngFor="let item of cartItems">
+          <span>{{ item.quantity }}x {{ item.name }}</span>
+          <span>₹{{ item.price * item.quantity }}</span>
+        </div>
+        <div class="detail-row total">
+          <span>Total</span>
+          <span>₹249</span>
+        </div>
+      </div>
+
+      <div class="customer-details-box">
+        <h3>Customer Details</h3>
+        <div class="detail-group">
+          <strong>Contact</strong>
+          <p>{{ selectedAddress?.email || 'mange@gmail.com' }}</p>
+          <p>{{ selectedAddress?.phone || '9876543210' }}</p>
+        </div>
+        <div class="detail-group">
+          <strong>Billing Address</strong>
+          <p>{{ selectedAddress?.name || 'Jitendra Kumar' }}</p>
+          <p>{{ selectedAddress?.address || 'Om Niwas 190054, Chandigarh, India' }}</p>
         </div>
       </div>
     </div>
-  </div>
 
-  <!-- Order Summary Section -->
-  <div class="order-summary" *ngIf="cartItems.length > 0">
-    <div class="summary-row">
-      <span>MRP</span>
-      <span>₹{{ mrpTotal }}</span>
-    </div>
-    
-    <div class="summary-row">
-      <span>Discount</span>
-      <span>₹{{ discount }}</span>
-    </div>
-    
-    <div class="summary-row">
-      <span>Shipping</span>
-      <span>₹{{ shipping }}</span>
-    </div>
-    
-    <div class="free-delivery" *ngIf="shipping === 0">
-      Free delivery above ₹499
-    </div>
-    
-    <hr class="summary-divider">
-    
-    <div class="summary-total">
-      <span>Grand Total</span>
-      <span>₹{{ grandTotal }}</span>
-    </div>
-    
-    <div class="summary-note">(inclusive of all taxes)</div>
-    
-    <div class="savings-badge" *ngIf="savings > 0">
-      🎯 You saved ₹{{ savings }} on this order!
-    </div>
-  </div>
-</div>
-
-<div class="checkout-container">
-  <div class="checkout-header">
-    <h2>Check out</h2>
-    
-    <!-- Step Progress Bar -->
-    <div class="step-progress">
-      <div class="step-item" 
-           *ngFor="let title of stepTitles; let i = index"
-           [class.active]="i + 1 <= currentStep"
-           [class.current]="i + 1 === currentStep">
-        <div class="step-number">{{ i + 1 < 10 ? '0' + (i + 1) : i + 1 }}</div>
-        <div class="step-title">{{ title }}</div>
+    <!-- Show Cart Items when order is not created -->
+    <div *ngIf="!orderCreated" class="cart-items-section">
+      <div class="cart-header">
+        <h1>My Cart({{ totalItems }})</h1>
       </div>
-    </div>
-  </div>
 
-  <div class="checkout-content">
-    <!-- Step 1: Offers -->
-    <div *ngIf="currentStep === 1" class="step-content">
-      <div class="offers-section">
-        <div class="coupons-header">
-          <i class="icon-coupon"></i>
-          <span>Coupons and offers</span>
-          <i class="icon-dropdown"></i>
+      <div class="cart-items">
+        <div *ngIf="cartItems.length === 0" class="empty-cart">
+          <div class="empty-icon">🛍️</div>
+          <h3>Your cart is empty</h3>
+          <p>Add some products to get started</p>
         </div>
-        
-        <div class="discount-input">
-          <input type="text" 
-                 [(ngModel)]="discountCode"
-                 placeholder="Discount code or gift card">
-          <button class="apply-btn" (click)="applyDiscount()">Apply</button>
-        </div>
-<!-- 
-        <div class="free-samples">
-          <h3>Get Your Free Sample</h3>
-          <p>100% Ayurvedic & Lab-tested</p>
+
+        <div class="cart-item" *ngFor="let item of cartItems">
+          <img class="item-image" [src]="item.image" [alt]="item.name" />
           
-          <div class="samples-grid">
-            <div class="sample-item" *ngFor="let item of cartItems">
-              <img [src]="item.image" [alt]="item.name">
-              <h4>{{ item.name }}</h4>
-              <p>{{ item.subtitle }}</p>
-              <span class="price-tag" *ngIf="item.price > 0">₹{{ item.price }}</span>
-              <span class="free-tag" *ngIf="item.price === 0">Free</span>
-              <button class="remove-btn" (click)="removeItem(item.id)" title="Remove item">×</button>
+          <div class="item-details">
+            <div class="item-header">
+              <div class="item-info-left">
+                <h3 class="item-name">{{ item.name }}</h3>
+                <p class="item-size">Size: {{ item.size }}</p>
+              </div>
+              <button class="remove-btn" (click)="removeItem(item.id)">Remove</button>
+            </div>
+            
+            <div class="item-footer">
+              <div class="quantity-controls">
+                <button 
+                  class="quantity-btn minus" 
+                  (click)="decreaseQuantity(item.id)"
+                  [disabled]="item.quantity <= 1">
+                  -
+                </button>
+                <span class="quantity">{{ item.quantity }}</span>
+                <button 
+                  class="quantity-btn plus" 
+                  (click)="increaseQuantity(item.id)">
+                  +
+                </button>
+              </div>
+              <div class="item-price">₹{{ item.price }}</div>
             </div>
           </div>
-        </div> -->
+        </div>
+      </div>
+
+      <div class="order-summary" *ngIf="cartItems.length > 0">
+        <div class="summary-row">
+          <span>MRP</span>
+          <span>₹{{ mrpTotal }}</span>
+        </div>
+        
+        <div class="summary-row">
+          <span>Discount</span>
+          <span>₹{{ discount }}</span>
+        </div>
+        
+        <div class="summary-row">
+          <span>Shipping</span>
+          <span>₹{{ shipping }}</span>
+        </div>
+        
+        <div class="free-delivery" *ngIf="shipping === 0">
+          Free delivery above ₹499
+        </div>
+        
+        <hr class="summary-divider">
+        
+        <div class="summary-total">
+          <span>Grand Total</span>
+          <span>₹{{ grandTotal }}</span>
+        </div>
+        
+        <div class="summary-note">(inclusive of all taxes)</div>
+        
+        <div class="savings-badge" *ngIf="savings > 0">
+          🎯 You saved ₹{{ savings }} on this order!
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Side - Checkout Container -->
+  <div class="checkout-container">
+    <div class="checkout-header">
+      <h2>Check out</h2>
+      
+      <div class="step-progress">
+        <div class="step-item" 
+             *ngFor="let title of stepTitles; let i = index"
+             [class.active]="i + 1 <= currentStep"
+             [class.current]="i + 1 === currentStep">
+          <div class="step-number">{{ (i + 1) < 10 ? '0' + (i + 1) : i + 1 }}</div>
+          <div class="step-title">{{ title }}</div>
+        </div>
       </div>
     </div>
 
-    <!-- Step 2: Delivery -->
-    <div *ngIf="currentStep === 2" class="step-content">
-      <div class="delivery-section">
-        <div class="delivery-header">
-          <h3>Delivery address</h3>
+    <div class="checkout-content">
+      <!-- Step 1: Offers -->
+      <div *ngIf="currentStep === 1" class="step-content">
+        <div class="offers-section">
+          <div class="coupons-header">
+            <i class="icon-coupon">🎟️</i>
+            <span>Coupons and offers</span>
+            <i class="icon-dropdown">▼</i>
+          </div>
+          
+          <div class="discount-input">
+            <input type="text" 
+                   [(ngModel)]="discountCode"
+                   placeholder="Discount code or gift card">
+            <button class="apply-btn" (click)="applyDiscount()">Apply</button>
+          </div>
 
-        </div>
-        
-        <div class="address-options">
-          <div class="address-item" 
-               *ngFor="let address of deliveryAddresses"
-               [class.selected]="address.selected"
-               [class.default-address]="address.address === 'Please add your delivery address below'"
-               (click)="selectAddress(address.id)">
-            <input type="radio" 
-                   [checked]="address.selected"
-                   [value]="address.id">
-            <div class="address-details">
-              <div *ngIf="address.address === 'Please add your delivery address below'" class="default-address-message">
-                <strong>{{ address.name }}</strong>
-                <p>{{ address.address }}</p>
-                <small>Use the form below to add your actual delivery address</small>
+          <div class="free-samples">
+            <h3>Get Your Free Sample</h3>
+            <p>100% Ayurvedic & Lab-tested</p>
+            
+            <div class="samples-grid">
+              <div class="sample-item" *ngFor="let item of cartItems">
+                <img [src]="item.image" [alt]="item.name">
+                <h4>{{ item.name }}</h4>
+                <p>{{ item.subtitle }}</p>
+                <span class="free-tag">Free</span>
               </div>
-              <div *ngIf="address.address !== 'Please add your delivery address below'" class="real-address">
-                <div class="address-header">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Step 2: Delivery -->
+      <div *ngIf="currentStep === 2" class="step-content">
+        <div class="delivery-section">
+          <div class="delivery-header">
+            <h3>Delivery address</h3>
+          </div>
+          
+          <div class="address-options">
+            <div class="address-item" 
+                 *ngFor="let address of deliveryAddresses"
+                 [class.selected]="address.selected"
+                 [class.default-address]="address.address === 'Please add your delivery address below'"
+                 (click)="selectAddress(address.id)">
+              <input type="radio" 
+                     [checked]="address.selected"
+                     [value]="address.id">
+              <div class="address-details">
+                <div *ngIf="address.address === 'Please add your delivery address below'" class="default-address-message">
                   <strong>{{ address.name }}</strong>
-                  <span class="address-type">{{ address.name === 'Home' ? '🏠' : address.name === 'Office' ? '🏢' : '📍' }}</span>
+                  <p>{{ address.address }}</p>
+                  <small>Use the form below to add your actual delivery address</small>
                 </div>
-                <div class="address-body">
-                  <p class="address-line">{{ address.address }}</p>
-                  <p class="address-location">{{ address.city }}, {{ address.state }} - {{ address.pincode }}</p>
-                  <div class="address-contact" *ngIf="address.phone || address.email">
-                    <span *ngIf="address.phone" class="contact-item">📞 {{ address.phone }}</span>
-                    <span *ngIf="address.email" class="contact-item">✉️ {{ address.email }}</span>
+                <div *ngIf="address.address !== 'Please add your delivery address below'" class="real-address">
+                  <div class="address-header">
+                    <strong>{{ address.name }}</strong>
+                    <span class="address-type">{{ address.name === 'Home' ? '🏠' : address.name === 'Office' ? '🏢' : '📍' }}</span>
+                  </div>
+                  <div class="address-body">
+                    <p class="address-line">{{ address.address }}</p>
+                    <p class="address-location">{{ address.city }}, {{ address.state }} - {{ address.pincode }}</p>
+                    <div class="address-contact" *ngIf="address.phone || address.email">
+                      <span *ngIf="address.phone" class="contact-item">📞 {{ address.phone }}</span>
+                      <span *ngIf="address.email" class="contact-item">✉️ {{ address.email }}</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div class="add-new-address">
-          <h4>Add new delivery address</h4>
-          
-          
-          <!-- Pincode Response Display -->
-          <div *ngIf="pincodeResponse" class="pincode-response">
-            <div class="response-success" *ngIf="pincodeResponse.available">
-              ✅ Delivery available in your area!
-              <div class="response-details">
-                <span *ngIf="pincodeResponse.city">City: {{ pincodeResponse.city }}</span>
-                <span *ngIf="pincodeResponse.state">State: {{ pincodeResponse.state }}</span>
-                <span *ngIf="pincodeResponse.deliveryTime">Delivery Time: {{ pincodeResponse.deliveryTime }}</span>
+          <div class="add-new-address">
+            <h4>Add new delivery address</h4>
+            
+            <div *ngIf="pincodeResponse" class="pincode-response">
+              <div class="response-success" *ngIf="pincodeResponse.available">
+                ✅ Delivery available in your area!
+                <div class="response-details">
+                  <span *ngIf="pincodeResponse.city">City: {{ pincodeResponse.city }}</span>
+                  <span *ngIf="pincodeResponse.state">State: {{ pincodeResponse.state }}</span>
+                  <span *ngIf="pincodeResponse.deliveryTime">Delivery Time: {{ pincodeResponse.deliveryTime }}</span>
+                </div>
+              </div>
+              <div class="response-error" *ngIf="!pincodeResponse.available">
+                ❌ Delivery not available in this pincode area
               </div>
             </div>
-            <div class="response-error" *ngIf="!pincodeResponse.available">
-              ❌ Delivery not available in this pincode area
+            
+            <div class="form-row">
+              <input type="email" 
+                     [(ngModel)]="newAddress.email"
+                     placeholder="Email(Optional)">
+            </div>
+            
+            <div class="form-row">
+              <input type="text" 
+                     [(ngModel)]="newAddress.pincode"
+                     placeholder="Pincode*">
+              <button class="check-btn" (click)="checkPincode()">Check</button>
+            </div>
+            
+            <div class="form-row">
+              <input type="text" 
+                     [(ngModel)]="newAddress.name"
+                     placeholder="Name*">
+              <input type="tel" 
+                     [(ngModel)]="newAddress.phone"
+                     (input)="onMobileNumberChange()"
+                     placeholder="Phone Number*">
+            </div>
+            
+            <div class="form-row">
+              <textarea [(ngModel)]="newAddress.address"
+                       placeholder="Address*(Flat/House number/Street)"
+                       rows="3"></textarea>
+            </div>
+            
+            <div class="form-row">
+              <input type="text" 
+                     [(ngModel)]="newAddress.state"
+                     placeholder="State">
+              <input type="text" 
+                     [(ngModel)]="newAddress.city"
+                     placeholder="City/District/Town*">
+            </div>
+            
+            <div class="address-actions">
+              <button class="add-address-btn" 
+                      (click)="addNewAddress()"
+                      [disabled]="isAddingAddress">
+                {{ isAddingAddress ? 'Adding...' : 'Add Address' }}
+              </button>
+              <button class="update-address-btn" 
+                      (click)="updateAddress()"
+                      [disabled]="isUpdatingAddress">
+                {{ isUpdatingAddress ? 'Updating...' : 'Update Selected Address' }}
+              </button>
             </div>
           </div>
-          
-          <div class="form-row">
-            <input type="email" 
-                   [(ngModel)]="newAddress.email"
-                   placeholder="Email(Optional)">
+        </div>
+      </div>
+
+      <!-- Step 3: Payment -->
+      <div *ngIf="currentStep === 3" class="step-content">
+        <div class="payment-section">
+          <div class="payment-group">
+            <h4>Recommended Payment Option</h4>
+            <div class="payment-option recommended" 
+                 [class.selected]="selectedPaymentMethod === 'googlepay'"
+                 (click)="selectPaymentMethod('googlepay')">
+              <input type="radio" 
+                     value="googlepay"
+                     [checked]="selectedPaymentMethod === 'googlepay'">
+              <span>Google Pay</span>
+              <div class="payment-logo">G Pay</div>
+            </div>
           </div>
-          
-          <div class="form-row">
-            <input type="text" 
-                   [(ngModel)]="newAddress.pincode"
-                   placeholder="Pincode*">
-            <button class="check-btn" (click)="checkPincode()">Check</button>
+
+          <div class="payment-group">
+            <h4>Online Payment Option</h4>
+            <div class="payment-option" 
+                 [class.selected]="selectedPaymentMethod === 'upi'"
+                 (click)="selectPaymentMethod('upi')">
+              <i class="icon-upi">📱</i>
+              <span>UPI(Pay via any App)</span>
+              <i class="icon-dropdown">▼</i>
+            </div>
+            
+            <div class="payment-option" 
+                 [class.selected]="selectedPaymentMethod === 'card'"
+                 (click)="selectPaymentMethod('card')">
+              <i class="icon-card">💳</i>
+              <span>Debit/Credit Card</span>
+              <i class="icon-dropdown">▼</i>
+            </div>
+            
+            <div class="payment-option" 
+                 [class.selected]="selectedPaymentMethod === 'emi'"
+                 (click)="selectPaymentMethod('emi')">
+              <i class="icon-emi">📊</i>
+              <span>EMI</span>
+              <i class="icon-dropdown">▼</i>
+            </div>
           </div>
-          
-          <div class="form-row">
-            <input type="text" 
-                   [(ngModel)]="newAddress.name"
-                   placeholder="Name*">
-            <input type="tel" 
-                   [(ngModel)]="newAddress.phone"
-                   (input)="onMobileNumberChange()"
-                   placeholder="Phone Number*">
-          </div>
-          
-          <div class="form-row">
-            <textarea [(ngModel)]="newAddress.address"
-                     placeholder="Address*(Flat/House number/Street)"
-                     rows="3"></textarea>
-          </div>
-          
-          <div class="form-row">
-            <input type="text" 
-                   [(ngModel)]="newAddress.state"
-                   placeholder="State">
-            <input type="text" 
-                   [(ngModel)]="newAddress.city"
-                   placeholder="City/District/Town*">
-          </div>
-          
-          <div class="address-actions">
-            <button class="add-address-btn" 
-                    (click)="addNewAddress()"
-                    [disabled]="isAddingAddress">
-              {{ isAddingAddress ? 'Adding...' : 'Add Address' }}
-            </button>
-            <button class="update-address-btn" 
-                    (click)="updateAddress()"
-                    [disabled]="isUpdatingAddress">
-              {{ isUpdatingAddress ? 'Updating...' : 'Update Selected Address' }}
-            </button>
+
+          <div class="payment-group">
+            <h4>Other</h4>
+            <div class="payment-option" 
+                 [class.selected]="selectedPaymentMethod === 'cod'"
+                 (click)="selectPaymentMethod('cod')">
+              <input type="radio" 
+                     value="cod"
+                     [checked]="selectedPaymentMethod === 'cod'">
+              <span>Cash On Delivery</span>
+              <i class="icon-info">ℹ️</i>
+            </div>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Step 3: Payment -->
-    <div *ngIf="currentStep === 3" class="step-content">
-      <div class="payment-section">
-        <div class="payment-group">
-          <h4>Recommended Payment Option</h4>
-          <div class="payment-option recommended" 
-               [class.selected]="selectedPaymentMethod === 'googlepay'"
-               (click)="selectPaymentMethod('googlepay')">
-            <input type="radio" 
-                   value="googlepay"
-                   [checked]="selectedPaymentMethod === 'googlepay'">
-            <span>Google Pay</span>
-            <img src="assets/gpay-logo.png" alt="Google Pay" class="payment-logo">
+      <!-- Step 4: Survey/FAQs -->
+      <div *ngIf="currentStep === 4 && !orderCreated" class="step-content">
+        <div class="survey-section">
+          <div class="offer-banner">
+            <h3>Tell us and get <span class="highlight">10% OFF</span> on your next order!</h3>
           </div>
-        </div>
 
-        <div class="payment-group">
-          <h4>Online Payment Option</h4>
-          <div class="payment-option" 
-               [class.selected]="selectedPaymentMethod === 'upi'"
-               (click)="selectPaymentMethod('upi')">
-            <i class="icon-upi"></i>
-            <span>UPI (Pay via any App)</span>
-            <i class="icon-dropdown"></i>
+          <div class="survey-question">
+            <h4>How did you first hear about us? <span class="expand-icon">+</span></h4>
+            <div class="checkbox-group">
+              <label *ngFor="let option of hearAboutOptions">
+                <input type="checkbox" 
+                       [value]="option"
+                       (change)="onHearAboutUsChange(option, $event)">
+                {{ option }}
+              </label>
+            </div>
           </div>
-          
-          <div class="payment-option" 
-               [class.selected]="selectedPaymentMethod === 'card'"
-               (click)="selectPaymentMethod('card')">
-            <i class="icon-card"></i>
-            <span>Debit/Credit Card</span>
-            <i class="icon-dropdown"></i>
-          </div>
-          
-          <div class="payment-option" 
-               [class.selected]="selectedPaymentMethod === 'emi'"
-               (click)="selectPaymentMethod('emi')">
-            <i class="icon-emi"></i>
-            <span>EMI</span>
-            <i class="icon-dropdown"></i>
-          </div>
-        </div>
 
-        <div class="payment-group">
-          <h4>Other</h4>
-          <div class="payment-option" 
-               [class.selected]="selectedPaymentMethod === 'cod'"
-               (click)="selectPaymentMethod('cod')">
-            <input type="radio" 
-                   value="cod"
-                   [checked]="selectedPaymentMethod === 'cod'">
-            <span>Cash On Delivery</span>
-            <i class="icon-info"></i>
+          <div class="survey-question">
+            <h4>What made you decide to place the order today? <span class="expand-icon">+</span></h4>
+            <textarea [(ngModel)]="orderReason"
+                     placeholder="Tell us about your decision..."
+                     rows="4"></textarea>
           </div>
         </div>
       </div>
-    </div>
 
-    <!-- Step 4: Order Success/Review -->
-    <div *ngIf="currentStep === 4" class="step-content">
       <!-- Order Creation Loading -->
       <div *ngIf="isCreatingOrder" class="order-loading">
         <div class="loading-spinner"></div>
         <h3>Creating your order...</h3>
         <p>Please wait while we process your order</p>
       </div>
+    </div>
 
-      <!-- Order Review -->
-      <div *ngIf="orderCreated && !isCreatingOrder" class="order-review">
-        <div class="review-header">
-          <div class="success-icon">✅</div>
-          <h3>Order Created Successfully!</h3>
-          <p>Please review your order details below</p>
-        </div>
-        
-        <div class="order-details-review">
-          <div class="order-info-section">
-            <h4>Order Information</h4>
-            <div class="info-item">
-              <span class="label">Order ID:</span>
-              <span class="value">{{ selectedOrder?.orderId || selectedOrder?._id || 'N/A' }}</span>
-            </div>
-            <div class="info-item">
-              <span class="label">Order Total:</span>
-              <span class="value">₹{{ grandTotal }}</span>
-            </div>
-            <div class="info-item">
-              <span class="label">Payment Method:</span>
-              <span class="value">{{ selectedPaymentMethod.toUpperCase() }}</span>
-            </div>
-          </div>
-
-          <div class="delivery-info-section">
-            <h4>Delivery Information</h4>
-            <div class="delivery-address" *ngIf="selectedAddress">
-              <div class="address-item-review">
-                <strong>{{ selectedAddress.name }}</strong>
-                <p>{{ selectedAddress.address }}</p>
-                <p>{{ selectedAddress.city }}, {{ selectedAddress.state }} - {{ selectedAddress.pincode }}</p>
-                <p>📞 {{ selectedAddress.phone }}</p>
-              </div>
-            </div>
-          </div>
-
-          <div class="items-review-section">
-            <h4>Order Items</h4>
-            <div class="items-list">
-              <div class="item-review" *ngFor="let item of cartItems">
-                <div class="item-info">
-                  <h5>{{ item.name }}</h5>
-                  <p>Size: {{ item.size }} | Qty: {{ item.quantity }}</p>
-                </div>
-                <div class="item-price">₹{{ item.price * item.quantity }}</div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="review-actions">
-          <button class="btn-secondary" (click)="goToStep(3)">Back to Payment</button>
-          <button class="btn-primary" (click)="finalizeOrder()">Confirm Order</button>
-        </div>
-      </div>
-
-      <!-- Survey Section (if order not created yet) -->
-      <div *ngIf="!orderCreated && !isCreatingOrder" class="survey-section">
-        <div class="offer-banner">
-          <h3>Tell us and get <span class="highlight">10% OFF</span> on your next order!</h3>
-        </div>
-
-        <div class="survey-question">
-          <h4>How did you first hear about us? <span class="expand-icon">+</span></h4>
-          <div class="checkbox-group">
-            <label *ngFor="let option of hearAboutOptions">
-              <input type="checkbox" 
-                     [value]="option"
-                     (change)="onHearAboutUsChange(option, $event)">
-              {{ option }}
-            </label>
-          </div>
-        </div>
-
-        <div class="survey-question">
-          <h4>What made you decide to place the order today? <span class="expand-icon">+</span></h4>
-          <textarea [(ngModel)]="orderReason"
-                   placeholder="Tell us about your decision..."
-                   rows="4"></textarea>
-        </div>
-      </div>
+    <!-- Continue/Submit Button -->
+    <div class="checkout-footer" *ngIf="!orderCreated">
+      <button *ngIf="currentStep < 4" 
+              class="continue-btn" 
+              (click)="nextStep()"
+              [disabled]="isCreatingOrder">
+        {{ isCreatingOrder ? 'Processing...' : 'Continue' }}
+      </button>
+      <button *ngIf="currentStep === 4 && !orderCreated && !isCreatingOrder" 
+              class="submit-btn" 
+              (click)="submitOrder()">
+        Submit
+      </button>
     </div>
   </div>
-
-  <!-- Continue/Submit Button -->
-  <div class="checkout-footer">
-    <button *ngIf="currentStep < 4" 
-            class="continue-btn" 
-            (click)="nextStep()"
-            [disabled]="isCreatingOrder">
-      {{ isCreatingOrder ? 'Processing...' : 'Continue' }}
-    </button>
-    <button *ngIf="currentStep === 4 && !orderCreated" 
-            class="submit-btn" 
-            (click)="submitOrder()">
-      Submit
-    </button>
-  </div>
-</div>
 </div>

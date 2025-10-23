@@ -1,5 +1,27 @@
 /* Navbar Container - Fixed positioning */
 
+/* Mobile Menu Overlay */
+.mobile-menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 998;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  pointer-events: none;
+}
+
+.mobile-menu-overlay.active {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 
 .navbar-container {
   position: fixed;
@@ -61,7 +83,7 @@
   background-color: #fcf8f4;
   padding: 10px 20px;
   position: relative;
-  z-index: 1000;
+  z-index: 999;
 }
 
 /* Header with logo and hamburger */
@@ -82,6 +104,10 @@
   font-size: 1.8rem;
   cursor: pointer;
   transition: transform 0.3s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  z-index: 1002;
+  position: relative;
 }
 
 .hamburger:hover {
@@ -110,6 +136,8 @@
   padding: 8px 12px;
   display: block;
   transition: color 0.2s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
 }
 
 .menu-item a:hover {
@@ -195,6 +223,10 @@
 
 .cart {
   transition: transform 0.2s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
 }
 
 .cart:hover {
@@ -210,6 +242,10 @@
   border-radius: 16px;
   cursor: pointer;
   transition: all 0.2s ease;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 10;
 }
 
 .signUp button:hover {
@@ -233,17 +269,37 @@ body {
 @media (max-width: 768px) {
   .hamburger {
     display: block;
+    padding: 10px;
+    /* Increase touch target size */
+    min-width: 44px;
+    min-height: 44px;
   }
 
   .menu {
     flex-direction: column;
     display: none;
     padding: 1rem;
+    background: #fcf8f4;
+    width: 100%;
+    position: relative;
+    z-index: 999;
   }
 
   .menu.open {
     display: flex;
     animation: slideDown 0.3s ease-out;
+  }
+
+  .menu-item {
+    width: 100%;
+  }
+
+  .menu-item a {
+    padding: 12px 16px;
+    /* Increase touch target for mobile */
+    min-height: 44px;
+    display: flex;
+    align-items: center;
   }
 
   .dropdown-menu {
@@ -258,6 +314,13 @@ body {
     gap: 1rem;
   }
 
+  .dropdown-link {
+    padding: 10px 16px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+  }
+
   .search {
     display: none;
   }
@@ -268,6 +331,19 @@ body {
 
   .menubar {
     padding: 8px 15px;
+  }
+
+  .icons {
+    gap: 20px;
+  }
+
+  .cart, .profile-dropdown button, .signUp button {
+    /* Ensure minimum touch target size */
+    min-width: 44px;
+    min-height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 
   /* Reduce body padding on mobile */

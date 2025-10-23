@@ -278,10 +278,14 @@
             
             <!-- Category Tags -->
             <div class="category-tags" *ngIf="product.category && product.category.length > 0">
-              <span style="font-family: Lato !important;" *ngFor="let category of product.category" class="category-tag">
-                {{ category }}
+              <span style="font-family: Lato !important;" class="category-tag">
+                <ng-container *ngFor="let category of product.category; let last = last">
+                  {{ category }}<span *ngIf="!last"> | </span>
+                </ng-container>
               </span>
             </div>
+    
+            
    <div style="display: flex;     justify-content: space-between; align-items: center;">
                                <div class="price-rating-section">
               <div class="price-container">

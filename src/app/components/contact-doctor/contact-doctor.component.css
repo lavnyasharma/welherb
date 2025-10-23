@@ -2,7 +2,8 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    padding: 20px;
+    padding: 80px 40px 10px;
+
    
     background: #fcf8f4;
 }
