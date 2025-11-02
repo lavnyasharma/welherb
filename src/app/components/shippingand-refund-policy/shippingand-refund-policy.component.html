@@ -6,18 +6,31 @@
   <div class="accordion-item" [class.open]="isExpanded('ordersPayments')">
     <button 
       class="accordion-header" 
-      (click)="toggleSection('ordersPayments')">
+      (click)="toggleSection('ordersPayments')"
+      [attr.aria-expanded]="isExpanded('ordersPayments')">
       <span class="accordion-title">Orders & Payments</span>
-      <span class="accordion-icon">⊕</span>
+      <span class="accordion-icon">{{ isExpanded('ordersPayments') ? '⊖' : '⊕' }}</span>
     </button>
     <div class="accordion-content" [hidden]="!isExpanded('ordersPayments')">
       <div class="content-text">
-        <p>
-          We offer a seamless ordering experience with secure payment options. All orders are processed immediately upon payment confirmation. Our payment gateway is encrypted and PCI-DSS compliant to ensure your financial information remains secure. You can pay using credit/debit cards, net banking, digital wallets, and other available payment methods. For any payment-related queries, please reach out to our customer support team.
-        </p>
-        <p>
-          Orders placed during business hours are confirmed within a few minutes. You will receive a confirmation email with your order number and details. Please keep this for your records. If you do not receive a confirmation email within 5 minutes, please check your spam folder or contact us immediately.
-        </p>
+        <h4>What is the COD order processing fee?</h4>
+        <p>All COD orders carry a ₹70 processing fee.</p>
+        <p><strong>Note:</strong> COD is a facility extended in good faith. Impulsive orders that are not honoured cause resource wastage. Every small step towards the preservation of resources matters. If you are doubtful, please write to us at {{ getSupportEmail() }} or call us at {{ getSupportPhone() }} before placing your order.</p>
+
+        <h4>Do I have to confirm a COD order?</h4>
+        <p>Yes, for a COD order, you will receive a confirmation request call or WhatsApp message on your registered mobile number. The order is processed only after confirmation. The confirmation link sent on WhatsApp is valid for 24 hours. In the event you are unable to confirm the order via WhatsApp (No WhatsApp access or expired link), kindly call us at {{ getSupportPhone() }} or write to us at {{ getSupportEmail() }} for order confirmation.</p>
+
+        <h4>Payment Issue</h4>
+        <p><strong>What should I do if the payment is debited but the order has not been placed?</strong></p>
+        <p>If your payment is debited but the order isn't placed:</p>
+        <ul>
+          <li>Check your internet connection and ensure the correct details were used.</li>
+          <li>In most cases, the amount is auto-refunded within 7–14 business days.</li>
+        </ul>
+        <p>For any assistance regarding payments, call us at {{ getSupportPhone() }} or write to us at {{ getSupportEmail() }}.</p>
+
+        <h4>Order confirmation</h4>
+        <p>Order confirmations are sent via WhatsApp and/or email upon successful placement. If you haven't received one, kindly check your spam folder or contact us. Additionally, it is also visible to you under the My Orders tab on your account page after you log in.</p>
       </div>
     </div>
   </div>
@@ -26,36 +39,39 @@
   <div class="accordion-item" [class.open]="isExpanded('shippingDelivery')">
     <button 
       class="accordion-header" 
-      (click)="toggleSection('shippingDelivery')">
+      (click)="toggleSection('shippingDelivery')"
+      [attr.aria-expanded]="isExpanded('shippingDelivery')">
       <span class="accordion-title">Shipping & Delivery</span>
-      <span class="accordion-icon">⊕</span>
+      <span class="accordion-icon">{{ isExpanded('shippingDelivery') ? '⊖' : '⊕' }}</span>
     </button>
-    <div class="accordion-content"[hidden]="!isExpanded('shippingDelivery')">
+    <div class="accordion-content" [hidden]="!isExpanded('shippingDelivery')">
       <div class="content-text">
         <h4>Shipping</h4>
-        <p><strong>1. Do you ship pan-India?</strong></p>
+        
+        <p><strong>Do you ship pan-India?</strong></p>
         <p>We ship across India from our facility in Mohali, Punjab.</p>
 
-        <p><strong>2. How to check if my area pin code is serviceable?</strong></p>
+        <p><strong>How to check if my area pin code is serviceable?</strong></p>
         <p>To check if your area is serviceable, please enter your pin code at checkout.</p>
 
-        <p><strong>3. What are the charges applicable on shipping for prepaid and COD orders?</strong></p>
+        <p><strong>What are the charges applicable on shipping for prepaid and COD orders?</strong></p>
         <p>Shipping is free on all prepaid orders of ₹499 and above (post discounts). Orders below ₹499 incur a ₹70 shipping fee. COD orders carry an additional charge of ₹70 along with shipping charges, reflected at checkout. COD orders above ₹499 have free shipping.</p>
 
         <h4>Dispatch Timeline & Delivery</h4>
-        <p><strong>1. When will my order be delivered?</strong></p>
-        <p>Orders are dispatched within 24-48 hours (Monday - Saturday, excluding holidays). We have partnered with reliable courier partners to ensure the timely delivery of your order. Delivery typically takes 3-7 business days, depending on your location and external factors like weather, strikes, or high courier loads.</p>
+        
+        <p><strong>When will my order be delivered?</strong></p>
+        <p>Orders are dispatched within 24–48 hours (Monday–Saturday, excluding holidays). We have partnered with reliable courier partners to ensure the timely delivery of your order. Delivery typically takes 3–7 business days, depending on your location and external factors like weather, strikes, or high courier loads.</p>
 
-        <p><strong>2. Why is my order delayed?</strong></p>
+        <p><strong>Why is my order delayed?</strong></p>
         <p>While we do our best to ensure that your order is delivered within the tentative timeline, there might be a delay due to logistical challenges. In the event of a delay due to factors outside of our control, we request that you reach out to us at {{ getSupportEmail() }}, and we shall strive to do our best to help you.</p>
 
-        <p><strong>3. What if I am unavailable at the time of delivery?</strong></p>
+        <p><strong>What if I am unavailable at the time of delivery?</strong></p>
         <p>Our logistics partner will attempt to contact you prior to delivery. If unreachable, a second attempt will be made. If the order cannot be delivered after two or three attempts (subject to the policies of the delivery partner), it will be returned to our facility, and the order will stand cancelled.</p>
 
-        <p><strong>4. How can I track my order?</strong></p>
+        <p><strong>How can I track my order?</strong></p>
         <p>We share tracking details once the order is dispatched via email and WhatsApp. You can also track your parcel anytime via the Track Your Order page using your order ID. You can also track your order via the link/AWB shared on WhatsApp & email.</p>
 
-        <p><strong>5. What if the parcel I received looks damaged/opened at the time of delivery?</strong></p>
+        <p><strong>What if the parcel I received looks damaged/opened at the time of delivery?</strong></p>
         <p>If the parcel looks damaged or opened, do not accept the delivery. Return the parcel after taking a video/photo of the parcel and call us at {{ getSupportPhone() }} in the presence of the delivery agent.</p>
       </div>
     </div>
@@ -65,18 +81,21 @@
   <div class="accordion-item" [class.open]="isExpanded('cancellations')">
     <button 
       class="accordion-header" 
-      (click)="toggleSection('cancellations')">
+      (click)="toggleSection('cancellations')"
+      [attr.aria-expanded]="isExpanded('cancellations')">
       <span class="accordion-title">Cancellations</span>
-      <span class="accordion-icon">⊕</span>
+      <span class="accordion-icon">{{ isExpanded('cancellations') ? '⊖' : '⊕' }}</span>
     </button>
-    <div class="accordion-content"[hidden]="!isExpanded('cancellations')">
+    <div class="accordion-content" [hidden]="!isExpanded('cancellations')">
       <div class="content-text">
-        <p>
-          Orders can be cancelled within 24 hours of placement if the order has not been dispatched. Once an order is dispatched, cancellation is not possible. To cancel your order, please contact our customer support team at {{ getSupportEmail() }} or call {{ getSupportPhone() }}. If we receive your cancellation request within the stipulated time, a full refund will be initiated. Refunds typically reflect in your account within 5-7 business days, depending on your bank.
-        </p>
-        <p>
-          If the cancellation is requested after the order has been dispatched, the order will proceed with delivery, and you can refuse the delivery or initiate a return after receipt.
-        </p>
+        <h4>How can I cancel my order?</h4>
+        
+        <p><strong>Before dispatch:</strong> It is possible to cancel an order before it has been shipped. You can directly cancel an order if the order has not been shipped from our warehouse. To process the cancellation, simply go to the My Orders page, click on the order you wish to cancel, and click on 'Cancel Order'. You will receive a confirmation via email and WhatsApp, confirming your cancellation.</p>
+
+        <p><strong>After Dispatch:</strong> Once the AWB has been generated and the order has been shipped, you will not be able to cancel the order directly. If you still wish to cancel the order, we request you to reach out to us within 24 hours at {{ getSupportEmail() }}, and we will do our best to help you with the cancellation. You will receive a cancellation confirmation via email once our team has processed it.</p>
+
+        <h4>What happens if I refuse the delivery?</h4>
+        <p>In case the order is refused at the doorstep, it will be marked for RTO (Return to Origin). The refund process is initiated only after we receive and validate the products.</p>
       </div>
     </div>
   </div>
@@ -88,16 +107,35 @@
       (click)="toggleSection('returnExchange')"
       [attr.aria-expanded]="isExpanded('returnExchange')">
       <span class="accordion-title">Return & Exchange Policy</span>
-      <span class="accordion-icon">⊕</span>
+      <span class="accordion-icon">{{ isExpanded('returnExchange') ? '⊖' : '⊕' }}</span>
     </button>
     <div class="accordion-content" [hidden]="!isExpanded('returnExchange')">
       <div class="content-text">
-        <p>
-          We offer a hassle-free return and exchange policy. Products can be returned or exchanged within 30 days of delivery if they are in original, unused condition with all original packaging and tags intact. The product must not show any signs of wear or damage. To initiate a return or exchange, please contact our support team with your order ID and reason for return. We will provide you with a return label and instructions. Once we receive and inspect your return, we will process your refund or new product shipment accordingly.
-        </p>
-        <p>
-          Items that are damaged due to misuse, worn out, or have been used are not eligible for return or exchange. Customized or personalized items cannot be returned or exchanged.
-        </p>
+        <h4>Is it possible to return or exchange the products after delivery?</h4>
+        <p>Due to the nature of our products, returns or exchanges are not accepted unless:</p>
+        <ul>
+          <li>The product is damaged in transit</li>
+          <li>A wrong/incomplete/expired product is delivered</li>
+        </ul>
+        <p>In such cases, report the issue to {{ getSupportEmail() }} within 24 hours with:</p>
+        <ul>
+          <li>A video showing the defect</li>
+          <li>Clear photos of the received package</li>
+        </ul>
+        <p>We will arrange a reverse pickup and evaluate the request on a case-by-case basis. Kindly do not send products back without due process. We will not accept unverified returns.</p>
+
+        <h4>What are the necessary conditions for return/exchange?</h4>
+        <ul>
+          <li>Items must be unused, sealed, and in original packaging (including outer box, freebies, etc.).</li>
+          <li>Return requests for allergies, or natural variations in texture or colour, will not be accepted. The medicines are made with 100% Ayurvedic ingredients that are prone to natural variation over time.</li>
+          <li>Returns are not accepted if the seal is broken or the product is tampered with.</li>
+        </ul>
+
+        <h4>How long will it take to process my return/replacement request?</h4>
+        <p>Once approved, refunds/replacements, as applicable, will be processed within 10–15 business days.</p>
+
+        <h4>If my return/replacement request is validated, can I get another SKU/item as a replacement instead of the original item ordered?</h4>
+        <p>A replacement or exchange request is only valid for the exact same item. One item cannot be replaced by another item of your choice during this process.</p>
       </div>
     </div>
   </div>
@@ -109,16 +147,24 @@
       (click)="toggleSection('refunds')"
       [attr.aria-expanded]="isExpanded('refunds')">
       <span class="accordion-title">Refunds</span>
-      <span class="accordion-icon">⊕</span>
+      <span class="accordion-icon">{{ isExpanded('refunds') ? '⊖' : '⊕' }}</span>
     </button>
     <div class="accordion-content" [hidden]="!isExpanded('refunds')">
       <div class="content-text">
-        <p>
-          Refunds are processed within 7-10 business days after we receive and inspect your returned item. The refund amount will be credited to the original payment method used during purchase. For prepaid orders, refunds include the full product price. For COD orders, the refund will include the product price but will not include the shipping and COD charges that were collected. If you have any questions about your refund status, please contact us, and we will be happy to assist you.
-        </p>
-        <p>
-          Please note that in some cases, refunds may take up to 15 business days depending on your bank's processing time. If you do not receive your refund within the stipulated timeframe, please reach out to us immediately.
-        </p>
+        <h4>When will I receive the refund for a cancelled order?</h4>
+        
+        <p><strong>Orders cancelled before dispatch:</strong> You shall receive the refund within 8–10 business days to the original source.</p>
+
+        <p><strong>Orders cancelled after dispatch:</strong> Once the cancellation is processed and the shipment is marked for RTO by our delivery partner, we are able to process the refund within 8-10 days.</p>
+
+        <p><strong>COD Orders:</strong> Our team will collect your bank details and process the refund within 10-14 business days.</p>
+
+        <p><strong>For Doorstep Cancellation:</strong> Only after the order is returned to us and the products have been validated, the refund is initiated, processed and returned within 10-14 days.</p>
+
+        <p><strong>For Validated Product Issues (after receiving and inspecting the returned product):</strong> If the claim is approved, your refund will be processed within 8–10 business days and refunded to the original source of payment. If the claim is rejected, the item will be returned back to you.</p>
+
+        <h4>What if my refund is delayed?</h4>
+        <p>If your refund hasn't appeared after the expected timeline, reach out to us at {{ getSupportEmail() }}. We will resolve the issue at the earliest possible time.</p>
       </div>
     </div>
   </div>
@@ -130,13 +176,11 @@
       (click)="toggleSection('policyUpdates')"
       [attr.aria-expanded]="isExpanded('policyUpdates')">
       <span class="accordion-title">Policy Updates</span>
-      <span class="accordion-icon">⊕</span>
+      <span class="accordion-icon">{{ isExpanded('policyUpdates') ? '⊖' : '⊕' }}</span>
     </button>
     <div class="accordion-content" [hidden]="!isExpanded('policyUpdates')">
       <div class="content-text">
-        <p>
-          We reserve the right to update or modify this Shipping and Refund Policy at any time without prior notice. Changes will be effective immediately upon posting on our website. It is your responsibility to review this policy periodically for any updates. Your continued use of our website and services after any changes constitutes your acceptance of the updated policy. If you do not agree with the changes, please discontinue using our services.
-        </p>
+        <p>To improve your experience, we may update our policies periodically. All updates will be reflected here and are effective immediately upon posting. We encourage you to review them regularly.</p>
       </div>
     </div>
   </div>
@@ -148,13 +192,11 @@
       (click)="toggleSection('questions')"
       [attr.aria-expanded]="isExpanded('questions')">
       <span class="accordion-title">Still Have Questions?</span>
-      <span class="accordion-icon">⊕</span>
+      <span class="accordion-icon">{{ isExpanded('questions') ? '⊖' : '⊕' }}</span>
     </button>
     <div class="accordion-content" [hidden]="!isExpanded('questions')">
       <div class="content-text">
-        <p>
-          Please contact us at {{ getSupportEmail() }} or {{ getSupportPhone() }}. We are happy to assist you. Our customer support team is available to answer any questions or concerns you may have regarding our shipping and refund policies. We aim to respond to all inquiries within 24 hours during business days.
-        </p>
+        <p>Please contact us at {{ getSupportEmail() }} or {{ getSupportPhone() }}. We are happy to assist you.</p>
       </div>
     </div>
   </div>

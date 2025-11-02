@@ -96,6 +96,9 @@ export class CartComponent implements OnInit {
     this.loadCartItems();
     this.loadAddresses();
     
+    // Check if we're returning from a payment
+    this.checkOrderStatusAfterPayment();
+    
     setTimeout(() => {
       console.log('Current addresses after timeout:', this.deliveryAddresses);
     }, 1000);
@@ -223,7 +226,7 @@ export class CartComponent implements OnInit {
     return this.deliveryAddresses.find(addr => addr.selected);
   }
 
-  createOrderBeforeReview(): void {
+  async createOrderBeforeReview(): Promise<void> {
     if (this.cartItems.length === 0) {
       alert('Your cart is empty');
       return;
@@ -252,22 +255,17 @@ export class CartComponent implements OnInit {
 
     this.isCreatingOrder = true;
 
+    // Determine order type based on payment method
+    const orderType = this.selectedPaymentMethod === 'cod' ? 'COD' : 'Pre-Paid';
+
     const orderPayload = {
       products: this.cartItems.map(item => ({
         product: item.id,
         count: item.quantity
       })),
-      address: {
-        pincode: parseInt(selectedAddress.pincode) || 0,
-        name: selectedAddress.name,
-        mobile: selectedAddress.phone,
-        address: selectedAddress.address,
-        city: selectedAddress.city,
-        email: selectedAddress.email,
-        state: selectedAddress.state,
-        _id: selectedAddress.id
-      },
-      order_type: this.selectedPaymentMethod === 'cod' ? 'COD' : 'Pre-Paid',
+      // Send address as string (address ID) as per specification
+      address: selectedAddress.id,
+      order_type: orderType,
       payment_amount: {
         product_amount: this.subtotal,
         delivery_amount: this.shipping,
@@ -277,20 +275,79 @@ export class CartComponent implements OnInit {
 
     console.log('Creating order with payload:', orderPayload);
 
-    this.apiService.createOrder(orderPayload).subscribe(
-      (response: any) => {
-        console.log('Order created successfully:', response);
+    try {
+      const response = await this.apiService.createOrder(orderPayload).toPromise();
+      console.log('Order created successfully:', response);
+      this.selectedOrder = response;
+      
+      if (this.selectedPaymentMethod === 'cod') {
+        // For COD, just show order confirmation
         this.isCreatingOrder = false;
         this.orderCreated = true;
-        this.selectedOrder = response;
-        
-        // Move to step 4 (review) after successful order creation
         this.currentStep = 4;
+      } else {
+        // For online payments, redirect to payment gateway
+        this.handlePaymentRedirect(response);
+      }
+    } catch (error: any) {
+      console.error('Error creating order:', error);
+      this.isCreatingOrder = false;
+      alert(`Error creating order: ${error.error?.message || error.message || 'Please try again.'}`);
+    }
+  }
+
+  private handlePaymentRedirect(paymentResponse: any): void {
+    if (!paymentResponse || !paymentResponse.links || !paymentResponse.links.web) {
+      console.error('Invalid payment response:', paymentResponse);
+      alert('Error: Invalid payment response from server');
+      this.isCreatingOrder = false;
+      return;
+    }
+
+    // Store order details in localStorage for retrieval after payment
+    localStorage.setItem('pendingOrder', JSON.stringify(paymentResponse));
+    localStorage.setItem('pendingOrderId', paymentResponse.order_id);
+
+    // Redirect to payment gateway
+    window.location.href = paymentResponse.links.web;
+  }
+
+  // Check order status after payment redirect
+  checkOrderStatusAfterPayment(): void {
+    const pendingOrderId = localStorage.getItem('pendingOrderId');
+    if (pendingOrderId) {
+      // Check payment status after 5 seconds
+      setTimeout(() => {
+        this.checkOrderStatus(pendingOrderId);
+      }, 5000);
+    }
+  }
+
+  private checkOrderStatus(orderId: string): void {
+    this.apiService.getOrderById(orderId).subscribe(
+      (order: any) => {
+        console.log('Order status check:', order);
+        if (order.status === 'PAID' || order.status === 'COMPLETED') {
+          // Payment successful
+          this.isCreatingOrder = false;
+          this.orderCreated = true;
+          this.selectedOrder = order;
+          this.currentStep = 4;
+          localStorage.removeItem('pendingOrder');
+          localStorage.removeItem('pendingOrderId');
+        } else if (order.status === 'FAILED' || order.status === 'CANCELLED') {
+          // Payment failed
+          this.isCreatingOrder = false;
+          alert('Payment failed. Please try again.');
+        } else {
+          // Order is still pending, check again after 5 seconds
+          setTimeout(() => this.checkOrderStatus(orderId), 5000);
+        }
       },
       (error) => {
-        console.error('Error creating order:', error);
-        this.isCreatingOrder = false;
-        alert(`Error creating order: ${error.error?.message || error.message || 'Please try again.'}`);
+        console.error('Error checking order status:', error);
+        // Continue checking even if there's an error
+        setTimeout(() => this.checkOrderStatus(orderId), 5000);
       }
     );
   }

@@ -145,7 +145,7 @@ display: flex
 
 /* Not Sure Section */
 .not-sure-section {
-  background: linear-gradient(135deg, #f3e8ff 0%, #e8f4fd 100%);
+  /* background: linear-gradient(135deg, #f3e8ff 0%, #e8f4fd 100%); */
   border-radius: 12px;
   padding: 20px;
 }
@@ -157,11 +157,14 @@ display: flex
 }
 
 .sample-image {
-  width: 50px;
-  height: 50px;
-  border-radius: 8px;
-  background: #ddd;
+    width: 250px;
+    height: 200px;
+    border-radius: 8px;
+    background: #ddd;
 }
+
+
+
 
 .sample-text {
   flex: 1;
@@ -386,7 +389,7 @@ display: flex
   background: #fcf8f4;
   border-radius: 16px;
   padding: 40px;
-  justify-content: center;
+  justify-content: space-between;
 }
 
 

@@ -104,6 +104,7 @@ import { PrivacypolicyComponent } from './components/privacypolicy/privacypolicy
 import { ShippingandRefundPolicyComponent } from './components/shippingand-refund-policy/shippingand-refund-policy.component';
 import { HomereviewsComponent } from './components/homereviews/homereviews.component';
 import { CleanIngredientComponent } from './components/clean-ingredient/clean-ingredient.component';
+import { TermsComponent } from './terms/terms.component';
 
 
 
@@ -150,6 +151,7 @@ import { CleanIngredientComponent } from './components/clean-ingredient/clean-in
      ShippingandRefundPolicyComponent,
      HomereviewsComponent,
      CleanIngredientComponent,
+     TermsComponent,
 
   ],
   imports: [

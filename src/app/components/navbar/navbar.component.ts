@@ -1,5 +1,5 @@
 // navbar.component.ts
-import { Component, HostListener, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, AfterViewInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth.service';
 import { ApiService } from '../../../services/api.service'; // Add this import
@@ -14,7 +14,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent implements OnInit, AfterViewInit {
   @ViewChild('searchInput', { static: false }) searchInput!: ElementRef;
   
   items: any;
@@ -158,6 +158,11 @@ export class NavbarComponent implements OnInit {
     this.setupSearchDebounce();
   }
 
+  ngAfterViewInit(): void {
+    // Set initial navbar height variable after view renders
+    setTimeout(() => this.updateNavbarHeight(), 0);
+  }
+
   setupSearchDebounce() {
     this.searchSubject.pipe(
       debounceTime(300), // Wait 300ms after user stops typing
@@ -247,11 +252,15 @@ export class NavbarComponent implements OnInit {
     }
     
     this.lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+
+    // Navbar/offer visibility can change overall fixed header height
+    this.updateNavbarHeight();
   }
 
   @HostListener('window:resize', [])
   onWindowResize() {
     this.checkViewport();
+    this.updateNavbarHeight();
   }
 
   @HostListener('document:click', ['$event'])
@@ -314,6 +323,7 @@ export class NavbarComponent implements OnInit {
   closeMenu() {
     this.menuOpen = false;
     this.shopDropdownOpen = false;
+    this.updateNavbarHeight();
   }
 
   navigateHome() {
@@ -362,5 +372,14 @@ export class NavbarComponent implements OnInit {
   }
     navigateToProduct(productId: string): void {
     this.router.navigate(['/shop', productId]);
+  }
+
+  // Calculate current fixed navbar + offer height and expose as CSS var
+  private updateNavbarHeight(): void {
+    try {
+      const navbarEl = document.querySelector('.navbar-container') as HTMLElement | null;
+      const height = navbarEl?.offsetHeight ?? 160;
+      document.documentElement.style.setProperty('--navbar-height', `${height}px`);
+    } catch {}
   }
 }

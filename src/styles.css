@@ -19,6 +19,12 @@ body {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden !important;
+    position: relative;
+}
+
+/* Ensure all main sections have proper spacing from navbar */
+main, section, .page-container, .container {
+    position: relative;
 }
 
 /* Mobile touch optimization */

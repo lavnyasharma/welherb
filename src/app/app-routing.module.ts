@@ -16,6 +16,7 @@ import { ContactUsComponent } from './modules/contact-us/contact-us.component';
 import { BlogOpenComponent } from './modules/blog-open/blog-open.component';
 import { PrivacypolicyComponent } from './components/privacypolicy/privacypolicy.component';
 import { ShippingandRefundPolicyComponent } from './components/shippingand-refund-policy/shippingand-refund-policy.component';
+import { TermsComponent } from './terms/terms.component';
 // Import Auth Guard
 
 const routes: Routes = [
@@ -34,6 +35,7 @@ const routes: Routes = [
    { path: 'ingredients', component: IngredientsPageComponent },
     { path: 'expert-help', component: ContactUsComponent },
     { path: 'privacy-policy', component: PrivacypolicyComponent },
+        { path: 'terms-conditions', component: TermsComponent },
         { path: 'ShippingandRefundPolicy', component: ShippingandRefundPolicyComponent },
   
   { path: '**', redirectTo: '', pathMatch: 'full' }  

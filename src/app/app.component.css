@@ -2,7 +2,7 @@
 
 /* Content wrapper for main content */
 .content-wrapper {
-  padding-top: 140px; /* Space for fixed navbar with offer banner */
+  padding-top: var(--navbar-height, 160px); /* Space for fixed navbar via CSS var */
   min-height: 100vh;
   transition: padding-top 0.3s ease-in-out;
 }
@@ -11,6 +11,8 @@
 .content-wrapper.no-navbar {
   padding-top: 0;
 }
+
+/* Responsive padding adjustments now derive from CSS var set by navbar */
 
 /* Ensure smooth transitions for all content */
 * {
