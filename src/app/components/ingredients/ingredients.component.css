@@ -82,6 +82,9 @@
 .image-item:hover .image-overlay {
   opacity: 1;
 }
+.title-heading-as{
+  padding-inline: 20px;
+}
 
 @media (max-width: 1024px) {
   .image-item {

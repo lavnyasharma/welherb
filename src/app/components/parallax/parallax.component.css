@@ -5,9 +5,8 @@
   flex-direction: column;
   
   /* x or y for direction, mandatory or proximity for behavior */
-  overflow: hidden;
   /* Enable scrolling */
-
+z-index: -100;
  
   background: #FCF8F3;
   /* Optional: Enables smooth scrolling */
@@ -16,7 +15,6 @@
 .content {
   display: flex;
   flex-direction: column;
- 
   justify-content: center;
   align-items: center;
   text-align: center;
@@ -67,7 +65,6 @@
   touch-action: manipulation;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
   position: relative;
-  z-index: 100;
 }
 
 .btn-shop {

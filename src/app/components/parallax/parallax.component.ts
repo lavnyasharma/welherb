@@ -30,33 +30,7 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
   setupScrollAnimations() {
     const container = this.parallaxContainer.nativeElement;
 
-    // Hide all fixed parallax elements when this section is out of view
-    const fixedSelectors = ['.parallax-image', '.arrow1', '.arrow-title1', '.button-container-buy-now'];
-    const fixedGroup = fixedSelectors.join(', ');
-    // Ensure visible at load (no layout jump)
-    gsap.set(fixedGroup, { autoAlpha: 1 });
-    ScrollTrigger.create({
-      trigger: container,
-      start: 'top top',
-      end: 'bottom top',
-      onEnter: () => {
-        gsap.set(fixedGroup, { autoAlpha: 1 });
-        gsap.set('.button-container-buy-now', { pointerEvents: 'auto' });
-      },
-      onEnterBack: () => {
-        gsap.set(fixedGroup, { autoAlpha: 1 });
-        gsap.set('.button-container-buy-now', { pointerEvents: 'auto' });
-      },
-      onLeave: () => {
-        gsap.set(fixedGroup, { autoAlpha: 0 });
-        gsap.set('.button-container-buy-now', { pointerEvents: 'none' });
-      },
-      onLeaveBack: () => {
-        gsap.set(fixedGroup, { autoAlpha: 0 });
-        gsap.set('.button-container-buy-now', { pointerEvents: 'none' });
-      }
-    });
-
+  
     ScrollTrigger.create({
       onUpdate: (self) => {
         this.lastDirection = self.direction;
