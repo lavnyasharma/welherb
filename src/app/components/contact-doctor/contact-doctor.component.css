@@ -2,37 +2,36 @@
     display: flex;
     align-items: center;
     gap: 20px;
-    padding: 80px 40px 10px;
+    padding: 80px 100px 10px;
 
    
     background: #fcf8f4;
 }
 
-.Image, .Text {
-    flex: 1; /* Each section takes up 50% of available space */
-    max-width: 50%;
-}
-
 .Image {
+    flex: 1.4; /* Image takes up more space - about 58% */
+    max-width: 58%;
     border-radius: 8px;
     overflow: hidden;
 }
 
-.doctor-image {
-    width: 100%;
-    height: 400px; /* Reduced from 300px */
-    object-fit: cover;
-    object-position: center;
-    border-radius: 40px;
-    display: block;
-}
-
 .Text {
+    flex: 1; /* Text takes up less space - about 42% */
+    max-width: 42%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: flex-start;
     padding: 20px;
+}
+
+.doctor-image {
+    width: 100%;
+    height: 450px; /* Increased height for better visual impact */
+    object-fit: cover;
+    object-position: center;
+    border-radius: 40px;
+    display: block;
 }
 
 .content-wrapper {
@@ -83,11 +82,11 @@
 @media (max-width: 768px) {
     .container {
         flex-direction: column;
-        padding: 40px 20px 10px;
+        padding: 60px 20px 80px; /* Match blog component padding structure */
     }
 
     .doctor-image {
-        height: 180px; /* Smaller height for mobile */
+        height: 220px; /* Increased mobile height to match wider desktop image */
         width: 100%;
         object-fit: cover;
     }
@@ -99,7 +98,7 @@
     .Text {
         align-items: center;
         text-align: center;
-        padding: 30px 20px;
+        padding: 20px 0; /* Reduce internal padding to match blog component spacing */
     }
 
     .help-heading {
@@ -118,10 +117,22 @@
 
 @media (max-width: 480px) {
     .doctor-image {
-        height: 150px; /* Even smaller for very small screens */
+        height: 180px; /* Maintain good proportions for small screens */
     }
     
     .container {
-        padding: 20px 15px 10px;
+        padding: 60px 16px 10px; /* Match blog component padding exactly */
+    }
+
+    .Text {
+        padding: 16px 0; /* Match blog component content padding */
+    }
+
+    .help-heading {
+        font-size: 1.5rem; /* Slightly smaller for very small screens */
+    }
+
+    .help-text {
+        font-size: 0.95rem; /* Slightly smaller text */
     }
 }

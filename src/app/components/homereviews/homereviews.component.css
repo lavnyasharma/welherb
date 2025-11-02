@@ -1,6 +1,6 @@
 .reviews-section {
   width: 100%;
-    padding: 80px 40px 10px;
+    padding: 80px 100px 10px;
   background-color: #fcf8f4;
   overflow: hidden;
 }
@@ -96,11 +96,17 @@
   border-radius: 30px;
   padding: 35px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   flex-shrink: 0;
   opacity: 0.85;
   transform: scale(0.85);
+}
+
+/* Only add transitions on desktop */
+@media (min-width: 769px) {
+  .review-card {
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  }
 }
 
 /* Active (selected) card styling - ONLY CENTER CARD */
@@ -115,12 +121,15 @@
   z-index: 2;
 }
 
-.review-card:hover {
-  opacity: 0.95;
-}
+/* Only add hover effects on desktop */
+@media (min-width: 769px) {
+  .review-card:hover {
+    opacity: 0.95;
+  }
 
-.review-card.active:hover {
-  transform: scale(1);
+  .review-card.active:hover {
+    transform: scale(1);
+  }
 }
 
 /* Small card content (inactive cards) */
@@ -231,6 +240,24 @@
   font-size: 13px;
   color: #666;
   margin: 0;
+}
+
+/* Mobile font size improvements for white inner card */
+@media (max-width: 768px) {
+  .reviewer-header .reviewer-name {
+    font-size: 20px !important;
+    font-weight: 700 !important;
+  }
+
+  .reviewer-header .benefit-text {
+    font-size: 14px !important;
+  }
+
+  .avatar-top {
+    width: 70px !important;
+    height: 70px !important;
+    margin-bottom: 20px !important;
+  }
 }
 
 .divider {
@@ -381,30 +408,44 @@
   }
 
   .slider-wrapper {
-    padding: 0 50px;
+    padding: 0 20px; /* Reduce padding for larger cards */
   }
 
   .review-card.active {
-    min-width: 340px;
-    max-width: 340px;
-    height: 340px;
-    padding: 35px;
+    min-width: 380px !important; /* Much larger active cards */
+    max-width: 380px !important;
+    height: 420px !important; /* Taller cards */
+    padding: 40px !important; /* More padding */
+    transform: scale(1) !important; /* No scaling effects */
+    transition: none !important; /* Remove transitions */
   }
 
   .review-card {
-    min-width: 260px;
-    max-width: 260px;
-    height: 260px;
-    padding: 25px;
-    transform: scale(0.8);
+    min-width: 300px !important; /* Larger inactive cards */
+    max-width: 300px !important;
+    height: 320px !important;
+    padding: 30px !important;
+    transform: scale(0.9) !important; /* Less scaling */
+    transition: none !important; /* Remove transitions */
+  }
+
+  .review-card:hover {
+    transform: scale(0.9) !important; /* No hover effects */
+    opacity: 0.85 !important;
+  }
+
+  .review-card.active:hover {
+    transform: scale(1) !important; /* No hover effects for active */
   }
 
   .review-text {
-    font-size: 16px;
+    font-size: 18px !important; /* Larger text */
+    line-height: 1.6 !important;
   }
 
   .review-text-large {
-    font-size: 18px;
+    font-size: 20px !important; /* Larger text for active cards */
+    line-height: 1.6 !important;
   }
 
   .nav-btn {
@@ -433,52 +474,66 @@
   }
 
   .slider-wrapper {
-    padding: 0 45px;
+    padding: 0 15px; /* Less padding for larger cards */
   }
 
   .review-card.active {
-    min-width: 280px;
-    max-width: 280px;
-    height: 320px;
-    padding: 30px;
+    min-width: 320px !important; /* Much larger active cards */
+    max-width: 320px !important;
+    height: 380px !important; /* Taller cards */
+    padding: 35px !important; /* More padding */
+    transform: scale(1) !important; /* No scaling */
+    transition: none !important; /* Remove transitions */
   }
 
   .review-card {
-    min-width: 220px;
-    max-width: 220px;
-    height: 240px;
-    padding: 20px;
-    transform: scale(0.8);
+    min-width: 260px !important; /* Larger inactive cards */
+    max-width: 260px !important;
+    height: 300px !important;
+    padding: 25px !important;
+    transform: scale(0.9) !important; /* Less scaling */
+    transition: none !important; /* Remove transitions */
+  }
+
+  .review-card:hover {
+    transform: scale(0.9) !important; /* No hover effects */
+  }
+
+  .review-card.active:hover {
+    transform: scale(1) !important; /* No hover effects for active */
   }
 
   .review-text {
-    font-size: 15px;
+    font-size: 16px !important; /* Larger text */
+    line-height: 1.5 !important;
   }
 
   .review-text-large {
-    font-size: 17px;
+    font-size: 18px !important; /* Larger text for active cards */
+    line-height: 1.6 !important;
   }
 
   .reviewer-info {
-    padding: 12px 15px;
+    padding: 15px 18px !important; /* More padding */
   }
 
   .avatar {
-    width: 40px;
-    height: 40px;
+    width: 45px !important; /* Larger avatar */
+    height: 45px !important;
   }
 
   .avatar-top {
-    width: 50px;
-    height: 50px;
+    width: 55px !important; /* Larger avatar */
+    height: 55px !important;
   }
 
   .reviewer-name {
-    font-size: 14px;
+    font-size: 15px !important; /* Larger name */
+    font-weight: 600 !important;
   }
 
   .benefit-text {
-    font-size: 11px;
+    font-size: 12px !important; /* Larger benefit text */
   }
 
   .nav-btn {
@@ -498,16 +553,29 @@
 
 @media (max-width: 360px) {
   .review-card.active {
-    min-width: 260px;
-    max-width: 260px;
-    height: 300px;
+    min-width: 300px !important; /* Larger active cards */
+    max-width: 300px !important;
+    height: 360px !important; /* Taller cards */
+    padding: 30px !important;
+    transform: scale(1) !important; /* No scaling */
+    transition: none !important;
   }
 
   .review-card {
-    min-width: 200px;
-    max-width: 200px;
-    height: 220px;
-    transform: scale(0.75);
+    min-width: 240px !important; /* Larger inactive cards */
+    max-width: 240px !important;
+    height: 280px !important;
+    padding: 20px !important;
+    transform: scale(0.9) !important; /* Less scaling */
+    transition: none !important;
+  }
+
+  .review-card:hover {
+    transform: scale(0.9) !important;
+  }
+
+  .review-card.active:hover {
+    transform: scale(1) !important;
   }
 
   .main-heading {
@@ -515,6 +583,10 @@
   }
 
   .reviews-container {
-    gap: 20px;
+    gap: 15px; /* Reduce gap for larger cards */
+  }
+
+  .slider-wrapper {
+    padding: 0 10px !important; /* Minimal padding */
   }
 }

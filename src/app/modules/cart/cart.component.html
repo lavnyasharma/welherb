@@ -180,17 +180,44 @@
       <!-- Step 1: Offers -->
       <div *ngIf="currentStep === 1" class="step-content">
         <div class="offers-section">
+          <div *ngIf="cartItems.length === 0" class="empty-checkout-message">
+            <div class="empty-checkout-icon">🛒</div>
+            <h3>Your cart is empty</h3>
+            <p>Add some products to your cart to proceed with checkout</p>
+            <p class="checkout-note">You can still browse our offers and prepare for your purchase!</p>
+          </div>
+          
           <div class="coupons-header">
             <i class="icon-coupon">🎟️</i>
             <span>Coupons and offers</span>
-
           </div>
           
           <div class="discount-input">
             <input type="text" 
                    [(ngModel)]="discountCode"
-                   placeholder="Discount code or gift card">
-            <button class="apply-btn" (click)="applyDiscount()">Apply</button>
+                   placeholder="Discount code or gift card"
+                   [disabled]="cartItems.length === 0">
+            <button class="apply-btn" 
+                    (click)="applyDiscount()"
+                    [disabled]="cartItems.length === 0">
+              Apply
+            </button>
+          </div>
+          
+          <div *ngIf="cartItems.length === 0" class="offers-preview">
+            <h4>Available Offers</h4>
+            <div class="offer-item">
+              <span class="offer-code">SAVE10</span>
+              <span class="offer-desc">Get 10% off on your first order</span>
+            </div>
+            <div class="offer-item">
+              <span class="offer-code">WELCOME20</span>
+              <span class="offer-desc">Welcome offer - 20% off</span>
+            </div>
+            <div class="offer-item">
+              <span class="offer-code">FIRST50</span>
+              <span class="offer-desc">First time buyer - ₹50 off</span>
+            </div>
           </div>
         </div>
       </div>
@@ -433,13 +460,14 @@
       <button *ngIf="currentStep < 4" 
               class="continue-btn" 
               (click)="nextStep()"
-              [disabled]="isCreatingOrder">
-        {{ isCreatingOrder ? 'Processing...' : 'Continue' }}
+              [disabled]="isCreatingOrder || cartItems.length === 0">
+        {{ isCreatingOrder ? 'Processing...' : (cartItems.length === 0 ? 'Add items to continue' : 'Continue') }}
       </button>
       <button *ngIf="currentStep === 4 && !orderCreated && !isCreatingOrder" 
               class="submit-btn" 
-              (click)="submitOrder()">
-        Submit
+              (click)="submitOrder()"
+              [disabled]="cartItems.length === 0">
+        {{ cartItems.length === 0 ? 'Add items to submit' : 'Submit' }}
       </button>
     </div>
   </div>

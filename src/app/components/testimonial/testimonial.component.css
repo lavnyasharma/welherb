@@ -6,8 +6,10 @@
 /* Grid for Desktop View */
 .testimonial-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
   gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .testimonial-card {
@@ -17,10 +19,17 @@
   padding: 20px;
   text-align: left; /* Align text to the left */
   transition: transform 0.3s ease-in-out;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
-.testimonial-card:hover {
-  transform: translateY(-5px);
+/* Remove hover effect for mobile */
+@media (min-width: 769px) {
+  .testimonial-card:hover {
+    transform: translateY(-5px);
+  }
 }
 
 .stars {
@@ -35,6 +44,11 @@
   margin: 10px 0;
   color: #333;
   text-align: left; /* Align review text to the left */
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  line-height: 1.5;
+  word-break: normal;
 }
 
 .user-info {
@@ -74,13 +88,181 @@ align-items: center;
 /* Mobile View - Full Width Cards */
 @media (max-width: 768px) {
   .testimonial-grid {
-    display: none; /* Hide grid */
+    display: none !important; /* Hide grid */
+  }
+
+  .testimonial-container {
+    padding: 40px 15px !important; /* More vertical padding, less horizontal for larger cards */
   }
 
   .testimonial-container p-carousel {
-    width: 100%;
+    width: 100% !important;
+  }
+
+  .testimonial-container p-carousel .p-carousel-content {
+    padding: 0 !important;
+  }
+
+  .testimonial-container p-carousel .p-carousel-container {
+    padding: 0 !important;
+  }
+
+  .testimonial-container p-carousel .p-carousel-content .p-carousel-container .p-carousel-items-content .p-carousel-items-container {
+    width: 100% !important;
+  }
+
+  .testimonial-container p-carousel .p-carousel-item {
+    width: 100% !important;
+  }
+
+  .testimonial-card {
+    height: 450px !important; /* Even larger height for better content fit */
+    padding: 35px !important; /* More generous padding */
+    margin: 0 auto !important; /* Center the card, no top/bottom margin */
+    width: 95% !important; /* Almost full width */
+    max-width: 400px !important; /* Larger maximum width */
+    box-sizing: border-box !important;
+    border-radius: 15px !important; /* Simpler border radius */
+    overflow: hidden !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    position: static !important; /* Remove relative positioning */
+    transform: none !important; /* Remove any transforms */
+    transition: none !important; /* Remove hover effects */
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important; /* Simple shadow */
+  }
+
+  .review {
+    font-size: 18px !important; /* Even larger font size for better readability */
+    line-height: 1.6 !important; /* More generous line spacing */
+    padding: 25px 0 !important; /* More padding for text */
+    margin: 0 !important;
+    text-align: center !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+    hyphens: auto !important;
+    flex: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    color: #333 !important; /* Ensure good contrast */
+  }
+
+  .name {
+    font-size: 20px !important; /* Even larger name font */
+    font-weight: bold !important;
+    margin-bottom: 8px !important;
+    color: #000 !important;
+  }
+
+  .subtext {
+    font-size: 15px !important; /* Larger subtext font */
+    color: #666 !important;
+  }
+
+  .user-info {
+    padding: 0 !important;
+    justify-content: center !important;
+    flex-shrink: 0 !important;
+  }
+
+  .stars {
+    padding: 0 !important;
+    justify-content: center !important;
+    margin-bottom: 25px !important;
+    flex-shrink: 0 !important;
+    font-size: 24px !important; /* Even larger stars */
+  }
+
+  .profile-img {
+    width: 70px !important; /* Larger profile image */
+    height: 70px !important;
+    border-radius: 50% !important;
+    border: 2px solid #7eb36a !important;
+    margin-right: 18px !important;
   }
 }
+
+/* Extra small mobile screens */
+@media (max-width: 480px) {
+  .testimonial-container {
+    padding: 15px; /* Reduce container padding */
+  }
+
+  .testimonial-card {
+    margin: 10px auto;
+    width: 95%;
+    max-width: 320px;
+    padding: 25px;
+    overflow: hidden;
+    height: 350px; /* Larger height for small screens too */
+    border-radius: 18px;
+  }
+
+  .review {
+    padding: 15px 0;
+    font-size: 14px; /* Slightly larger font for small screens */
+    line-height: 1.4;
+    text-align: center;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .stars {
+    padding: 0;
+    justify-content: center;
+    margin-bottom: 15px;
+    flex-shrink: 0;
+    font-size: 18px; /* Larger stars for small screens */
+  }
+
+  .user-info {
+    padding: 0;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .name {
+    font-size: 16px; /* Larger name font for small screens */
+    font-weight: bold;
+  }
+
+  .subtext {
+    font-size: 13px; /* Larger subtext for small screens */
+  }
+
+  .profile-img {
+    width: 55px; /* Larger profile image for small screens */
+    height: 55px;
+    margin-right: 12px;
+  }
+}
+
+/* Tablet View */
+@media (max-width: 1024px) and (min-width: 769px) {
+  .testimonial-container {
+    padding: 30px;
+  }
+
+  .testimonial-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards per row on tablets */
+    gap: 15px;
+  }
+
+  .testimonial-card {
+    padding: 18px;
+  }
+
+  .review {
+    font-size: 15px;
+  }
+}
+
 .btns{
   display: flex;
       justify-content: center;
