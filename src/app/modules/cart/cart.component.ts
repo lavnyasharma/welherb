@@ -49,6 +49,7 @@ export class CartComponent implements OnInit {
   isCreatingOrder = false;
   orderCreated = false;
   selectedOrder: any = null;
+  showThankYouMessage = false;
 
   // Form data
   discountCode = '';
@@ -62,6 +63,9 @@ export class CartComponent implements OnInit {
     state: '',
     city: ''
   };
+
+  // COD selection
+  isCODSelected = false;
 
   // Survey data
   hearAboutUs: string[] = [];
@@ -86,6 +90,15 @@ export class CartComponent implements OnInit {
     'Other (please specify)'
   ];
 
+  // Payment response data
+  paymentResponse: any = null;
+  paymentLinks: any = null;
+
+  // Polling variables
+  private pollingInterval: any = null;
+  private pollingCount = 0;
+  private maxPollingAttempts = 30; // 30 attempts * 2 seconds = 60 seconds max
+
   constructor(
     private apiService: ApiService,
     private cartService: CartService
@@ -97,11 +110,18 @@ export class CartComponent implements OnInit {
     this.loadAddresses();
     
     // Check if we're returning from a payment
-    this.checkOrderStatusAfterPayment();
+    this.checkPaymentStatusOnReturn();
     
     setTimeout(() => {
       console.log('Current addresses after timeout:', this.deliveryAddresses);
     }, 1000);
+  }
+
+  ngOnDestroy(): void {
+    // Clean up polling interval if it exists
+    if (this.pollingInterval) {
+      clearInterval(this.pollingInterval);
+    }
   }
 
   private loadCartItems(): void {
@@ -205,6 +225,36 @@ export class CartComponent implements OnInit {
     }
   }
 
+  // Format mobile number to ensure it's 10 digits only
+  formatMobileNumber(): void {
+    // Remove any non-digit characters
+    this.newAddress.phone = this.newAddress.phone.replace(/\D/g, '');
+    
+    // Limit to 10 digits
+    if (this.newAddress.phone.length > 10) {
+      this.newAddress.phone = this.newAddress.phone.substring(0, 10);
+    }
+  }
+
+  // Validate mobile number input to allow only digits
+  validateMobileNumberInput(event: KeyboardEvent): boolean {
+    const charCode = (event.which) ? event.which : event.keyCode;
+    // Allow only digits (0-9)
+    if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    }
+    return true;
+  }
+
+  // Format phone number for display (ensure only 10 digits)
+  formatPhoneNumberForDisplay(phone: string): string {
+    if (!phone) return '';
+    // Remove any non-digit characters and limit to 10 digits
+    const cleanPhone = phone.replace(/\D/g, '').substring(0, 10);
+    return cleanPhone;
+  }
+
   onMobileNumberChange(): void {
     const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
     if (selectedAddress) {
@@ -226,6 +276,17 @@ export class CartComponent implements OnInit {
     return this.deliveryAddresses.find(addr => addr.selected);
   }
 
+  nextStep(): void {
+    if (this.currentStep === 2) {
+      this.createOrderBeforeReview();
+      return;
+    }
+    
+    if (this.currentStep < this.totalSteps) {
+      this.currentStep++;
+    }
+  }
+
   async createOrderBeforeReview(): Promise<void> {
     if (this.cartItems.length === 0) {
       alert('Your cart is empty');
@@ -243,11 +304,6 @@ export class CartComponent implements OnInit {
       return;
     }
 
-    if (!this.selectedPaymentMethod) {
-      alert('Please select a payment method');
-      return;
-    }
-
     if (!selectedAddress.phone || selectedAddress.phone.trim() === '') {
       alert('Please enter mobile number for the selected address');
       return;
@@ -255,16 +311,25 @@ export class CartComponent implements OnInit {
 
     this.isCreatingOrder = true;
 
-    // Determine order type based on payment method
-    const orderType = this.selectedPaymentMethod === 'cod' ? 'COD' : 'Pre-Paid';
+    // Determine order type based on COD selection
+    const orderType = this.isCODSelected ? 'COD' : 'Pre-Paid';
 
+    // Prepare order payload with full address object
     const orderPayload = {
       products: this.cartItems.map(item => ({
         product: item.id,
         count: item.quantity
       })),
-      // Send address as string (address ID) as per specification
-      address: selectedAddress.id,
+      address: {
+        pincode: parseInt(selectedAddress.pincode) || 0,
+        name: selectedAddress.name,
+        mobile: selectedAddress.phone,
+        address: selectedAddress.address,
+        city: selectedAddress.city,
+        email: selectedAddress.email || '',
+        state: selectedAddress.state,
+        _id: selectedAddress.id
+      },
       order_type: orderType,
       payment_amount: {
         product_amount: this.subtotal,
@@ -276,18 +341,30 @@ export class CartComponent implements OnInit {
     console.log('Creating order with payload:', orderPayload);
 
     try {
+      // Call the create order API
       const response = await this.apiService.createOrder(orderPayload).toPromise();
       console.log('Order created successfully:', response);
       this.selectedOrder = response;
       
-      if (this.selectedPaymentMethod === 'cod') {
-        // For COD, just show order confirmation
+      // Handle COD orders (no payment redirect needed)
+      if (this.isCODSelected) {
         this.isCreatingOrder = false;
         this.orderCreated = true;
         this.currentStep = 4;
+        return;
+      }
+      
+      // Handle Pre-Paid orders (show payment links)
+      if (response && response.links) {
+        this.paymentResponse = response;
+        this.paymentLinks = response.links;
+        this.isCreatingOrder = false;
+        this.currentStep = 3; // Move to payment step
+        
+        // Start polling every 2 seconds
+        this.startOrderStatusPolling(response.order_id);
       } else {
-        // For online payments, redirect to payment gateway
-        this.handlePaymentRedirect(response);
+        throw new Error('Invalid payment response from server');
       }
     } catch (error: any) {
       console.error('Error creating order:', error);
@@ -296,60 +373,130 @@ export class CartComponent implements OnInit {
     }
   }
 
-  private handlePaymentRedirect(paymentResponse: any): void {
-    if (!paymentResponse || !paymentResponse.links || !paymentResponse.links.web) {
-      console.error('Invalid payment response:', paymentResponse);
-      alert('Error: Invalid payment response from server');
-      this.isCreatingOrder = false;
-      return;
+  // Check payment status when returning from payment gateway
+  checkPaymentStatusOnReturn(): void {
+    const pendingOrderId = localStorage.getItem('pendingOrderId');
+    if (pendingOrderId) {
+      // Remove the pending order ID from localStorage
+      localStorage.removeItem('pendingOrderId');
+      
+      // Start polling every 2 seconds
+      this.startOrderStatusPolling(pendingOrderId);
     }
+  }
 
-    // Store order details in localStorage for retrieval after payment
-    localStorage.setItem('pendingOrder', JSON.stringify(paymentResponse));
-    localStorage.setItem('pendingOrderId', paymentResponse.order_id);
+  // Start polling for order status every 2 seconds
+  private startOrderStatusPolling(orderId: string): void {
+    this.pollingCount = 0;
+    
+    // Clear any existing interval
+    if (this.pollingInterval) {
+      clearInterval(this.pollingInterval);
+    }
+    
+    // Start polling every 2 seconds
+    this.pollingInterval = setInterval(() => {
+      this.pollingCount++;
+      
+      // Stop polling after max attempts
+      if (this.pollingCount > this.maxPollingAttempts) {
+        clearInterval(this.pollingInterval);
+        this.isCreatingOrder = false;
+        console.log('Stopped polling after max attempts');
+        return;
+      }
+      
+      this.checkOrderStatus(orderId);
+    }, 2000);
+  }
 
-    // Redirect to payment gateway
-    window.location.href = paymentResponse.links.web;
+  // Map the order response data
+  private mapOrderResponse(order: any): void {
+    if (order && order._id) {
+      this.selectedOrder = {
+        _id: order._id,
+        order_id: order.order_id,
+        status: order.status,
+        products: order.products,
+        address: order.address,
+        tracking_history: order.tracking_history,
+        upload_wbn: order.upload_wbn,
+        shipping_id: order.shipping_id,
+        order_type: order.order_type,
+        payment_amount: order.payment_amount,
+        createdAt: order.createdAt,
+        updatedAt: order.updatedAt
+      };
+      
+      console.log('Mapped order response:', this.selectedOrder);
+    }
   }
 
   // Check order status after payment redirect
   checkOrderStatusAfterPayment(): void {
-    const pendingOrderId = localStorage.getItem('pendingOrderId');
-    if (pendingOrderId) {
-      // Check payment status after 5 seconds
-      setTimeout(() => {
-        this.checkOrderStatus(pendingOrderId);
-      }, 5000);
-    }
+    // Deprecated - use checkPaymentStatusOnReturn instead
   }
 
   private checkOrderStatus(orderId: string): void {
+    // This method has been moved to the new polling implementation
     this.apiService.getOrderById(orderId).subscribe(
       (order: any) => {
         console.log('Order status check:', order);
-        if (order.status === 'PAID' || order.status === 'COMPLETED') {
-          // Payment successful
+        
+        // Map the response data
+        this.mapOrderResponse(order);
+        
+        // Check if order is confirmed
+        if (order.status === 'Ordered' || order.status === 'PAID' || order.status === 'COMPLETED') {
+          // Order confirmed - stop polling and show confirmation
+          clearInterval(this.pollingInterval);
           this.isCreatingOrder = false;
           this.orderCreated = true;
           this.selectedOrder = order;
           this.currentStep = 4;
-          localStorage.removeItem('pendingOrder');
-          localStorage.removeItem('pendingOrderId');
+          
+          // Clear cart items
+          this.cartItems = [];
+          this.cartService.clearCart();
         } else if (order.status === 'FAILED' || order.status === 'CANCELLED') {
-          // Payment failed
+          // Order failed - stop polling and show error
+          clearInterval(this.pollingInterval);
           this.isCreatingOrder = false;
-          alert('Payment failed. Please try again.');
-        } else {
-          // Order is still pending, check again after 5 seconds
-          setTimeout(() => this.checkOrderStatus(orderId), 5000);
+          alert('Order was not successful. Please try again.');
         }
+        // For pending statuses, continue polling
       },
       (error) => {
         console.error('Error checking order status:', error);
-        // Continue checking even if there's an error
-        setTimeout(() => this.checkOrderStatus(orderId), 5000);
+        // Continue polling even if there's an error
       }
     );
+  }
+
+  private handlePaymentRedirect(paymentResponse: any): void {
+    // Deprecated - handling is now done directly in createOrderBeforeReview
+  }
+
+  // Verify payment status with the backend
+  private verifyPaymentStatus(orderId: string): void {
+    // Deprecated - use the new polling implementation instead
+  }
+
+  // Check payment status with the backend
+  private checkPaymentStatus(orderId: string): void {
+    // Deprecated - use the new polling implementation instead
+  }
+
+  // Open payment link
+  openPaymentLink(linkType: string): void {
+    if (this.paymentLinks && this.paymentLinks[linkType]) {
+      window.open(this.paymentLinks[linkType], '_blank');
+      
+      // Start polling every 2 seconds
+      if (this.paymentResponse && this.paymentResponse.order_id) {
+        this.startOrderStatusPolling(this.paymentResponse.order_id);
+      }
+    }
   }
 
   get totalItems(): number {
@@ -414,41 +561,6 @@ export class CartComponent implements OnInit {
   get currentStepTitle(): string {
     const titles = ['Offers', 'Delivery', 'Payment', 'FAQs'];
     return titles[this.currentStep - 1];
-  }
-
-  nextStep(): void {
-    if (this.currentStep === 2) {
-      const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
-      console.log('Validating mobile number:', {
-        selectedAddress: selectedAddress,
-        formPhone: this.newAddress.phone,
-        addressPhone: selectedAddress?.phone
-      });
-      
-      if (selectedAddress && selectedAddress.address !== 'Please add your delivery address below') {
-        if (this.newAddress.phone && this.newAddress.phone.trim() !== '') {
-          selectedAddress.phone = this.newAddress.phone;
-          console.log('Updated selected address phone:', selectedAddress.phone);
-        }
-        
-        if (!selectedAddress.phone || selectedAddress.phone.trim() === '') {
-          console.log('Mobile number validation failed:', selectedAddress.phone);
-          alert('Please enter mobile number for the selected address');
-          return;
-        }
-        
-        console.log('Mobile number validation passed:', selectedAddress.phone);
-      }
-    }
-
-    if (this.currentStep === 3) {
-      this.createOrderBeforeReview();
-      return;
-    }
-    
-    if (this.currentStep < this.totalSteps) {
-      this.currentStep++;
-    }
   }
 
   prevStep(): void {
@@ -630,6 +742,10 @@ export class CartComponent implements OnInit {
     this.selectedPaymentMethod = methodId;
   }
 
+  onCODSelectionChange(): void {
+    console.log('COD selection changed:', this.isCODSelected);
+  }
+
   onHearAboutUsChange(option: string, event: any): void {
     const checked = event.target.checked;
     if (checked) {
@@ -645,10 +761,15 @@ export class CartComponent implements OnInit {
   }
 
   submitOrder(): void {
-    console.log('submitOrder called - redirecting to createOrderBeforeReview');
-    this.createOrderBeforeReview();
+    console.log('submitOrder called - creating order');
+    if (this.currentStep === 2) {
+      this.createOrderBeforeReview();
+    } else if (this.currentStep === 4) {
+      this.finalizeOrder();
+    }
   }
 
+  // Finalize order after feedback submission
   finalizeOrder(): void {
     this.cartItems = [];
     this.cartService.clearCart();
@@ -660,6 +781,39 @@ export class CartComponent implements OnInit {
     this.selectedOrder = null;
     
     alert('Order finalized successfully! Thank you for your purchase.');
+  }
+
+  // Submit feedback after order completion
+  submitFeedback(): void {
+    console.log('Feedback submitted:', {
+      hearAboutUs: this.hearAboutUs,
+      orderReason: this.orderReason
+    });
+    
+    // Here you would typically send the feedback to your backend
+    // For now, we'll just show an alert and reset the form
+    this.showThankYouMessage = true;
+    
+    // Reset feedback form
+    this.hearAboutUs = [];
+    this.orderReason = '';
+    
+    // Hide thank you message after 3 seconds
+    setTimeout(() => {
+      this.showThankYouMessage = false;
+      // Reset the entire order flow
+      this.resetOrderFlow();
+    }, 3000);
+  }
+
+  // Reset the order flow after feedback submission
+  resetOrderFlow(): void {
+    this.cartItems = [];
+    this.cartService.clearCart();
+    
+    this.currentStep = 1;
+    this.orderCreated = false;
+    this.selectedOrder = null;
   }
 
   private isNewAddressValid(): boolean {

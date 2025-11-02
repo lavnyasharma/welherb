@@ -2,9 +2,6 @@ import {
   SearchIcon
 } from "./chunk-JXO3UVXL.js";
 import {
-  CheckIcon
-} from "./chunk-X3EFVBSO.js";
-import {
   Scroller,
   ScrollerModule
 } from "./chunk-7JOU6OTN.js";
@@ -13,6 +10,9 @@ import {
   Ripple,
   RippleModule
 } from "./chunk-3XZIXDBH.js";
+import {
+  CheckIcon
+} from "./chunk-X3EFVBSO.js";
 import "./chunk-LH275OGO.js";
 import {
   DomHandler

@@ -1,20 +1,4 @@
 import {
-  ESCAPE,
-  NzDestroyService,
-  _CdkPrivateStyleLoader,
-  _IdGenerator,
-  hasModifierKey
-} from "./chunk-DC7EVKFE.js";
-import {
-  Platform,
-  RtlScrollAxisType,
-  _bindEventWithOptions,
-  _getEventTarget,
-  _isTestEnvironment,
-  getRtlScrollAxisType,
-  supportsScrollBehavior
-} from "./chunk-BBOUII4B.js";
-import {
   animate,
   query,
   stagger,
@@ -24,9 +8,25 @@ import {
   trigger
 } from "./chunk-ODOBMY5Z.js";
 import {
+  ESCAPE,
+  NzDestroyService,
+  _CdkPrivateStyleLoader,
+  _IdGenerator,
+  hasModifierKey
+} from "./chunk-DC7EVKFE.js";
+import {
   BidiModule,
   Directionality
 } from "./chunk-Z2WDEALF.js";
+import {
+  Platform,
+  RtlScrollAxisType,
+  _bindEventWithOptions,
+  _getEventTarget,
+  _isTestEnvironment,
+  getRtlScrollAxisType,
+  supportsScrollBehavior
+} from "./chunk-BBOUII4B.js";
 import {
   coerceArray,
   coerceCssPixelValue,
@@ -5680,4 +5680,4 @@ export {
   slideMotion,
   zoomBigMotion
 };
-//# sourceMappingURL=chunk-H4G77QVH.js.map
+//# sourceMappingURL=chunk-LMPF7XBJ.js.map

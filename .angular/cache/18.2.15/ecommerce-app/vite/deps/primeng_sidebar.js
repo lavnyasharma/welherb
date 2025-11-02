@@ -1,10 +1,10 @@
 import {
-  TimesIcon
-} from "./chunk-ECWRTAY2.js";
-import {
   Ripple,
   RippleModule
 } from "./chunk-3XZIXDBH.js";
+import {
+  TimesIcon
+} from "./chunk-ECWRTAY2.js";
 import "./chunk-LH275OGO.js";
 import {
   DomHandler

@@ -3,6 +3,10 @@ import {
   Directionality
 } from "./chunk-Z2WDEALF.js";
 import {
+  NzOutletModule,
+  NzStringTemplateOutletDirective
+} from "./chunk-OLPJ3SQ7.js";
+import {
   NzConfigService,
   WithConfig,
   toCssPixel
@@ -10,10 +14,6 @@ import {
 import {
   NgTemplateOutlet
 } from "./chunk-KJY4NM6N.js";
-import {
-  NzOutletModule,
-  NzStringTemplateOutletDirective
-} from "./chunk-OLPJ3SQ7.js";
 import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,

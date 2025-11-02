@@ -1,4 +1,8 @@
 import {
+  Ripple,
+  RippleModule
+} from "./chunk-3XZIXDBH.js";
+import {
   CheckIcon
 } from "./chunk-X3EFVBSO.js";
 import {
@@ -7,10 +11,6 @@ import {
 import {
   TimesIcon
 } from "./chunk-ECWRTAY2.js";
-import {
-  Ripple,
-  RippleModule
-} from "./chunk-3XZIXDBH.js";
 import {
   BaseIcon
 } from "./chunk-LH275OGO.js";

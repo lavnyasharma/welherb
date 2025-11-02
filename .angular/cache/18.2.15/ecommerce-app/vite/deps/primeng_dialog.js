@@ -5,9 +5,6 @@ import {
   WindowMinimizeIcon
 } from "./chunk-WYT42FRP.js";
 import {
-  TimesIcon
-} from "./chunk-ECWRTAY2.js";
-import {
   ButtonDirective,
   ButtonModule
 } from "./chunk-HK4WRHVF.js";
@@ -16,6 +13,9 @@ import {
   Ripple,
   RippleModule
 } from "./chunk-3XZIXDBH.js";
+import {
+  TimesIcon
+} from "./chunk-ECWRTAY2.js";
 import "./chunk-6ZT774QR.js";
 import "./chunk-LH275OGO.js";
 import {

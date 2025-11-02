@@ -5,15 +5,15 @@ import {
   ChevronLeftIcon
 } from "./chunk-6KPMDQWT.js";
 import {
+  Ripple,
+  RippleModule
+} from "./chunk-3XZIXDBH.js";
+import {
   ChevronRightIcon
 } from "./chunk-VL72JRWS.js";
 import {
   ChevronDownIcon
 } from "./chunk-SBJMAGMH.js";
-import {
-  Ripple,
-  RippleModule
-} from "./chunk-3XZIXDBH.js";
 import "./chunk-LH275OGO.js";
 import {
   DomHandler

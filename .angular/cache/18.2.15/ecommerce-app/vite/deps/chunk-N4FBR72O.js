@@ -2,16 +2,16 @@ import {
   Platform
 } from "./chunk-BBOUII4B.js";
 import {
+  NzConfigService,
+  warn
+} from "./chunk-3JBEYVDY.js";
+import {
   DomSanitizer
 } from "./chunk-VJK2FOYB.js";
 import {
   HttpBackend,
   HttpClient
 } from "./chunk-YRWBQ66Z.js";
-import {
-  NzConfigService,
-  warn
-} from "./chunk-3JBEYVDY.js";
 import {
   DOCUMENT
 } from "./chunk-KJY4NM6N.js";
@@ -1876,4 +1876,4 @@ export {
   provideNzIconsPatch,
   NzIconModule
 };
-//# sourceMappingURL=chunk-DKS3FUZE.js.map
+//# sourceMappingURL=chunk-N4FBR72O.js.map

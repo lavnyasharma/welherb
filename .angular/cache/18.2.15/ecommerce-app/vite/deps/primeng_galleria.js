@@ -8,15 +8,15 @@ import {
   ChevronLeftIcon
 } from "./chunk-6KPMDQWT.js";
 import {
-  ChevronRightIcon
-} from "./chunk-VL72JRWS.js";
+  Ripple,
+  RippleModule
+} from "./chunk-3XZIXDBH.js";
 import {
   TimesIcon
 } from "./chunk-ECWRTAY2.js";
 import {
-  Ripple,
-  RippleModule
-} from "./chunk-3XZIXDBH.js";
+  ChevronRightIcon
+} from "./chunk-VL72JRWS.js";
 import "./chunk-LH275OGO.js";
 import {
   DomHandler
