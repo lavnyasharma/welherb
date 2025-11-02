@@ -156,6 +156,24 @@
   <div class="checkout-container">
     <div class="checkout-header">
       <h2>Check out</h2>
+      <div class="step-progress">
+        <div class="step-item" [ngClass]="{ active: currentStep >= 1, current: currentStep === 1 }">
+          <div class="step-number">01</div>
+          <div class="step-title">Offers</div>
+        </div>
+        <div class="step-item" [ngClass]="{ active: currentStep >= 2, current: currentStep === 2 }">
+          <div class="step-number">02</div>
+          <div class="step-title">Delivery</div>
+        </div>
+        <div class="step-item" [ngClass]="{ active: currentStep >= 3, current: currentStep === 3 }">
+          <div class="step-number">03</div>
+          <div class="step-title">Payment</div>
+        </div>
+        <div class="step-item" [ngClass]="{ active: currentStep >= 4, current: currentStep === 4 }">
+          <div class="step-number">04</div>
+          <div class="step-title">Review</div>
+        </div>
+      </div>
     </div>
 
     <div class="checkout-content">
@@ -165,7 +183,7 @@
           <div class="coupons-header">
             <i class="icon-coupon">🎟️</i>
             <span>Coupons and offers</span>
-            <i class="icon-dropdown">▼</i>
+
           </div>
           
           <div class="discount-input">
@@ -296,35 +314,39 @@
       <!-- Step 3: Payment -->
       <div *ngIf="currentStep === 3" class="step-content">
         <div class="payment-section">
-          <h3>Select Payment Method</h3>
-          
-          <div class="payment-options" *ngIf="paymentLinks">
-            <div class="payment-option" (click)="openPaymentLink('gpay')">
-              <i class="icon-upi">📱</i>
+          <div class="payment-group">
+            <h4>Recommended Payment Option</h4>
+            <div class="payment-option recommended" *ngIf="paymentLinks" (click)="openPaymentLink('gpay')">
               <span>Google Pay</span>
-            </div>
-            
-            <div class="payment-option" (click)="openPaymentLink('phonepe')">
-              <i class="icon-upi">📱</i>
-              <span>PhonePe</span>
-            </div>
-            
-            <div class="payment-option" (click)="openPaymentLink('paytm')">
-              <i class="icon-upi">📱</i>
-              <span>Paytm</span>
-            </div>
-            
-            <div class="payment-option" (click)="openPaymentLink('bhim')">
-              <i class="icon-upi">📱</i>
-              <span>BHIM UPI</span>
-            </div>
-            
-            <div class="payment-option" (click)="openPaymentLink('web')">
-              <i class="icon-card">💳</i>
-              <span>Other Payment Options</span>
+              <img class="payment-logo" src="assets/payment/gpay.svg" alt="GPay" />
             </div>
           </div>
-          
+
+          <div class="payment-group">
+            <h4>Online Payment Option</h4>
+            <div class="payment-option" *ngIf="paymentLinks" (click)="openPaymentLink('bhim')">
+              <span>UPI (Pay via any App)</span>
+            
+            </div>
+            <div class="payment-option" *ngIf="paymentLinks" (click)="openPaymentLink('web')">
+              <span>Debit/Credit Card</span>
+             
+            </div>
+            <div class="payment-option" *ngIf="paymentLinks" (click)="openPaymentLink('web')">
+              <span>EMI</span>
+
+            </div>
+          </div>
+
+          <div class="payment-group">
+            <h4>Other</h4>
+            <label class="payment-option">
+              <input type="radio" name="otherPay" (change)="isCODSelected = true" />
+              <span>Cash On Delivery</span>
+              <i class="icon-info">💬</i>
+            </label>
+          </div>
+
           <div class="payment-note">
             <p>You will be redirected to the payment gateway to complete your purchase.</p>
           </div>
