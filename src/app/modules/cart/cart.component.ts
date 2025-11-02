@@ -179,6 +179,8 @@ export class CartComponent implements OnInit {
             selected: index === 0
           }));
           console.log('Mapped addresses:', this.deliveryAddresses);
+          // Prefill the form with the initially selected address
+          this.prefillNewAddressFromSelected();
         } else {
           this.deliveryAddresses = [
             {
@@ -192,6 +194,7 @@ export class CartComponent implements OnInit {
               selected: true
             }
           ];
+          // No real address, keep form empty
         }
       },
       (error) => {
@@ -208,6 +211,7 @@ export class CartComponent implements OnInit {
             selected: true
           }
         ];
+        // No real address, keep form empty
       }
     );
   }
@@ -358,11 +362,10 @@ export class CartComponent implements OnInit {
       if (response && response.links) {
         this.paymentResponse = response;
         this.paymentLinks = response.links;
+        // Do NOT show overlay yet; user will click a payment option first
         this.isCreatingOrder = false;
         this.currentStep = 3; // Move to payment step
-        
-        // Start polling every 2 seconds
-        this.startOrderStatusPolling(response.order_id);
+        // Polling will start after user clicks a payment option or on return
       } else {
         throw new Error('Invalid payment response from server');
       }
@@ -388,6 +391,8 @@ export class CartComponent implements OnInit {
   // Start polling for order status every 2 seconds
   private startOrderStatusPolling(orderId: string): void {
     this.pollingCount = 0;
+    // Show loading overlay while we poll for status
+    this.isCreatingOrder = true;
     
     // Clear any existing interval
     if (this.pollingInterval) {
@@ -490,6 +495,8 @@ export class CartComponent implements OnInit {
   // Open payment link
   openPaymentLink(linkType: string): void {
     if (this.paymentLinks && this.paymentLinks[linkType]) {
+      // Show loading while user completes payment externally
+      this.isCreatingOrder = true;
       window.open(this.paymentLinks[linkType], '_blank');
       
       // Start polling every 2 seconds
@@ -597,16 +604,25 @@ export class CartComponent implements OnInit {
     
     const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
     if (selectedAddress && selectedAddress.address !== 'Please add your delivery address below') {
-      this.newAddress = {
-        email: selectedAddress.email || '',
-        pincode: selectedAddress.pincode || '',
-        name: selectedAddress.name || '',
-        phone: selectedAddress.phone || '',
-        address: selectedAddress.address || '',
-        state: selectedAddress.state || '',
-        city: selectedAddress.city || ''
-      };
+      this.prefillNewAddressFromSelected();
     }
+  }
+
+  // Prefill the add-new-address form with the currently selected address
+  private prefillNewAddressFromSelected(): void {
+    const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
+    if (!selectedAddress || selectedAddress.address === 'Please add your delivery address below') {
+      return;
+    }
+    this.newAddress = {
+      email: selectedAddress.email || '',
+      pincode: String(selectedAddress.pincode || '').replace(/\D/g, ''),
+      name: selectedAddress.name || '',
+      phone: this.formatPhoneNumberForDisplay(selectedAddress.phone || ''),
+      address: selectedAddress.address || '',
+      state: selectedAddress.state || '',
+      city: selectedAddress.city || ''
+    };
   }
 
   addNewAddress(): void {
@@ -705,35 +721,45 @@ export class CartComponent implements OnInit {
   }
 
   checkPincode(): void {
-    if (!this.newAddress.pincode) {
+    // Use form pincode if provided, otherwise fall back to selected address pincode
+    const selectedPin = (this.selectedAddress && this.selectedAddress.pincode) ? this.selectedAddress.pincode : '';
+    const rawPin = this.newAddress.pincode || selectedPin;
+    const pincodeToCheck = String(rawPin || '').replace(/\D/g, '');
+
+    if (!pincodeToCheck) {
       alert('Please enter a pincode');
       return;
     }
 
-    if (this.newAddress.pincode.length !== 6 || !/^\d+$/.test(this.newAddress.pincode)) {
+    if (pincodeToCheck.length !== 6 || !/^\d+$/.test(pincodeToCheck)) {
       alert('Please enter a valid 6-digit pincode');
       return;
     }
 
-    console.log('Checking pincode:', this.newAddress.pincode);
+    console.log('Checking pincode:', pincodeToCheck);
     
-    this.apiService.getDeliveryAvailability(this.newAddress.pincode).subscribe(
+    this.apiService.getDeliveryAvailability(pincodeToCheck).subscribe(
       (response: any) => {
         console.log('Pincode response:', response);
-        this.pincodeResponse = response;
-        
-        if (response && response.available) {
-          if (response.city) this.newAddress.city = response.city;
-          if (response.state) this.newAddress.state = response.state;
-          
-          alert(`✅ Delivery available in your area!\nCity: ${response.city || 'N/A'}\nState: ${response.state || 'N/A'}\nDelivery Time: ${response.deliveryTime || '2-3 days'}`);
-        } else {
-          alert('❌ Delivery not available in this pincode area. Please try a different pincode.');
+        // Normalize response keys
+        const normalized = {
+          available: !!response?.available,
+          city: response?.city || '',
+          state: response?.state || '',
+          deliveryTime: response?.deliveryTime || response?.estimated_delivery || '',
+          message: response?.message || ''
+        };
+        this.pincodeResponse = normalized;
+
+        if (normalized.available) {
+          if (normalized.city) this.newAddress.city = normalized.city;
+          if (normalized.state) this.newAddress.state = normalized.state;
         }
+        // No alerts; UI block in HTML will show success/error nicely
       },
       (error) => {
         console.error('Error checking pincode:', error);
-        alert('Error checking pincode. Please try again.');
+        this.pincodeResponse = { available: false, message: 'Unable to check pincode right now.' } as any;
       }
     );
   }

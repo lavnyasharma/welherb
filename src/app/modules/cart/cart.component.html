@@ -234,15 +234,22 @@
             
             <div *ngIf="pincodeResponse" class="pincode-response">
               <div class="response-success" *ngIf="pincodeResponse.available">
-                ✅ Delivery available in your area!
+                <span class="icon">✅</span>
+                <span class="title">Delivery available in your area!</span>
                 <div class="response-details">
-                  <span *ngIf="pincodeResponse.city">City: {{ pincodeResponse.city }}</span>
-                  <span *ngIf="pincodeResponse.state">State: {{ pincodeResponse.state }}</span>
-                  <span *ngIf="pincodeResponse.deliveryTime">Delivery Time: {{ pincodeResponse.deliveryTime }}</span>
+                  <span *ngIf="pincodeResponse.message">{{ pincodeResponse.message }}</span>
+                  <span *ngIf="pincodeResponse.deliveryTime">Estimated delivery: {{ pincodeResponse.deliveryTime }}</span>
+                  <span *ngIf="pincodeResponse.city || pincodeResponse.state">
+                    {{ pincodeResponse.city }}<span *ngIf="pincodeResponse.city && pincodeResponse.state">, </span>{{ pincodeResponse.state }}
+                  </span>
                 </div>
               </div>
               <div class="response-error" *ngIf="!pincodeResponse.available">
-                ❌ Delivery not available in this pincode area
+                <span class="icon">❌</span>
+                <span class="title">Delivery not available in this pincode</span>
+                <div class="response-details" *ngIf="pincodeResponse.message">
+                  {{ pincodeResponse.message }}
+                </div>
               </div>
             </div>
             
@@ -421,6 +428,7 @@
       </div>
     </div>
 
+
     <!-- Continue/Submit Button -->
     <div class="checkout-footer" *ngIf="!orderCreated">
       <button *ngIf="currentStep < 4" 
@@ -434,6 +442,24 @@
               (click)="submitOrder()">
         Submit
       </button>
+    </div>
+  </div>
+</div>
+
+<!-- Full-width brand strip above site footer -->
+<div class="page-brand-strip">
+  <div class="brand-strip">
+    <div class="logos">
+      <span class="logo-badge">VISA</span>
+      <span class="logo-badge">Mastercard</span>
+      <span class="logo-badge">RuPay</span>
+      <span class="logo-badge">BHIM</span>
+      <span class="logo-badge">Cash on Delivery</span>
+      <span class="logo-badge">Net Banking</span>
+    </div>
+    <div class="secure-note">
+      <span class="shield">🛡️</span>
+      <span>100% secured payments</span>
     </div>
   </div>
 </div>
