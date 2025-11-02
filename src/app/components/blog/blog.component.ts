@@ -245,4 +245,22 @@ export class BlogComponent implements OnInit, OnDestroy {
   trackByBlog(index: number, blog: any) {
     return blog.title || index;
   }
+
+  /**
+   * Handle image loading error
+   */
+  onImageError(event: Event) {
+    const img = event.target as HTMLImageElement;
+    // Set a fallback image or hide the image
+    img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjhGOUZBIi8+CjxwYXRoIGQ9Ik0xNzUgMTI1SDE4NVYxMzVIMTc1VjEyNVoiIGZpbGw9IiM2Qzc1N0QiLz4KPHBhdGggZD0iTTE2NSAxNDVIMjM1VjE1NUgxNjVWMTQ1WiIgZmlsbD0iIzZDNzU3RCIvPgo8L3N2Zz4K';
+    img.alt = 'Image not available';
+  }
+
+  /**
+   * Handle image load success
+   */
+  onImageLoad(event: Event) {
+    const img = event.target as HTMLImageElement;
+    img.style.opacity = '1';
+  }
 }
