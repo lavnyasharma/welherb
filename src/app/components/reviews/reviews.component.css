@@ -5,6 +5,7 @@
   
   /* Grid for Desktop View */
   .testimonial-grid {
+    height:500px;
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* 3 cards per row */
     gap: 20px;

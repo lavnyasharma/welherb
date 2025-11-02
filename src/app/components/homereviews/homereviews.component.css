@@ -1,6 +1,6 @@
 .reviews-section {
   width: 100%;
-    padding: 80px 100px 10px;
+    padding: 80px 20px 10px;
   background-color: #fcf8f4;
   overflow: hidden;
 }
@@ -74,6 +74,7 @@
 
 .reviews-container {
   display: flex;
+  height:600px;
   gap: 30px;
   overflow-x: auto;
   scroll-behavior: smooth;
