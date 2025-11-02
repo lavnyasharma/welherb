@@ -391,8 +391,7 @@
       <!-- Order Success - Show Feedback Form Here -->
       <div *ngIf="orderCreated" class="step-content">
         <div class="feedback-section">
-          <h3>We'd Love Your Feedback!</h3>
-          <p>Help us improve by sharing your experience</p>
+          <h3>Tell us and get <span class="highlight">10% Off</span> on your next order!</h3>
           
           <form class="feedback-form" (ngSubmit)="submitFeedback()">
             <div class="form-group">
@@ -415,7 +414,7 @@
                        rows="4"></textarea>
             </div>
             
-            <button type="submit" class="submit-feedback-btn">Submit Feedback</button>
+            <button type="submit" class="submit-feedback-btn">Submit</button>
           </form>
         </div>
       </div>
@@ -450,12 +449,7 @@
 <div class="page-brand-strip">
   <div class="brand-strip">
     <div class="logos">
-      <span class="logo-badge">VISA</span>
-      <span class="logo-badge">Mastercard</span>
-      <span class="logo-badge">RuPay</span>
-      <span class="logo-badge">BHIM</span>
-      <span class="logo-badge">Cash on Delivery</span>
-      <span class="logo-badge">Net Banking</span>
+      <img src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/image%20115.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvaW1hZ2UgMTE1LnBuZyIsImlhdCI6MTc2MjA3ODIxMiwiZXhwIjoxNzkzNjE0MjEyfQ.FY64mCrJ-RjK8M1rJTaYM18oZPvBmY0fNTvDcNgFz58" alt="Payment Methods" class="payment-logos-image" />
     </div>
     <div class="secure-note">
       <span class="shield">🛡️</span>
