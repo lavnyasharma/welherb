@@ -134,7 +134,7 @@
         </div>
 
         <div class="form-actions">
-          <button type="button" class="btn-secondary">Delete Profile</button>
+          <button type="button" class="btn-secondary" (click)="openDeleteModal()">Delete Profile</button>
           <button type="submit" class="btn-primary">Save Changes</button>
         </div>
       </form>
@@ -470,6 +470,27 @@
           <span>kg</span>
         </div>
         <button class="modal-option save-btn" (click)="saveWeight()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Delete Confirmation Modal -->
+  <div class="delete-modal-overlay" *ngIf="showDeleteModal" (click)="closeDeleteModal()">
+    <div class="delete-modal-content" (click)="$event.stopPropagation()">
+      <div class="delete-modal-header">
+        <h3>Delete Profile</h3>
+        <button class="delete-close-btn" (click)="closeDeleteModal()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M18 6L6 18M6 6L18 18" stroke="#666666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+      <div class="delete-modal-body">
+        <p>Are you sure you want to delete your profile? This action cannot be undone.</p>
+      </div>
+      <div class="delete-modal-actions">
+        <button type="button" class="delete-modal-cancel" (click)="closeDeleteModal()">Cancel</button>
+        <button type="button" class="delete-modal-confirm" (click)="confirmDelete()">Delete</button>
       </div>
     </div>
   </div>

@@ -1,9 +1,28 @@
 /* Global Styles */
+:host {
+  font-family: 'Lato', sans-serif !important;
+}
+
 body {
-  font-family: 'Lato', sans-serif;
+  font-family: 'Lato', sans-serif !important;
   margin: 0;
   padding: 0;
   color: #333;
+}
+
+/* Apply Lato to all text elements */
+* {
+  font-family: 'Lato', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, h6,
+p, span, div, a, button, input, textarea, select,
+label, .form-control, .btn, .dropdown-item,
+.option-btn, .profile-name-sidebar-item, .add-profile-sidebar-btn,
+.status-badge, .order-id, .order-meta, .order-date,
+.item-name, .item-price, .item-quantity, .item-total,
+.summary-label, .summary-value, .order-total {
+  font-family: 'Lato', sans-serif !important;
 }
 
 /* Profile Header */
@@ -279,11 +298,202 @@ body {
   width: 100%;
   max-width: 600px;
   max-height: 90vh;
+}
+
+/* Delete Confirmation Modal */
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+.delete-modal-content {
+  background: white;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.delete-modal-header {
+  padding: 16px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-modal-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  font-family: 'Lato', sans-serif;
+}
+
+.delete-close-btn {
+  background: none;
+  border: none;
+  padding: 4px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #666;
+}
+
+.delete-modal-body {
+  padding: 20px;
+}
+
+.delete-modal-body p {
+  margin: 0;
+  color: #333;
+  font-size: 14px;
+  line-height: 1.5;
+  font-family: 'Lato', sans-serif;
+}
+
+.delete-modal-actions {
+  padding: 0 20px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.delete-modal-cancel {
+  padding: 8px 16px;
+  background: #f5f5f5;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  transition: background-color 0.2s;
+}
+
+.delete-modal-cancel:hover {
+  background-color: #e8e8e8;
+}
+
+.delete-modal-confirm {
+  padding: 8px 16px;
+  background: #ff4d4f;
+  border: none;
+  border-radius: 4px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: 'Lato', sans-serif;
+  transition: background-color 0.2s;
+}
+
+.delete-modal-confirm:hover {
+  background-color: #ff7875;
+}
+
+.delete-modal {
+  background: white;
+  border-radius: 12px;
+  width: 100%;
+  max-width: 400px;
+  overflow: hidden;
   animation: slideUp 0.3s ease;
+}
+
+.delete-modal .modal-header {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.delete-modal .modal-header h3 {
+  margin: 0;
+  font-size: 18px;
+  color: #333;
+  font-weight: 600;
+}
+
+.delete-modal .modal-body {
+  padding: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+.delete-modal .modal-body p {
+  margin: 0;
+  color: #555;
+  line-height: 1.5;
+  font-size: 14px;
+}
+
+.delete-modal .modal-footer {
+  padding: 16px 20px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.btn-cancel {
+  padding: 10px 20px;
+  background: #f5f5f5;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  color: #333;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Lato', sans-serif;
+}
+
+.btn-cancel:hover {
+  background: #eee;
+}
+
+.btn-delete {
+  padding: 10px 20px;
+  background: #ff4444;
+  border: none;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Lato', sans-serif;
+}
+
+.btn-delete:hover {
+  background: #cc0000;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+  padding: 0;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.close-btn:hover {
+  color: #666;
 }
 
 @keyframes slideUp {

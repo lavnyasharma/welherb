@@ -459,6 +459,32 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  // Delete profile functionality
+  showDeleteModal = false;
+
+  openDeleteModal(): void {
+    this.showDeleteModal = true;
+  }
+
+  closeDeleteModal(): void {
+    this.showDeleteModal = false;
+  }
+
+  confirmDelete(): void {
+    // Add your delete profile logic here
+    console.log('Deleting profile...');
+    // Example: this.profileService.deleteProfile(this.selectedProfile.id).subscribe(...)
+    
+    // Show success message
+    this.toastService.success('Profile deleted successfully');
+    
+    // Close the modal
+    this.closeDeleteModal();
+    
+    // Optionally, redirect or update the UI
+    // this.router.navigate(['/profiles']);
+  }
+
   // Logout
   logout(): void {
     if (confirm('Are you sure you want to logout?')) {
