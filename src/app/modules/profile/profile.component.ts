@@ -1,34 +1,50 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, HostListener } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.css'],
+  styleUrls: ['./profile.component.css']
 })
 export class ProfileComponent implements OnInit {
+  // Define possible tab values as string literals
+  readonly TAB_PROFILE = 'profile' as const;
+  readonly TAB_ORDERS = 'orders' as const;
+  readonly TAB_ORDER_DETAILS = 'order-details' as const;
+  
+  // Define the type for activeTab
+  activeTab: 'profile' | 'orders' | 'order-details' = this.TAB_PROFILE;
+  
   constructor(
     private apiService: ApiService,
     private toastService: ToastrService
   ) {}
+  // Modal state
+  showModal: 'gender' | 'height' | 'weight' | null = null;
+  heightFeet: number | null = null;
+  heightInches: number | null = null;
+  
+  // Profile data
+  selectedGender: string = 'male';
+  selectedHeight: string = '';
+  selectedWeight: string = '';
 
-  activeTab: string = 'profile';
-
-  profilePicture: string | null = "https://i.pravatar.cc/300";
+  profilePicture: string | null = 'https://i.pravatar.cc/300';
 
   // Orders data
   orders: any[] = [];
   selectedOrder: any = null;
   isLoadingOrders = false;
 
+  // Password data
   passwordData = {
     currentPassword: '',
     newPassword: '',
     confirmPassword: ''
   };
 
-  // Form data bound with ngModel
+  // Profile form data
   profileData = {
     fullName: '',
     email: '',
@@ -40,13 +56,126 @@ export class ProfileComponent implements OnInit {
     gender: ''
   };
 
+  // Current selected profile
+  selectedProfile: any = null;
+  showProfileDropdown = false;
+
+  // Modal states
+  showAddMoreModal = false;
+  showSwitchProfileModal = false;
+
+  // New address data for Add More modal
+  newAddress = {
+    gender: '',
+    height: '',
+    weight: '',
+    name: '',
+    phone: '',
+    email: '',
+    address: '',
+    area: '',
+    landmark: '',
+    pincode: '',
+    city: ''
+  };
+
+  // Saved profiles for Switch Profile
+  savedProfiles = [
+    {
+      id: 1,
+      name: 'John Doe',
+      email: 'john.doe@example.com',
+      avatar: 'https://i.pravatar.cc/100?img=1'
+    },
+    {
+      id: 2,
+      name: 'Sarah Smith',
+      email: 'sarah.smith@example.com',
+      avatar: 'https://i.pravatar.cc/100?img=5'
+    },
+    {
+      id: 3,
+      name: 'Michael Brown',
+      email: 'michael.brown@example.com',
+      avatar: 'https://i.pravatar.cc/100?img=12'
+    },
+    {
+      id: 4,
+      name: 'Emma Wilson',
+      email: 'emma.wilson@example.com',
+      avatar: 'https://i.pravatar.cc/100?img=9'
+    }
+  ];
+
   ngOnInit(): void {
     this.getUserProfile();
   }
+
+  // Handle profile picture upload
+  openImageUpload(): void {
+    // Create a file input element
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/*';
+    
+    input.onchange = (event: any) => {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e: any) => {
+          // Update the profile picture
+          if (this.selectedProfile) {
+            this.selectedProfile.avatar = e.target.result;
+          }
+          // Here you would typically upload the image to your server
+          // and update the user's profile
+        };
+        reader.readAsDataURL(file);
+      }
+    };
+    
+    // Trigger the file selection dialog
+    input.click();
+  }
+
+  // Modal methods
+  openModal(modalType: 'gender' | 'height' | 'weight'): void {
+    this.showModal = modalType;
+    
+    // Initialize height fields if opening height modal
+    if (modalType === 'height' && this.selectedHeight) {
+      const [feet, inches] = this.selectedHeight.split('.').map(Number);
+      this.heightFeet = feet;
+      this.heightInches = inches || 0;
+    }
+  }
+
+  closeModal(): void {
+    this.showModal = null;
+  }
+
+  selectOption(type: 'gender', value: string): void {
+    if (type === 'gender') {
+      this.selectedGender = value;
+    }
+    this.closeModal();
+  }
+
+  saveHeight(): void {
+    if (this.heightFeet !== null && this.heightInches !== null) {
+      this.selectedHeight = `${this.heightFeet}.${this.heightInches}`;
+      this.closeModal();
+    }
+  }
+
+  saveWeight(): void {
+    // The weight is already bound via ngModel
+    this.closeModal();
+  }
+
   getUserProfile(): void {
     this.apiService.getUserProfile().subscribe({
       next: (res: any) => {
-        // Prefill data from response
         this.profileData = {
           fullName: res.name || '',
           email: res.email || '',
@@ -57,39 +186,107 @@ export class ProfileComponent implements OnInit {
           weight: res.weight || '',
           gender: res.gender || ''
         };
+        if (res.profilePicture) {
+          this.profilePicture = res.profilePicture;
+        }
       },
       error: (err) => {
+        console.error('Error loading profile:', err);
         this.toastService.error('Failed to load profile');
       }
     });
   }
 
-  cartItems = [
-    {
-      id: 1,
-      name: 'Ocean Breeze Pendant',
-      subtitle: 'Serenity',
-      category: 'Universal',
-      price: 1900,
-      image: 'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fproduct_thumbnails%2F0M1A9178.jpg&w=640&q=75',
-      inStock: true,
-    },
-    {
-      id: 2,
-      name: 'Spring Flora Tops',
-      subtitle: 'Lavender',
-      category: 'Universal',
-      price: 1800,
-      image: 'https://www.velonna.co/_next/image?url=https%3A%2F%2Fpldwzgpchvgtdycyfaky.supabase.co%2Fstorage%2Fv1%2F%2Fobject%2Fpublic%2Fvelonnabucket%2Fproduct_thumbnails%2F0M1A9178.jpg&w=640&q=75',
-      inStock: true,
-    },
-  ];
-
-  selectTab(tabName: string) {
+  selectTab(tabName: 'profile' | 'orders' | 'order-details'): void {
     this.activeTab = tabName;
-    if (tabName === 'orders') {
+    
+    if (tabName === this.TAB_ORDERS) {
       this.loadOrders();
     }
+  }
+
+  // Open Add More modal
+  openAddMoreModal(): void {
+    this.showAddMoreModal = true;
+  }
+
+  // Close Add More modal
+  closeAddMoreModal(): void {
+    this.showAddMoreModal = false;
+  }
+
+  // Save address from modal
+  saveAddress(): void {
+    if (!this.newAddress.name || !this.newAddress.phone || !this.newAddress.address || !this.newAddress.pincode || !this.newAddress.city) {
+      this.toastService.error('Please fill all required fields');
+      return;
+    }
+
+    // Call API to save address
+    console.log('Saving address:', this.newAddress);
+    
+    this.toastService.success('Address saved successfully!');
+    this.closeAddMoreModal();
+    
+    // Reset form
+    this.newAddress = {
+      gender: '',
+      height: '',
+      weight: '',
+      name: '',
+      phone: '',
+      email: '',
+      address: '',
+      area: '',
+      landmark: '',
+      pincode: '',
+      city: ''
+    };
+  }
+
+  // Open Switch Profile modal
+  openSwitchProfile(): void {
+    this.showSwitchProfileModal = true;
+  }
+
+  // Close Switch Profile modal
+  closeSwitchProfileModal(): void {
+    this.showSwitchProfileModal = false;
+  }
+
+  // Switch to selected profile
+  switchToProfile(profile: any): void {
+    this.selectedProfile = profile;
+    this.toastService.success(`Switched to ${profile.name}'s profile`);
+    this.closeSwitchProfileModal();
+    
+    // Update the form with selected profile data
+    this.profileData = {
+      ...this.profileData,
+      fullName: profile.name,
+      email: profile.email
+      // Add other profile fields as needed
+    };
+  }
+
+  // Toggle profile dropdown
+  toggleProfileDropdown(): void {
+    this.showProfileDropdown = !this.showProfileDropdown;
+  }
+
+  // Handle click outside dropdown
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.profile-dropdown')) {
+      this.showProfileDropdown = false;
+    }
+  }
+
+  // Add new profile
+  addNewProfile(): void {
+    this.toastService.info('Add new profile feature coming soon');
+    this.closeSwitchProfileModal();
   }
 
   // Load all orders
@@ -109,12 +306,13 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  // Get order by ID
-  getOrderById(orderId: string): void {
-    this.apiService.getOrderById(orderId).subscribe({
+  // View order details
+  viewOrderDetails(order: any): void {
+    this.apiService.getOrderById(order.orderId || order._id).subscribe({
       next: (response: any) => {
         console.log('Order details:', response);
         this.selectedOrder = response;
+        this.activeTab = 'order-details';
       },
       error: (error) => {
         console.error('Error loading order details:', error);
@@ -123,24 +321,32 @@ export class ProfileComponent implements OnInit {
     });
   }
 
+  // Get order by ID
+  getOrderById(orderId: string): void {
+    this.viewOrderDetails({ orderId });
+  }
+
   // Format order status
   getOrderStatus(status: string): string {
     const statusMap: { [key: string]: string } = {
       'pending': 'Pending',
       'confirmed': 'Confirmed',
-      'shipped': 'Shipped',
+      'shipped': 'In Transit',
+      'out_for_delivery': 'Out for Delivery',
       'delivered': 'Delivered',
-      'cancelled': 'Cancelled'
+      'cancelled': 'Cancelled',
+      'refunded': 'Refunded'
     };
     return statusMap[status] || status;
   }
 
   // Format order date
   formatDate(dateString: string): string {
+    if (!dateString) return '';
     const date = new Date(dateString);
     return date.toLocaleDateString('en-IN', {
       year: 'numeric',
-      month: 'long',
+      month: 'short',
       day: 'numeric'
     });
   }
@@ -151,12 +357,31 @@ export class ProfileComponent implements OnInit {
       'pending': 'status-pending',
       'confirmed': 'status-confirmed',
       'shipped': 'status-shipped',
+      'out_for_delivery': 'status-shipped',
       'delivered': 'status-delivered',
-      'cancelled': 'status-cancelled'
+      'cancelled': 'status-cancelled',
+      'refunded': 'status-refunded'
     };
     return statusClasses[status] || 'status-pending';
   }
 
+  // Check if order progress step is completed
+  isStepCompleted(step: string, currentStatus: string): boolean {
+    const statusOrder = ['pending', 'confirmed', 'shipped', 'out_for_delivery', 'delivered'];
+    const stepStatusMap: { [key: string]: string } = {
+      'confirmed': 'confirmed',
+      'transit': 'shipped',
+      'delivery': 'out_for_delivery'
+    };
+    
+    const stepStatus = stepStatusMap[step];
+    const currentIndex = statusOrder.indexOf(currentStatus);
+    const stepIndex = statusOrder.indexOf(stepStatus);
+    
+    return currentIndex >= stepIndex;
+  }
+
+  // Handle profile picture change
   onProfilePictureChange(event: any): void {
     const file = event.target.files[0];
     if (file) {
@@ -168,7 +393,8 @@ export class ProfileComponent implements OnInit {
     }
   }
 
-  saveChanges() {
+  // Save profile changes
+  saveChanges(): void {
     const payload = {
       name: this.profileData.fullName,
       email: this.profileData.email,
@@ -180,28 +406,35 @@ export class ProfileComponent implements OnInit {
       gender: this.profileData.gender
     };
 
-    console.log(payload);
+    console.log('Saving profile:', payload);
 
-    this.apiService.updateUserProfile(payload).subscribe(
-      res => {
-        this.toastService.success('Profile updated!');
+    this.apiService.updateUserProfile(payload).subscribe({
+      next: (res) => {
+        this.toastService.success('Profile updated successfully!');
       },
-      err => {
-        this.toastService.error('Error updating profile');
+      error: (err) => {
+        console.error('Error updating profile:', err);
+        this.toastService.error('Failed to update profile');
       }
-    );
+    });
   }
 
-  changePassword() {
+  // Change password
+  changePassword(): void {
     const { currentPassword, newPassword, confirmPassword } = this.passwordData;
 
     if (!currentPassword || !newPassword || !confirmPassword) {
-      this.toastService.error('All fields are required.');
+      this.toastService.error('All fields are required');
       return;
     }
 
     if (newPassword !== confirmPassword) {
-      this.toastService.error('New and confirm passwords do not match.');
+      this.toastService.error('New password and confirm password do not match');
+      return;
+    }
+
+    if (newPassword.length < 8) {
+      this.toastService.error('Password must be at least 8 characters long');
       return;
     }
 
@@ -220,8 +453,23 @@ export class ProfileComponent implements OnInit {
         };
       },
       error: (err) => {
+        console.error('Error updating password:', err);
         this.toastService.error('Failed to update password');
       }
     });
+  }
+
+  // Logout
+  logout(): void {
+    if (confirm('Are you sure you want to logout?')) {
+      // Clear local storage or session
+      localStorage.clear();
+      sessionStorage.clear();
+      
+      // Navigate to login or home page
+      window.location.href = '/login';
+      
+      this.toastService.success('Logged out successfully');
+    }
   }
 }

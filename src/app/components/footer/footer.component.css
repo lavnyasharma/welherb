@@ -13,7 +13,7 @@ html, body {
 width: 100%;
     background-color: #fbf9f3;
     color: #fbf9f3;
-    padding: 40px 20px;
+    padding: 40px 100px;
     z-index: 10;
     /* display: revert; */
     position: relative;

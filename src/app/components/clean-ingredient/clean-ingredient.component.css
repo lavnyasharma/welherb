@@ -1,6 +1,6 @@
 .clean-ingredient-container {
   width: 100%;
-    padding: 80px 20px;
+    padding: 40px 100px;
   background-color: #fcf8f4;
   display: flex;
   justify-content: center;
@@ -14,7 +14,7 @@
   background-color: #fcf8f4;
   border: 2px solid #333;
   border-radius: 30px;
-  padding: 40px 20px;
+  padding: 40px 100px;
   box-sizing: border-box;
 }
 
