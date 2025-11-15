@@ -1,21 +1,106 @@
 <div class="auth-page">
-  <div class="auth-container">
-    <h2>Login</h2>
-    <form (submit)="onLogin($event)">
-      <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" id="email" [(ngModel)]="email" name="email" placeholder="Enter your email" required />
-      </div>
-      <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" id="password" [(ngModel)]="password" name="password" placeholder="Enter your password" required />
-      </div>
-      <button type="submit" class="btn">Login</button>
-    </form>
-    <button class="google-btn">Login with Google</button>
-    <p>
-      Don't have an account?
-      <a routerLink="/signup">Sign Up</a>
-    </p>
+  <div class="auth-grid">
+
+    <!-- Main Auth Card: toggles between mobile input and OTP view -->
+    <div class="auth-card">
+
+      <!-- Mobile input (Sign In / Sign Up) -->
+      <ng-container *ngIf="!isOtpSent; else otpTemplate">
+        <!-- Sign In view -->
+        <ng-container *ngIf="!isSignupMode; else signupTemplate">
+          <h2>Sign In</h2>
+    
+          <div class="form-group">
+            <label for="signin-mobile">Mobile Number</label>
+            <div class="phone-input-wrapper">
+              <span class="phone-prefix">+91</span>
+              <input
+                id="signin-mobile"
+                type="tel"
+                maxlength="10"
+                [(ngModel)]="mobileSignIn"
+                name="mobileSignIn"
+                placeholder="Enter Phone Number"
+              />
+            </div>
+          </div>
+          <button class="primary-btn" (click)="onGetOtp('signin')" [disabled]="isSendingOtp">
+            {{ isSendingOtp ? 'Sending OTP...' : 'Get OTP' }}
+          </button>
+          <p class="terms-text">
+            Don’t have an account?
+            <a href="javascript:void(0)" (click)="switchToSignup()">Sign Up</a>
+          </p>
+        </ng-container>
+
+        <!-- Sign Up view -->
+        <ng-template #signupTemplate>
+          <h2>Sign Up</h2>
+          <div class="subtitle">&amp; unlock your personalised dosage</div>
+          <div class="form-group">
+            <label for="signup-mobile">Mobile Number</label>
+            <div class="phone-input-wrapper">
+              <span class="phone-prefix">+91</span>
+              <input
+                id="signup-mobile"
+                type="tel"
+                maxlength="10"
+                [(ngModel)]="mobileSignUp"
+                name="mobileSignUp"
+                placeholder="Enter Phone Number"
+              />
+            </div>
+          </div>
+          <button class="primary-btn" (click)="onGetOtp('signup')" [disabled]="isSendingOtp">
+            {{ isSendingOtp ? 'Sending OTP...' : 'Get OTP' }}
+          </button>
+          <p class="terms-text">
+            Already have an account?
+            <a href="javascript:void(0)" (click)="switchToSignin()">Sign In</a>
+          </p>
+          <p class="terms-text">
+            By continuing, you agree to our company's
+            <a href="javascript:void(0)">Terms and Conditions</a> and
+            <a href="javascript:void(0)">Privacy Policy</a>
+          </p>
+        </ng-template>
+      </ng-container>
+
+      <!-- OTP view (replaces mobile input) -->
+      <ng-template #otpTemplate>
+        <h2>OTP Verification Code</h2>
+        <div class="subtitle">Code has been sent to ***{{ selectedMobile?.slice(-3) }}</div>
+
+        <!-- Visual 6-box OTP, driven by a single hidden input -->
+        <div class="otp-inputs" (click)="otpInput?.focus()">
+          <div
+            class="otp-box"
+            *ngFor="let box of [0,1,2,3,4,5]; let i = index"
+          >
+            {{ otpValue[i] || '' }}
+          </div>
+
+          <!-- Single underlying input controlling all 6 boxes -->
+          <input
+            #otpInput
+            class="otp-hidden-input"
+            type="tel"
+            maxlength="6"
+            [ngModel]="otpValue"
+            (ngModelChange)="onOtpInput($event)"
+          />
+        </div>
+
+        <button class="primary-btn" (click)="onVerifyOtp()" [disabled]="isVerifyingOtp">
+          {{ isVerifyingOtp ? 'Verifying...' : 'Verify' }}
+        </button>
+
+        <div class="otp-footer">
+          <span>Didn't get the otp?</span>
+          <button class="link-btn" (click)="selectedMobile && onGetOtp(otpFlowType)">Resend</button>
+        </div>
+      </ng-template>
+    </div>
+
   </div>
 </div>

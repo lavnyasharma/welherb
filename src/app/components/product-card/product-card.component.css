@@ -76,9 +76,9 @@
 
 .learn-more-btn,
 .buy-now-btn {
-  padding: 12px 28px;
+  padding: 8px 25px;
   border: none;
-  border-radius: 8px;
+  border-radius: 16px;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -147,31 +147,42 @@
 
 .category-tabs {
   display: flex;
-  gap: 12px;
+  gap: 32px; /* more space between items */
   justify-content: center;
   align-items: center;
   position: absolute;
   left: 0;
-  bottom: 40px;
+  bottom: 10px; /* move tabs further down so they don't overlap bottle */
   width: 100vw;
   z-index: 30;
+  padding-top: 24px; /* extra space between bottle and tabs */
 }
 
 .category-tabs button {
-  padding: 12px 24px;
-  border-radius: 25px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 2px solid #2d2d2d;
+  padding: 4px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
   color: #2d2d2d;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: border-color 0.2s, color 0.2s;
+  position: relative;
 }
 
 .category-tabs button.selected {
-  background: #2d2d2d;
-  color: #fff;
+  border-bottom-color: #2d2d2d;
+  color: #2d2d2d;
+}
+
+/* small arrow icon after each tab label */
+.category-tabs button::after {
+  content: '\2197';
+  font-size: 0.8rem;
+  margin-left: 4px;
+  position: relative;
+  top: -1px;
 }
 
 /* Mobile: Hide helps sections, show only title and category tabs */

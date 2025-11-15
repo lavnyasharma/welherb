@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class AuthService {
   private authTokenSubject = new BehaviorSubject<string | null>(this.getToken());
   authToken$ = this.authTokenSubject.asObservable();
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private apiService: ApiService) {}
 
   private saveToken(token: string): void {
     localStorage.setItem(this.authTokenKey, token);
@@ -29,6 +30,7 @@ export class AuthService {
     this.authTokenSubject.next(null);
   }
 
+  // -------- Legacy email/password login (if still used anywhere) -------- //
   login(email: string, password: string): Observable<any> {
     const payload = { email, password };
     return this.http.post<any>(`${this.authUrl}/user/login`, payload).pipe(
@@ -47,6 +49,25 @@ export class AuthService {
         if (response.token) {
           this.saveToken(response.token);
         }
+      })
+    );
+  }
+
+  // -------- Mobile + OTP login (new flow) -------- //
+
+  sendOtp(mobile: string): Observable<any> {
+    return this.apiService.sendOtp(mobile);
+  }
+
+  verifyOtp(mobile: string, otp: string): Observable<any> {
+    return this.apiService.verifyOtp(mobile, otp).pipe(
+      tap(response => {
+        // Temporary: always set a token so frontend auth context is updated.
+        // When backend starts returning a real token, it will be used instead.
+        const token = response && response.token
+          ? response.token
+          : `otp_login_${mobile}`;
+        this.saveToken(token);
       })
     );
   }

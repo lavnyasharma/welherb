@@ -29,6 +29,7 @@ export class ApiService {
       .subscribe((data: any) => this.homeProducts.next(data));
   }
 
+  // ---------------- Auth (Email/Password - Legacy) ---------------- //
   signUp(name: string, email: string, password: string) {
     const payload = { name, email, password };
     return this.http.post<any>(`${this.proxyPrefix}/user/register`, payload);
@@ -37,6 +38,24 @@ export class ApiService {
   login(email: string, password: string) {
     const payload = { email, password };
     return this.http.post<any>(`${this.proxyPrefix}/user/login`, payload);
+  }
+
+  // ---------------- Auth (Mobile + OTP) ---------------- //
+
+  /**
+   * Initiate login/signup by sending OTP to the given mobile number.
+   */
+  sendOtp(mobile: string) {
+    const payload = { mobile };
+    return this.http.post<any>(`${this.proxyPrefix}/user/login`, payload);
+  }
+
+  /**
+   * Verify the OTP for the given mobile number.
+   */
+  verifyOtp(mobile: string, otp: string) {
+    const payload = { mobile, otp };
+    return this.http.post<any>(`${this.proxyPrefix}/user/verifyLogin`, payload);
   }
 
   getAllProducts(category?: string) {
