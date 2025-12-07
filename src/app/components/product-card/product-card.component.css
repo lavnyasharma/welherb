@@ -1,14 +1,13 @@
 .product-card-container {
   min-height: 100vh;
-  width: 100vw;
+  width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   align-items: center;
   overflow: hidden;
-  image-rendering: -webkit-optimize-contrast;
-  image-rendering: crisp-edges;
+  z-index: 1; /* Ensure this section stays contained */
 }
 
 .product-title {
@@ -16,51 +15,61 @@
   font-weight: 700;
   margin-top: 4vh;
   margin-bottom: 2vh;
-  color: #2d2d2d;
+  color: #3A3938;
   text-align: center;
   z-index: 10;
 }
 
 .product-content {
-    display: flex
-;
-    justify-content: space-between;
-    align-items: flex-start;
-    width: 90%;
-    /* max-width: 1200px; */
-    margin-top: 8vh;
-    gap: 50px;
-    z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  width: 100%;
+
+  margin-top: 80px;
+  padding: 0 80px;
+  box-sizing: border-box;
+  z-index: 10;
 }
 
 
 .product-desc-left,
 .product-desc-right {
-  flex: 1;
-  max-width: 400px;
+  flex: 0 0 280px; /* Fixed width for both columns */
+  max-width: 300px;
+}
+
+/* Remove center spacer - bottle is in background */
+.product-center-spacer {
+  display: none;
 }
 
 .product-desc-left h1,
 .product-desc-right h1 {
-  font-size: 2rem;
+  font-size: 40px;
   font-weight: 700;
   margin-bottom: 16px;
-  color: #2d2d2d;
+  color: #3A3938;
+  font-family: 'Lato', sans-serif !important;
+  margin-top: 0;
+  letter-spacing: -0.5px;
 }
 
 .if-you {
-  font-size: 1.1rem;
-  margin-bottom: 10px;
-  color: #2d2d2d;
+  font-size: 18px;
+  margin-bottom: 12px;
+  color: #3A3938;
+  font-family: 'Lato', sans-serif;
 }
 
 .product-desc-left ul,
 .product-desc-right ul {
   list-style: disc;
   padding-left: 20px;
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #2d2d2d;
+  font-size: 18px;
+  line-height: 1.9;
+  color: #3A3938;
+  font-family: 'Lato', sans-serif;
 }
 
 .product-desc-left ul li,
@@ -70,8 +79,9 @@
 
 .button-group {
   display: flex;
-  gap: 12px;
-  margin-top: 24px;
+  gap: 16px;
+  margin-top: 32px;
+  justify-content: flex-start; /* Align to the left */
 }
 
 .learn-more-btn,
@@ -87,75 +97,78 @@
 
 .learn-more-btn {
   background: transparent;
-  border: 2px solid #2d2d2d;
-  color: #2d2d2d;
+  border: 2px solid #3A3938;
+  color: #3A3938;
 }
 
 .learn-more-btn:hover {
-  background: #2d2d2d;
+  background: #3A3938;
   color: #fff;
 }
 
 .buy-now-btn {
   background: #FCF8F3;
-  color: #2d2d2d;
+  color: #3A3938;
   border: 2px solid #FCF8F3;
 }
 
 .buy-now-btn:hover {
-  background: #2d2d2d;
+  background: #3A3938;
   color: #fff;
 }
 
 .no-product-message {
-  margin-top: 24vh;
-  font-size: 1.7rem;
+  margin-top: 200px;
+  font-size: 1.5rem;
   text-align: center;
-  color: #2d2d2d;
-  padding: 3vw 6vw;
-  background: rgba(255, 255, 255, 0.9);
+  color: #3A3938;
+  padding: 40px 60px;
+  background: rgba(255, 255, 255, 0.95);
   border-radius: 20px;
-  box-shadow: 0 2px 9px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
   font-weight: 600;
   z-index: 10;
 }
 
 .sub-product-tabs {
-  margin: 20px auto 12px auto;
+  position: absolute;
+  bottom: 80px;
+  left: 50%;
+  transform: translateX(-50%);
   display: flex;
   gap: 12px;
-  justify-content: center;
   z-index: 20;
 }
 
 .sub-product-tabs button {
-  padding: 10px 24px;
-  border-radius: 24px;
-  background-color: rgba(255, 255, 255, 0.85);
-  border: 2px solid #dedede;
+  padding: 10px 20px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid #ddd;
   cursor: pointer;
-  font-weight: 600;
-  font-size: 1rem;
+  font-weight: 500;
+  font-size: 0.9rem;
   transition: all 0.2s;
+  color: #3A3938;
 }
 
 .sub-product-tabs button.selected {
-  background-color: #2d2d2d;
+  background-color: #3A3938;
   color: #fff;
-  border-color: #2d2d2d;
+  border-color: #3A3938;
 }
 
 .category-tabs {
   display: flex;
-  gap: 32px; /* more space between items */
+  gap: 50px;
   justify-content: center;
   align-items: center;
   position: absolute;
   left: 0;
-  bottom: 10px; /* move tabs further down so they don't overlap bottle */
-  width: 100vw;
+  bottom: 30px;
+  width: 100%;
   z-index: 30;
-  padding-top: 24px; /* extra space between bottle and tabs */
+  padding: 0 20px;
 }
 
 .category-tabs button {
@@ -163,7 +176,7 @@
   background: transparent;
   border: none;
   border-bottom: 2px solid transparent;
-  color: #2d2d2d;
+  color: #3A3938;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -172,17 +185,18 @@
 }
 
 .category-tabs button.selected {
-  border-bottom-color: #2d2d2d;
-  color: #2d2d2d;
+  border-bottom-color: #3A3938;
+  color: #3A3938;
 }
 
-/* small arrow icon after each tab label */
+/* small circled arrow icon after each tab label */
 .category-tabs button::after {
-  content: '\2197';
-  font-size: 0.8rem;
-  margin-left: 4px;
+  content: '⊙';
+  font-size: 0.7rem;
+  margin-left: 6px;
   position: relative;
-  top: -1px;
+  top: 0;
+  opacity: 0.8;
 }
 
 /* Mobile: Hide helps sections, show only title and category tabs */

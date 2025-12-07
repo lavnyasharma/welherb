@@ -135,7 +135,7 @@
         <div class="icons">
             <!-- Cart -->
             <div class="cart" (click)="handleCartClick()" style="position: relative; cursor: pointer;">
-                <i class="pi pi-shopping-cart" style="font-size: 20px;"></i>
+                <i class="pi pi-shopping-bag" style="font-size: 20px;"></i>
                 <span *ngIf="cartItemCount > 0" 
                       style="position: absolute;
                       top: -6px;
@@ -152,14 +152,14 @@
             
             <!-- If logged in, show profile icon with dropdown -->
             <div *ngIf="isLoggedIn; else loginTemplate" class="profile-dropdown">
-                <button pButton type="button" icon="pi pi-user" class="p-button-text" (click)="profileMenu.toggle($event)"></button>
+                <button pButton type="button" icon="pi pi-user" class="p-button-text" style="font-size: 24px; width: 48px; height: 48px;" (click)="profileMenu.toggle($event)"></button>
                 <p-menu #profileMenu [popup]="true" [model]="profileItems"></p-menu>
             </div>
         
             <!-- If not logged in, show Sign Up button -->
             <ng-template #loginTemplate>
                 <div class="signUp">
-                    <button class="signUp" (click)="profile()">Login</button>
+                    <app-button label="Login" (click)="profile()"></app-button>
                 </div>
             </ng-template>
         </div>

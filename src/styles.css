@@ -37,6 +37,11 @@ button, a, [role="button"] {
     cursor: pointer;
 }
 
+button, .p-button, .btn {
+    height: 48px !important;
+    font-weight: 500 !important;
+}
+
 /* Prevent text selection on buttons for better mobile UX */
 button {
     -webkit-user-select: none;

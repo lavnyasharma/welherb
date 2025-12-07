@@ -235,16 +235,7 @@
 
 /* Sign Up Button */
 .signUp button {
-  background: #4FAE32;
-  color: white;
-  border: none;
-  padding: 8px 15px;
-  border-radius: 16px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
-  position: relative;
+
   z-index: 10;
 }
 

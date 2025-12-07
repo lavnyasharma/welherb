@@ -1,0 +1,39 @@
+.custom-btn {
+  height: 48px;
+  padding: 0 32px;
+  border-radius: 16px;
+  border: none;
+  font-family: 'Lato', sans-serif;
+  font-weight: 500;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+}
+
+.custom-btn.primary {
+  background-color: #4FAE32;
+  color: white;
+  box-shadow: 0 4px 6px rgba(78, 174, 50, 0.2);
+}
+
+.custom-btn.primary:hover {
+  background-color: #3d8a2a;
+  transform: translateY(-1px);
+  box-shadow: 0 6px 8px rgba(78, 174, 50, 0.3);
+}
+
+.custom-btn.outline {
+  background-color: transparent;
+  border: 2px solid #3A3938;
+  color: #3A3938;
+}
+
+.custom-btn.outline:hover {
+  background-color: #3A3938;
+  color: white;
+}

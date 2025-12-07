@@ -1,9 +1,6 @@
 <div class="product-card-container" [ngStyle]="getBackgroundStyle()">
   <ng-container *ngIf="selectedProduct; else noProduct">
-    <!-- Product Title at Top -->
-    <div class="product-title">{{ selectedProduct?.name }}</div>
-
-    <!-- Content Area with Helps Who and Helps How -->
+    <!-- naContent Area with Helps Who and Helps How -->
     <div class="product-content">
       <!-- Left Side: Helps Who -->
       <div class="product-desc-left desktop-only">
@@ -13,10 +10,11 @@
           <li *ngFor="let point of selectedProduct.helps_who">{{ point }}</li>
         </ul>
         <div class="button-group">
-          <button class="learn-more-btn" (click)="learnMore()">Learn More</button>
-          <button class="buy-now-btn" (click)="buyNow()">Buy Now</button>
+          <app-button label="Learn More" variant="outline" (click)="learnMore()"></app-button>
+          <app-button label="Buy Now" bgColor="#FCF8F4" textColor="#3A3938" borderColor="#FCF8F4" (click)="buyNow()"></app-button>
         </div>
       </div>
+
 
       <!-- Right Side: Helps How -->
       <div class="product-desc-right desktop-only">

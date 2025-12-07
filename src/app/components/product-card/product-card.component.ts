@@ -10,7 +10,7 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./product-card.component.css']
 })
 export class ProductCardComponent implements OnInit {
-  mainCategories = ['ESR', 'Liver', 'Thyroid', 'Women', 'Men', 'Heart'];
+  mainCategories = ['Diabetes', 'ESR', 'Gut', 'Joints', 'Liver', 'Thyroid'];
   categoryProductMap: { [key: string]: any[] } = {};
   selectedCategoryIndex: number = 0;
   subProducts: any[] = [];
@@ -61,12 +61,11 @@ export class ProductCardComponent implements OnInit {
       return {
         'background-image': `url(/welherb${this.selectedProduct.background_image})`,
         'background-size': 'cover',
-        'background-position': 'center center',
+        'background-position': 'center 60%',
         'background-repeat': 'no-repeat',
-        'image-rendering': 'crisp-edges',
       };
     }
-    return { 'background': '#fff' };
+    return { 'background': '#87CEEB' }; /* Light blue fallback like in design */
   }
 
   learnMore() {

@@ -1,1 +1,13 @@
-<p>button works!</p>
+<button 
+  [type]="type" 
+  class="custom-btn" 
+  [ngClass]="variant"
+  [ngStyle]="{
+    'background-color': bgColor || null,
+    'color': textColor || null,
+    'border-color': borderColor || null
+  }">
+  {{ label }}
+  <i *ngIf="icon" [class]="icon"></i>
+</button>
+
