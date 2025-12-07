@@ -1,593 +1,268 @@
 .reviews-section {
-  width: 100%;
-    padding: 40px 100px;
-  background-color: #fcf8f4;
+  padding: 80px 40px;
+  background-color: #FEFCF8; /* Main background from image */
   overflow: hidden;
+  font-family: 'Inter', sans-serif; /* Assuming Inter or similar */
+  padding-left: 80px;
 }
 
-.header-section {
-  max-width: 1200px;
-  margin: 0 auto 50px;
-  text-align: left;
-  position: relative;
+.reviews-header {
+
+
+  gap: 20px;
 }
 
-.main-heading {
+.reviews-title {
   font-size: 48px;
-  font-weight: 300;
+  font-weight: 700;
+  margin: 0 0 10px 0;
   color: #333;
-  margin-bottom: 15px;
-  line-height: 1.2;
+  line-height: 1.1;
+  font-family: 'Playfair Display', serif; /* Serif for heading */
 }
 
-.highlight {
-  color: #8bc34a;
-  font-weight: 600;
+.trust-text {
+  color: #8BC34A; /* Brand Green */
 }
 
-.subheading {
-  font-size: 16px;
+.reviews-subtitle {
+  font-size: 18px;
   color: #666;
-  line-height: 1.6;
-  margin-bottom: 25px;
+  line-height: 1.5;
+  margin: 0;
+  max-width: 450px;
 }
 
 .read-more-btn {
-  position: absolute;
-  right: 0;
-  top: 0;
   background-color: #4FAE32;
   color: white;
   border: none;
-  padding: 12px 24px;
-  border-radius: 25px;
-  font-size: 16px;
-  font-weight: 500;
+  padding: 10px 24px;
+  border-radius: 16px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: background-color 0.3s ease;
+  transition: all 0.2s;
+  
 }
 
 .read-more-btn:hover {
-  background-color: #57a35a;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(102, 187, 106, 0.4);
 }
 
-.arrow-circle {
-  background-color: rgba(255, 255, 255, 0.3);
-  width: 24px;
-  height: 24px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 18px;
-}
-
-.slider-wrapper {
+/* Carousel Layout */
+.carousel-container {
+  width: 100%;
   position: relative;
-
-  margin: 0 auto;
-
+  padding-bottom: 40px;
 }
 
-.reviews-container {
+.carousel-track {
   display: flex;
-  height:600px;
-  gap: 30px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  padding: 40px 100px;
-  align-items: center;
-  justify-content: center;
+  gap: 24px;
+  align-items: flex-end;
+  padding: 20px 40px;
+  width: max-content;
+  will-change: transform; /* Optimize for animation */
 }
 
-.reviews-container::-webkit-scrollbar {
-  display: none;
-}
-
-/* Default (inactive) card styling */
+/* Shared Card Styles */
 .review-card {
-  min-width: 350px;
-  max-width: 350px;
-  height: 320px;
-  border-radius: 30px;
-  padding: 35px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-  cursor: pointer;
   flex-shrink: 0;
-  opacity: 0.85;
-  transform: scale(0.85);
+  position: relative;
+  border-radius: 30px;
+  overflow: hidden;
 }
 
-/* Only add transitions on desktop */
-@media (min-width: 769px) {
-  .review-card {
-    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
+/* -- ESR Card (Blue - Large) -- */
+.review-card-esr {
+  width: 360px; /* Reduced from 480px */
+  height: 360px;
 }
 
-/* Active (selected) card styling - ONLY CENTER CARD */
-.review-card.active {
-  min-width: 420px;
-  max-width: 420px;
-  height: 420px;
-  padding: 25px;
-  opacity: 1;
-  transform: scale(1);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-  z-index: 2;
+.card-frame-blue {
+  background-color: #81D4FA; /* Blue frame color */
+  padding: 40px; /* Frame thickness */
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  border-radius: 30px;
 }
 
-/* Only add hover effects on desktop */
-@media (min-width: 769px) {
-  .review-card:hover {
-    opacity: 0.95;
-  }
-
-  .review-card.active:hover {
-    transform: scale(1);
-  }
-}
-
-/* Small card content (inactive cards) */
-.card-content-small {
+.card-inner-white {
+  background: #FFFAF5;
+  width: 100%;
+  height: 100%;
+  border-radius: 20px; /* Slightly less than frame */
+  padding: 24px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+}
+
+.reviewer-info-top-center {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.card-divider {
+  border: none;
+  border-top: 1px solid #EEE;
+  margin: 10px 0;
+  width: 100%;
+}
+
+.review-content-center {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.review-card-esr .review-quote {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+  line-height: 1.4;
+}
+
+/* -- Digestick Card (Green - Small) -- */
+.review-card-digestick {
+  width: 360px; /* Reduced from 400px */
+  height: 260px;
+}
+
+.card-frame-green {
+  background-color: #DCE775; /* Lime Green */
+  padding: 24px;
   height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-radius: 30px;
+}
+
+.card-content-side {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 
-.review-text {
-  font-size: 18px;
-  line-height: 1.5;
-  color: #333;
+.review-card-digestick .review-quote {
+  font-size: 16px;
   font-weight: 500;
-  margin-bottom: auto;
+  color: #333;
+  line-height: 1.5;
+  margin-top: 20px; /* Space from stars */
 }
 
-.reviewer-info {
+.reviewer-info-pill {
+  background: #FFFAF5;
+  border-radius: 40px;
+  padding: 8px 16px;
   display: flex;
   align-items: center;
-  gap: 15px;
-  margin-top: 25px;
-  padding: 18px 20px;
-  background-color: rgba(255, 255, 255, 0.7);
-  border-radius: 50px;
+  gap: 10px;
+  width: fit-content;
+  margin-top: auto;
 }
 
-.avatar {
-  width: 48px;
-  height: 48px;
+/* Shared Elements */
+.reviewer-image {
+  width: 44px;
+  height: 44px;
   border-radius: 50%;
-  overflow: hidden;
-  flex-shrink: 0;
-}
-
-.avatar img {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
-}
-
-.reviewer-details {
-  flex: 1;
+  background-color: #ddd;
 }
 
 .reviewer-name {
   font-size: 15px;
-  font-weight: 600;
-  color: #333;
-  margin: 0 0 4px 0;
-}
-
-.benefit-text {
-  font-size: 12px;
-  color: #666;
+  font-weight: 700;
+  color: #222;
   margin: 0;
 }
 
-/* Large card content (active card with white inner card) */
-.card-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  height: 100%;
-  width: 100%;
+.reviewer-benefit {
+  font-size: 11px;
+  color: #666;
+  text-transform: uppercase;
+  margin: 0;
+  letter-spacing: 0.5px;
 }
 
-.white-inner-card {
-  background-color: #FCF8F3;
-  border-radius: 25px;
-  padding: 35px 30px;
-  width: 100%;
-  height: 100%;
+.rating {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  gap: 4px;
 }
 
-.avatar-top {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
+.star {
+  color: #333;
+  font-size: 16px;
+}
+
+/* Green Line Indicator - Below Carousel */
+.progress-line {
+  width: 100%;
+  max-width: 1200px; /* Match header width */
+  height: 4px;
+  background: #E0E0E0;
+  margin: 20px auto 0;
+  border-radius: 2px;
+  position: relative;
   overflow: hidden;
-  margin-bottom: 15px;
 }
 
-.avatar-top img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.reviewer-header {
-  margin-bottom: 15px;
-}
-
-.reviewer-header .reviewer-name {
-  font-size: 18px;
-  font-weight: 600;
-  color: #333;
-  margin: 0 0 5px 0;
-}
-
-.reviewer-header .benefit-text {
-  font-size: 13px;
-  color: #666;
-  margin: 0;
-}
-
-/* Mobile font size improvements for white inner card */
-@media (max-width: 768px) {
-  .reviewer-header .reviewer-name {
-    font-size: 20px !important;
-    font-weight: 700 !important;
-  }
-
-  .reviewer-header .benefit-text {
-    font-size: 14px !important;
-  }
-
-  .avatar-top {
-    width: 70px !important;
-    height: 70px !important;
-    margin-bottom: 20px !important;
-  }
-}
-
-.divider {
-  width: 100%;
-  height: 1px;
-  background-color: rgba(0, 0, 0, 0.1);
-  margin: 15px 0 20px;
-}
-
-.review-text-large {
-  font-size: 20px;
-  line-height: 1.6;
-  color: #333;
-  font-weight: 500;
-  margin-bottom: auto;
-  padding: 0 10px;
-}
-
-.see-more-btn {
-  background: none;
-  border: none;
-  color: #666;
-  font-size: 14px;
-  cursor: pointer;
-  padding: 15px 0 0 0;
-  transition: color 0.3s ease;
-  margin-top: 20px;
-}
-
-.see-more-btn:hover {
-  color: #333;
-  text-decoration: underline;
-}
-
-.nav-btn {
+.progress-line::after {
+  content: '';
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: #FCF8F3;
-  border: 2px solid #e0e0e0;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  font-size: 28px;
-  color: #666;
-  cursor: pointer;
-  z-index: 10;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  top: 0;
+  left: 0;
+  width: 25%; /* Length of the indicator */
+  height: 100%;
+  background: #66BB6A; /* Green matching brand */
+  border-radius: 2px;
+  /* 
+     Since we don't have JS binding to the scroll position in CSS, 
+     we use a generic animation to simulate movement or user interaction.
+     Ideally, this would be updated via [style.transform] in Angular.
+  */
+  animation: slideLine 8s linear infinite;
 }
 
-.nav-btn:hover {
-  background-color: #8bc34a;
-  color: white;
-  border-color: #8bc34a;
-  transform: translateY(-50%) scale(1.1);
+@keyframes slideLine {
+  0% { transform: translateX(0%); }
+  50% { transform: translateX(300%); } /* Move across */
+  100% { transform: translateX(0%); }
 }
 
-.prev-btn {
-  left: 10px;
-}
-
-.next-btn {
-  right: 10px;
-}
-
-.dots-indicator {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 40px;
-}
-
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background-color: #d0d0d0;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.dot:hover {
-  background-color: #a0a0a0;
-}
-
-.dot.active {
-  background-color: #8bc34a;
-  transform: scale(1.4);
-}
-
-/* Responsive Design */
-@media (max-width: 1200px) {
-  .review-card.active {
-    min-width: 360px;
-    max-width: 360px;
-    height: 360px;
-  }
-
-  .review-card {
-    min-width: 320px;
-    max-width: 320px;
-    height: 300px;
-  }
-}
-
-@media (max-width: 1024px) {
-  .main-heading {
-    font-size: 38px;
-  }
-
-  .read-more-btn {
-    position: static;
-    margin-top: 20px;
-  }
-
-  .slider-wrapper {
-    padding: 0 60px;
-  }
-
-  .review-card.active {
-    min-width: 360px;
-    max-width: 360px;
-    height: 350px;
-  }
-
-  .review-card {
-    min-width: 300px;
-    max-width: 300px;
-    height: 280px;
-    transform: scale(0.85);
-  }
-}
-
+/* Responsive */
 @media (max-width: 768px) {
-  .reviews-section {
-    padding: 40px 15px;
+  .reviews-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 20px;
   }
-
-  .main-heading {
-    font-size: 32px;
+  
+  .reviews-title {
+      font-size: 36px;
   }
-
-  .subheading {
-    font-size: 14px;
+  
+  .review-card-esr {
+      width: 360px;
+      height: 360px;
   }
-
-  .slider-wrapper {
-    padding: 0 20px; /* Reduce padding for larger cards */
-  }
-
-  .review-card.active {
-    min-width: 380px !important; /* Much larger active cards */
-    max-width: 380px !important;
-    height: 420px !important; /* Taller cards */
-    padding: 40px !important; /* More padding */
-    transform: scale(1) !important; /* No scaling effects */
-    transition: none !important; /* Remove transitions */
-  }
-
-  .review-card {
-    min-width: 300px !important; /* Larger inactive cards */
-    max-width: 300px !important;
-    height: 320px !important;
-    padding: 30px !important;
-    transform: scale(0.9) !important; /* Less scaling */
-    transition: none !important; /* Remove transitions */
-  }
-
-  .review-card:hover {
-    transform: scale(0.9) !important; /* No hover effects */
-    opacity: 0.85 !important;
-  }
-
-  .review-card.active:hover {
-    transform: scale(1) !important; /* No hover effects for active */
-  }
-
-  .review-text {
-    font-size: 18px !important; /* Larger text */
-    line-height: 1.6 !important;
-  }
-
-  .review-text-large {
-    font-size: 20px !important; /* Larger text for active cards */
-    line-height: 1.6 !important;
-  }
-
-  .nav-btn {
-    width: 40px;
-    height: 40px;
-    font-size: 24px;
-  }
-}
-
-@media (max-width: 480px) {
-  .reviews-section {
-    padding: 30px 10px;
-  }
-
-  .main-heading {
-    font-size: 26px;
-  }
-
-  .subheading {
-    font-size: 13px;
-  }
-
-  .read-more-btn {
-    padding: 10px 20px;
-    font-size: 14px;
-  }
-
-  .slider-wrapper {
-    padding: 0 15px; /* Less padding for larger cards */
-  }
-
-  .review-card.active {
-    min-width: 320px !important; /* Much larger active cards */
-    max-width: 320px !important;
-    height: 380px !important; /* Taller cards */
-    padding: 35px !important; /* More padding */
-    transform: scale(1) !important; /* No scaling */
-    transition: none !important; /* Remove transitions */
-  }
-
-  .review-card {
-    min-width: 260px !important; /* Larger inactive cards */
-    max-width: 260px !important;
-    height: 300px !important;
-    padding: 25px !important;
-    transform: scale(0.9) !important; /* Less scaling */
-    transition: none !important; /* Remove transitions */
-  }
-
-  .review-card:hover {
-    transform: scale(0.9) !important; /* No hover effects */
-  }
-
-  .review-card.active:hover {
-    transform: scale(1) !important; /* No hover effects for active */
-  }
-
-  .review-text {
-    font-size: 16px !important; /* Larger text */
-    line-height: 1.5 !important;
-  }
-
-  .review-text-large {
-    font-size: 18px !important; /* Larger text for active cards */
-    line-height: 1.6 !important;
-  }
-
-  .reviewer-info {
-    padding: 15px 18px !important; /* More padding */
-  }
-
-  .avatar {
-    width: 45px !important; /* Larger avatar */
-    height: 45px !important;
-  }
-
-  .avatar-top {
-    width: 55px !important; /* Larger avatar */
-    height: 55px !important;
-  }
-
-  .reviewer-name {
-    font-size: 15px !important; /* Larger name */
-    font-weight: 600 !important;
-  }
-
-  .benefit-text {
-    font-size: 12px !important; /* Larger benefit text */
-  }
-
-  .nav-btn {
-    width: 36px;
-    height: 36px;
-    font-size: 20px;
-  }
-
-  .prev-btn {
-    left: 5px;
-  }
-
-  .next-btn {
-    right: 5px;
-  }
-}
-
-@media (max-width: 360px) {
-  .review-card.active {
-    min-width: 300px !important; /* Larger active cards */
-    max-width: 300px !important;
-    height: 360px !important; /* Taller cards */
-    padding: 30px !important;
-    transform: scale(1) !important; /* No scaling */
-    transition: none !important;
-  }
-
-  .review-card {
-    min-width: 240px !important; /* Larger inactive cards */
-    max-width: 240px !important;
-    height: 280px !important;
-    padding: 20px !important;
-    transform: scale(0.9) !important; /* Less scaling */
-    transition: none !important;
-  }
-
-  .review-card:hover {
-    transform: scale(0.9) !important;
-  }
-
-  .review-card.active:hover {
-    transform: scale(1) !important;
-  }
-
-  .main-heading {
-    font-size: 24px;
-  }
-
-  .reviews-container {
-    gap: 15px; /* Reduce gap for larger cards */
-  }
-
-  .slider-wrapper {
-    padding: 0 10px !important; /* Minimal padding */
+  
+  .review-card-digestick {
+      width: 240px;
+      height: 320px;
   }
 }

@@ -38,30 +38,40 @@ export class LoginComponent {
     this.isSignupMode = false;
   }
 
-  onGetOtp(type: 'signin' | 'signup') {
-    const mobile = type === 'signin' ? this.mobileSignIn : this.mobileSignUp;
+onGetOtp(type: 'signin' | 'signup') {
+  let mobile = type === 'signin' ? this.mobileSignIn : this.mobileSignUp;
 
-    if (!mobile || mobile.trim().length < 10) {
-      this.toastr.error('Please enter a valid mobile number.', 'Error');
-      return;
-    }
-
-    this.isSendingOtp = true;
-    this.authService.sendOtp(mobile.trim()).subscribe(
-      () => {
-        this.selectedMobile = mobile.trim();
-        this.isOtpSent = true;
-        this.otpFlowType = type;
-        this.otpValue = ''; // clear any previous OTP
-        this.toastr.success('OTP sent successfully.', 'Success');
-        this.isSendingOtp = false;
-      },
-      () => {
-        this.toastr.error('Failed to send OTP. Please try again.', 'Error');
-        this.isSendingOtp = false;
-      }
-    );
+  if (!mobile || mobile.trim().length < 10) {
+    this.toastr.error('Please enter a valid mobile number.', 'Error');
+    return;
   }
+
+  // Clean spaces & non-digits
+  mobile = mobile.trim().replace(/\D/g, '');
+
+  // Add 91 ONLY if not already present
+  if (!mobile.startsWith('91')) {
+    mobile = '91' + mobile;
+  }
+
+  this.isSendingOtp = true;
+
+  this.authService.sendOtp(mobile).subscribe(
+    () => {
+      this.selectedMobile = mobile;
+      this.isOtpSent = true;
+      this.otpFlowType = type;
+      this.otpValue = ''; // clear old OTP
+      this.toastr.success('OTP sent successfully.', 'Success');
+      this.isSendingOtp = false;
+    },
+    () => {
+      this.toastr.error('Failed to send OTP. Please try again.', 'Error');
+      this.isSendingOtp = false;
+    }
+  );
+}
+
 
   onOtpInput(rawValue: string) {
     // Single OTP string, max 6 digits

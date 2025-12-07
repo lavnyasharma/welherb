@@ -81,43 +81,43 @@ export class NavbarComponent implements OnInit, AfterViewInit {
           {
             label: 'By Concern',
             items: [
-              { label: 'Blood Deficiency', routerLink: ['/shopall'], queryParams: { category: 'blood-deficiency' } },
-              { label: 'Blood Pressure', routerLink: ['/shopall'], queryParams: { category: 'blood-pressure' } },
-              { label: 'Body Fatigue', routerLink: ['/shopall'], queryParams: { category: 'body-fatigue' } },
-              { label: 'Cholesterol', routerLink: ['/shopall'], queryParams: { category: 'cholesterol' } },
+              // { label: 'Blood Deficiency', routerLink: ['/shopall'], queryParams: { category: 'blood-deficiency' } },
+              // { label: 'Blood Pressure', routerLink: ['/shopall'], queryParams: { category: 'blood-pressure' } },
+              // { label: 'Body Fatigue', routerLink: ['/shopall'], queryParams: { category: 'body-fatigue' } },
+              // { label: 'Cholesterol', routerLink: ['/shopall'], queryParams: { category: 'cholesterol' } },
               { label: 'Diabetes', routerLink: ['/shopall'], queryParams: { category: 'diabetes' } },
               { label: 'ESR', routerLink: ['/shopall'], queryParams: { category: 'esr' } },
               { label: 'Gut', routerLink: ['/shopall'], queryParams: { category: 'gut' } },
               { label: 'Joint/Body Pains', routerLink: ['/shopall'], queryParams: { category: 'Joint/Body Pains' } },
               { label: 'Liver', routerLink: ['/shopall'], queryParams: { category: 'liver' } },
-              { label: 'Multivitamins', routerLink: ['/shopall'], queryParams: { category: 'ayurvedic-multivitamins' } },
-              { label: 'Piles', routerLink: ['/shopall'], queryParams: { category: 'piles' } },
-              { label: 'Prostate', routerLink: ['/shopall'], queryParams: { category: 'prostate' } },
+              // { label: 'Multivitamins', routerLink: ['/shopall'], queryParams: { category: 'ayurvedic-multivitamins' } },
+              // { label: 'Piles', routerLink: ['/shopall'], queryParams: { category: 'piles' } },
+              // { label: 'Prostate', routerLink: ['/shopall'], queryParams: { category: 'prostate' } },
               { label: 'Thyroid', routerLink: ['/shopall'], queryParams: { category: 'Thyroid' } }
             ]
           },
           { separator: true },
-          {
-            label: 'By Benefits',
-         items: [
-  { 
-    label: "Men's Wellness", 
-    routerLink: ['/shopall'], 
-    queryParams: { category: "Men's Wellness" } 
-  },
-  { 
-    label: "Women's Wellness", 
-    routerLink: ['/shopall'], 
-    queryParams: { category: "Women's Wellness" } 
-  },
-  { 
-    label: "Weight Management", 
-    routerLink: ['/shopall'], 
-    queryParams: { category: "Weight Management" } 
-  }
-]
+//           {
+//             label: 'By Benefits',
+//          items: [
+//   { 
+//     label: "Men's Wellness", 
+//     routerLink: ['/shopall'], 
+//     queryParams: { category: "Men's Wellness" } 
+//   },
+//   { 
+//     label: "Women's Wellness", 
+//     routerLink: ['/shopall'], 
+//     queryParams: { category: "Women's Wellness" } 
+//   },
+//   { 
+//     label: "Weight Management", 
+//     routerLink: ['/shopall'], 
+//     queryParams: { category: "Weight Management" } 
+//   }
+// ]
 
-          },
+//           },
           { separator: true },
           {
             label: 'By Categories',
@@ -126,7 +126,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
               { label: 'Powders', routerLink: '/shop/powders' },
               { label: 'Tablets', routerLink: '/shop/tablets' },
               { label: 'Capsules', routerLink: '/shop/capsules' },
-              { label: 'Syrup', routerLink: '/shop/syrup' }
+              // { label: 'Syrup', routerLink: '/shop/syrup' }
             ]
           }
         ]
@@ -142,7 +142,7 @@ export class NavbarComponent implements OnInit, AfterViewInit {
         routerLink: '/discover'
       },
       {
-        label: 'Expert Help',
+        label: 'Contact Us',
         icon: 'pi pi-question-circle',
         routerLink: '/expert-help'
       },

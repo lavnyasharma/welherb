@@ -61,9 +61,25 @@ export class AuthService {
 
   verifyOtp(mobile: string, otp: string): Observable<any> {
     return this.apiService.verifyOtp(mobile, otp).pipe(
-      tap(response => {
-        // Temporary: always set a token so frontend auth context is updated.
-        // When backend starts returning a real token, it will be used instead.
+      tap(async (response) => {
+        // If backend explicitly says user does not exist, auto-register with mobile
+        if (response && response.exists === false) {
+          const payload = { name: '', email: '', mobile };
+          try {
+            const registerResponse: any = await this.http
+              .post<any>(`${this.authUrl}/user/register`, payload)
+              .toPromise();
+
+            if (registerResponse && registerResponse.token) {
+              this.saveToken(registerResponse.token);
+              return;
+            }
+          } catch {
+            // If registration fails, fall back to existing token logic below
+          }
+        }
+
+        // Fallback / normal path: use token from verifyOtp response or temp token
         const token = response && response.token
           ? response.token
           : `otp_login_${mobile}`;

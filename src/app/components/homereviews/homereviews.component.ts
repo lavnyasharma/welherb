@@ -1,230 +1,105 @@
 import { Component, OnInit, OnDestroy, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 
+interface Review {
+  id: number;
+  name: string;
+  image: string;
+  benefit: string;
+  quote: string;
+  rating: number;
+  type: 'esr' | 'digestick';
+}
+
 @Component({
   selector: 'app-homereviews',
   templateUrl: './homereviews.component.html',
   styleUrl: './homereviews.component.css'
 })
 export class HomereviewsComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
+  @ViewChild('carouselTrack') carouselTrack!: ElementRef;
 
-  reviews = [
+  reviews: Review[] = [
     {
       id: 1,
       name: 'Rajeev Singh',
-      benefit: 'ESR COUNT',
-      text: 'Good for body pains, inflammation, ESR...our whole family uses without second thought!',
-      bgColor: '#d4e157',
-      hasFullContent: false
+      image: 'assets/images/rajeev.jpg',
+      benefit: 'Benefited from ESR COUNT',
+      quote: 'It has reduced my mom\'s ESR to normal in 1 month!',
+      rating: 5,
+      type: 'esr'
     },
     {
       id: 2,
-      name: 'Rajeev Singh',
-      benefit: 'ESR COUNT',
-      text: 'It has reduced my mom\'s ESR to normal in 1 month!',
-      bgColor: '#e1bee7',
-      hasFullContent: true
+      name: 'Priya Sharma',
+      image: 'assets/images/priya.jpg',
+      benefit: 'Benefited from DIGESTICK',
+      quote: 'Good for body pains, inflammation, ESR...our whole family uses without second thought!',
+      rating: 5,
+      type: 'digestick'
     },
     {
       id: 3,
-      name: 'Rajeev Singh',
-      benefit: 'ESR COUNT',
-      text: 'Good for body pains, inflammation, ESR...our whole family uses without second thought!',
-      bgColor: '#80deea',
-      hasFullContent: false
+      name: 'Amit Kumar',
+      image: 'assets/images/amit.jpg',
+      benefit: 'Benefited from ESR COUNT',
+      quote: 'Amazing results! My inflammation markers improved significantly within weeks.',
+      rating: 5,
+      type: 'esr'
     },
     {
       id: 4,
-      name: 'Rajeev Singh',
-      benefit: 'ESR COUNT',
-      text: 'Excellent results! Highly recommended for inflammation issues.',
-      bgColor: '#ffcc80',
-      hasFullContent: false
-    },
-    {
-      id: 5,
-      name: 'Rajeev Singh',
-      benefit: 'ESR COUNT',
-      text: 'Amazing product! Our family has seen great improvements.',
-      bgColor: '#f48fb1',
-      hasFullContent: false
+      name: 'Sneha Patel',
+      image: 'assets/images/sneha.jpg',
+      benefit: 'Benefited from DIGESTICK',
+      quote: 'Excellent for digestion and overall wellness. Highly recommended!',
+      rating: 5,
+      type: 'digestick'
     }
   ];
 
-  // Create infinite loop by tripling the array
-  get infiniteReviews() {
-    return [...this.reviews, ...this.reviews, ...this.reviews];
+  displayReviews: Review[] = [];
+  private animationFrame: number = 0;
+  private scrollPosition: number = 0;
+  private scrollSpeed: number = 0.5;
+
+  ngOnInit(): void {
+    // Create multiple copies for infinite scroll
+    this.displayReviews = [...this.reviews, ...this.reviews, ...this.reviews];
   }
 
-  currentIndex = 6; // Start at middle set (second copy)
-  autoSlideInterval: any;
-  scrollTimeout: any;
-  isScrollingProgrammatically = false;
-
-  ngOnInit() {
-    this.startAutoSlide();
+  ngAfterViewInit(): void {
+    this.startAutoScroll();
   }
 
-  ngAfterViewInit() {
-    setTimeout(() => {
-      this.scrollToIndex(this.currentIndex, false);
-      this.updateActiveCard();
-    }, 100);
-
-    if (this.scrollContainer) {
-      this.scrollContainer.nativeElement.addEventListener('scroll', () => {
-        if (this.isScrollingProgrammatically) return;
-        
-        clearTimeout(this.scrollTimeout);
-        this.scrollTimeout = setTimeout(() => {
-          this.updateActiveCard();
-          this.checkAndResetLoop();
-        }, 100);
-      });
+  ngOnDestroy(): void {
+    if (this.animationFrame) {
+      cancelAnimationFrame(this.animationFrame);
     }
   }
 
-  ngOnDestroy() {
-    this.stopAutoSlide();
-    if (this.scrollTimeout) {
-      clearTimeout(this.scrollTimeout);
-    }
-  }
+  private startAutoScroll(): void {
+    const animate = () => {
+      this.scrollPosition += this.scrollSpeed;
+      
+      if (this.carouselTrack) {
+        const track = this.carouselTrack.nativeElement;
+        const cardWidth = 400; // Approximate width of one card + gap
+        const resetPoint = this.reviews.length * cardWidth;
 
-  updateActiveCard() {
-    const container = this.scrollContainer?.nativeElement;
-    if (!container) return;
+        if (this.scrollPosition >= resetPoint) {
+          this.scrollPosition = 0;
+        }
 
-    const cards = container.querySelectorAll('.review-card');
-    if (cards.length === 0) return;
-
-    const containerRect = container.getBoundingClientRect();
-    const viewportCenter = containerRect.left + containerRect.width / 2;
-
-    let newActiveIndex = this.currentIndex;
-    let minDistance = Infinity;
-
-    cards.forEach((card: Element, index: number) => {
-      const cardRect = card.getBoundingClientRect();
-      const cardCenter = cardRect.left + cardRect.width / 2;
-      const distance = Math.abs(viewportCenter - cardCenter);
-
-      if (distance < minDistance) {
-        minDistance = distance;
-        newActiveIndex = index;
+        track.style.transform = `translateX(-${this.scrollPosition}px)`;
       }
-    });
 
-    if (newActiveIndex !== this.currentIndex) {
-      this.currentIndex = newActiveIndex;
-    }
+      this.animationFrame = requestAnimationFrame(animate);
+    };
+
+    this.animationFrame = requestAnimationFrame(animate);
   }
 
-  startAutoSlide() {
-    this.autoSlideInterval = setInterval(() => {
-      this.next();
-    }, 4000);
-  }
-
-  stopAutoSlide() {
-    if (this.autoSlideInterval) {
-      clearInterval(this.autoSlideInterval);
-    }
-  }
-
-  next() {
-    this.currentIndex = this.currentIndex + 1;
-    if (this.currentIndex >= this.infiniteReviews.length) {
-      this.currentIndex = this.reviews.length; // Jump to second set
-    }
-    this.scrollToIndex(this.currentIndex, true);
-  }
-
-  prev() {
-    this.currentIndex = this.currentIndex - 1;
-    if (this.currentIndex < 0) {
-      this.currentIndex = this.reviews.length - 1; // Jump to second set
-    }
-    this.scrollToIndex(this.currentIndex, true);
-  }
-
-  checkAndResetLoop() {
-    const totalReviews = this.reviews.length;
-    
-    // If we're in the first set, jump to the second set (middle)
-    if (this.currentIndex < totalReviews) {
-      this.isScrollingProgrammatically = true;
-      this.currentIndex = this.currentIndex + totalReviews;
-      this.scrollToIndex(this.currentIndex, false);
-      setTimeout(() => {
-        this.isScrollingProgrammatically = false;
-      }, 100);
-    }
-    // If we're in the third set, jump to the second set (middle)
-    else if (this.currentIndex >= totalReviews * 2) {
-      this.isScrollingProgrammatically = true;
-      this.currentIndex = this.currentIndex - totalReviews;
-      this.scrollToIndex(this.currentIndex, false);
-      setTimeout(() => {
-        this.isScrollingProgrammatically = false;
-      }, 100);
-    }
-  }
-
-  scrollToIndex(index: number, smooth: boolean = true) {
-    this.isScrollingProgrammatically = true;
-    
-    setTimeout(() => {
-      const container = this.scrollContainer?.nativeElement;
-      if (!container) return;
-
-      const cards = container.querySelectorAll('.review-card');
-      const targetCard = cards[index] as HTMLElement;
-
-      if (targetCard) {
-        const containerRect = container.getBoundingClientRect();
-        const cardRect = targetCard.getBoundingClientRect();
-        const scrollLeft = container.scrollLeft + (cardRect.left - containerRect.left) - (containerRect.width / 2) + (cardRect.width / 2);
-
-        container.scrollTo({
-          left: scrollLeft,
-          behavior: smooth ? 'smooth' : 'auto'
-        });
-
-        setTimeout(() => {
-          this.updateActiveCard();
-          this.isScrollingProgrammatically = false;
-        }, smooth ? 600 : 100);
-      }
-    }, 10);
-  }
-
-  setActive(index: number) {
-    this.currentIndex = index;
-    this.scrollToIndex(index, true);
-    this.stopAutoSlide();
-    this.startAutoSlide();
-  }
-
-  getDotIndex(cardIndex: number): number {
-    return cardIndex % this.reviews.length;
-  }
-
-  isActiveDot(dotIndex: number): boolean {
-    return this.getDotIndex(this.currentIndex) === dotIndex;
-  }
-
-  setActiveDot(dotIndex: number) {
-    // Find the card in the middle set that corresponds to this dot
-    const targetIndex = this.reviews.length + dotIndex;
-    this.setActive(targetIndex);
-  }
-
-  onMouseEnter() {
-    this.stopAutoSlide();
-  }
-
-  onMouseLeave() {
-    this.startAutoSlide();
+  getStars(rating: number): number[] {
+    return Array(rating).fill(0);
   }
 }

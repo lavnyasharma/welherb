@@ -27,7 +27,7 @@
 
 .doctor-image {
     width: 100%;
-    height: 450px; /* Increased height for better visual impact */
+    height: 400px; /* Increased height for better visual impact */
     object-fit: cover;
     object-position: center;
     border-radius: 40px;
@@ -44,6 +44,7 @@
     color: #333;
     margin-bottom: 16px;
     margin-top: 0;
+        font-family: 'Lato' !important;
 }
 
 .help-text {
@@ -52,6 +53,7 @@
     color: #666;
     margin-bottom: 0;
     max-width: 400px;
+
 }
 
 .button-wrapper {
@@ -62,8 +64,8 @@
 
 .call {
     border: none;
-    padding: 12px 24px;
-    border-radius: 25px;
+    padding: 8px 30px;
+    border-radius: 16px;
     background-color: #28a745;
     color: white;
     cursor: pointer;

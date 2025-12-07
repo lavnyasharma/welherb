@@ -1,75 +1,83 @@
 <div class="reviews-section">
-  <div class="header-section">
-    <h1 class="main-heading">
-      <span class="highlight">Trust</span> that we have earned
-    </h1>
-    <p class="subheading">
-      By bringing measurable results that show up in your reports<br>
+<div class="" style="display: flex; justify-content: space-between;margin-bottom: 60px;">
+    <div class="reviews-header">
+    <h2 class="reviews-title">
+      <span class="trust-text">Trust</span> that we have earned
+    </h2>
+    <p class="reviews-subtitle">
+      By bringing measurable results that show up in your reports
       and your body.
     </p>
-    <button class="read-more-btn">
-      Read More
-      <span class="arrow-circle">→</span>
-    </button>
+ 
   </div>
+  <div class="">
+        <button class="read-more-btn">
+      Read More
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d="M7.5 5L12.5 10L7.5 15" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
 
-  <div class="slider-wrapper" 
-       (mouseenter)="onMouseEnter()" 
-       (mouseleave)="onMouseLeave()">
-    <!-- <button class="nav-btn prev-btn" (click)="prev()">‹</button> -->
-    
-    <div class="reviews-container" #scrollContainer>
-      <div *ngFor="let review of infiniteReviews; let i = index" 
-           class="review-card" 
-           [class.active]="i === currentIndex"
-           [style.background-color]="review.bgColor"
-           (click)="setActive(i)">
+  </div>
+</div>
+ 
+  <div class="carousel-container">
+    <div class="carousel-track" #carouselTrack>
+      <div *ngFor="let review of displayReviews" 
+           class="review-card"
+           [ngClass]="review.type === 'esr' ? 'review-card-esr' : 'review-card-digestick'">
         
-        <!-- Content for active card (large card with white inner card) -->
-        <div class="card-content" *ngIf="i === currentIndex">
-          <div class="white-inner-card">
-            <div class="avatar-top">
-              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23ddd'/%3E%3Ccircle cx='50' cy='40' r='20' fill='%23999'/%3E%3Cpath d='M20 90 Q20 60 50 60 Q80 60 80 90 Z' fill='%23999'/%3E%3C/svg%3E" 
-                   alt="{{ review.name }}">
+        <!-- ESR Card (Large Blue - Center Style) -->
+        <ng-container *ngIf="review.type === 'esr'">
+          <div class="card-frame-blue">
+            <div class="card-inner-white">
+              <div class="reviewer-info-top-center">
+                <img [src]="review.image" [alt]="review.name" class="reviewer-image">
+                <div class="reviewer-details">
+                  <h3 class="reviewer-name">{{ review.name }}</h3>
+                  <p class="reviewer-benefit">{{ review.benefit }}</p>
+                </div>
+              </div>
+              
+              <hr class="card-divider">
+              
+              <div class="review-content-center">
+                <div class="rating">
+                  <span *ngFor="let star of getStars(review.rating)" class="star">★</span>
+                </div>
+                <blockquote class="review-quote">
+                  "{{ review.quote }}"
+                </blockquote>
+              </div>
             </div>
-            <div class="reviewer-header">
-              <h4 class="reviewer-name">{{ review.name }}</h4>
-              <p class="benefit-text">Benefited from {{ review.benefit }}</p>
-            </div>
-            
-            <div class="divider"></div>
-            
-            <p class="review-text-large">"{{ review.text }}"</p>
-            
-            <button class="see-more-btn" *ngIf="review.hasFullContent">See More</button>
           </div>
-        </div>
+        </ng-container>
 
-        <!-- Content for inactive cards (small cards) -->
-        <div class="card-content-small" *ngIf="i !== currentIndex">
-          <p class="review-text">"{{ review.text }}"</p>
-          
-          <div class="reviewer-info">
-            <div class="avatar">
-              <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='50' fill='%23ddd'/%3E%3Ccircle cx='50' cy='40' r='20' fill='%23999'/%3E%3Cpath d='M20 90 Q20 60 50 60 Q80 60 80 90 Z' fill='%23999'/%3E%3C/svg%3E" 
-                   alt="{{ review.name }}">
-            </div>
-            <div class="reviewer-details">
-              <h4 class="reviewer-name">{{ review.name }}</h4>
-              <p class="benefit-text">Benefited from {{ review.benefit }}</p>
+        <!-- Digestick Card (Small Green - Side Style) -->
+        <ng-container *ngIf="review.type === 'digestick'">
+          <div class="card-frame-green">
+            <div class="card-content-side">
+              <div class="rating">
+                <span *ngFor="let star of getStars(review.rating)" class="star">★</span>
+              </div>
+              
+              <blockquote class="review-quote">
+                "{{ review.quote }}"
+              </blockquote>
+
+              <div class="reviewer-info-pill">
+                <img [src]="review.image" [alt]="review.name" class="reviewer-image">
+                <div class="reviewer-details">
+                  <h3 class="reviewer-name">{{ review.name }}</h3>
+                  <p class="reviewer-benefit">{{ review.benefit }}</p>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        </ng-container>
       </div>
     </div>
-
-    <!-- <button class="nav-btn next-btn" (click)="next()">›</button> -->
-  </div>
-
-  <div class="dots-indicator">
-    <span *ngFor="let review of reviews; let i = index" 
-          class="dot" 
-          [class.active]="isActiveDot(i)"
-          (click)="setActiveDot(i)"></span>
+    
+    <div class="progress-line"></div>
   </div>
 </div>

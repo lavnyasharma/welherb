@@ -5,17 +5,21 @@
 }
 
 .grid-heading {
-  font-size: 2.4em; /* increased from 2em */
+  font-family: 'Arima', cursive;
+  font-weight: 700;
+  font-size: 42px;
 }
 
 .grid-description {
-  font-size: 1.4em; /* increased from 1.2em */
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  font-size: 16px;
 }
 
 .btn {
   display: flex;
   justify-content: center;
-  padding-top: 20px;
+  padding: 30px;
   background: #fcf8f4;
 }
 
@@ -24,8 +28,9 @@
   color: white;
   border: none;
   border-radius: 16px;
-  padding: 0.7em 1.2em; /* slight padding increase */
-  font-size: 1.1em; /* increased from 1em */
+  padding: 8px 40px;
+  font-size: 18px;
+  font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s;
 }
@@ -83,7 +88,7 @@
   opacity: 1;
 }
 .title-heading-as{
-  padding-inline: 20px;
+  padding-left: 100px;
 }
 
 @media (max-width: 1024px) {

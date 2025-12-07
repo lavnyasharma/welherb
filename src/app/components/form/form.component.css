@@ -41,7 +41,7 @@
 }
 
 .text-content p {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.7;
   color: #555;
   margin-bottom: 8px;
@@ -65,16 +65,16 @@
 }
 
 .form-section input {
-  width: 100%;
-  padding: 18px 24px;
-  border: 2px solid #ccc;
-  border-radius: 50px;
-  font-size: 16px;
-  outline: none;
-  transition: border-color 0.3s ease;
-  background-color: #FCF8F3;
-  color: #333;
-}
+width: 100%;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 16px;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s 
+ease;
+    background-color: #FCF8F3;
+    color: #333;}
 
 .form-section input::placeholder {
   color: #999;
@@ -85,20 +85,20 @@
 }
 
 .form-section button {
-  width: 100%;
-  padding: 18px 24px;
-  background-color: #6db33f;
-  color: white;
-  border: none;
-  border-radius: 50px;
-  font-size: 16px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  text-transform: capitalize;
-  box-shadow: 0 4px 12px rgba(109, 179, 63, 0.3);
+      width: 40%;
+    padding: 10px;
+    background-color: #4FAE32;
+    color: white;
+    border: none;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s 
+ease;
+    text-transform: capitalize;
+    box-shadow: 0 4px 12px rgba(109, 179, 63, 0.3);
 }
-
 .form-section button:hover {
   background-color: #5a9933;
   transform: translateY(-2px);

@@ -41,11 +41,13 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
       target: string,
       trigger: string,
       fromVars: Object,
-      toVars: Object
+      toVars: Object,
+      start= 'top 90%',
+      end = 'top 50%',
     ) => {
       ScrollTrigger.create({
         trigger,
-        start: 'top 90%',
+        start,
         onEnter: () => {
           gsap.fromTo(target,
             fromVars,
@@ -53,8 +55,8 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
               ...toVars,
               scrollTrigger: {
                 trigger,
-                start: 'top 90%',
-                end: 'top 50%',
+                start,
+                end,
                 scrub: true,
               }
             });
@@ -129,7 +131,10 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
       { bottom: '0%', scale: 1.3, left: '35%', transform: 'rotate(10deg)' },
       { bottom: '0%', scale: 1.2, left: '40%', transform: 'rotate(5deg)' });
 
-    createParallaxAnimationDelayed(".parallax-image", '.sec3',
+    createParallaxAnimationDelayed(".parallax-container", '.sec3',
+      {  zIndex:"10", },
+      { zIndex: '-1000', },'bottom 90%','bottom 50%');
+      createParallaxAnimationDelayed(".parallax-image", '.sec3',
       { bottom: '0%', scale: 1.2, left: '40%', transform: 'rotate(5deg)' },
       { bottom: '15%', scale: 1, left: '40%', transform: 'rotate(0deg)' });
 
@@ -160,9 +165,10 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
       "top 90%", "top 50%");
 
     createParallaxAnimationText(".button-container-buy-now", '.sec3',
-      { bottom: "-1000%", scale: 0.8 },
-      { top: "50%", left: "12%", scale: 1 },
+      { bottom: "-1000%", scale: 0.8,opacity: 0 },
+      { top: "50%", left: "12%", scale: 1,opacity: 1 },
       "top 90%", "top 50%");
+  
 
     // Label scroll movement
     createLabelAnimation('.sec', 1, 0);
