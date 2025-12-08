@@ -185,8 +185,29 @@
 }
 
 .category-tabs button.selected {
-  border-bottom-color: #3A3938;
   color: #3A3938;
+}
+
+/* Clean underline for selected state */
+.category-tabs button.selected::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: calc(100% - 20px); /* Underline only under text, not the icon */
+  height: 2px;
+  background-color: #3A3938;
+}
+
+/* Faded underline on hover */
+.category-tabs button:not(.selected):hover::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: calc(100% - 20px); /* Underline only under text, not the icon */
+  height: 2px;
+  background-color: rgba(58, 57, 56, 0.4);
 }
 
 /* small circled arrow icon after each tab label */

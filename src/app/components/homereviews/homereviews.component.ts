@@ -61,6 +61,7 @@ export class HomereviewsComponent implements OnInit, OnDestroy, AfterViewInit {
   private animationFrame: number = 0;
   private scrollPosition: number = 0;
   private scrollSpeed: number = 0.5;
+  progressPosition: number = 0; // Tracks the green line position (0-300%)
 
   ngOnInit(): void {
     // Create multiple copies for infinite scroll
@@ -91,6 +92,11 @@ export class HomereviewsComponent implements OnInit, OnDestroy, AfterViewInit {
         }
 
         track.style.transform = `translateX(-${this.scrollPosition}px)`;
+
+        // Update progress line position to sync with carousel
+        // Progress line should move proportionally with the carousel (0% to 300% range for 25% width indicator)
+        const progressPercentage = (this.scrollPosition / resetPoint) * 300;
+        this.progressPosition = progressPercentage;
       }
 
       this.animationFrame = requestAnimationFrame(animate);

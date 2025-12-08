@@ -1,6 +1,6 @@
 .reviews-section {
   padding: 80px 40px;
-  background-color: #FEFCF8; /* Main background from image */
+  background-color: #fdf8f4; /* Main background from image */
   overflow: hidden;
   font-family: 'Inter', sans-serif; /* Assuming Inter or similar */
   padding-left: 80px;
@@ -211,18 +211,9 @@
   height: 100%;
   background: #66BB6A; /* Green matching brand */
   border-radius: 2px;
-  /* 
-     Since we don't have JS binding to the scroll position in CSS, 
-     we use a generic animation to simulate movement or user interaction.
-     Ideally, this would be updated via [style.transform] in Angular.
-  */
-  animation: slideLine 8s linear infinite;
-}
-
-@keyframes slideLine {
-  0% { transform: translateX(0%); }
-  50% { transform: translateX(300%); } /* Move across */
-  100% { transform: translateX(0%); }
+  /* Controlled via JavaScript - syncs with carousel scroll */
+  transition: transform 0.05s linear;
+  transform: translateX(var(--progress-position, 0%));
 }
 
 /* Responsive */
