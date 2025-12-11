@@ -7,40 +7,13 @@
     </div>
     
     <div class="sidebar-item" [class.active]="activeTab === TAB_ORDERS" (click)="selectTab(TAB_ORDERS)">
-      <i class="pi pi-list"></i>
+      <i class="pi pi-file"></i>
       <span>Orders</span>
     </div>
     
-    <div class="sidebar-item" (click)="toggleProfileDropdown()">
-      <i class="pi pi-sort-alt"></i>
+    <div class="sidebar-item" (click)="openSwitchProfile()">
+      <i class="pi pi-arrows-v"></i>
       <span>Switch Profile</span>
-      <span class="subtext">{{ selectedProfile?.name || 'Select profile' }}</span>
-      <div class="profile-dropdown-menu" *ngIf="showProfileDropdown">
-        <div class="profile-option" *ngFor="let profile of savedProfiles" (click)="$event.stopPropagation(); switchToProfile(profile)">
-          <div class="profile-avatar">
-            <img [src]="profile.avatar" [alt]="profile.name">
-          </div>
-          <div class="profile-info">
-            <div class="profile-name">{{ profile.name }}</div>
-            <div class="profile-email">{{ profile.email }}</div>
-          </div>
-        </div>
-        <div class="profile-option add-new" (click)="$event.stopPropagation(); openAddMoreModal()">
-          <div class="add-icon">+</div>
-          <span>Add New Profile</span>
-        </div>
-      </div>
-    </div>
-    
-    <!-- Profile Names List -->
-    <div class="profile-names-sidebar">
-      <div class="profile-name-sidebar-item" 
-           *ngFor="let profile of savedProfiles" 
-           [class.active]="selectedProfile?.id === profile.id"
-           (click)="switchToProfile(profile)">
-        {{ profile.name }}
-      </div>
-    
     </div>
     
     <div class="sidebar-item" (click)="openAddMoreModal()">
@@ -70,82 +43,56 @@
         </div>
       </div>
       
-      <!-- For Personalized Design Section -->
-      <div class="personalized-section" style="margin-bottom: 20px;">
-        <h3>For Personalized Design:</h3>
-        <div class="personalized-options">
-          <div class="option-wrapper">
-             <span class="option-label">Gender:</span>
-             <p-dropdown 
-               [options]="genderOptions" 
-               [(ngModel)]="selectedGender" 
-               optionLabel="label" 
-               optionValue="value"
-               placeholder="Select"
-               styleClass="gender-dropdown"
-               [style]="{'minWidth':'100px', 'border':'none', 'box-shadow':'none'}">
-             </p-dropdown>
+      <!-- For Personalised Dosage Section -->
+      <div class="personalized-section">
+        <h3>For Personalised Dosage:</h3>
+        <div class="dosage-row">
+          <div class="dosage-field">
+            <span class="dosage-label">Gender</span>
+            <p-dropdown 
+              [options]="genderOptions" 
+              [(ngModel)]="selectedGender" 
+              optionLabel="label" 
+              optionValue="value"
+              placeholder="Select"
+              styleClass="dosage-dropdown">
+            </p-dropdown>
           </div>
-
-          <div class="option-wrapper">
-             <span class="option-label">Height:</span>
-             <p-dropdown 
-               [options]="heightOptions" 
-               [(ngModel)]="selectedHeight" 
-               optionLabel="label" 
-               optionValue="value"
-               placeholder="Select"
-               styleClass="gender-dropdown"
-               [style]="{'minWidth':'100px', 'border':'none', 'box-shadow':'none'}"
-               scrollHeight="200px">
-             </p-dropdown>
+          <div class="dosage-field">
+            <span class="dosage-label">Height</span>
+            <input type="text" [(ngModel)]="profileData.height" name="height" class="dosage-input" placeholder="" />
           </div>
-
-          <div class="option-wrapper">
-             <span class="option-label">Weight:</span>
-             <p-dropdown 
-               [options]="weightOptions" 
-               [(ngModel)]="selectedWeight" 
-               optionLabel="label" 
-               optionValue="value"
-               placeholder="Select"
-               styleClass="gender-dropdown"
-               [style]="{'minWidth':'100px', 'border':'none', 'box-shadow':'none'}"
-               scrollHeight="200px">
-             </p-dropdown>
+          <div class="dosage-field">
+            <span class="dosage-label">Weight</span>
+            <input type="text" [(ngModel)]="profileData.weight" name="weight" class="dosage-input" placeholder="" />
           </div>
         </div>
       </div>
 
       <form class="profile-form" (ngSubmit)="saveChanges()" #profileForm="ngForm">
-        <div class="form-section-title">Personal Info:</div>
+        <div class="form-section-title">Personal  Info:</div>
         
-        <div class="form-row">
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" [(ngModel)]="profileData.fullName" name="fullName" placeholder="Chandan Kapoor" />
+        <div class="form-row-horizontal">
+          <label class="form-label">Name</label>
+          <input type="text" [(ngModel)]="profileData.fullName" name="fullName" class="form-input" placeholder="Chandani Kapoor" />
+        </div>
+
+        <div class="form-row-horizontal">
+          <label class="form-label">Address</label>
+          <div class="input-with-icon">
+            <input type="text" [(ngModel)]="profileData.address" name="address" class="form-input" placeholder="Street 09, Banur, Mohali, 42 Chandigarh, India-132912" />
+            <i class="pi pi-chevron-down input-icon"></i>
           </div>
         </div>
 
-        <div class="form-row">
-          <div class="form-group">
-            <label>Address</label>
-            <input type="text" [(ngModel)]="profileData.address" name="address" placeholder="Street D7, Baner, Mahek, 42-Dwarikesh, India-132812" />
-          </div>
+        <div class="form-row-horizontal">
+          <label class="form-label">Phone</label>
+          <input type="tel" [(ngModel)]="profileData.phone" name="phone" class="form-input" placeholder="9387472342" />
         </div>
 
-        <div class="form-row">
-          <div class="form-group">
-            <label>Phone</label>
-            <input type="tel" [(ngModel)]="profileData.phone" name="phone" placeholder="9381473463" />
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label>Email</label>
-            <input type="email" [(ngModel)]="profileData.email" name="email" placeholder="Qwerkos.com" />
-          </div>
+        <div class="form-row-horizontal">
+          <label class="form-label">Email</label>
+          <input type="email" [(ngModel)]="profileData.email" name="email" class="form-input" placeholder="@welherb.com" />
         </div>
 
         <div class="form-actions">
