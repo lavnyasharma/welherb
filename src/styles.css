@@ -1,25 +1,104 @@
 /* You can add global styles to this file, and also import other style files */
-@import "primeicons/primeicons.css";
+@import "~primeicons/primeicons.css";
 
-/* Import Lato from Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap');
+/* Import Lato and Arima Madurai from Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Arima:wght@100..700&display=swap');
+
+/* ========================================
+   DESIGN SYSTEM - CSS VARIABLES
+   Theme: WelHerb Ayurveda
+   ======================================== */
+
+:root {
+    /* === COLOR PALETTE === */
+    /* Background Colors */
+    --color-background: #FCF8F3;
+    --color-background-alt: #FBF9F3;
+    
+    /* Primary Colors */
+    --color-cta: #4FAE32;           /* Call To Action - Green */
+    --color-cta-hover: #3d8a2a;     /* CTA Hover State */
+    --color-accent: #9ACA3B;        /* Character/Accent Color */
+    --color-accent-light: #8BC34A;  /* Light accent variation */
+    
+    /* Text Colors */
+    --color-text-primary: #3A3938;  /* Primary Text Color */
+    --color-text-secondary: #7E7C79; /* Navigation/Secondary Text */
+    --color-text-muted: #666666;    /* Muted/Subtle Text */
+    --color-text-light: #888888;    /* Light Text */
+    --color-text-on-cta: #FFFFFF;   /* Text on CTA buttons */
+    
+    /* UI Colors */
+    --color-border: #E0E0E0;
+    --color-border-light: #EEEEEE;
+    --color-shadow: rgba(0, 0, 0, 0.1);
+    
+    /* === TYPOGRAPHY SCALE === */
+    /* Font Families */
+    --font-primary: 'Lato', sans-serif;
+    --font-display: 'Arima', cursive;
+    
+    /* Font Sizes - Based on Theme Guide */
+    --font-size-xs: 10px;
+    --font-size-sm: 12px;
+    --font-size-base: 14px;         /* Paragraphs */
+    --font-size-md: 16px;           /* Navigation Buttons, CTA Text */
+    --font-size-lg: 20px;           /* Paragraph Headings */
+    --font-size-xl: 22px;           /* Frame Headings */
+    --font-size-2xl: 36px;
+    --font-size-3xl: 40px;          /* Section Headings */
+    --font-size-4xl: 48px;          /* Headlines */
+    
+    /* Font Weights */
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-bold: 700;
+    --font-weight-black: 900;
+    
+    /* Line Heights */
+    --line-height-tight: 1.2;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.7;
+    
+    /* === SPACING === */
+    --spacing-xs: 4px;
+    --spacing-sm: 8px;
+    --spacing-md: 16px;
+    --spacing-lg: 24px;
+    --spacing-xl: 32px;
+    --spacing-2xl: 48px;
+    --spacing-3xl: 64px;
+    
+    /* === BORDER RADIUS === */
+    --radius-sm: 8px;
+    --radius-md: 16px;
+    --radius-lg: 20px;
+    --radius-xl: 40px;
+    --radius-full: 50%;
+    
+    /* === TRANSITIONS === */
+    --transition-fast: 0.2s ease;
+    --transition-normal: 0.3s ease;
+    --transition-slow: 0.5s ease;
+}
 
 html {
     scroll-behavior: smooth;
 }
 
 body {
-    font-family: 'Lato', sans-serif !important;
-    font-weight: normal;
-    background: var(--surface-ground);
-    color: var(--text-color);
+    font-family: var(--font-primary) !important;
+    font-weight: var(--font-weight-regular);
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
     margin: 0px !important;
-    background-color: #fcf9f4 !important;
+    background-color: var(--color-background) !important;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden !important;
     position: relative;
+    line-height: var(--line-height-normal);
 }
 
 /* Ensure all main sections have proper spacing from navbar */
@@ -39,7 +118,9 @@ button, a, [role="button"] {
 
 button, .p-button, .btn {
     height: 48px !important;
-    font-weight: 500 !important;
+    font-weight: var(--font-weight-medium) !important;
+    font-family: var(--font-primary) !important;
+    font-size: var(--font-size-md) !important;
 }
 
 /* Prevent text selection on buttons for better mobile UX */
@@ -50,13 +131,94 @@ button {
     user-select: none;
 }
 
-/* Headings use Arima font */
+/* Headings use Arima font - Display Font */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Arima' !important;
+    font-family: var(--font-display) !important;
+    color: var(--color-text-primary);
 }
-span{
-     /* font-family: 'Arima'  !important; */
+
+h1 {
+    font-size: var(--font-size-4xl);
+    font-weight: var(--font-weight-black);
+    line-height: var(--line-height-tight);
 }
+
+h2 {
+    font-size: var(--font-size-3xl);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+}
+
+h3 {
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-bold);
+}
+
+h4 {
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+}
+
+/* === TYPOGRAPHY UTILITY CLASSES === */
+
+/* Highlighted/Accent Text - Arima Madurai */
+.text-accent, .highlight, .trust-text {
+    color: var(--color-accent) !important;
+    font-family: var(--font-display) !important;
+    font-weight: var(--font-weight-black);
+}
+
+/* Paragraph text */
+.text-paragraph {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-regular);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-primary);
+}
+
+/* Navigation text */
+.text-nav {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-md);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-secondary);
+}
+
+/* Paragraph headings */
+.text-heading {
+    font-family: var(--font-primary);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+}
+
+/* Frame headings - Arima style */
+.text-frame-heading {
+    font-family: var(--font-display);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-black);
+    color: var(--color-text-primary);
+}
+
+/* === BUTTON STYLES === */
+.btn-cta {
+    background-color: var(--color-cta) !important;
+    color: var(--color-text-on-cta) !important;
+    font-family: var(--font-primary) !important;
+    font-size: var(--font-size-md) !important;
+    font-weight: var(--font-weight-bold) !important;
+    border: none !important;
+    border-radius: var(--radius-md) !important;
+    transition: var(--transition-fast);
+}
+
+.btn-cta:hover {
+    background-color: var(--color-cta-hover) !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(79, 174, 50, 0.3);
+}
+
 /* Components & utility classes */
 .p-card {
     box-shadow: none;
@@ -64,7 +226,7 @@ span{
 }
 
 .p-carousel .p-carousel-indicators .p-carousel-indicator.p-highlight button {
-    background-color: #4eae32 !important;
+    background-color: var(--color-cta) !important;
 }
 
 .p-carousel-items-content {
@@ -73,8 +235,8 @@ span{
 }
 
 .card {
-    background: #fcf8f4;
-    border-radius: 10px;
+    background: var(--color-background);
+    border-radius: var(--radius-sm);
 }
 
 ul {
@@ -82,11 +244,11 @@ ul {
 }
 
 .ant-input-affix-wrapper {
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
 }
 
 .p-menubar {
-    background-color: #fcf8f4 !important;
+    background-color: var(--color-background) !important;
     border: none !important;
 }
 
@@ -101,10 +263,15 @@ ul {
 .ant-menu-horizontal {
     line-height: 46px;
     border: none !important;
-    background: #fcf8f4;
+    background: var(--color-background);
     box-shadow: none;
 }
 
 a {
-    color: #20202093 !important;
+    color: var(--color-text-secondary) !important;
+    transition: var(--transition-fast);
+}
+
+a:hover {
+    color: var(--color-cta) !important;
 }

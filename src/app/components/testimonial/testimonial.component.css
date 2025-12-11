@@ -1,6 +1,6 @@
 .testimonial-container {
   padding: 50px;
-  background: #fcf8f4;
+  background: var(--color-background);
 }
 
 /* Grid for Desktop View */
@@ -13,12 +13,12 @@
 }
 
 .testimonial-card {
-  background: #fcf9f4;
-  border: 1px solid #4FAE32;
-  border-radius: 8px;
+  background: var(--color-background);
+  border: 1px solid var(--color-cta);
+  border-radius: var(--radius-sm);
   padding: 20px;
   text-align: left; /* Align text to the left */
-  transition: transform 0.3s ease-in-out;
+  transition: transform var(--transition-normal);
   min-height: 200px;
   display: flex;
   flex-direction: column;
@@ -34,20 +34,21 @@
 
 .stars {
   display: flex;
-  color: #7eb36a !important;
-  font-size: 18px;
+  color: var(--color-accent) !important;
+  font-size: var(--font-size-md);
   justify-content: flex-start; /* Align stars to the left */
 }
 
 .review {
-  font-size: 16px;
+  font-size: var(--font-size-base);
+  font-family: var(--font-primary);
   margin: 10px 0;
-  color: #333;
+  color: var(--color-text-primary);
   text-align: left; /* Align review text to the left */
   word-wrap: break-word;
   overflow-wrap: break-word;
   hyphens: auto;
-  line-height: 1.5;
+  line-height: var(--line-height-normal);
   word-break: normal;
 }
 
@@ -68,20 +69,22 @@ align-items: center;
 .profile-img {
   width: 50px;
   height: 50px;
-  border-radius: 50%;
-  border: 1px solid #7eb36a;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--color-accent);
 }
 
 .name {
-  font-size: 18px;
-  font-weight: bold;
-  color: #000;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-primary);
+  color: var(--color-text-primary);
   text-align: left; /* Align name to the left */
 }
 
 .subtext {
-  font-size: 14px;
-  color: #777;
+  font-size: var(--font-size-sm);
+  font-family: var(--font-primary);
+  color: var(--color-text-secondary);
   text-align: left; /* Align subtext to the left */
 }
 

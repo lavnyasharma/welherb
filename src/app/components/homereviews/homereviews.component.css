@@ -1,34 +1,35 @@
 .reviews-section {
   padding: 80px 40px;
-  background-color: #fdf8f4; /* Main background from image */
+  background-color: var(--color-background);
   overflow: hidden;
-  font-family: 'Inter', sans-serif; /* Assuming Inter or similar */
+  font-family: var(--font-primary);
   padding-left: 80px;
 }
 
 .reviews-header {
-
-
   gap: 20px;
 }
 
 .reviews-title {
-  font-size: 48px;
-  font-weight: 700;
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
   margin: 0 0 10px 0;
-  color: #333;
-  line-height: 1.1;
-  font-family: 'Playfair Display', serif; /* Serif for heading */
+  color: var(--color-text-primary);
+  line-height: var(--line-height-tight);
+  font-family: var(--font-display);
 }
 
 .trust-text {
-  color: #8BC34A; /* Brand Green */
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-black);
 }
 
 .reviews-subtitle {
-  font-size: 18px;
-  color: #666;
-  line-height: 1.5;
+  font-size: var(--font-size-md);
+  font-family: var(--font-primary);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-normal);
   margin: 0;
   max-width: 450px;
 }
@@ -55,7 +56,7 @@
 .review-card {
   flex-shrink: 0;
   position: relative;
-  border-radius: 30px;
+  border-radius: var(--radius-xl);
   overflow: hidden;
 }
 
@@ -66,20 +67,20 @@
 }
 
 .card-frame-blue {
-  background-color: #81D4FA; /* Blue frame color */
+  background-color: #93D5E7; /* Blue frame color */
   padding: 40px; /* Frame thickness */
   height: 100%;
   box-sizing: border-box;
   display: flex;
   align-items: center;
-  border-radius: 30px;
+  border-radius: var(--radius-xl);
 }
 
 .card-inner-white {
-  background: #FFFAF5;
+  background: var(--color-background);
   width: 100%;
   height: 100%;
-  border-radius: 20px; /* Slightly less than frame */
+  border-radius: var(--radius-lg); /* Slightly less than frame */
   padding: 24px;
   display: flex;
   flex-direction: column;
@@ -95,7 +96,7 @@
 
 .card-divider {
   border: none;
-  border-top: 1px solid #EEE;
+  border-top: 1px solid var(--color-border-light);
   margin: 10px 0;
   width: 100%;
 }
@@ -107,9 +108,10 @@
 }
 
 .review-card-esr .review-quote {
-  font-size: 18px;
-  font-weight: 600;
-  color: #333;
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-primary);
+  color: var(--color-text-primary);
   line-height: 1.4;
 }
 
@@ -120,14 +122,14 @@
 }
 
 .card-frame-green {
-  background-color: #DCE775; /* Lime Green */
+  background-color: #E0EC63; /* Lime Green */
   padding: 24px;
   height: 100%;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-radius: 30px;
+  border-radius: var(--radius-xl);
 }
 
 .card-content-side {
@@ -138,15 +140,16 @@
 }
 
 .review-card-digestick .review-quote {
-  font-size: 16px;
-  font-weight: 500;
-  color: #333;
-  line-height: 1.5;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  font-family: var(--font-primary);
+  color: var(--color-text-primary);
+  line-height: var(--line-height-normal);
   margin-top: 20px; /* Space from stars */
 }
 
 .reviewer-info-pill {
-  background: #FFFAF5;
+  background: var(--color-background);
   border-radius: 40px;
   padding: 8px 16px;
   display: flex;
@@ -160,21 +163,23 @@
 .reviewer-image {
   width: 44px;
   height: 44px;
-  border-radius: 50%;
+  border-radius: var(--radius-full);
   object-fit: cover;
-  background-color: #ddd;
+  background-color: var(--color-border);
 }
 
 .reviewer-name {
   font-size: 15px;
-  font-weight: 700;
-  color: #222;
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-primary);
+  color: var(--color-text-primary);
   margin: 0;
 }
 
 .reviewer-benefit {
-  font-size: 11px;
-  color: #666;
+  font-size: var(--font-size-xs);
+  font-family: var(--font-primary);
+  color: var(--color-text-muted);
   text-transform: uppercase;
   margin: 0;
   letter-spacing: 0.5px;
@@ -186,8 +191,8 @@
 }
 
 .star {
-  color: #333;
-  font-size: 16px;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
 }
 
 /* Green Line Indicator - Below Carousel */
@@ -195,7 +200,7 @@
   width: 100%;
   max-width: 1200px; /* Match header width */
   height: 4px;
-  background: #E0E0E0;
+  background: var(--color-border);
   margin: 20px auto 0;
   border-radius: 2px;
   position: relative;
@@ -209,7 +214,7 @@
   left: 0;
   width: 25%; /* Length of the indicator */
   height: 100%;
-  background: #66BB6A; /* Green matching brand */
+  background: var(--color-cta); /* Green matching brand */
   border-radius: 2px;
   /* Controlled via JavaScript - syncs with carousel scroll */
   transition: transform 0.05s linear;
@@ -225,7 +230,7 @@
   }
   
   .reviews-title {
-      font-size: 36px;
+      font-size: var(--font-size-2xl);
   }
   
   .review-card-esr {

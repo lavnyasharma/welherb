@@ -497,4 +497,103 @@
   .form-group {
     margin-bottom: 15px;
   }
+
+/* Promotional Banner Section */
+.promo-banner-section {
+  margin-top: 60px;
+  width: 100%;
+}
+
+.promo-card {
+  background-color: #FDF8F3; /* Match the beige/cream background */
+  border: 1px solid #eee; /* Assuming slight border or shadow from image */
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  overflow: hidden;
+  max-width: 900px; /* Constrain width if needed */
+  margin: 0 auto;
+}
+
+/* For purple variation (Fix High) use specific class if needed, default to Green/Sugaright style first */
+/* The user provided 2 images, green and purple. Let's make it generic or default to green as per first image */
+
+.promo-image-container {
+  flex: 1;
+  background-color: #E8F5E9; /* Light green bg for product area */
+  padding: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+/* Adjust bg based on user preference or dynamic class */
+.promo-product-image {
+  max-height: 250px;
+  object-fit: contain;
+  /* Add shadow/effect as seen in image */
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.15));
+}
+
+.promo-content {
+  flex: 0.8;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.promo-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 10px 0;
+}
+
+.promo-text {
+  font-size: 16px;
+  color: #666;
+  margin: 0 0 24px 0;
+}
+
+.promo-btn {
+  background-color: #8E44AD; /* Purple from the image button (Fix High) or Green? */
+  /* Image 1 (Green) has Purple button? Let's check. 
+     Image 1: Green background, Purple Button "Buy Sample".
+     Image 2: Purple background, Light Purple Button "Buy Sample".
+     Let's use the Purple Button style as it pops. */
+  background-color: #9b59b6; 
+  color: white;
+  border: none;
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  width: fit-content;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: background-color 0.3s;
+}
+
+.promo-btn:hover {
+  background-color: #8e44ad;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .promo-card {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .promo-content {
+    align-items: center;
+    padding: 30px;
+  }
+}
 }

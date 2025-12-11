@@ -16,6 +16,15 @@ export class ProfileComponent implements OnInit {
   // Define the type for activeTab
   activeTab: 'profile' | 'orders' | 'order-details' = this.TAB_PROFILE;
   
+  genderOptions = [
+    { label: 'Male', value: 'male' },
+    { label: 'Female', value: 'female' },
+    { label: 'Other', value: 'other' }
+  ];
+
+  heightOptions: { label: string, value: string }[] = [];
+  weightOptions: { label: string, value: number }[] = [];
+  
   constructor(
     private apiService: ApiService,
     private toastService: ToastrService
@@ -108,7 +117,24 @@ export class ProfileComponent implements OnInit {
   ];
 
   ngOnInit(): void {
+    this.generateOptions();
     this.getUserProfile();
+  }
+
+  generateOptions(): void {
+    // Generate Height Options (4'0" to 7'0")
+    for (let f = 4; f <= 7; f++) {
+      for (let i = 0; i < 12; i++) {
+        if (f === 7 && i > 0) break;
+        const val = `${f}.${i}`;
+        this.heightOptions.push({ label: `${f}' ${i}"`, value: val });
+      }
+    }
+
+    // Generate Weight Options (30kg to 150kg)
+    for (let w = 30; w <= 150; w++) {
+      this.weightOptions.push({ label: `${w} kg`, value: w });
+    }
   }
 
   // Handle profile picture upload

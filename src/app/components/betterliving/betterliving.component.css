@@ -17,18 +17,20 @@ padding: 20px;
 
 .main-title {
   font-size: 3.5rem;
-  font-weight: 800;
-  color: #1a202c;
+  font-weight: var(--font-weight-black);
+  font-family: var(--font-display);
+  color: var(--color-text-primary);
   margin-bottom: 24px;
   letter-spacing: -0.02em;
-  line-height: 1.1;
+  line-height: var(--line-height-tight);
 }
 
 .subtitle {
-  font-size: 1.125rem;
-  color: #4a5568;
-  line-height: 1.7;
-  font-weight: 400;
+  font-size: var(--font-size-md);
+  font-family: var(--font-primary);
+  color: var(--color-text-muted);
+  line-height: var(--line-height-relaxed);
+  font-weight: var(--font-weight-regular);
 }
 
 /* Content wrapper */
@@ -62,7 +64,7 @@ padding: 20px;
   height: auto;
   display: block;
   object-fit: cover;
-  border-radius: 28px;
+  border-radius: var(--radius-xl);
 }
 
 /* Responsive design */

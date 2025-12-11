@@ -1,10 +1,13 @@
 .Card {
     text-align: center;
-    background: #fcf8f4;
+    background: var(--color-background);
 }
 
 .heading {
     font-size: 4rem;
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-black);
+    color: var(--color-text-primary);
     margin-bottom: 20px;
 }
 
@@ -47,25 +50,28 @@
 .word-box {
     padding: 40px;
     margin: 60px;
-    border: 3px solid #4FAE32;
+    border: 3px solid var(--color-cta);
     border-left: none; /* Remove the left border */
     border-right: none; /* Remove the right border */
     border-radius: 50px;
     width: auto;
     text-align: center;
     position: relative;
+    font-family: var(--font-primary);
+    font-size: var(--font-size-md);
+    color: var(--color-text-primary);
 }
 
 /* For the first block of text */
 .text1 .word-box:first-child {
-    border-left: 3px solid #4FAE32; /* Left border for the first word-box in text1 */
+    border-left: 3px solid var(--color-cta); /* Left border for the first word-box in text1 */
     border-top-left-radius: 50px;
     border-bottom-left-radius: 50px;
 }
 
 /* For the last block of text */
 .text2 .word-box:last-child {
-    border-right: 3px solid #4FAE32; /* Right border for the last word-box in text2 */
+    border-right: 3px solid var(--color-cta); /* Right border for the last word-box in text2 */
     border-top-right-radius: 50px;
     border-bottom-right-radius: 50px;
 }

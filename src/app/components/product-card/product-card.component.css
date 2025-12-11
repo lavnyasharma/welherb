@@ -12,10 +12,11 @@
 
 .product-title {
   font-size: 3rem;
-  font-weight: 700;
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-display);
   margin-top: 4vh;
   margin-bottom: 2vh;
-  color: #3A3938;
+  color: var(--color-text-primary);
   text-align: center;
   z-index: 10;
 }
@@ -46,30 +47,30 @@
 
 .product-desc-left h1,
 .product-desc-right h1 {
-  font-size: 40px;
-  font-weight: 700;
+  font-size: var(--font-size-3xl);
+  font-weight: var(--font-weight-bold);
   margin-bottom: 16px;
-  color: #3A3938;
-  font-family: 'Lato', sans-serif !important;
+  color: var(--color-text-primary);
+  font-family: var(--font-primary) !important;
   margin-top: 0;
   letter-spacing: -0.5px;
 }
 
 .if-you {
-  font-size: 18px;
+  font-size: var(--font-size-md);
   margin-bottom: 12px;
-  color: #3A3938;
-  font-family: 'Lato', sans-serif;
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
 }
 
 .product-desc-left ul,
 .product-desc-right ul {
   list-style: disc;
   padding-left: 20px;
-  font-size: 18px;
+  font-size: var(--font-size-md);
   line-height: 1.9;
-  color: #3A3938;
-  font-family: 'Lato', sans-serif;
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
 }
 
 .product-desc-left ul li,
@@ -88,45 +89,47 @@
 .buy-now-btn {
   padding: 8px 25px;
   border: none;
-  border-radius: 16px;
-  font-size: 1rem;
-  font-weight: 600;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-md);
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-bold);
   cursor: pointer;
-  transition: all 0.2s;
+  transition: var(--transition-fast);
 }
 
 .learn-more-btn {
   background: transparent;
-  border: 2px solid #3A3938;
-  color: #3A3938;
+  border: 2px solid var(--color-text-primary);
+  color: var(--color-text-primary);
 }
 
 .learn-more-btn:hover {
-  background: #3A3938;
-  color: #fff;
+  background: var(--color-text-primary);
+  color: var(--color-text-on-cta);
 }
 
 .buy-now-btn {
-  background: #FCF8F3;
-  color: #3A3938;
-  border: 2px solid #FCF8F3;
+  background: var(--color-background);
+  color: var(--color-text-primary);
+  border: 2px solid var(--color-background);
 }
 
 .buy-now-btn:hover {
-  background: #3A3938;
-  color: #fff;
+  background: var(--color-text-primary);
+  color: var(--color-text-on-cta);
 }
 
 .no-product-message {
   margin-top: 200px;
   font-size: 1.5rem;
   text-align: center;
-  color: #3A3938;
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
   padding: 40px 60px;
   background: rgba(255, 255, 255, 0.95);
-  border-radius: 20px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-  font-weight: 600;
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 20px var(--color-shadow);
+  font-weight: var(--font-weight-bold);
   z-index: 10;
 }
 
@@ -142,20 +145,21 @@
 
 .sub-product-tabs button {
   padding: 10px 20px;
-  border-radius: 20px;
+  border-radius: var(--radius-lg);
   background-color: rgba(255, 255, 255, 0.9);
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   cursor: pointer;
-  font-weight: 500;
-  font-size: 0.9rem;
-  transition: all 0.2s;
-  color: #3A3938;
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-sm);
+  font-family: var(--font-primary);
+  transition: var(--transition-fast);
+  color: var(--color-text-primary);
 }
 
 .sub-product-tabs button.selected {
-  background-color: #3A3938;
-  color: #fff;
-  border-color: #3A3938;
+  background-color: var(--color-text-primary);
+  color: var(--color-text-on-cta);
+  border-color: var(--color-text-primary);
 }
 
 .category-tabs {
@@ -176,16 +180,17 @@
   background: transparent;
   border: none;
   border-bottom: 2px solid transparent;
-  color: #3A3938;
-  font-size: 1rem;
-  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-md);
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-bold);
   cursor: pointer;
-  transition: border-color 0.2s, color 0.2s;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
   position: relative;
 }
 
 .category-tabs button.selected {
-  color: #3A3938;
+  color: var(--color-text-primary);
 }
 
 /* Clean underline for selected state */
@@ -196,7 +201,7 @@
   left: 0;
   width: calc(100% - 20px); /* Underline only under text, not the icon */
   height: 2px;
-  background-color: #3A3938;
+  background-color: var(--color-text-primary);
 }
 
 /* Faded underline on hover */
@@ -237,13 +242,13 @@
     left: 0;
     padding: 12px 0;
     background: rgba(255, 255, 255, 0.95);
-    border-top: 1px solid #e0e0e0;
+    border-top: 1px solid var(--color-border);
     gap: 8px;
     flex-wrap: wrap;
   }
 
   .category-tabs button {
-    font-size: 0.9rem;
+    font-size: var(--font-size-sm);
     padding: 10px 18px;
   }
 

@@ -4,18 +4,21 @@
 .Heading{
   display: flex;
       justify-content: center;
-      font-size: 50px;
-      font-weight: bold;
+      font-size: var(--font-size-4xl);
+      font-weight: var(--font-weight-bold);
+      font-family: var(--font-display);
+      color: var(--color-text-primary);
 }
 .content{
   display: flex;
       justify-content: center;
-      font-size: 18px;
-   
+      font-size: var(--font-size-md);
+      font-family: var(--font-primary);
+      color: var(--color-text-primary);
 }
 .section_container{
   padding: 60px;
-    border: 1px solid #24b04b;
+    border: 1px solid var(--color-cta);
 }
 .content2{
   display: flex;
@@ -32,10 +35,14 @@
 .head{
   display: flex;
     justify-content: center;
-    font-weight: 600;
+    font-weight: var(--font-weight-bold);
+    font-family: var(--font-display);
+    color: var(--color-text-primary);
 }
 .texts{  
   text-align: justify;
+  font-family: var(--font-primary);
+  color: var(--color-text-primary);
 }
 
 .imgFlr{
@@ -55,4 +62,5 @@
 .imgFlrother{
   /* position: absolute;
   left: -143px; */
+  position: relative;
 }

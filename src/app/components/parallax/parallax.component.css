@@ -7,7 +7,7 @@
   /* x or y for direction, mandatory or proximity for behavior */
   /* Enable scrolling */
  
-  background: #FCF8F3;
+  background: var(--color-background);
   /* Optional: Enables smooth scrolling */
 }
 
@@ -27,14 +27,17 @@
 
 .title {
   font-size: 2.5rem;
-  font-weight: 600;
-  color: #333;
+  font-weight: var(--font-weight-bold);
+  font-family: var(--font-display);
+  color: var(--color-text-primary);
   line-height: 30px;
 
 }
 
 .highlight {
-  color: #8bc34a;
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-weight: var(--font-weight-black);
 }
 
 .button-container {
@@ -53,16 +56,19 @@
 
 
 .btn {
-  background-color: #4FAE32;
-  color: white;
+  background-color: var(--color-cta);
+  color: var(--color-text-on-cta);
   padding: 8px 35px;
   border: none;
-  border-radius: 16px;
-  font-size: 1rem;
-  border: 2px solid #4FAE32;
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-md);
+  font-family: var(--font-primary);
+  font-weight: var(--font-weight-bold);
+  border: 2px solid var(--color-cta);
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
   position: relative;
   cursor: pointer;
+  transition: var(--transition-fast);
 }
 
 .btn-shop {
@@ -70,9 +76,9 @@
 }
 
 .btn-learn {
-  background-color: #FCF8F3;
-  color: #333;
-  border: 2px solid #8bc34a;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  border: 2px solid var(--color-accent);
 }
 
 .parallax-image {
