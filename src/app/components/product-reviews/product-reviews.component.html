@@ -10,9 +10,11 @@
       </div>
       <div class="reviews-count-row">
         <div class="star-row-small">
-          <span class="star-filled">★</span><span class="star-filled">★</span
-          ><span class="star-filled">★</span><span class="star-filled">★</span
-          ><span class="star-half">★</span>
+          <img src="assets/Vector (4).svg" alt="star" class="star-icon-small" />
+          <img src="assets/Vector (4).svg" alt="star" class="star-icon-small" />
+          <img src="assets/Vector (4).svg" alt="star" class="star-icon-small" />
+          <img src="assets/Vector (4).svg" alt="star" class="star-icon-small" />
+          <img src="assets/Vector (4).svg" alt="star" class="star-icon-small" />
         </div>
         <span class="based-on">Based on 603 reviews</span>
         <span class="check-icon">✓</span>
@@ -27,7 +29,11 @@
           </div>
           <div class="bar-label">
             <span class="bar-stars">{{ dist.stars | number : "1.1-1" }}</span>
-            <span class="star-icon-green">★</span>
+            <img
+              src="assets/Vector (4).svg"
+              alt="star"
+              class="star-icon-green"
+            />
           </div>
         </div>
       </div>
@@ -84,7 +90,7 @@
               <div class="entry-stars">
                 <img
                   *ngFor="let s of getStarsArray(review.stars)"
-                  src="assets/Vector (2).svg"
+                  src="assets/Vector (4).svg"
                   alt="star"
                   class="star-icon"
                   style="

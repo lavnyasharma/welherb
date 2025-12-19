@@ -281,6 +281,8 @@
   flex-direction: column;
   justify-content: center;
   gap: 4px;
+  flex: 1; /* Take remaining width */
+  width: 100%;
 }
 
 .stars-date-row {
@@ -303,6 +305,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 100%;
+  justify-content: space-between; /* Push verified badge to right */
 }
 
 .entry-name {
@@ -312,13 +316,13 @@
 }
 
 .verified-badge {
-background-color: #d1e7dd;
-    color: #4FAE32;
-    padding: 2px 8px;
-    border-radius: 8px;
-    font-size: 10px;
-    font-weight: 600;
-    text-transform: uppercase;
+  background-color: #d1e7dd;
+  color: #4fae32;
+  padding: 2px 8px;
+  border-radius: 8px;
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
 }
 
 .entry-title {

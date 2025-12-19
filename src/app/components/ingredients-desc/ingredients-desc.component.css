@@ -13,7 +13,7 @@
 }
 
 ::ng-deep .ingredients-section .carousel-track {
-  padding-left: 100px !important;
+  padding-left: 80px !important;
 }
 
 /* Header */
@@ -23,7 +23,7 @@
   align-items: flex-start;
   margin-bottom: 30px;
   width: 100%;
-  padding: 0 100px;
+  padding: 0 0 30px 80px;
 }
 
 .title {
@@ -216,9 +216,7 @@
 
 /* Large Desktop */
 @media (min-width: 1400px) {
-  .container {
-    max-width: 1400px;
-  }
+
 
   .ingredient-card {
     flex: 0 0 220px;
