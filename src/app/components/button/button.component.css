@@ -1,6 +1,6 @@
 .custom-btn {
   height: 48px;
-  padding: 0 48px;
+  padding: 0 30px;
   min-width: 140px;
   border-radius: var(--radius-md);
   border: none;
@@ -34,8 +34,8 @@
 }
 
 .custom-btn.outline:hover {
-  background-color: var(--color-text-primary);
-  color: var(--color-text-on-cta);
+
+
   transform: scale(1.08);
 }
 
