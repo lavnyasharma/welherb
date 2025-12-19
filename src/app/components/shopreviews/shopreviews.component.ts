@@ -111,7 +111,7 @@ export class ShopreviewsComponent {
   submitReview() {
     if (this.newReview.name && this.newReview.email && this.newReview.review) {
       // Handle review submission
-      console.log("Review submitted:", this.newReview);
+
       // Reset form
       this.newReview = {
         name: "",

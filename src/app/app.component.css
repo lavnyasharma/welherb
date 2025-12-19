@@ -2,7 +2,10 @@
 
 /* Content wrapper for main content */
 .content-wrapper {
-  padding-top: var(--navbar-height, 160px); /* Space for fixed navbar via CSS var */
+  padding-top: var(
+    --navbar-height,
+    160px
+  ); /* Space for fixed navbar via CSS var */
   min-height: 100vh;
   transition: padding-top 0.3s ease-in-out;
 }
@@ -27,7 +30,7 @@ html {
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Remove default margin/padding that might interfere */
@@ -35,4 +38,66 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+/* Scroll to Top Button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background-color: var(--color-cta, #4fae32);
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: all 0.3s ease;
+  z-index: 1000;
+  animation: fadeInUp 0.3s ease;
+}
+
+.scroll-to-top:hover {
+  background-color: var(--color-cta-hover, #3d8a2a);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(79, 174, 50, 0.3);
+}
+
+.scroll-to-top:active {
+  transform: translateY(-1px);
+}
+
+.scroll-to-top svg {
+  width: 24px;
+  height: 24px;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .scroll-to-top {
+    bottom: 20px;
+    right: 20px;
+    width: 45px;
+    height: 45px;
+  }
+
+  .scroll-to-top svg {
+    width: 20px;
+    height: 20px;
+  }
 }

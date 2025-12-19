@@ -8,6 +8,7 @@ import {
   HostListener,
   Input,
 } from "@angular/core";
+import { Router } from "@angular/router";
 
 export interface Review {
   id: number;
@@ -87,8 +88,14 @@ export class ReviewsCarouselComponent
   private isAutoScrollPaused: boolean = false;
   private cardWidth: number = 400;
 
+  constructor(private router: Router) {}
+
   ngOnInit(): void {
     this.displayReviews = [...this.reviews, ...this.reviews, ...this.reviews];
+  }
+
+  navigateToReviews(): void {
+    this.router.navigate(["/reviews"]);
   }
 
   ngAfterViewInit(): void {

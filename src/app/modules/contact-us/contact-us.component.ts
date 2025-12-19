@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 interface FAQ {
   question: string;
@@ -8,36 +8,40 @@ interface FAQ {
 }
 
 @Component({
-  selector: 'app-contact-us',
-  templateUrl: './contact-us.component.html',
-  styleUrls: ['./contact-us.component.css']
+  selector: "app-contact-us",
+  templateUrl: "./contact-us.component.html",
+  styleUrls: ["./contact-us.component.css"],
 })
 export class ContactUsComponent implements OnInit {
   contactForm: FormGroup;
   isSubmitting = false;
   showSuccessMessage = false;
-  
+
   faqs: FAQ[] = [
     {
-      question: 'How do I place an order?',
-      answer: 'Our ayurvedic expert are here to help on your wellness journey. Reach out to us through any of the following channels.',
-      isOpen: false
+      question: "How do I place an order?",
+      answer:
+        "Our ayurvedic expert are here to help on your wellness journey. Reach out to us through any of the following channels.",
+      isOpen: false,
     },
     {
-      question: 'What is your return policy',
-      answer: 'Our ayurvedic expert are here to help on your wellness journey. Reach out to us through any of the following channels.',
-      isOpen: false
+      question: "What is your return policy",
+      answer:
+        "Our ayurvedic expert are here to help on your wellness journey. Reach out to us through any of the following channels.",
+      isOpen: false,
     },
     {
-      question: 'How do I place an order?',
-      answer: 'Our ayurvedic expert are here to help on your wellness journey. Reach out to us through any of the following channels.',
-      isOpen: false
+      question: "How do I place an order?",
+      answer:
+        "Our ayurvedic expert are here to help on your wellness journey. Reach out to us through any of the following channels.",
+      isOpen: false,
     },
     {
-      question: 'How do I place an order?',
-      answer: 'Our ayurvedic expert are here to help on your wellness journey. Reach out to us through any of the following channels.',
-      isOpen: false
-    }
+      question: "How do I place an order?",
+      answer:
+        "Our ayurvedic expert are here to help on your wellness journey. Reach out to us through any of the following channels.",
+      isOpen: false,
+    },
   ];
 
   constructor(private formBuilder: FormBuilder) {
@@ -50,11 +54,11 @@ export class ContactUsComponent implements OnInit {
 
   private createContactForm(): FormGroup {
     return this.formBuilder.group({
-      name: ['', [Validators.required, Validators.minLength(2)]],
-      phone: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
-      email: ['', [Validators.required, Validators.email]],
-      about: ['', Validators.required],
-      message: ['', [Validators.required, Validators.minLength(10)]]
+      name: ["", [Validators.required, Validators.minLength(2)]],
+      phone: ["", [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
+      email: ["", [Validators.required, Validators.email]],
+      about: ["", Validators.required],
+      message: ["", [Validators.required, Validators.minLength(10)]],
     });
   }
 
@@ -72,9 +76,9 @@ export class ContactUsComponent implements OnInit {
   onSubmit(): void {
     if (this.contactForm.valid && !this.isSubmitting) {
       this.isSubmitting = true;
-      
+
       const formData = this.contactForm.value;
-      
+
       this.submitContactForm(formData)
         .then(() => {
           this.handleSubmissionSuccess();
@@ -91,32 +95,31 @@ export class ContactUsComponent implements OnInit {
   }
 
   private async submitContactForm(formData: any): Promise<void> {
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    console.log('Contact form submitted:', formData);
-    
+    await new Promise((resolve) => setTimeout(resolve, 1500));
+
     if (Math.random() < 0.95) {
       return Promise.resolve();
     } else {
-      return Promise.reject(new Error('Network error'));
+      return Promise.reject(new Error("Network error"));
     }
   }
 
   private handleSubmissionSuccess(): void {
     this.showSuccessMessage = true;
     this.contactForm.reset();
-    
+
     setTimeout(() => {
       this.showSuccessMessage = false;
     }, 5000);
   }
 
   private handleSubmissionError(error: any): void {
-    console.error('Contact form submission error:', error);
-    alert('Sorry, there was an error sending your message. Please try again.');
+    console.error("Contact form submission error:", error);
+    alert("Sorry, there was an error sending your message. Please try again.");
   }
 
   private markFormGroupTouched(formGroup: FormGroup): void {
-    Object.keys(formGroup.controls).forEach(field => {
+    Object.keys(formGroup.controls).forEach((field) => {
       const control = formGroup.get(field);
       if (control) {
         control.markAsTouched({ onlySelf: true });

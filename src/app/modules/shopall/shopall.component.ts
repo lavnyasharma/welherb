@@ -1,13 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ApiService } from '../../../services/api.service';
-import { CartService } from '../../../services/cart.service';
-import { Subject } from 'rxjs';
-import { takeUntil, debounceTime } from 'rxjs/operators';
-import { ActivatedRoute, Router } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { ApiService } from "../../../services/api.service";
+import { CartService } from "../../../services/cart.service";
+import { Subject } from "rxjs";
+import { takeUntil, debounceTime } from "rxjs/operators";
+import { ActivatedRoute, Router } from "@angular/router";
+import { ToastrService } from "ngx-toastr";
 
 interface ProductBadge {
-  type: 'new' | 'featured';
+  type: "new" | "featured";
   text: string;
 }
 
@@ -25,60 +25,56 @@ interface Product {
   badges?: ProductBadge[];
   featured?: boolean;
   isNew?: boolean;
-  
 }
 
 @Component({
-  selector: 'app-shopall',
-  templateUrl: './shopall.component.html',
-  styleUrls: ['./shopall.component.css']
+  selector: "app-shopall",
+  templateUrl: "./shopall.component.html",
+  styleUrls: ["./shopall.component.css"],
 })
 export class ShopallComponent implements OnInit, OnDestroy {
   // Sorting and Filtering
-  selectedSort = 'featured';
+  selectedSort = "featured";
   priceRange = 5000;
   selectedCategories: string[] = [];
   showDesktopFilters = false;
   availableCategories: string[] = [];
-  
+
   // Products and Display
   products: Product[] = [];
   filteredProducts: Product[] = [];
   displayedProducts: Product[] = [];
-  
+
   // UI State
   cartLoaded = false;
   isLoading = true;
   isLoadingMore = false;
   hasMoreProducts = false;
   showMobileFilters = false;
-  gridView = '3'; // '2', '3', or '4'
-  
+  gridView = "3"; // '2', '3', or '4'
+
   // Cart and Wishlist
   cartItemsSet = new Set<string>();
   wishlistItemsSet = new Set<string>();
-  
+
   // Pagination
   currentPage = 1;
   itemsPerPage = 12;
-  
+
   private destroy$ = new Subject<void>();
   private priceChangeSubject = new Subject<number>();
 
   constructor(
     private apiService: ApiService,
     private cartService: CartService,
-    private router: Router,  
-    private route: ActivatedRoute, 
+    private router: Router,
+    private route: ActivatedRoute,
     private toastr: ToastrService
   ) {
     // Debounce price changes for better UX
     this.priceChangeSubject
-      .pipe(
-        debounceTime(300),
-        takeUntil(this.destroy$)
-      )
-      .subscribe(price => {
+      .pipe(debounceTime(300), takeUntil(this.destroy$))
+      .subscribe((price) => {
         this.priceRange = price;
         this.filterByPrice();
       });
@@ -97,12 +93,11 @@ export class ShopallComponent implements OnInit, OnDestroy {
 
   // Data Loading
   private loadProducts(): void {
-    this.route.queryParams.subscribe(params => {
-      const categoryParam = params['category'];
-  
+    this.route.queryParams.subscribe((params) => {
+      const categoryParam = params["category"];
+
       this.apiService.getAllProducts(categoryParam).subscribe({
         next: (data: any[]) => {
-          console.log('API Response:', data);
           this.products = data.map((item) => this.mapProductFromAPI(item));
           this.extractCategories();
           this.filteredProducts = [...this.products];
@@ -110,27 +105,28 @@ export class ShopallComponent implements OnInit, OnDestroy {
           this.isLoading = false;
         },
         error: (error) => {
-          console.error('Error loading products:', error);
-          this.toastr.error('Failed to load products', 'Error');
+          console.error("Error loading products:", error);
+          this.toastr.error("Failed to load products", "Error");
           this.isLoading = false;
-        }
+        },
       });
     });
   }
 
   private mapProductFromAPI(item: any): Product {
     const sizes = item.size || [];
-    const firstSize = sizes.length ? sizes[0] : '';
-    const price = typeof item.price === 'object' ? item.price : { [firstSize]: item.price };
-    
+    const firstSize = sizes.length ? sizes[0] : "";
+    const price =
+      typeof item.price === "object" ? item.price : { [firstSize]: item.price };
+
     // Generate badges
     const badges: ProductBadge[] = [];
-  
+
     if (item.isNew || this.isNewProduct(item.createdAt)) {
-      badges.push({ type: 'new', text: 'NEW' });
+      badges.push({ type: "new", text: "NEW" });
     }
     if (item.featured) {
-      badges.push({ type: 'featured', text: 'FEATURED' });
+      badges.push({ type: "featured", text: "FEATURED" });
     }
 
     return {
@@ -138,12 +134,16 @@ export class ShopallComponent implements OnInit, OnDestroy {
       price: price,
       id: item._id,
       category: item.categories || [],
-      image: '/welherb' + item.default_image,
+      image: "/welherb" + item.default_image,
       rating: item.rating || 0,
       reviewCount: item.reviewCount || 0,
       sizes: sizes,
       selectedSize: firstSize,
-      displayPrice: firstSize ? (typeof price === 'object' ? price[firstSize] : price) : 0,
+      displayPrice: firstSize
+        ? typeof price === "object"
+          ? price[firstSize]
+          : price
+        : 0,
       badges: badges,
       featured: item.featured || false,
       isNew: item.isNew || this.isNewProduct(item.createdAt),
@@ -161,8 +161,8 @@ export class ShopallComponent implements OnInit, OnDestroy {
 
   private extractCategories(): void {
     const categorySet = new Set<string>();
-    this.products.forEach(product => {
-      product.category.forEach(cat => categorySet.add(cat));
+    this.products.forEach((product) => {
+      product.category.forEach((cat) => categorySet.add(cat));
     });
     this.availableCategories = Array.from(categorySet).sort();
   }
@@ -170,13 +170,13 @@ export class ShopallComponent implements OnInit, OnDestroy {
   private setupCartSubscription(): void {
     this.cartService.cartItems$
       .pipe(takeUntil(this.destroy$))
-      .subscribe(items => {
+      .subscribe((items) => {
         this.cartItemsSet = new Set(items);
       });
 
     this.cartService.cartLoaded
       .pipe(takeUntil(this.destroy$))
-      .subscribe(loaded => {
+      .subscribe((loaded) => {
         this.cartLoaded = loaded;
       });
   }
@@ -194,13 +194,13 @@ export class ShopallComponent implements OnInit, OnDestroy {
   sortProducts(): void {
     this.filteredProducts.sort((a, b) => {
       switch (this.selectedSort) {
-        case 'low':
+        case "low":
           return a.displayPrice - b.displayPrice;
-        case 'high':
+        case "high":
           return b.displayPrice - a.displayPrice;
-        case 'name':
+        case "name":
           return a.name.localeCompare(b.name);
-        case 'featured':
+        case "featured":
         default:
           // Featured items first, then by rating, then by name
           if (a.featured !== b.featured) {
@@ -226,29 +226,33 @@ export class ShopallComponent implements OnInit, OnDestroy {
   onCategoryChange(event: any): void {
     const category = event.target.value;
     const checked = event.target.checked;
-    
+
     if (checked) {
       this.selectedCategories.push(category);
     } else {
-      this.selectedCategories = this.selectedCategories.filter(cat => cat !== category);
+      this.selectedCategories = this.selectedCategories.filter(
+        (cat) => cat !== category
+      );
     }
-    
+
     this.applyAllFilters();
   }
 
   private applyAllFilters(): void {
     let filtered = [...this.products];
-    
+
     // Price filter
-    filtered = filtered.filter(product => product.displayPrice <= this.priceRange);
-    
+    filtered = filtered.filter(
+      (product) => product.displayPrice <= this.priceRange
+    );
+
     // Category filter
     if (this.selectedCategories.length > 0) {
-      filtered = filtered.filter(product => 
-        product.category.some(cat => this.selectedCategories.includes(cat))
+      filtered = filtered.filter((product) =>
+        product.category.some((cat) => this.selectedCategories.includes(cat))
       );
     }
-    
+
     this.filteredProducts = filtered;
     this.currentPage = 1;
     this.sortProducts();
@@ -276,9 +280,9 @@ export class ShopallComponent implements OnInit, OnDestroy {
   clearAllFilters(): void {
     this.priceRange = 5000;
     this.selectedCategories = [];
-    this.selectedSort = 'featured';
+    this.selectedSort = "featured";
     this.applyAllFilters();
-    this.toastr.info('All filters cleared', 'Filters');
+    this.toastr.info("All filters cleared", "Filters");
   }
 
   clearPriceFilter(): void {
@@ -287,12 +291,14 @@ export class ShopallComponent implements OnInit, OnDestroy {
   }
 
   removeCategory(category: string): void {
-    this.selectedCategories = this.selectedCategories.filter(cat => cat !== category);
+    this.selectedCategories = this.selectedCategories.filter(
+      (cat) => cat !== category
+    );
     this.applyAllFilters();
   }
 
   getCategoryCount(category: string): number {
-    return this.products.filter(product => 
+    return this.products.filter((product) =>
       product.category.includes(category)
     ).length;
   }
@@ -308,7 +314,10 @@ export class ShopallComponent implements OnInit, OnDestroy {
 
   applyMobileFilters(): void {
     this.closeMobileFilters();
-    this.toastr.success(`Showing ${this.filteredProducts.length} products`, 'Filters Applied');
+    this.toastr.success(
+      `Showing ${this.filteredProducts.length} products`,
+      "Filters Applied"
+    );
   }
 
   // Grid View
@@ -319,7 +328,7 @@ export class ShopallComponent implements OnInit, OnDestroy {
   // Product Actions
   updatePrice(product: Product, selectedSize: string): void {
     product.selectedSize = selectedSize;
-    if (typeof product.price === 'object') {
+    if (typeof product.price === "object") {
       product.displayPrice = product.price[selectedSize];
     }
   }
@@ -332,39 +341,40 @@ export class ShopallComponent implements OnInit, OnDestroy {
     }
   }
 
-addToCart(productId: string, size: string): void {
-  // Check if user is authenticated by looking for auth_token in localStorage
-  const authToken = localStorage.getItem('auth_token');
-  
-  if (!authToken) {
-    // User is not authenticated, redirect to login
-    this.toastr.warning('Please login to add items to cart', 'Authentication Required');
-    this.router.navigate(['/login']);
-    return;
+  addToCart(productId: string, size: string): void {
+    // Check if user is authenticated by looking for auth_token in localStorage
+    const authToken = localStorage.getItem("auth_token");
+
+    if (!authToken) {
+      // User is not authenticated, redirect to login
+      this.toastr.warning(
+        "Please login to add items to cart",
+        "Authentication Required"
+      );
+      this.router.navigate(["/login"]);
+      return;
+    }
+
+    // User is authenticated, proceed with adding to cart
+    if (this.isInCart(productId)) {
+      return;
+    }
+
+    this.cartService.addToCart(productId, size);
+    this.toastr.success("Product added to cart", "Success");
   }
 
-  // User is authenticated, proceed with adding to cart
-  if (this.isInCart(productId)) {
-    return;
+  // Optional: You can also create a helper method for authentication check
+  private isUserAuthenticated(): boolean {
+    return !!localStorage.getItem("auth_token");
   }
-
-  this.cartService.addToCart(productId, size);
-  this.toastr.success('Product added to cart', 'Success');
-}
-
-
-// Optional: You can also create a helper method for authentication check
-private isUserAuthenticated(): boolean {
-  return !!localStorage.getItem('auth_token');
-}
-
 
   isInCart(productId: string): boolean {
     return this.cartItemsSet.has(productId);
   }
 
   navigateToCart(): void {
-    this.router.navigate(['/cart']);
+    this.router.navigate(["/cart"]);
   }
 
   // Wishlist Actions
@@ -372,11 +382,11 @@ private isUserAuthenticated(): boolean {
     if (this.isInWishlist(productId)) {
       // Remove from wishlist
       this.wishlistItemsSet.delete(productId);
-      this.toastr.info('Removed from wishlist', 'Wishlist');
+      this.toastr.info("Removed from wishlist", "Wishlist");
     } else {
       // Add to wishlist
       this.wishlistItemsSet.add(productId);
-      this.toastr.success('Added to wishlist', 'Wishlist');
+      this.toastr.success("Added to wishlist", "Wishlist");
     }
   }
 
@@ -386,22 +396,21 @@ private isUserAuthenticated(): boolean {
 
   // Product Navigation
   navigateToProduct(productId: string): void {
-    this.router.navigate(['/shop', productId]);
+    this.router.navigate(["/shop", productId]);
   }
 
   openQuickView(product: Product): void {
     // Implement quick view modal
-    console.log('Opening quick view for:', product.name);
     // You can implement a modal service here
   }
 
   // Pagination
   loadMoreProducts(): void {
     if (this.isLoadingMore || !this.hasMoreProducts) return;
-    
+
     this.isLoadingMore = true;
     this.currentPage++;
-    
+
     // Simulate loading delay
     setTimeout(() => {
       this.updateDisplayedProducts();
@@ -426,19 +435,18 @@ private isUserAuthenticated(): boolean {
     return stars;
   }
   toggleDesktopFilters(): void {
-  this.showDesktopFilters = !this.showDesktopFilters;
-  
-  // Optional: Close mobile filters if they're open
-  if (this.showDesktopFilters && this.showMobileFilters) {
-    this.showMobileFilters = false;
+    this.showDesktopFilters = !this.showDesktopFilters;
+
+    // Optional: Close mobile filters if they're open
+    if (this.showDesktopFilters && this.showMobileFilters) {
+      this.showMobileFilters = false;
+    }
   }
-}
 
-// Optional: Add a method to close desktop filters (useful for overlay clicks)
-closeDesktopFilters(): void {
-  this.showDesktopFilters = false;
-}
+  // Optional: Add a method to close desktop filters (useful for overlay clicks)
+  closeDesktopFilters(): void {
+    this.showDesktopFilters = false;
+  }
 
-// Update the existing closeMobileFilters method to also handle desktop filters
-
+  // Update the existing closeMobileFilters method to also handle desktop filters
 }

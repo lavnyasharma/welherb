@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ApiService } from '../../../services/api.service';
-import { CartService } from '../../../services/cart.service';
+import { Component, OnInit } from "@angular/core";
+import { ApiService } from "../../../services/api.service";
+import { CartService } from "../../../services/cart.service";
 
 interface CartItem {
   id: string;
@@ -28,15 +28,15 @@ interface DeliveryAddress {
 }
 
 @Component({
-  selector: 'app-cart',
-  templateUrl: './cart.component.html',
-  styleUrls: ['./cart.component.css']
+  selector: "app-cart",
+  templateUrl: "./cart.component.html",
+  styleUrls: ["./cart.component.css"],
 })
 export class CartComponent implements OnInit {
   currentStep = 1;
   totalSteps = 4;
   taxRate = 3;
-  
+
   // Cart data from your existing service
   cartItems: CartItem[] = [];
 
@@ -49,19 +49,24 @@ export class CartComponent implements OnInit {
   isCreatingOrder = false;
   orderCreated = false;
   selectedOrder: any = null;
+
+  // Toast notification
+  toastMessage = "";
+  toastType: "success" | "error" | "info" = "info";
+  showToast = false;
   showThankYouMessage = false;
 
   // Form data
-  discountCode = '';
-  selectedPaymentMethod = '';
+  discountCode = "";
+  selectedPaymentMethod = "";
   newAddress = {
-    email: '',
-    pincode: '',
-    name: '',
-    phone: '',
-    address: '',
-    state: '',
-    city: ''
+    email: "",
+    pincode: "",
+    name: "",
+    phone: "",
+    address: "",
+    state: "",
+    city: "",
   };
 
   // COD selection
@@ -69,25 +74,25 @@ export class CartComponent implements OnInit {
 
   // Survey data
   hearAboutUs: string[] = [];
-  orderReason = '';
+  orderReason = "";
 
   // Payment methods
   paymentMethods = [
-    { id: 'googlepay', name: 'Google Pay', type: 'recommended' },
-    { id: 'upi', name: 'UPI (Pay via any App)', type: 'online' },
-    { id: 'card', name: 'Debit/Credit Card', type: 'online' },
-    { id: 'emi', name: 'EMI', type: 'online' },
-    { id: 'cod', name: 'Cash On Delivery', type: 'other' }
+    { id: "googlepay", name: "Google Pay", type: "recommended" },
+    { id: "upi", name: "UPI (Pay via any App)", type: "online" },
+    { id: "card", name: "Debit/Credit Card", type: "online" },
+    { id: "emi", name: "EMI", type: "online" },
+    { id: "cod", name: "Cash On Delivery", type: "other" },
   ];
 
   hearAboutOptions = [
-    'Facebook',
-    'Instagram',
-    'Google Search',
-    'Word of Mouth / Friend / Family',
-    'Doctor or Practitioner',
-    'Marketplace (Amazon / Flipkart etc.)',
-    'Other (please specify)'
+    "Facebook",
+    "Instagram",
+    "Google Search",
+    "Word of Mouth / Friend / Family",
+    "Doctor or Practitioner",
+    "Marketplace (Amazon / Flipkart etc.)",
+    "Other (please specify)",
   ];
 
   // Payment response data
@@ -98,6 +103,7 @@ export class CartComponent implements OnInit {
   private pollingInterval: any = null;
   private pollingCount = 0;
   private maxPollingAttempts = 30; // 30 attempts * 2 seconds = 60 seconds max
+  private toastTimeout: any = null;
 
   constructor(
     private apiService: ApiService,
@@ -105,16 +111,12 @@ export class CartComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.selectedPaymentMethod = 'googlepay';
+    this.selectedPaymentMethod = "googlepay";
     this.loadCartItems();
     this.loadAddresses();
-    
+
     // Check if we're returning from a payment
     this.checkPaymentStatusOnReturn();
-    
-    setTimeout(() => {
-      console.log('Current addresses after timeout:', this.deliveryAddresses);
-    }, 1000);
   }
 
   ngOnDestroy(): void {
@@ -122,35 +124,40 @@ export class CartComponent implements OnInit {
     if (this.pollingInterval) {
       clearInterval(this.pollingInterval);
     }
+    // Clean up toast timeout if it exists
+    if (this.toastTimeout) {
+      clearTimeout(this.toastTimeout);
+    }
   }
 
   private loadCartItems(): void {
     this.cartService.cartItems$.subscribe((cartItemIds) => {
-      console.log('Cart items updated:', cartItemIds);
       this.apiService.getCartItems().subscribe(
         (response: any[]) => {
           this.cartItems = response
-            .filter(item => item?.product || item?.name)
-            .map(item => {
+            .filter((item) => item?.product || item?.name)
+            .map((item) => {
               const product = item.product || item;
               const selectedSize = item.size || 30;
 
               return {
                 id: item._id,
-                name: product.name || 'Unnamed',
+                name: product.name || "Unnamed",
                 subtitle: `Size: ${selectedSize}`,
-                category: product.categories?.join(', ') || '',
-                productType: product.product_type || '',
-                image: product.default_image ? '/welherb' + product.default_image : '',
+                category: product.categories?.join(", ") || "",
+                productType: product.product_type || "",
+                image: product.default_image
+                  ? "/welherb" + product.default_image
+                  : "",
                 price: product.price?.[selectedSize] || 0,
                 quantity: item.quantity || 1,
                 size: selectedSize.toString(),
-                inStock: true
+                inStock: true,
               };
             });
         },
         (error) => {
-          console.error('Error fetching cart items:', error);
+          console.error("Error fetching cart items:", error);
         }
       );
     });
@@ -159,57 +166,57 @@ export class CartComponent implements OnInit {
   private loadAddresses(): void {
     this.apiService.getAddresses().subscribe(
       (response: any) => {
-        console.log('Addresses loaded:', response);
-        
         let addresses = response;
         if (response && response.addresses) {
           addresses = response.addresses;
         }
-        
+
         if (addresses && Array.isArray(addresses) && addresses.length > 0) {
-          this.deliveryAddresses = addresses.map((addr: any, index: number) => ({
-            id: addr._id || index + 1,
-            name: addr.name || `Address ${index + 1}`,
-            address: addr.address || '',
-            city: addr.city || '',
-            state: addr.state || '',
-            pincode: addr.pincode || '',
-            phone: addr.mobile || addr.phone || '',
-            email: addr.email || '',
-            selected: index === 0
-          }));
-          console.log('Mapped addresses:', this.deliveryAddresses);
+          this.deliveryAddresses = addresses.map(
+            (addr: any, index: number) => ({
+              id: addr._id || index + 1,
+              name: addr.name || `Address ${index + 1}`,
+              address: addr.address || "",
+              city: addr.city || "",
+              state: addr.state || "",
+              pincode: addr.pincode || "",
+              phone: addr.mobile || addr.phone || "",
+              email: addr.email || "",
+              selected: index === 0,
+            })
+          );
+
           // Prefill the form with the initially selected address
           this.prefillNewAddressFromSelected();
         } else {
           this.deliveryAddresses = [
             {
               id: 1,
-              name: 'Default Address',
-              address: 'Please add your delivery address below',
-              city: '',
-              state: '',
-              pincode: '',
-              phone: '',
-              selected: true
-            }
+              name: "Default Address",
+              address: "Please add your delivery address below",
+              city: "",
+              state: "",
+              pincode: "",
+              phone: "",
+              selected: true,
+            },
           ];
           // No real address, keep form empty
         }
       },
       (error) => {
-        console.error('Error loading addresses:', error);
+        console.error("Error loading addresses:", error);
         this.deliveryAddresses = [
           {
             id: 1,
-            name: 'Default Address',
-            address: 'Please add your delivery address below',
-            city: '',
-            state: '',
-            pincode: '',
-            phone: '',
-            selected: true
-          }
+            name: "Default Address",
+            address: "Please add your delivery address below",
+            city: "",
+            state: "",
+            pincode: "",
+            phone: "",
+            selected: true,
+          },
         ];
         // No real address, keep form empty
       }
@@ -217,23 +224,23 @@ export class CartComponent implements OnInit {
   }
 
   refreshAddresses(): void {
-    console.log('Manually refreshing addresses...');
     this.loadAddresses();
   }
 
   updateMobileNumber(): void {
-    const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
-    if (selectedAddress && this.newAddress.phone.trim() !== '') {
+    const selectedAddress = this.deliveryAddresses.find(
+      (addr) => addr.selected
+    );
+    if (selectedAddress && this.newAddress.phone.trim() !== "") {
       selectedAddress.phone = this.newAddress.phone;
-      console.log('Mobile number updated for selected address:', selectedAddress);
     }
   }
 
   // Format mobile number to ensure it's 10 digits only
   formatMobileNumber(): void {
     // Remove any non-digit characters
-    this.newAddress.phone = this.newAddress.phone.replace(/\D/g, '');
-    
+    this.newAddress.phone = this.newAddress.phone.replace(/\D/g, "");
+
     // Limit to 10 digits
     if (this.newAddress.phone.length > 10) {
       this.newAddress.phone = this.newAddress.phone.substring(0, 10);
@@ -242,7 +249,7 @@ export class CartComponent implements OnInit {
 
   // Validate mobile number input to allow only digits
   validateMobileNumberInput(event: KeyboardEvent): boolean {
-    const charCode = (event.which) ? event.which : event.keyCode;
+    const charCode = event.which ? event.which : event.keyCode;
     // Allow only digits (0-9)
     if (charCode > 31 && (charCode < 48 || charCode > 57)) {
       event.preventDefault();
@@ -253,31 +260,33 @@ export class CartComponent implements OnInit {
 
   // Format phone number for display (ensure only 10 digits)
   formatPhoneNumberForDisplay(phone: string): string {
-    if (!phone) return '';
+    if (!phone) return "";
     // Remove any non-digit characters and limit to 10 digits
-    const cleanPhone = phone.replace(/\D/g, '').substring(0, 10);
+    const cleanPhone = phone.replace(/\D/g, "").substring(0, 10);
     return cleanPhone;
   }
 
   onMobileNumberChange(): void {
-    const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
+    const selectedAddress = this.deliveryAddresses.find(
+      (addr) => addr.selected
+    );
     if (selectedAddress) {
       selectedAddress.phone = this.newAddress.phone;
-      console.log('Mobile number updated in real-time:', {
-        selectedAddressId: selectedAddress.id,
-        phone: selectedAddress.phone,
-        formPhone: this.newAddress.phone
-      });
     }
   }
 
   get hasRealSelectedAddress(): boolean {
-    const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
-    return selectedAddress && selectedAddress.address !== 'Please add your delivery address below';
+    const selectedAddress = this.deliveryAddresses.find(
+      (addr) => addr.selected
+    );
+    return (
+      selectedAddress &&
+      selectedAddress.address !== "Please add your delivery address below"
+    );
   }
 
   get selectedAddress(): any {
-    return this.deliveryAddresses.find(addr => addr.selected);
+    return this.deliveryAddresses.find((addr) => addr.selected);
   }
 
   nextStep(): void {
@@ -285,7 +294,7 @@ export class CartComponent implements OnInit {
       this.createOrderBeforeReview();
       return;
     }
-    
+
     if (this.currentStep < this.totalSteps) {
       this.currentStep++;
     }
@@ -293,36 +302,44 @@ export class CartComponent implements OnInit {
 
   async createOrderBeforeReview(): Promise<void> {
     if (this.cartItems.length === 0) {
-      alert('Your cart is empty');
+      this.displayToast("Your cart is empty", "error");
       return;
     }
 
-    const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
+    const selectedAddress = this.deliveryAddresses.find(
+      (addr) => addr.selected
+    );
     if (!selectedAddress) {
-      alert('Please select a delivery address');
+      this.displayToast("Please select a delivery address", "error");
       return;
     }
 
-    if (selectedAddress.address === 'Please add your delivery address below') {
-      alert('Please add a valid delivery address using the form below before proceeding');
+    if (selectedAddress.address === "Please add your delivery address below") {
+      this.displayToast(
+        "Please add a valid delivery address using the form below before proceeding",
+        "error"
+      );
       return;
     }
 
-    if (!selectedAddress.phone || selectedAddress.phone.trim() === '') {
-      alert('Please enter mobile number for the selected address');
+    if (!selectedAddress.phone || selectedAddress.phone.trim() === "") {
+      this.displayToast(
+        "Please enter mobile number for the selected address",
+        "error"
+      );
       return;
     }
 
     this.isCreatingOrder = true;
 
     // Determine order type based on COD selection
-    const orderType = this.isCODSelected ? 'COD' : 'Pre-Paid';
+    const orderType = this.isCODSelected ? "COD" : "Pre-Paid";
 
     // Prepare order payload with full address object
     const orderPayload = {
-      products: this.cartItems.map(item => ({
+      products: this.cartItems.map((item) => ({
         product: item.id,
-        count: item.quantity
+        count: item.quantity,
       })),
       address: {
         pincode: parseInt(selectedAddress.pincode) || 0,
@@ -330,26 +347,26 @@ export class CartComponent implements OnInit {
         mobile: selectedAddress.phone,
         address: selectedAddress.address,
         city: selectedAddress.city,
-        email: selectedAddress.email || '',
+        email: selectedAddress.email || "",
         state: selectedAddress.state,
-        _id: selectedAddress.id
+        _id: selectedAddress.id,
       },
       order_type: orderType,
       payment_amount: {
         product_amount: this.subtotal,
         delivery_amount: this.shipping,
-        total_amount: this.grandTotal
-      }
+        total_amount: this.grandTotal,
+      },
     };
-
-    console.log('Creating order with payload:', orderPayload);
 
     try {
       // Call the create order API
-      const response = await this.apiService.createOrder(orderPayload).toPromise();
-      console.log('Order created successfully:', response);
+      const response = await this.apiService
+        .createOrder(orderPayload)
+        .toPromise();
+
       this.selectedOrder = response;
-      
+
       // Handle COD orders (no payment redirect needed)
       if (this.isCODSelected) {
         this.isCreatingOrder = false;
@@ -357,7 +374,7 @@ export class CartComponent implements OnInit {
         this.currentStep = 4;
         return;
       }
-      
+
       // Handle Pre-Paid orders (show payment links)
       if (response && response.links) {
         this.paymentResponse = response;
@@ -367,22 +384,27 @@ export class CartComponent implements OnInit {
         this.currentStep = 3; // Move to payment step
         // Polling will start after user clicks a payment option or on return
       } else {
-        throw new Error('Invalid payment response from server');
+        throw new Error("Invalid payment response from server");
       }
     } catch (error: any) {
-      console.error('Error creating order:', error);
+      console.error("Error creating order:", error);
       this.isCreatingOrder = false;
-      alert(`Error creating order: ${error.error?.message || error.message || 'Please try again.'}`);
+      this.displayToast(
+        `Error creating order: ${
+          error.error?.message || error.message || "Please try again."
+        }`,
+        "error"
+      );
     }
   }
 
   // Check payment status when returning from payment gateway
   checkPaymentStatusOnReturn(): void {
-    const pendingOrderId = localStorage.getItem('pendingOrderId');
+    const pendingOrderId = localStorage.getItem("pendingOrderId");
     if (pendingOrderId) {
       // Remove the pending order ID from localStorage
-      localStorage.removeItem('pendingOrderId');
-      
+      localStorage.removeItem("pendingOrderId");
+
       // Start polling every 2 seconds
       this.startOrderStatusPolling(pendingOrderId);
     }
@@ -393,24 +415,24 @@ export class CartComponent implements OnInit {
     this.pollingCount = 0;
     // Show loading overlay while we poll for status
     this.isCreatingOrder = true;
-    
+
     // Clear any existing interval
     if (this.pollingInterval) {
       clearInterval(this.pollingInterval);
     }
-    
+
     // Start polling every 2 seconds
     this.pollingInterval = setInterval(() => {
       this.pollingCount++;
-      
+
       // Stop polling after max attempts
       if (this.pollingCount > this.maxPollingAttempts) {
         clearInterval(this.pollingInterval);
         this.isCreatingOrder = false;
-        console.log('Stopped polling after max attempts');
+
         return;
       }
-      
+
       this.checkOrderStatus(orderId);
     }, 2000);
   }
@@ -430,10 +452,8 @@ export class CartComponent implements OnInit {
         order_type: order.order_type,
         payment_amount: order.payment_amount,
         createdAt: order.createdAt,
-        updatedAt: order.updatedAt
+        updatedAt: order.updatedAt,
       };
-      
-      console.log('Mapped order response:', this.selectedOrder);
     }
   }
 
@@ -446,33 +466,38 @@ export class CartComponent implements OnInit {
     // This method has been moved to the new polling implementation
     this.apiService.getOrderById(orderId).subscribe(
       (order: any) => {
-        console.log('Order status check:', order);
-        
         // Map the response data
         this.mapOrderResponse(order);
-        
+
         // Check if order is confirmed
-        if (order.status === 'Ordered' || order.status === 'PAID' || order.status === 'COMPLETED') {
+        if (
+          order.status === "Ordered" ||
+          order.status === "PAID" ||
+          order.status === "COMPLETED"
+        ) {
           // Order confirmed - stop polling and show confirmation
           clearInterval(this.pollingInterval);
           this.isCreatingOrder = false;
           this.orderCreated = true;
           this.selectedOrder = order;
           this.currentStep = 4;
-          
+
           // Clear cart items
           this.cartItems = [];
           this.cartService.clearCart();
-        } else if (order.status === 'FAILED' || order.status === 'CANCELLED') {
+        } else if (order.status === "FAILED" || order.status === "CANCELLED") {
           // Order failed - stop polling and show error
           clearInterval(this.pollingInterval);
           this.isCreatingOrder = false;
-          alert('Order was not successful. Please try again.');
+          this.displayToast(
+            "Order was not successful. Please try again.",
+            "error"
+          );
         }
         // For pending statuses, continue polling
       },
       (error) => {
-        console.error('Error checking order status:', error);
+        console.error("Error checking order status:", error);
         // Continue polling even if there's an error
       }
     );
@@ -497,8 +522,8 @@ export class CartComponent implements OnInit {
     if (this.paymentLinks && this.paymentLinks[linkType]) {
       // Show loading while user completes payment externally
       this.isCreatingOrder = true;
-      window.open(this.paymentLinks[linkType], '_blank');
-      
+      window.open(this.paymentLinks[linkType], "_blank");
+
       // Start polling every 2 seconds
       if (this.paymentResponse && this.paymentResponse.order_id) {
         this.startOrderStatusPolling(this.paymentResponse.order_id);
@@ -511,7 +536,10 @@ export class CartComponent implements OnInit {
   }
 
   get subtotal(): number {
-    return this.cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    return this.cartItems.reduce(
+      (sum, item) => sum + item.price * item.quantity,
+      0
+    );
   }
 
   get mrpTotal(): number {
@@ -543,14 +571,14 @@ export class CartComponent implements OnInit {
   }
 
   increaseQuantity(itemId: string): void {
-    const item = this.cartItems.find(item => item.id === itemId);
+    const item = this.cartItems.find((item) => item.id === itemId);
     if (item) {
       item.quantity++;
     }
   }
 
   decreaseQuantity(itemId: string): void {
-    const item = this.cartItems.find(item => item.id === itemId);
+    const item = this.cartItems.find((item) => item.id === itemId);
     if (item && item.quantity > 1) {
       item.quantity--;
     }
@@ -558,15 +586,15 @@ export class CartComponent implements OnInit {
 
   removeItem(id: string): void {
     this.cartService.removeFromCart(id);
-    this.cartItems = this.cartItems.filter(item => item.id !== id);
+    this.cartItems = this.cartItems.filter((item) => item.id !== id);
   }
 
   get stepTitles(): string[] {
-    return ['Offers', 'Delivery', 'Payment', 'Review'];
+    return ["Offers", "Delivery", "Payment", "Review"];
   }
 
   get currentStepTitle(): string {
-    const titles = ['Offers', 'Delivery', 'Payment', 'FAQs'];
+    const titles = ["Offers", "Delivery", "Payment", "FAQs"];
     return titles[this.currentStep - 1];
   }
 
@@ -582,52 +610,60 @@ export class CartComponent implements OnInit {
 
   applyDiscount(): void {
     if (!this.discountCode.trim()) {
-      alert('Please enter a discount code');
+      this.displayToast("Please enter a discount code", "error");
       return;
     }
 
-    console.log('Applying discount code:', this.discountCode);
-    
-    const validCodes = ['SAVE10', 'WELCOME20', 'FIRST50'];
-    
+    const validCodes = ["SAVE10", "WELCOME20", "FIRST50"];
+
     if (validCodes.includes(this.discountCode.toUpperCase())) {
-      alert('Discount code applied successfully!');
+      this.displayToast("Discount code applied successfully!", "success");
     } else {
-      alert('Invalid discount code. Please try again.');
+      this.displayToast("Invalid discount code. Please try again.", "error");
     }
   }
 
   selectAddress(addressId: number): void {
-    this.deliveryAddresses.forEach(addr => {
+    this.deliveryAddresses.forEach((addr) => {
       addr.selected = addr.id === addressId;
     });
-    
-    const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
-    if (selectedAddress && selectedAddress.address !== 'Please add your delivery address below') {
+
+    const selectedAddress = this.deliveryAddresses.find(
+      (addr) => addr.selected
+    );
+    if (
+      selectedAddress &&
+      selectedAddress.address !== "Please add your delivery address below"
+    ) {
       this.prefillNewAddressFromSelected();
     }
   }
 
   // Prefill the add-new-address form with the currently selected address
   private prefillNewAddressFromSelected(): void {
-    const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
-    if (!selectedAddress || selectedAddress.address === 'Please add your delivery address below') {
+    const selectedAddress = this.deliveryAddresses.find(
+      (addr) => addr.selected
+    );
+    if (
+      !selectedAddress ||
+      selectedAddress.address === "Please add your delivery address below"
+    ) {
       return;
     }
     this.newAddress = {
-      email: selectedAddress.email || '',
-      pincode: String(selectedAddress.pincode || '').replace(/\D/g, ''),
-      name: selectedAddress.name || '',
-      phone: this.formatPhoneNumberForDisplay(selectedAddress.phone || ''),
-      address: selectedAddress.address || '',
-      state: selectedAddress.state || '',
-      city: selectedAddress.city || ''
+      email: selectedAddress.email || "",
+      pincode: String(selectedAddress.pincode || "").replace(/\D/g, ""),
+      name: selectedAddress.name || "",
+      phone: this.formatPhoneNumberForDisplay(selectedAddress.phone || ""),
+      address: selectedAddress.address || "",
+      state: selectedAddress.state || "",
+      city: selectedAddress.city || "",
     };
   }
 
   addNewAddress(): void {
     if (!this.isNewAddressValid()) {
-      alert('Please fill in all required fields');
+      this.displayToast("Please fill in all required fields", "error");
       return;
     }
 
@@ -639,45 +675,46 @@ export class CartComponent implements OnInit {
       city: this.newAddress.city,
       state: this.newAddress.state,
       pincode: this.newAddress.pincode,
-      email: this.newAddress.email
+      email: this.newAddress.email,
     };
 
     this.apiService.addAddress(addressPayload).subscribe(
       (response: any) => {
-        console.log('Address added successfully:', response);
-        alert('Address added successfully!');
-        
+        this.displayToast("Address added successfully!", "success");
+
         this.newAddress = {
-          email: '',
-          pincode: '',
-          name: '',
-          phone: '',
-          address: '',
-          state: '',
-          city: ''
+          email: "",
+          pincode: "",
+          name: "",
+          phone: "",
+          address: "",
+          state: "",
+          city: "",
         };
         this.pincodeResponse = null;
-        
+
         this.loadAddresses();
         this.isAddingAddress = false;
       },
       (error) => {
-        console.error('Error adding address:', error);
-        alert('Error adding address. Please try again.');
+        console.error("Error adding address:", error);
+        this.displayToast("Error adding address. Please try again.", "error");
         this.isAddingAddress = false;
       }
     );
   }
 
   updateAddress(): void {
-    const selectedAddress = this.deliveryAddresses.find(addr => addr.selected);
+    const selectedAddress = this.deliveryAddresses.find(
+      (addr) => addr.selected
+    );
     if (!selectedAddress) {
-      alert('Please select an address to update');
+      this.displayToast("Please select an address to update", "error");
       return;
     }
 
     if (!this.isNewAddressValid()) {
-      alert('Please fill in all required fields');
+      this.displayToast("Please fill in all required fields", "error");
       return;
     }
 
@@ -690,31 +727,30 @@ export class CartComponent implements OnInit {
       city: this.newAddress.city,
       state: this.newAddress.state,
       pincode: this.newAddress.pincode,
-      email: this.newAddress.email
+      email: this.newAddress.email,
     };
 
     this.apiService.updateAddress(addressPayload).subscribe(
       (response: any) => {
-        console.log('Address updated successfully:', response);
-        alert('Address updated successfully!');
-        
+        this.displayToast("Address updated successfully!", "success");
+
         this.newAddress = {
-          email: '',
-          pincode: '',
-          name: '',
-          phone: '',
-          address: '',
-          state: '',
-          city: ''
+          email: "",
+          pincode: "",
+          name: "",
+          phone: "",
+          address: "",
+          state: "",
+          city: "",
         };
         this.pincodeResponse = null;
-        
+
         this.loadAddresses();
         this.isUpdatingAddress = false;
       },
       (error) => {
-        console.error('Error updating address:', error);
-        alert('Error updating address. Please try again.');
+        console.error("Error updating address:", error);
+        this.displayToast("Error updating address. Please try again.", "error");
         this.isUpdatingAddress = false;
       }
     );
@@ -722,32 +758,33 @@ export class CartComponent implements OnInit {
 
   checkPincode(): void {
     // Use form pincode if provided, otherwise fall back to selected address pincode
-    const selectedPin = (this.selectedAddress && this.selectedAddress.pincode) ? this.selectedAddress.pincode : '';
+    const selectedPin =
+      this.selectedAddress && this.selectedAddress.pincode
+        ? this.selectedAddress.pincode
+        : "";
     const rawPin = this.newAddress.pincode || selectedPin;
-    const pincodeToCheck = String(rawPin || '').replace(/\D/g, '');
+    const pincodeToCheck = String(rawPin || "").replace(/\D/g, "");
 
     if (!pincodeToCheck) {
-      alert('Please enter a pincode');
+      this.displayToast("Please enter a pincode", "error");
       return;
     }
 
     if (pincodeToCheck.length !== 6 || !/^\d+$/.test(pincodeToCheck)) {
-      alert('Please enter a valid 6-digit pincode');
+      this.displayToast("Please enter a valid 6-digit pincode", "error");
       return;
     }
 
-    console.log('Checking pincode:', pincodeToCheck);
-    
     this.apiService.getDeliveryAvailability(pincodeToCheck).subscribe(
       (response: any) => {
-        console.log('Pincode response:', response);
         // Normalize response keys
         const normalized = {
           available: !!response?.available,
-          city: response?.city || '',
-          state: response?.state || '',
-          deliveryTime: response?.deliveryTime || response?.estimated_delivery || '',
-          message: response?.message || ''
+          city: response?.city || "",
+          state: response?.state || "",
+          deliveryTime:
+            response?.deliveryTime || response?.estimated_delivery || "",
+          message: response?.message || "",
         };
         this.pincodeResponse = normalized;
 
@@ -758,8 +795,11 @@ export class CartComponent implements OnInit {
         // No alerts; UI block in HTML will show success/error nicely
       },
       (error) => {
-        console.error('Error checking pincode:', error);
-        this.pincodeResponse = { available: false, message: 'Unable to check pincode right now.' } as any;
+        console.error("Error checking pincode:", error);
+        this.pincodeResponse = {
+          available: false,
+          message: "Unable to check pincode right now.",
+        } as any;
       }
     );
   }
@@ -768,9 +808,7 @@ export class CartComponent implements OnInit {
     this.selectedPaymentMethod = methodId;
   }
 
-  onCODSelectionChange(): void {
-    console.log('COD selection changed:', this.isCODSelected);
-  }
+  onCODSelectionChange(): void {}
 
   onHearAboutUsChange(option: string, event: any): void {
     const checked = event.target.checked;
@@ -787,7 +825,6 @@ export class CartComponent implements OnInit {
   }
 
   submitOrder(): void {
-    console.log('submitOrder called - creating order');
     if (this.currentStep === 2) {
       this.createOrderBeforeReview();
     } else if (this.currentStep === 4) {
@@ -799,31 +836,29 @@ export class CartComponent implements OnInit {
   finalizeOrder(): void {
     this.cartItems = [];
     this.cartService.clearCart();
-    
+
     this.currentStep = 1;
     this.hearAboutUs = [];
-    this.orderReason = '';
+    this.orderReason = "";
     this.orderCreated = false;
     this.selectedOrder = null;
-    
-    alert('Order finalized successfully! Thank you for your purchase.');
+
+    this.displayToast(
+      "Order finalized successfully! Thank you for your purchase.",
+      "success"
+    );
   }
 
   // Submit feedback after order completion
   submitFeedback(): void {
-    console.log('Feedback submitted:', {
-      hearAboutUs: this.hearAboutUs,
-      orderReason: this.orderReason
-    });
-    
     // Here you would typically send the feedback to your backend
     // For now, we'll just show an alert and reset the form
     this.showThankYouMessage = true;
-    
+
     // Reset feedback form
     this.hearAboutUs = [];
-    this.orderReason = '';
-    
+    this.orderReason = "";
+
     // Hide thank you message after 3 seconds
     setTimeout(() => {
       this.showThankYouMessage = false;
@@ -836,7 +871,7 @@ export class CartComponent implements OnInit {
   resetOrderFlow(): void {
     this.cartItems = [];
     this.cartService.clearCart();
-    
+
     this.currentStep = 1;
     this.orderCreated = false;
     this.selectedOrder = null;
@@ -850,6 +885,30 @@ export class CartComponent implements OnInit {
       this.newAddress.pincode &&
       this.newAddress.city
     );
+  }
+
+  // Toast notification methods
+  displayToast(
+    message: string,
+    type: "success" | "error" | "info" = "info"
+  ): void {
+    this.toastMessage = message;
+    this.toastType = type;
+    this.showToast = true;
+
+    // Clear existing timeout
+    if (this.toastTimeout) {
+      clearTimeout(this.toastTimeout);
+    }
+
+    // Hide toast after 3 seconds
+    this.toastTimeout = setTimeout(() => {
+      this.hideToast();
+    }, 3000);
+  }
+
+  hideToast(): void {
+    this.showToast = false;
   }
 
   checkout(): void {

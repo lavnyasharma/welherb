@@ -106,17 +106,14 @@ export class IngredientsDescComponent implements AfterViewInit, OnDestroy {
       // You could also show a default placeholder image here
       imgElement.src = "assets/images/placeholder.jpg";
     }
-    console.log(`Failed to load image for ${ingredient.name}:`, imgElement.src);
   }
 
   // Method to check if image loads successfully
-  onImageLoad(event: Event, ingredient: any) {
-    console.log(`Successfully loaded image for ${ingredient.name}`);
-  }
+  onImageLoad(event: Event, ingredient: any) {}
 
   onInfoClick(ingredient: any, event: Event) {
     event.stopPropagation();
-    console.log("Info clicked for:", ingredient.name);
+
     alert(ingredient.description);
   }
 

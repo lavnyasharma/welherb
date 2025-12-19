@@ -245,7 +245,14 @@ ul {
 
 .ant-input-affix-wrapper {
     border-radius: var(--radius-sm);
+        height: 40px;
+    background: none;
 }
+.ant-input-affix-wrapper > .ant-input:not(textarea) {
+background: none!important;
+}
+
+
 
 .p-menubar {
     background-color: var(--color-background) !important;
@@ -274,4 +281,10 @@ a {
 
 a:hover {
     color: var(--color-cta) !important;
+}
+.p-dropdown{
+        height: 40px !important;
+    display: flex !important;
+    align-items: center !important;
+    background:none !important;
 }

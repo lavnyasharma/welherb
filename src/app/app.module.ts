@@ -21,7 +21,6 @@ import { ButtonModule } from "primeng/button";
 import { RippleModule } from "primeng/ripple";
 import { CardModule } from "primeng/card";
 
-// import { ChartModule } from 'primeng/chart';
 import { CheckboxModule } from "primeng/checkbox";
 import { ChipsModule } from "primeng/chips";
 import { ColorPickerModule } from "primeng/colorpicker";
@@ -45,7 +44,7 @@ import { ToastrModule } from "ngx-toastr";
 // Custom Modules
 import { AppRoutingModule } from "./app-routing.module";
 import { AuthModule } from "./modules/auth/auth.module";
-// import { ProductModule } from './modules/product/product.module';
+
 import { CartModule } from "./modules/cart/cart.module";
 import { OrderModule } from "./modules/order/order.module";
 import { UserModule } from "./modules/user/user.module";

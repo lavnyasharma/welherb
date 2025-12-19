@@ -9,6 +9,14 @@
   gap: 10px;
   margin-bottom: 20px;
   justify-content: space-between;
+  width: 100%;
+}
+
+.capsule-size {
+  display: flex;
+  gap: 12px;
+  flex: 0 0 auto;
+  margin-right: 20px;
 }
 
 .capsule-btn {
@@ -21,6 +29,7 @@
   font-size: 14px;
   font-weight: 500;
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .capsule-btn:hover,
@@ -33,39 +42,64 @@
 .quantity-section {
   display: flex;
   align-items: center;
-  gap: 10px;
-  justify-content: flex-end;
-  /* background: black; */
+  justify-content: space-between;
   border-radius: 16px;
-  border: 1px solid #9ae2fa;
-  padding: 0px;
+  border: 2px solid #9ae2fa;
+  padding: 6px 16px;
+  gap: 0;
+  width: fit-content;
+  height: 48px;
 }
 
 .quantity-btn {
-  width: 35px;
-  height: 35px;
+  width: 28px;
+  height: 28px;
   border: none;
   background: transparent;
-  border-radius: 6px;
   cursor: pointer;
   font-size: 18px;
-  font-weight: bold;
+  font-weight: 600;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: all 0.2s ease;
+  color: #333;
+  padding: 0;
 }
 
 .quantity-btn:hover {
-  background: #f5f5f5;
-  border-color: #9ae2fa;
+  transform: scale(1.1);
+}
+
+.delete-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-delete {
+  width: 16px;
+  height: 16px;
+}
+
+.add-btn {
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.separator {
+  width: 1px;
+  height: 20px;
+  background-color: #9ae2fa;
+  margin: 0 12px;
 }
 
 .quantity-display {
   min-width: 30px;
   text-align: center;
-  font-size: 16px;
+  font-size: 18px;
   font-weight: 500;
+  color: #333;
 }
 
 /* Action Buttons */

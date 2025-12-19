@@ -100,7 +100,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   // Saved profiles for Switch Profile
 
-
   ngOnInit(): void {
     this.generateOptions();
     this.getUserProfile();
@@ -306,8 +305,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       },
     };
 
-    console.log("Saving new profile:", payload);
-
     this.apiService.addUserProfile(payload).subscribe({
       next: (res: any) => {
         this.toastService.success("Profile added successfully!");
@@ -404,7 +401,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.isLoadingOrders = true;
     this.apiService.getOrders().subscribe({
       next: (response: any) => {
-        console.log("Orders loaded:", response);
         this.orders = response.orders || response || [];
         this.isLoadingOrders = false;
       },
@@ -420,7 +416,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
   viewOrderDetails(order: any): void {
     this.apiService.getOrderById(order.orderId || order._id).subscribe({
       next: (response: any) => {
-        console.log("Order details:", response);
         this.selectedOrder = response;
         this.activeTab = "order-details";
       },
@@ -521,8 +516,6 @@ export class ProfileComponent implements OnInit, OnDestroy {
       weight: this.profileData.weight,
       gender: this.profileData.gender,
     };
-
-    console.log("Saving profile:", payload);
 
     this.apiService.updateUserProfile(payload).subscribe({
       next: (res) => {

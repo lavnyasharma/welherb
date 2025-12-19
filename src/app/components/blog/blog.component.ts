@@ -220,13 +220,9 @@ export class BlogComponent implements OnInit, OnDestroy, AfterViewInit {
     this.progressPosition = percentage * 300;
   }
 
-  onBlogClick(blog: any, index: number): void {
-    console.log("Blog clicked:", blog);
-  }
+  onBlogClick(blog: any, index: number): void {}
 
-  onMoreBlogsClick(): void {
-    console.log("More blogs clicked");
-  }
+  onMoreBlogsClick(): void {}
 
   onImageError(event: Event): void {
     const img = event.target as HTMLImageElement;

@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../../../services/api.service";
 import { CartService } from "../../../services/cart.service";
 import { ToastrService } from "ngx-toastr";
+import { combineLatest } from "rxjs";
 
 @Component({
   selector: "app-shop",
@@ -24,6 +25,7 @@ export class ShopComponent implements OnInit {
   selectedCapsule: number = 0;
   quantity = 1;
   isInCart: boolean = false;
+  private productId: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -44,7 +46,6 @@ export class ShopComponent implements OnInit {
     }
 
     const productId = this.route.snapshot.paramMap.get("id");
-    console.log(productId);
 
     if (productId) {
       this.apiService.getOneProduct(productId).subscribe((data: any) => {
@@ -92,9 +93,20 @@ export class ShopComponent implements OnInit {
         this.selectedCapsule = data.size?.[0] || 30;
       });
 
-      this.cartService.cartLoaded.subscribe((loaded) => {
-        if (loaded && productId) {
-          this.isInCart = this.cartService.isProductInCart(productId);
+      this.productId = productId;
+
+      // Wait for both cart to load and cart items to be available
+      combineLatest([
+        this.cartService.cartLoaded,
+        this.cartService.cartItems$,
+      ]).subscribe(([loaded, cartItems]) => {
+        if (loaded && this.productId) {
+          this.isInCart = this.cartService.isProductInCart(this.productId);
+          console.log("Cart check:", {
+            productId: this.productId,
+            isInCart: this.isInCart,
+            cartItems: cartItems,
+          });
         }
       });
     }

@@ -73,7 +73,7 @@
       <!-- Price Section -->
       <div class="price-section">
         <span class="current-price">₹{{ product?.price || 998 }}</span>
-        <span class="original-price">(₹499x2)</span>
+        <!-- <span class="original-price">(₹499x2)</span> -->
       </div>
 
       <!-- Product Options -->
@@ -99,10 +99,7 @@
 
         <!-- Capsule Size Selection -->
         <div class="capsule-selection">
-          <div
-            class="capsule-size"
-            style="width: 45%; display: flex; justify-content: space-between"
-          >
+          <div class="capsule-size">
             <button
               class="capsule-btn"
               [class.active]="selectedCapsule === 30"
@@ -120,9 +117,22 @@
           </div>
           <!-- Quantity Selector -->
           <div class="quantity-section">
-            <button class="quantity-btn" (click)="decreaseQuantity()">−</button>
+            <button
+              class="quantity-btn delete-btn"
+              (click)="decreaseQuantity()"
+            >
+              <img
+                src="assets/Vector (5).svg"
+                alt="Remove"
+                class="icon-delete"
+              />
+            </button>
+            <span class="separator"></span>
             <span class="quantity-display">{{ quantity }}</span>
-            <button class="quantity-btn" (click)="increaseQuantity()">+</button>
+            <span class="separator"></span>
+            <button class="quantity-btn add-btn" (click)="increaseQuantity()">
+              +
+            </button>
           </div>
         </div>
       </div>
@@ -179,7 +189,6 @@
       </div>
 
       <!-- Product Features -->
-
     </div>
   </div>
 </div>
@@ -231,7 +240,6 @@
 >
 </app-dietry-advice>
 <app-betterliving></app-betterliving>
-
 
 <app-faq [faq]="product.faq"></app-faq>
 <app-shopreviews></app-shopreviews>

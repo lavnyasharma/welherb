@@ -3,9 +3,8 @@
   width: 100%;
   height: auto;
   flex-direction: column;
-  
-  /* x or y for direction, mandatory or proximity for behavior */
-  /* Enable scrolling */
+  overflow: hidden;
+ 
  
   background: var(--color-background);
   /* Optional: Enables smooth scrolling */
@@ -26,11 +25,12 @@
 
 
 .title {
-  font-size: 2.5rem;
+  font-size: 2.9rem;
   font-weight: var(--font-weight-bold);
   font-family: var(--font-display);
   color: var(--color-text-primary);
-  line-height: 30px;
+  line-height: 50px;
+
 
 }
 
@@ -41,7 +41,7 @@
 }
 
 .button-container {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .title-section {
@@ -87,6 +87,7 @@
   position: fixed;
   max-width: 295px;
   pointer-events: none;
+  scale: 1.2;
 }
 
 .label-container {
@@ -133,6 +134,7 @@
   font-weight: 600;
   color: #333;
   line-height: 10px;
+  margin-bottom: 20px;
   max-width: max-content;
   text-align: start;
 }
@@ -140,8 +142,6 @@
 .title-section-2{
   display: flex;
   flex-direction: column;
- 
- 
  min-width: max-content;
  min-height: fit-content;
 }

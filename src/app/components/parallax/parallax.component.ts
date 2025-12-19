@@ -124,7 +124,7 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
    
 
     createParallaxAnimationDelayed(".parallax-image", '.sec1',
-      { bottom: '-45%', scale: 1, left: '40%', transform: 'rotate(0deg)' },
+      { bottom: '-45%', scale: 1.2, left: '40%', transform: 'rotate(0deg)' },
       { bottom: '0%', scale: 1.3, left: '35%', transform: 'rotate(10deg)' });
 
     createParallaxAnimationDelayed(".parallax-image", '.sec2',
@@ -140,7 +140,7 @@ export class ParallaxComponent implements OnInit, AfterViewInit {
 
     // Text animations
     createParallaxAnimationText(".title-section", '.sec1',
-      { bottom: "50%", scale: 1 },
+      { bottom: "40%", scale: 1 },
       { bottom: "-1000%", left: "10%", scale: 0.8 },
       "top 90%", "top 50%");
 

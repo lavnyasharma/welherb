@@ -1,4 +1,82 @@
 <div class="cart-page">
+  <!-- Toast Notification -->
+  <div class="toast-container" *ngIf="showToast">
+    <div class="toast" [ngClass]="'toast-' + toastType">
+      <svg
+        *ngIf="toastType === 'success'"
+        class="toast-icon"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle
+          cx="10"
+          cy="10"
+          r="9"
+          stroke="currentColor"
+          stroke-width="1.5"
+        />
+        <path
+          d="M6 10 L8.5 12.5 L14 7"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+      <svg
+        *ngIf="toastType === 'error'"
+        class="toast-icon"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle
+          cx="10"
+          cy="10"
+          r="9"
+          stroke="currentColor"
+          stroke-width="1.5"
+        />
+        <path
+          d="M7 7 L13 13 M13 7 L7 13"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
+      </svg>
+      <svg
+        *ngIf="toastType === 'info'"
+        class="toast-icon"
+        width="20"
+        height="20"
+        viewBox="0 0 20 20"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <circle
+          cx="10"
+          cy="10"
+          r="9"
+          stroke="currentColor"
+          stroke-width="1.5"
+        />
+        <path
+          d="M10 10 V14 M10 6 V7"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+        />
+      </svg>
+      <span class="toast-message">{{ toastMessage }}</span>
+      <button class="toast-close" (click)="hideToast()">&times;</button>
+    </div>
+  </div>
+
   <!-- Left Side - Cart Items or Order Review -->
   <div class="cart-section">
     <!-- Show Order Review when order is created -->
@@ -6,8 +84,22 @@
       <div class="success-header">
         <div class="success-checkmark">
           <svg width="80" height="80" viewBox="0 0 80 80">
-            <circle cx="40" cy="40" r="38" fill="#7cb342" stroke="#689f38" stroke-width="2"/>
-            <path d="M25 40 L35 50 L55 30" stroke="white" stroke-width="4" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle
+              cx="40"
+              cy="40"
+              r="38"
+              fill="#7cb342"
+              stroke="#689f38"
+              stroke-width="2"
+            />
+            <path
+              d="M25 40 L35 50 L55 30"
+              stroke="white"
+              stroke-width="4"
+              fill="none"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </div>
         <h2>Thank you!</h2>
@@ -19,39 +111,76 @@
         <h3>Order Details</h3>
         <div class="detail-row">
           <span>Order number</span>
-          <span>{{ selectedOrder?.order_id || selectedOrder?._id || 'whs279027' }}</span>
+          <span>{{
+            selectedOrder?.order_id || selectedOrder?._id || "whs279027"
+          }}</span>
         </div>
         <div class="detail-row">
           <span>Date</span>
-          <span>{{ (selectedOrder?.createdAt ? (selectedOrder?.createdAt | date:'mediumDate') : '') || 'June 27, 2025' }}</span>
+          <span>{{
+            (selectedOrder?.createdAt
+              ? (selectedOrder?.createdAt | date : "mediumDate")
+              : "") || "June 27, 2025"
+          }}</span>
         </div>
         <div class="detail-row">
           <span>Payment Method</span>
-          <span>{{ selectedPaymentMethod === 'googlepay' ? 'Google Pay' : (selectedOrder?.order_type === 'COD' ? 'Cash On Delivery' : 'Pre-Paid') }}</span>
+          <span>{{
+            selectedPaymentMethod === "googlepay"
+              ? "Google Pay"
+              : selectedOrder?.order_type === "COD"
+              ? "Cash On Delivery"
+              : "Pre-Paid"
+          }}</span>
         </div>
         <div class="detail-divider"></div>
         <div class="detail-row subtotal">
           <span>MRP</span>
-          <span>₹{{ selectedOrder?.payment_amount?.product_amount || mrpTotal }}</span>
+          <span
+            >₹{{
+              selectedOrder?.payment_amount?.product_amount || mrpTotal
+            }}</span
+          >
         </div>
         <div class="detail-row">
           <span>Shipping</span>
-          <span>₹{{ selectedOrder?.payment_amount?.delivery_amount || shipping }}</span>
+          <span
+            >₹{{
+              selectedOrder?.payment_amount?.delivery_amount || shipping
+            }}</span
+          >
         </div>
         <div class="detail-row total">
           <span>Grand Total</span>
-          <span>₹{{ selectedOrder?.payment_amount?.total_amount || grandTotal }}</span>
+          <span
+            >₹{{
+              selectedOrder?.payment_amount?.total_amount || grandTotal
+            }}</span
+          >
         </div>
         <div class="tax-note">(Inclusive of all taxes)</div>
       </div>
 
       <div class="products-box">
         <h3>Products</h3>
-        <div class="product-list-item" *ngFor="let item of selectedOrder?.products || cartItems">
-          <span *ngIf="selectedOrder?.products">{{ item.count }}x {{ item.product?.name || 'Sugaright' }}</span>
-          <span *ngIf="!selectedOrder?.products">{{ item.quantity }}x {{ item.name }}</span>
-          <span *ngIf="selectedOrder?.products">₹{{ (item.product?.price ? item.product.price[30] : 0) * item.count }}</span>
-          <span *ngIf="!selectedOrder?.products">₹{{ item.price * item.quantity }}</span>
+        <div
+          class="product-list-item"
+          *ngFor="let item of selectedOrder?.products || cartItems"
+        >
+          <span *ngIf="selectedOrder?.products"
+            >{{ item.count }}x {{ item.product?.name || "Sugaright" }}</span
+          >
+          <span *ngIf="!selectedOrder?.products"
+            >{{ item.quantity }}x {{ item.name }}</span
+          >
+          <span *ngIf="selectedOrder?.products"
+            >₹{{
+              (item.product?.price ? item.product.price[30] : 0) * item.count
+            }}</span
+          >
+          <span *ngIf="!selectedOrder?.products"
+            >₹{{ item.price * item.quantity }}</span
+          >
         </div>
       </div>
 
@@ -59,21 +188,53 @@
         <h3>Customer Details</h3>
         <div class="detail-group">
           <strong>Contact</strong>
-          <p>{{ selectedOrder?.address?.email || selectedAddress?.email || 'mange@gmail.com' }}</p>
-          <p>{{ (selectedOrder?.address?.mobile ? (selectedOrder?.address?.mobile | slice:0:10) : '') || (selectedAddress?.phone ? (selectedAddress?.phone | slice:0:10) : '') || '9876543210' }}</p>
+          <p>
+            {{
+              selectedOrder?.address?.email ||
+                selectedAddress?.email ||
+                "mange@gmail.com"
+            }}
+          </p>
+          <p>
+            {{
+              (selectedOrder?.address?.mobile
+                ? (selectedOrder?.address?.mobile | slice : 0 : 10)
+                : "") ||
+                (selectedAddress?.phone
+                  ? (selectedAddress?.phone | slice : 0 : 10)
+                  : "") ||
+                "9876543210"
+            }}
+          </p>
         </div>
         <div class="detail-group">
           <strong>Billing Address</strong>
-          <p>{{ selectedOrder?.address?.name || selectedAddress?.name || 'Jitendra Kumar' }}</p>
-          <p>{{ selectedOrder?.address?.address || selectedAddress?.address || 'Old Route, 160054, Chandigarh, India' }}</p>
+          <p>
+            {{
+              selectedOrder?.address?.name ||
+                selectedAddress?.name ||
+                "Jitendra Kumar"
+            }}
+          </p>
+          <p>
+            {{
+              selectedOrder?.address?.address ||
+                selectedAddress?.address ||
+                "Old Route, 160054, Chandigarh, India"
+            }}
+          </p>
         </div>
       </div>
     </div>
 
     <!-- Show Cart Items when order is not created or not in step 4 -->
-    <div *ngIf="!(currentStep === 4 && orderCreated)" class="cart-items-section">
+    <div
+      *ngIf="!(currentStep === 4 && orderCreated)"
+      class="cart-items-section"
+    >
       <div class="cart-header">
         <h2>My Cart({{ totalItems }})</h2>
+        <hr class="cart-header-line" />
       </div>
 
       <div class="cart-items">
@@ -85,28 +246,45 @@
 
         <div class="cart-item" *ngFor="let item of cartItems">
           <img class="item-image" [src]="item.image" [alt]="item.name" />
-          
+
           <div class="item-details">
             <div class="item-header">
               <div class="item-info-left">
                 <h3 class="item-name">{{ item.name }}</h3>
                 <p class="item-size">Size: {{ item.size }}</p>
               </div>
-              <button class="remove-btn" (click)="removeItem(item.id)">Remove</button>
+              <button class="remove-btn" (click)="removeItem(item.id)">
+                Remove
+              </button>
             </div>
-            
+
             <div class="item-footer">
               <div class="quantity-controls">
-                <button 
-                  class="quantity-btn minus" 
-                  (click)="decreaseQuantity(item.id)"
-                  [disabled]="item.quantity <= 1">
-                  -
+                <button
+                  class="quantity-btn delete"
+                  (click)="removeItem(item.id)"
+                >
+                  <svg
+                    width="16"
+                    height="16"
+                    viewBox="0 0 16 16"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M2 4H14M12.6667 4V13.3333C12.6667 14 12 14.6667 11.3333 14.6667H4.66667C4 14.6667 3.33333 14 3.33333 13.3333V4M5.33333 4V2.66667C5.33333 2 6 1.33333 6.66667 1.33333H9.33333C10 1.33333 10.6667 2 10.6667 2.66667V4M6.66667 7.33333V11.3333M9.33333 7.33333V11.3333"
+                      stroke="currentColor"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
                 </button>
                 <span class="quantity">{{ item.quantity }}</span>
-                <button 
-                  class="quantity-btn plus" 
-                  (click)="increaseQuantity(item.id)">
+                <button
+                  class="quantity-btn plus"
+                  (click)="increaseQuantity(item.id)"
+                >
                   +
                 </button>
               </div>
@@ -117,36 +295,42 @@
       </div>
 
       <div class="order-summary" *ngIf="cartItems.length > 0">
+        <hr class="order-summary-divider" />
         <div class="summary-row">
           <span>MRP</span>
           <span>₹{{ mrpTotal }}</span>
         </div>
-        
+
         <div class="summary-row">
           <span>Discount</span>
           <span>₹{{ discount }}</span>
         </div>
-        
+
         <div class="summary-row">
           <span>Shipping</span>
           <span>₹{{ shipping }}</span>
         </div>
-        
+
         <div class="free-delivery" *ngIf="shipping === 0">
           Free delivery above ₹499
         </div>
-        
-        <hr class="summary-divider">
-        
+
+        <hr class="summary-divider" />
+
         <div class="summary-total">
           <span>Grand Total</span>
           <span>₹{{ grandTotal }}</span>
         </div>
-        
+
         <div class="summary-note">(inclusive of all taxes)</div>
-        
+
         <div class="savings-badge" *ngIf="savings > 0">
-          🎯 You saved ₹{{ savings }} on this order!
+          <img
+            src="assets/twemoji_party-popper.svg"
+            alt="party"
+            class="party-icon"
+          />
+          You saved ₹{{ savings }} on this order!
         </div>
       </div>
     </div>
@@ -157,19 +341,31 @@
     <div class="checkout-header">
       <h2>Check out</h2>
       <div class="step-progress">
-        <div class="step-item" [ngClass]="{ active: currentStep >= 1, current: currentStep === 1 }">
+        <div
+          class="step-item"
+          [ngClass]="{ active: currentStep >= 1, current: currentStep === 1 }"
+        >
           <div class="step-number">01</div>
           <div class="step-title">Offers</div>
         </div>
-        <div class="step-item" [ngClass]="{ active: currentStep >= 2, current: currentStep === 2 }">
+        <div
+          class="step-item"
+          [ngClass]="{ active: currentStep >= 2, current: currentStep === 2 }"
+        >
           <div class="step-number">02</div>
           <div class="step-title">Delivery</div>
         </div>
-        <div class="step-item" [ngClass]="{ active: currentStep >= 3, current: currentStep === 3 }">
+        <div
+          class="step-item"
+          [ngClass]="{ active: currentStep >= 3, current: currentStep === 3 }"
+        >
           <div class="step-number">03</div>
           <div class="step-title">Payment</div>
         </div>
-        <div class="step-item" [ngClass]="{ active: currentStep >= 4, current: currentStep === 4 }">
+        <div
+          class="step-item"
+          [ngClass]="{ active: currentStep >= 4, current: currentStep === 4 }"
+        >
           <div class="step-number">04</div>
           <div class="step-title">Review</div>
         </div>
@@ -184,26 +380,48 @@
             <div class="empty-checkout-icon">🛒</div>
             <h3>Your cart is empty</h3>
             <p>Add some products to your cart to proceed with checkout</p>
-            <p class="checkout-note">You can still browse our offers and prepare for your purchase!</p>
+            <p class="checkout-note">
+              You can still browse our offers and prepare for your purchase!
+            </p>
           </div>
-          
+
           <div class="coupons-header">
-            <i class="icon-coupon">🎟️</i>
+            <img src="assets/Vector (6).svg" alt="coupon" class="coupon-icon" />
             <span>Coupons and offers</span>
+            <svg
+              class="dropdown-arrow"
+              width="12"
+              height="12"
+              viewBox="0 0 12 12"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M3 4.5L6 7.5L9 4.5"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
           </div>
-          
+
           <div class="discount-input">
-            <input type="text" 
-                   [(ngModel)]="discountCode"
-                   placeholder="Discount code or gift card"
-                   [disabled]="cartItems.length === 0">
-            <button class="apply-btn" 
-                    (click)="applyDiscount()"
-                    [disabled]="cartItems.length === 0">
+            <input
+              type="text"
+              [(ngModel)]="discountCode"
+              placeholder="Discount code or gift card"
+              [disabled]="cartItems.length === 0"
+            />
+            <button
+              class="apply-btn"
+              (click)="applyDiscount()"
+              [disabled]="cartItems.length === 0"
+            >
               Apply
             </button>
           </div>
-          
+
           <div *ngIf="cartItems.length === 0" class="offers-preview">
             <h4>Available Offers</h4>
             <div class="offer-item">
@@ -228,28 +446,48 @@
           <div class="delivery-header">
             <h3>Delivery address</h3>
           </div>
-          
+
           <div class="address-options">
-            <div class="address-item" 
-                 *ngFor="let address of deliveryAddresses"
-                 [class.selected]="address.selected"
-                 [class.default-address]="address.address === 'Please add your delivery address below'"
-                 (click)="selectAddress(address.id)">
-              <input type="radio" 
-                     [checked]="address.selected"
-                     [value]="address.id">
+            <div
+              class="address-item"
+              *ngFor="let address of deliveryAddresses"
+              [class.selected]="address.selected"
+              [class.default-address]="
+                address.address === 'Please add your delivery address below'
+              "
+              (click)="selectAddress(address.id)"
+            >
+              <input
+                type="radio"
+                [checked]="address.selected"
+                [value]="address.id"
+              />
               <div class="address-details">
-                <div *ngIf="address.address === 'Please add your delivery address below'" class="default-address-message">
+                <div
+                  *ngIf="
+                    address.address === 'Please add your delivery address below'
+                  "
+                  class="default-address-message"
+                >
                   <strong>{{ address.name }}</strong>
                   <p>{{ address.address }}</p>
-                  <small>Use the form below to add your actual delivery address</small>
+                  <small
+                    >Use the form below to add your actual delivery
+                    address</small
+                  >
                 </div>
-                <div *ngIf="address.address !== 'Please add your delivery address below'" class="real-address">
-                
+                <div
+                  *ngIf="
+                    address.address !== 'Please add your delivery address below'
+                  "
+                  class="real-address"
+                >
                   <div class="address-body">
                     <p class="address-line">{{ address.address }}</p>
-                    <p class="address-location">{{ address.city }}, {{ address.state }} - {{ address.pincode }}</p>
-              
+                    <p class="address-location">
+                      {{ address.city }}, {{ address.state }} -
+                      {{ address.pincode }}
+                    </p>
                   </div>
                 </div>
               </div>
@@ -258,78 +496,109 @@
 
           <div class="add-new-address">
             <h4>Add new delivery address</h4>
-            
+
             <div *ngIf="pincodeResponse" class="pincode-response">
               <div class="response-success" *ngIf="pincodeResponse.available">
                 <span class="icon">✅</span>
                 <span class="title">Delivery available in your area!</span>
                 <div class="response-details">
-                  <span *ngIf="pincodeResponse.message">{{ pincodeResponse.message }}</span>
-                  <span *ngIf="pincodeResponse.deliveryTime">Estimated delivery: {{ pincodeResponse.deliveryTime }}</span>
+                  <span *ngIf="pincodeResponse.message">{{
+                    pincodeResponse.message
+                  }}</span>
+                  <span *ngIf="pincodeResponse.deliveryTime"
+                    >Estimated delivery:
+                    {{ pincodeResponse.deliveryTime }}</span
+                  >
                   <span *ngIf="pincodeResponse.city || pincodeResponse.state">
-                    {{ pincodeResponse.city }}<span *ngIf="pincodeResponse.city && pincodeResponse.state">, </span>{{ pincodeResponse.state }}
+                    {{ pincodeResponse.city
+                    }}<span
+                      *ngIf="pincodeResponse.city && pincodeResponse.state"
+                      >, </span
+                    >{{ pincodeResponse.state }}
                   </span>
                 </div>
               </div>
               <div class="response-error" *ngIf="!pincodeResponse.available">
                 <span class="icon">❌</span>
-                <span class="title">Delivery not available in this pincode</span>
+                <span class="title"
+                  >Delivery not available in this pincode</span
+                >
                 <div class="response-details" *ngIf="pincodeResponse.message">
                   {{ pincodeResponse.message }}
                 </div>
               </div>
             </div>
-            
+
             <div class="form-row">
-              <input type="email" 
-                     [(ngModel)]="newAddress.email"
-                     placeholder="Email(Optional)">
+              <input
+                type="email"
+                [(ngModel)]="newAddress.email"
+                placeholder="Email(Optional)"
+              />
             </div>
-            
+
             <div class="form-row">
-              <input type="text" 
-                     [(ngModel)]="newAddress.pincode"
-                     placeholder="Pincode*">
+              <input
+                type="text"
+                [(ngModel)]="newAddress.pincode"
+                placeholder="Pincode*"
+              />
               <button class="check-btn" (click)="checkPincode()">Check</button>
             </div>
-            
+
             <div class="form-row">
-              <input type="text" 
-                     [(ngModel)]="newAddress.name"
-                     placeholder="Name*">
-              <input type="tel" 
-                     [(ngModel)]="newAddress.phone"
-                     (input)="onMobileNumberChange(); formatMobileNumber()"
-                     (keypress)="validateMobileNumberInput($event)"
-                     maxlength="10"
-                     placeholder="Phone Number*">
+              <input
+                type="text"
+                [(ngModel)]="newAddress.name"
+                placeholder="Name*"
+              />
+              <input
+                type="tel"
+                [(ngModel)]="newAddress.phone"
+                (input)="onMobileNumberChange(); formatMobileNumber()"
+                (keypress)="validateMobileNumberInput($event)"
+                maxlength="10"
+                placeholder="Phone Number*"
+              />
             </div>
-            
+
             <div class="form-row">
-              <textarea [(ngModel)]="newAddress.address"
-                       placeholder="Address*(Flat/House number/Street)"
-                       rows="3"></textarea>
+              <textarea
+                [(ngModel)]="newAddress.address"
+                placeholder="Address*(Flat/House number/Street)"
+                rows="3"
+              ></textarea>
             </div>
-            
+
             <div class="form-row">
-              <input type="text" 
-                     [(ngModel)]="newAddress.state"
-                     placeholder="State">
-              <input type="text" 
-                     [(ngModel)]="newAddress.city"
-                     placeholder="City/District/Town*">
+              <input
+                type="text"
+                [(ngModel)]="newAddress.state"
+                placeholder="State"
+              />
+              <input
+                type="text"
+                [(ngModel)]="newAddress.city"
+                placeholder="City/District/Town*"
+              />
             </div>
-            
+
             <div class="address-actions">
-              <button class="add-address-btn" 
-                      (click)="addNewAddress()"
-                      [disabled]="isAddingAddress">
-                {{ isAddingAddress ? 'Adding...' : 'Add Address' }}
+              <button
+                class="add-address-btn"
+                (click)="addNewAddress()"
+                [disabled]="isAddingAddress"
+              >
+                {{ isAddingAddress ? "Adding..." : "Add Address" }}
               </button>
-              <button class="update-address-btn" 
-                      (click)="updateAddress()"
-                      [disabled]="isUpdatingAddress">
-                {{ isUpdatingAddress ? 'Updating...' : 'Update Selected Address' }}
+              <button
+                class="update-address-btn"
+                (click)="updateAddress()"
+                [disabled]="isUpdatingAddress"
+              >
+                {{
+                  isUpdatingAddress ? "Updating..." : "Update Selected Address"
+                }}
               </button>
             </div>
           </div>
@@ -337,8 +606,7 @@
           <!-- COD Checkbox -->
           <div class="cod-checkbox">
             <label>
-              <input type="checkbox" 
-                     [(ngModel)]="isCODSelected">
+              <input type="checkbox" [(ngModel)]="isCODSelected" />
               Cash On Delivery (COD)
             </label>
           </div>
@@ -350,39 +618,63 @@
         <div class="payment-section">
           <div class="payment-group">
             <h4>Recommended Payment Option</h4>
-            <div class="payment-option recommended" *ngIf="paymentLinks" (click)="openPaymentLink('gpay')">
+            <div
+              class="payment-option recommended"
+              *ngIf="paymentLinks"
+              (click)="openPaymentLink('gpay')"
+            >
               <span>Google Pay</span>
-              <img class="payment-logo" src="assets/payment/gpay.svg" alt="GPay" />
+              <img
+                class="payment-logo"
+                src="assets/payment/gpay.svg"
+                alt="GPay"
+              />
             </div>
           </div>
 
           <div class="payment-group">
             <h4>Online Payment Option</h4>
-            <div class="payment-option" *ngIf="paymentLinks" (click)="openPaymentLink('bhim')">
+            <div
+              class="payment-option"
+              *ngIf="paymentLinks"
+              (click)="openPaymentLink('bhim')"
+            >
               <span>UPI (Pay via any App)</span>
-            
             </div>
-            <div class="payment-option" *ngIf="paymentLinks" (click)="openPaymentLink('web')">
+            <div
+              class="payment-option"
+              *ngIf="paymentLinks"
+              (click)="openPaymentLink('web')"
+            >
               <span>Debit/Credit Card</span>
-             
             </div>
-            <div class="payment-option" *ngIf="paymentLinks" (click)="openPaymentLink('web')">
+            <div
+              class="payment-option"
+              *ngIf="paymentLinks"
+              (click)="openPaymentLink('web')"
+            >
               <span>EMI</span>
-
             </div>
           </div>
 
           <div class="payment-group">
             <h4>Other</h4>
             <label class="payment-option">
-              <input type="radio" name="otherPay" (change)="isCODSelected = true" />
+              <input
+                type="radio"
+                name="otherPay"
+                (change)="isCODSelected = true"
+              />
               <span>Cash On Delivery</span>
               <i class="icon-info">💬</i>
             </label>
           </div>
 
           <div class="payment-note">
-            <p>You will be redirected to the payment gateway to complete your purchase.</p>
+            <p>
+              You will be redirected to the payment gateway to complete your
+              purchase.
+            </p>
           </div>
         </div>
       </div>
@@ -391,26 +683,39 @@
       <div *ngIf="currentStep === 4 && !orderCreated" class="step-content">
         <div class="survey-section">
           <div class="offer-banner">
-            <h3>Tell us and get <span class="highlight">10% OFF</span> on your next order!</h3>
+            <h3>
+              Tell us and get <span class="highlight">10% OFF</span> on your
+              next order!
+            </h3>
           </div>
 
           <div class="survey-question">
-            <h4>How did you first hear about us? <span class="expand-icon">+</span></h4>
+            <h4>
+              How did you first hear about us?
+              <span class="expand-icon">+</span>
+            </h4>
             <div class="checkbox-group">
               <label *ngFor="let option of hearAboutOptions">
-                <input type="checkbox" 
-                       [value]="option"
-                       (change)="onHearAboutUsChange(option, $event)">
+                <input
+                  type="checkbox"
+                  [value]="option"
+                  (change)="onHearAboutUsChange(option, $event)"
+                />
                 {{ option }}
               </label>
             </div>
           </div>
 
           <div class="survey-question">
-            <h4>What made you decide to place the order today? <span class="expand-icon">+</span></h4>
-            <textarea [(ngModel)]="orderReason"
-                     placeholder="Tell us about your decision..."
-                     rows="4"></textarea>
+            <h4>
+              What made you decide to place the order today?
+              <span class="expand-icon">+</span>
+            </h4>
+            <textarea
+              [(ngModel)]="orderReason"
+              placeholder="Tell us about your decision..."
+              rows="4"
+            ></textarea>
           </div>
         </div>
       </div>
@@ -418,29 +723,36 @@
       <!-- Order Success - Show Feedback Form Here -->
       <div *ngIf="orderCreated" class="step-content">
         <div class="feedback-section">
-          <h3>Tell us and get <span class="highlight">10% Off</span> on your next order!</h3>
-          
+          <h3>
+            Tell us and get <span class="highlight">10% Off</span> on your next
+            order!
+          </h3>
+
           <form class="feedback-form" (ngSubmit)="submitFeedback()">
             <div class="form-group">
               <label>How did you first hear about us?</label>
               <div class="checkbox-group">
                 <label *ngFor="let option of hearAboutOptions">
-                  <input type="checkbox" 
-                         [value]="option"
-                         (change)="onHearAboutUsChange(option, $event)">
+                  <input
+                    type="checkbox"
+                    [value]="option"
+                    (change)="onHearAboutUsChange(option, $event)"
+                  />
                   {{ option }}
                 </label>
               </div>
             </div>
-            
+
             <div class="form-group">
               <label>What made you decide to place the order today?</label>
-              <textarea [(ngModel)]="orderReason"
-                       name="orderReason"
-                       placeholder="Tell us about your decision..."
-                       rows="4"></textarea>
+              <textarea
+                [(ngModel)]="orderReason"
+                name="orderReason"
+                placeholder="Tell us about your decision..."
+                rows="4"
+              ></textarea>
             </div>
-            
+
             <button type="submit" class="submit-feedback-btn">Submit</button>
           </form>
         </div>
@@ -454,20 +766,29 @@
       </div>
     </div>
 
-
     <!-- Continue/Submit Button -->
     <div class="checkout-footer" *ngIf="!orderCreated">
-      <button *ngIf="currentStep < 4" 
-              class="continue-btn" 
-              (click)="nextStep()"
-              [disabled]="isCreatingOrder || cartItems.length === 0">
-        {{ isCreatingOrder ? 'Processing...' : (cartItems.length === 0 ? 'Add items to continue' : 'Continue') }}
+      <button
+        *ngIf="currentStep < 4"
+        class="continue-btn"
+        (click)="nextStep()"
+        [disabled]="isCreatingOrder || cartItems.length === 0"
+      >
+        {{
+          isCreatingOrder
+            ? "Processing..."
+            : cartItems.length === 0
+            ? "Add items to continue"
+            : "Continue"
+        }}
       </button>
-      <button *ngIf="currentStep === 4 && !orderCreated && !isCreatingOrder" 
-              class="submit-btn" 
-              (click)="submitOrder()"
-              [disabled]="cartItems.length === 0">
-        {{ cartItems.length === 0 ? 'Add items to submit' : 'Submit' }}
+      <button
+        *ngIf="currentStep === 4 && !orderCreated && !isCreatingOrder"
+        class="submit-btn"
+        (click)="submitOrder()"
+        [disabled]="cartItems.length === 0"
+      >
+        {{ cartItems.length === 0 ? "Add items to submit" : "Submit" }}
       </button>
     </div>
   </div>
@@ -477,7 +798,11 @@
 <div class="page-brand-strip">
   <div class="brand-strip">
     <div class="logos">
-      <img src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/image%20115.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvaW1hZ2UgMTE1LnBuZyIsImlhdCI6MTc2MjA3ODIxMiwiZXhwIjoxNzkzNjE0MjEyfQ.FY64mCrJ-RjK8M1rJTaYM18oZPvBmY0fNTvDcNgFz58" alt="Payment Methods" class="payment-logos-image" />
+      <img
+        src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/image%20115.png?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvaW1hZ2UgMTE1LnBuZyIsImlhdCI6MTc2MjA3ODIxMiwiZXhwIjoxNzkzNjE0MjEyfQ.FY64mCrJ-RjK8M1rJTaYM18oZPvBmY0fNTvDcNgFz58"
+        alt="Payment Methods"
+        class="payment-logos-image"
+      />
     </div>
     <div class="secure-note">
       <span class="shield">🛡️</span>
