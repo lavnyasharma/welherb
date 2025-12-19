@@ -1,0 +1,109 @@
+<!-- Detailed Reviews & Ratings Section -->
+<div class="feedback-section">
+  <!-- Top Summary Cards -->
+  <div class="summary-cards-container">
+    <!-- Rating Summary Card -->
+    <div class="summary-card rating-card">
+      <div class="rating-header">
+        <span class="rating-big">4.5</span>
+        <span class="rating-total">/ 5</span>
+      </div>
+      <div class="reviews-count-row">
+        <div class="star-row-small">
+          <span class="star-filled">★</span><span class="star-filled">★</span
+          ><span class="star-filled">★</span><span class="star-filled">★</span
+          ><span class="star-half">★</span>
+        </div>
+        <span class="based-on">Based on 603 reviews</span>
+        <span class="check-icon">✓</span>
+      </div>
+
+      <hr class="card-divider-light" />
+
+      <div class="rating-bars">
+        <div class="bar-row" *ngFor="let dist of ratingDistribution">
+          <div class="bar-container">
+            <div class="bar-fill" [style.width.%]="dist.percentage"></div>
+          </div>
+          <div class="bar-label">
+            <span class="bar-stars">{{ dist.stars | number : "1.1-1" }}</span>
+            <span class="star-icon-green">★</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Write Review Card -->
+    <div class="summary-card write-review-card">
+      <div class="authenticity-badge">
+        <img
+          src="assets/wreath-badge.png"
+          alt="Bronze Authenticity"
+          class="wreath-img"
+          onerror="this.style.display='none'"
+        />
+        <div class="badge-content">
+          <span class="badge-icon">🌿</span>
+          <div class="badge-text-col">
+            <span class="badge-title">BRONZE</span>
+            <span class="badge-subtitle">AUTHENTICITY</span>
+            <span class="badge-score">86.9</span>
+          </div>
+        </div>
+      </div>
+
+      <button class="write-review-btn">
+        <span class="pen-icon">✎</span> Write a review
+      </button>
+    </div>
+  </div>
+
+  <!-- Reviews List Container -->
+  <div class="reviews-list-container">
+    <div class="list-header">
+      <h3 class="list-title">Trust That We Have Earned</h3>
+      <div class="sort-dropdown">
+        <span>Sort by:</span>
+        <button class="sort-btn">
+          Newest <i class="pi pi-chevron-down" style="font-size: 0.8rem"></i>
+        </button>
+      </div>
+    </div>
+
+    <hr class="list-divider" />
+
+    <div class="reviews-feed">
+      <div
+        class="review-entry"
+        *ngFor="let review of detailedReviews; let last = last"
+      >
+        <div class="entry-header">
+          <div class="avatar-circle">{{ review.initial }}</div>
+          <div class="header-info">
+            <div class="stars-date-row">
+              <div class="entry-stars">
+                <span
+                  *ngFor="let s of getStarsArray(review.stars)"
+                  class="star-filled-green"
+                  >★</span
+                >
+              </div>
+              <span class="entry-date">{{ review.date }}</span>
+            </div>
+            <div class="name-verified-row">
+              <span class="entry-name">{{ review.name }}</span>
+              <span *ngIf="review.verified" class="verified-badge"
+                >Verified</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <h4 class="entry-title">{{ review.title }}</h4>
+        <p class="entry-content">{{ review.content }}</p>
+
+        <hr *ngIf="!last" class="entry-divider" />
+      </div>
+    </div>
+  </div>
+</div>

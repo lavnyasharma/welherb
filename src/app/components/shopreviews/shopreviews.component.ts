@@ -80,9 +80,32 @@ export class ShopreviewsComponent {
     return total > 0 ? weighted / total : 0;
   }
 
-  getRatingPercentage(count: number): number {
+  ratingDistribution: any[] = [];
+  detailedReviews: any[] = [];
+
+  ngOnInit() {
+    this.calculateRatingDistribution();
+    this.mapReviews();
+  }
+
+  calculateRatingDistribution() {
     const total = this.getTotalRatings();
-    return total > 0 ? (count / total) * 100 : 0;
+    this.ratingDistribution = this.ratings.map((r) => ({
+      stars: r.stars,
+      percentage: total > 0 ? (r.count / total) * 100 : 0,
+    }));
+  }
+
+  mapReviews() {
+    this.detailedReviews = this.reviews.map((r) => ({
+      initial: r.author.charAt(0),
+      name: r.author,
+      date: "08/11/2025", // Mock date for now
+      stars: r.stars,
+      title: "Safe & Effective Ayurveda", // Mock title
+      content: r.content,
+      verified: true,
+    }));
   }
 
   submitReview() {

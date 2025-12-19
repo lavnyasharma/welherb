@@ -106,6 +106,7 @@ import { ReviewsCarouselComponent } from "./components/reviews-carousel/reviews-
 import { CleanIngredientComponent } from "./components/clean-ingredient/clean-ingredient.component";
 import { TermsComponent } from "./terms/terms.component";
 import { InfiniteCarouselComponent } from "./components/shared/infinite-carousel/infinite-carousel.component";
+import { ProductReviewsComponent } from "./components/product-reviews/product-reviews.component";
 
 @NgModule({
   declarations: [
@@ -151,6 +152,7 @@ import { InfiniteCarouselComponent } from "./components/shared/infinite-carousel
     CleanIngredientComponent,
     TermsComponent,
     InfiniteCarouselComponent,
+    ProductReviewsComponent,
   ],
   imports: [
     BrowserModule,

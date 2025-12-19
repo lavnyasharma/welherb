@@ -30,6 +30,8 @@ export class ReviewsCarouselComponent
   @ViewChild("carouselTrack") carouselTrack!: ElementRef;
   @ViewChild("progressLine") progressLine!: ElementRef;
 
+  @Input() showReadMore: boolean = true;
+
   @Input() reviews: Review[] = [
     {
       id: 1,

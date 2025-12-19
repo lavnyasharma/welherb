@@ -1,15 +1,7 @@
 .testimonials-container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 40px 100px;
-}
 
-/* Header and Carousel styles removed as they are now handled by app-reviews-carousel */
-
-.testimonials-container {
-  max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 100px;
+  
 }
 
 /* Bottom Section */
@@ -18,6 +10,7 @@
   gap: 40px;
   margin-bottom: 60px;
   align-items: center;
+  padding: 40px 100px;
 }
 
 /* Ratings Section */
@@ -93,6 +86,7 @@
   display: flex;
   gap: 40px;
   align-items: flex-start;
+  padding: 40px 100px;
 }
 
 .recent-feedback,
