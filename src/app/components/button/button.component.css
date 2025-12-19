@@ -1,6 +1,7 @@
 .custom-btn {
   height: 48px;
-  padding: 0 32px;
+  padding: 0 48px;
+  min-width: 140px;
   border-radius: var(--radius-md);
   border: none;
   font-family: var(--font-primary);
@@ -18,13 +19,11 @@
 .custom-btn.primary {
   background-color: var(--color-cta);
   color: var(--color-text-on-cta);
-  box-shadow: 0 4px 6px rgba(78, 174, 50, 0.2);
+  transition: transform 0.3s ease;
 }
 
 .custom-btn.primary:hover {
-  background-color: var(--color-cta-hover);
-  transform: translateY(-1px);
-  box-shadow: 0 6px 8px rgba(78, 174, 50, 0.3);
+  transform: scale(1.08); /* zoom in */
 }
 
 .custom-btn.outline {
@@ -36,4 +35,10 @@
 .custom-btn.outline:hover {
   background-color: var(--color-text-primary);
   color: var(--color-text-on-cta);
+}
+
+.btn-icon-svg {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }

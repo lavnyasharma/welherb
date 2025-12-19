@@ -4,18 +4,23 @@
     <div class="product-images">
       <!-- Main Product Image -->
       <div class="main-image-container">
-        <img [src]="selectedImage" [alt]="product?.title" class="main-product-image">
+        <img
+          [src]="selectedImage"
+          [alt]="product?.title"
+          class="main-product-image"
+        />
       </div>
-      
+
       <!-- Thumbnail Images -->
       <div class="thumbnail-grid">
-        <img 
-          *ngFor="let image of productImages; let i = index" 
-          [src]="image" 
+        <img
+          *ngFor="let image of productImages; let i = index"
+          [src]="image"
           [alt]="'Product view ' + (i + 1)"
           class="thumbnail-image"
           [class.active]="image === selectedImage"
-          (click)="selectImage(image)">
+          (click)="selectImage(image)"
+        />
       </div>
     </div>
 
@@ -23,27 +28,45 @@
     <div class="product-info">
       <!-- Blood Pressure Tag -->
       <div class="category-tag">Blood Pressure</div>
-      
+
       <!-- Product Title -->
-      <h1 class="product-title">{{ product?.title || 'ARTH EASE' }}</h1>
-      
+      <h1 class="product-title">{{ product?.title || "ARTH EASE" }}</h1>
+
       <!-- Rating -->
-              <div class="product-rating" style="    padding-bottom: 15px;
-    border-bottom: 1px solid rgb(200, 200, 200);">
-                <div class="stars">
-                  <i class="fa fa-star filled" *ngFor="let star of [1,2,3,4,5]"></i>
-                </div>
-                <span style="font-family: Lato !important;" class="rating-count"></span>
-              </div>
+      <div
+        class="product-rating"
+        style="
+          padding-bottom: 15px;
+          border-bottom: 1px solid rgb(200, 200, 200);
+        "
+      >
+        <div class="stars">
+          <i class="fa fa-star filled" *ngFor="let star of [1, 2, 3, 4, 5]"></i>
+        </div>
+        <span style="font-family: Lato !important" class="rating-count"></span>
+      </div>
 
       <!-- Product Description -->
-      <div class="product-description" style="    margin-top: 10px;">
-        <p class="subtitle">Ayurvedic medicine for:</p>
+      <div class="product-description" style="margin-top: 10px">
+        <p class="subtitle">A blend of Ayurvedic ingredients that helps</p>
         <ul class="benefits-list">
-          <li>• High ESR & inflammation</li>
-          <li>• Joint pain, swelling & fatigue</li>
-          <li>• Pus cells in reproductive & urinary tract</li>
-          <li>• Inflammation-induced conditions like Arthritis, PCOS and others.</li>
+          <li>
+            <img src="assets/star (1) 1.svg" alt="+" class="benefit-icon" />
+            Reduce High ESR & inflammation
+          </li>
+          <li>
+            <img src="assets/star (1) 1.svg" alt="+" class="benefit-icon" />
+            Relieves Joint pain, swelling & fatigue
+          </li>
+          <li>
+            <img src="assets/star (1) 1.svg" alt="+" class="benefit-icon" />
+            Reduces Pus cells in reproductive & urinary tract
+          </li>
+          <li>
+            <img src="assets/star (1) 1.svg" alt="+" class="benefit-icon" />
+            Support Inflammation-related concerns like Arthritis, PCOS and
+            others.
+          </li>
         </ul>
       </div>
 
@@ -55,7 +78,7 @@
 
       <!-- Product Options -->
       <div class="product-options">
-        <!-- Radio Options -->
+        <!-- Radio Options - Commented out per request
         <div class="option-group">
           <label class="option-item">
             <input type="radio" name="product-option" value="combos" checked>
@@ -72,90 +95,91 @@
             <span class="option-label">Arth Ease Afternoon</span>
           </label>
         </div>
+        -->
 
         <!-- Capsule Size Selection -->
         <div class="capsule-selection">
-    <div class="capsule-size" style="    width: 45%;
-    display: flex
-;
-    justify-content: space-between;">
-            <button class="capsule-btn" 
-                  [class.active]="selectedCapsule === 30"
-                  (click)="selectCapsule(30)">
-            30 Capsules
-          </button>
-          <button class="capsule-btn" 
-                  [class.active]="selectedCapsule === 60"
-                  (click)="selectCapsule(60)">
-            60 Capsules
-          </button>
-    </div>
-                  <!-- Quantity Selector -->
-        <div class="quantity-section">
-          <button class="quantity-btn" (click)="decreaseQuantity()">−</button>
-          <span class="quantity-display">{{ quantity }}</span>
-          <button class="quantity-btn" (click)="increaseQuantity()">+</button>
+          <div
+            class="capsule-size"
+            style="width: 45%; display: flex; justify-content: space-between"
+          >
+            <button
+              class="capsule-btn"
+              [class.active]="selectedCapsule === 30"
+              (click)="selectCapsule(30)"
+            >
+              30 Capsules
+            </button>
+            <button
+              class="capsule-btn"
+              [class.active]="selectedCapsule === 60"
+              (click)="selectCapsule(60)"
+            >
+              60 Capsules
+            </button>
+          </div>
+          <!-- Quantity Selector -->
+          <div class="quantity-section">
+            <button class="quantity-btn" (click)="decreaseQuantity()">−</button>
+            <span class="quantity-display">{{ quantity }}</span>
+            <button class="quantity-btn" (click)="increaseQuantity()">+</button>
+          </div>
         </div>
-        </div>
-
-
       </div>
 
       <!-- Action Buttons -->
       <div class="action-buttons">
-        <button class="add-to-cart-btn" 
-                (click)="addToCart()" 
-                [disabled]="isInCart">
-          {{ isInCart ? 'Added To Cart' : 'Add To Cart' }}
+        <button
+          class="add-to-cart-btn"
+          (click)="addToCart()"
+          [disabled]="isInCart"
+        >
+          {{ isInCart ? "Added To Cart" : "Add To Cart" }}
         </button>
-        <button class="buy-now-btn" (click)="buyNow()">
-          Buy Now
-        </button>
+        <button class="buy-now-btn" (click)="buyNow()">Buy Now</button>
+      </div>
+
+      <!-- Personalized Dosage Section -->
+      <div class="dosage-trigger" (click)="openModal(product?.id)">
+        <div class="dosage-trigger-content">
+          <div class="dosage-text">
+            <span class="dosage-title"
+              >Your personalised dosage for best results</span
+            >
+            <span class="dosage-subtitle">Click to learn more</span>
+          </div>
+          <div class="dosage-icons">
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#333"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#333"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <polyline points="6 9 12 15 18 9"></polyline>
+            </svg>
+          </div>
+        </div>
       </div>
 
       <!-- Product Features -->
-      <div class="product-features">
-        <div class="features-grid">
-          <div class="feature-item">
-            <span class="feature-icon">•</span>
-            <span class="feature-text">No added preservatives</span>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">•</span>
-            <span class="feature-text">No aflatoxins</span>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">•</span>
-            <span class="feature-text">No synthetic binders & fillers</span>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">•</span>
-            <span class="feature-text">No heavy metals</span>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">•</span>
-            <span class="feature-text">No pesticides</span>
-          </div>
-          <div class="feature-item">
-            <span class="feature-icon">•</span>
-            <span class="feature-text">No microbial & fungal contamination</span>
-          </div>
-        </div>
-      </div>
 
-      <!-- Not Sure Section -->
-      <div class="not-sure-section">
-        <div class="sample-offer">
-          <img [src]="productImages[0]" alt="Sample" class="sample-image">
-          <div class="sample-text">
-            <h4>Not sure?</h4>
-            <p>Get a free sample at checkout</p>
-          </div>
-          <button class="sample-btn" (click)="openModal(product?.id)">
-            Buy Sample →
-          </button>
-        </div>
-      </div>
     </div>
   </div>
 </div>
@@ -167,7 +191,7 @@
       <h2>Your Personalized Dosage</h2>
       <button class="close-btn" (click)="closeModal()">×</button>
     </div>
-    
+
     <div class="modal-content">
       <div class="dosage-info" *ngIf="!dosage?.error; else noDosage">
         <div class="dosage-item" *ngIf="dosage?.morning">
@@ -186,23 +210,29 @@
 
       <ng-template #noDosage>
         <div class="no-dosage">
-          <p>{{ dosage?.error || 'No personalized dosage available at the moment' }} 😔</p>
+          <p>
+            {{
+              dosage?.error || "No personalized dosage available at the moment"
+            }}
+            😔
+          </p>
         </div>
       </ng-template>
     </div>
   </div>
 </div>
-  <app-strips [color]="'#ABDDF7'"></app-strips>
-  <app-prod-desc [color]="'#ABDDF7'"></app-prod-desc>
-    <app-ingredients-desc></app-ingredients-desc>
-    <app-betterliving></app-betterliving>
-  <app-dietry-advice 
-  [dietaryAdvice]="product.dietary_advice" 
-  [helpsHow]="product.helps_how" 
-  [helpsWho]="product.helps_who">
+<app-strips [color]="'#9AE2FA'"></app-strips>
+<app-prod-desc [color]="'#9AE2FA'"></app-prod-desc>
+<app-ingredients-desc></app-ingredients-desc>
+<app-dietry-advice
+  [dietaryAdvice]="product.dietary_advice"
+  [helpsHow]="product.helps_how"
+  [helpsWho]="product.helps_who"
+>
 </app-dietry-advice>
+<app-betterliving></app-betterliving>
 
 
-  <app-faq [faq]="product.faq"></app-faq>
-  <app-shopreviews></app-shopreviews>
-  <!-- <app-contact-doctor></app-contact-doctor> -->
+<app-faq [faq]="product.faq"></app-faq>
+<app-shopreviews></app-shopreviews>
+<!-- <app-contact-doctor></app-contact-doctor> -->

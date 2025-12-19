@@ -97,12 +97,12 @@ ease;
     transition: all 0.3s 
 ease;
     text-transform: capitalize;
-    box-shadow: 0 4px 12px rgba(109, 179, 63, 0.3);
+
 }
 .form-section button:hover {
-  background-color: #5a9933;
+
   transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(109, 179, 63, 0.4);
+
 }
 
 .form-section button:active {

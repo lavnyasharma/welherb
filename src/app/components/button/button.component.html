@@ -1,13 +1,14 @@
-<button 
-  [type]="type" 
-  class="custom-btn" 
+<button
+  [type]="type"
+  class="custom-btn"
   [ngClass]="variant"
   [ngStyle]="{
     'background-color': bgColor || null,
-    'color': textColor || null,
+    color: textColor || null,
     'border-color': borderColor || null
-  }">
+  }"
+>
   {{ label }}
-  <i *ngIf="icon" [class]="icon"></i>
+  <i *ngIf="icon && !iconSrc" [class]="icon"></i>
+  <img *ngIf="iconSrc" [src]="iconSrc" alt="icon" class="btn-icon-svg" />
 </button>
-

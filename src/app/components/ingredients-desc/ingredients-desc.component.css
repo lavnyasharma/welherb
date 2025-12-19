@@ -29,23 +29,15 @@
   color: #2c3e50;
   line-height: 1.2;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   flex: 1;
-}
-
-/* Navigation arrows */
-.nav-arrows {
-  display: flex;
-  gap: 12px;
-  margin-top: 10px;
-  flex-shrink: 0;
 }
 
 .nav-arrow {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: #FCF8F3;
+  background: #fcf8f3;
   border: 1px solid #e0e0e0;
   display: flex;
   align-items: center;
@@ -94,7 +86,7 @@
 }
 
 .category-btn.active {
-  background: #93D5E7;
+  background: #9ae2fa;
   color: #0c4a6e;
 }
 
@@ -103,47 +95,20 @@
   transform: translateY(-1px);
 }
 
-/* Carousel */
-.carousel-container {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-}
-
-.ingredients-carousel {
-  display: flex;
-  gap: 20px;
-  overflow-x: auto;
-  scroll-behavior: smooth;
-  padding: 10px 0 20px 0;
-  scrollbar-width: none;
-  -ms-overflow-style: none;
-  width: 100%;
-  -webkit-overflow-scrolling: touch;
-}
-
-.ingredients-carousel::-webkit-scrollbar {
-  display: none;
-}
+/* Carousel and Progress styles removed - now using shared component */
 
 /* Ingredient cards */
 .ingredient-card {
   flex: 0 0 200px;
-  background: #FCF8F3;
-  border-radius: 20px;
+  background: #fcf8f3;
+  border-radius: 40px;
   overflow: hidden;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   transition: all 0.3s ease;
   cursor: pointer;
   border: 2px solid transparent;
   height: 300px;
-
-}
-
-.ingredient-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-  border-color: #93D5E7;
+  border-color: #9ae2fa;
 }
 
 .card-content {
@@ -155,7 +120,7 @@
 
 /* Card image */
 .card-image {
-  height: 200px;
+  height: 240px; /* Increased from 200px to balance with 360px card height */
   /* background: linear-gradient(135deg, #f6f8fa 0%, #e9ecef 100%); */
   display: flex;
   align-items: center;
@@ -167,28 +132,31 @@
 }
 
 .card-image::before {
-  content: '';
+  content: "";
   /* position: absolute; */
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: linear-gradient(135deg, rgba(125, 211, 252, 0.1) 0%, rgba(56, 178, 172, 0.1) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(125, 211, 252, 0.1) 0%,
+    rgba(56, 178, 172, 0.1) 100%
+  );
   border-radius: 0 0 50% 50%;
   transform: scale(1.2);
 }
 
 .card-image img {
-    /* width: 100%; */
-    /* height: 100%; */
-    object-fit: cover;
-    /* transition: transform 0.3s ease; */
-    /* position: relative; */
-    /* z-index: 1; */
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
-    /* max-width: 100%; */
-    /* max-height: 100%; */
-    height: auto;
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Using contain to show full bottle/ingredient without cropping, or use cover if preferred */
+  transition: transform 0.3s ease;
+  position: relative;
+  z-index: 1;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+  max-width: 100%;
+  max-height: 100%;
 }
 
 .ingredient-card:hover .card-image img {
@@ -198,10 +166,11 @@
 /* Card footer */
 .card-footer {
   padding: 20px 24px;
-  background: #93D5E7;
+  background: #9ae2fa;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 12px;
   min-height: 70px;
   width: 100%;
   box-sizing: border-box;
@@ -213,24 +182,27 @@
   font-weight: 600;
   margin: 0;
   text-transform: capitalize;
-  flex: 1;
+  flex: 0 1 auto;
 }
 
 .info-btn {
-width: 32px;
-    height: 32px;
-    border: none;
-    background: transparent;
-    /* border: 1px solid rgba(12, 74, 110, 0.2); */
-    /* color: #0c4a6e; */
-    cursor: pointer;
-    display: flex
-;
-    align-items: center;
-    justify-content: nno;
-    transition: all 0.3s ease;
-    flex-shrink: 0;
-    touch-action: manipulation;
+  width: 20px; /* Reduced size for icon */
+  height: 20px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.info-btn img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .info-btn:hover {
@@ -244,10 +216,10 @@ width: 32px;
   .container {
     max-width: 1400px;
   }
-  
+
   .ingredient-card {
-    flex: 0 0 320px;
-    min-width: 250px;
+    flex: 0 0 220px;
+    min-width: 220px;
   }
 }
 
@@ -264,26 +236,26 @@ width: 32px;
   .container {
     padding: 0 15px;
   }
-  
+
   .title {
     font-size: clamp(32px, 5vw, 42px);
   }
-  
+
   .ingredient-card {
     flex: 0 0 260px;
     min-width: 260px;
     height: 280px;
   }
-  
+
   .ingredients-carousel {
     gap: 16px;
   }
-  
+
   .card-image {
     height: 180px;
     padding: 25px;
   }
-  
+
   .nav-arrow {
     width: 44px;
     height: 44px;
@@ -295,50 +267,46 @@ width: 32px;
   .ingredients-section {
     padding: 40px 0;
   }
-  
+
   .container {
     padding: 0 15px;
   }
-  
+
   .header {
     flex-direction: column;
     align-items: flex-start;
     gap: 20px;
   }
-  
-  .nav-arrows {
-    align-self: flex-end;
-  }
-  
+
   .title {
     font-size: clamp(28px, 6vw, 36px);
   }
-  
+
   .ingredient-card {
     flex: 0 0 240px;
     min-width: 240px;
     height: 260px;
   }
-  
+
   .card-image {
     height: 160px;
     padding: 20px;
   }
-  
+
   .card-footer {
     padding: 16px 20px;
     min-height: 60px;
   }
-  
+
   .ingredient-name {
     font-size: 15px;
   }
-  
+
   .nav-arrow {
     width: 40px;
     height: 40px;
   }
-  
+
   .category-btn {
     padding: 10px 20px;
     font-size: 13px;
@@ -350,77 +318,72 @@ width: 32px;
   .ingredients-section {
     padding: 30px 0;
   }
-  
+
   .container {
     padding: 0 10px;
   }
-  
+
   .header {
     flex-direction: column;
     align-items: flex-start;
     gap: 15px;
     margin-bottom: 25px;
   }
-  
-  .nav-arrows {
-    align-self: flex-end;
-    gap: 8px;
-  }
-  
+
   .title {
     font-size: clamp(24px, 7vw, 32px);
   }
-  
+
   .category-filters {
     gap: 8px;
     margin-bottom: 30px;
   }
-  
+
   .category-btn {
     padding: 8px 16px;
     font-size: 12px;
   }
-  
+
   .ingredient-card {
     flex: 0 0 200px;
     min-width: 200px;
     height: 240px;
   }
-  
+
   .ingredients-carousel {
     gap: 12px;
     padding: 10px 0 15px 0;
   }
-  
+
   .card-image {
     height: 140px;
     padding: 15px;
   }
-  
+
   .card-footer {
     padding: 12px 16px;
     min-height: 55px;
   }
-  
+
   .ingredient-name {
     font-size: 14px;
   }
-  
+
   .info-btn {
     width: 28px;
     height: 28px;
   }
-  
+
   .info-btn svg {
     width: 14px;
     height: 14px;
   }
-  
+
   .nav-arrow {
     width: 36px;
     height: 36px;
   }
-  
+
   .nav-arrow svg {
     width: 16px;
     height: 16px;
@@ -432,36 +395,36 @@ width: 32px;
   .container {
     padding: 0 8px;
   }
-  
+
   .ingredient-card {
     flex: 0 0 180px;
     min-width: 180px;
     height: 220px;
   }
-  
+
   .card-image {
     height: 120px;
     padding: 12px;
   }
-  
+
   .card-footer {
     padding: 10px 14px;
     min-height: 50px;
   }
-  
+
   .ingredient-name {
     font-size: 13px;
   }
-  
+
   .title {
     font-size: clamp(20px, 8vw, 28px);
   }
-  
+
   .nav-arrow {
     width: 32px;
     height: 32px;
   }
-  
+
   .nav-arrow svg {
     width: 14px;
     height: 14px;
@@ -479,8 +442,12 @@ width: 32px;
 }
 
 @keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
 }
 
 /* Touch device optimizations */
@@ -489,21 +456,21 @@ width: 32px;
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 transparent;
   }
-  
+
   .ingredients-carousel::-webkit-scrollbar {
     display: block;
     height: 4px;
   }
-  
+
   .ingredients-carousel::-webkit-scrollbar-track {
     background: transparent;
   }
-  
+
   .ingredients-carousel::-webkit-scrollbar-thumb {
     background: #cbd5e1;
     border-radius: 2px;
   }
-  
+
   .ingredient-card:hover {
     transform: none;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
@@ -515,7 +482,7 @@ width: 32px;
 .nav-arrow:focus,
 .category-btn:focus,
 .info-btn:focus {
-  outline: 2px solid #93D5E7;
+  outline: 2px solid #9ae2fa;
   outline-offset: 2px;
 }
 
@@ -524,11 +491,11 @@ width: 32px;
   .ingredient-card {
     border: 2px solid #000;
   }
-  
+
   .nav-arrow {
     border: 2px solid #000;
   }
-  
+
   .category-btn {
     border: 1px solid #000;
   }
@@ -543,7 +510,7 @@ width: 32px;
   .card-image img {
     transition: none;
   }
-  
+
   .ingredients-carousel {
     scroll-behavior: auto;
   }
@@ -551,15 +518,11 @@ width: 32px;
 
 /* Print styles */
 @media print {
-  .nav-arrows {
-    display: none;
-  }
-  
   .ingredients-carousel {
     overflow: visible;
     flex-wrap: wrap;
   }
-  
+
   .ingredient-card {
     break-inside: avoid;
     margin-bottom: 20px;

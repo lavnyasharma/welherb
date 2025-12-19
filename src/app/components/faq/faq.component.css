@@ -1,13 +1,10 @@
 /* Main Container */
 .main-container {
-    display: flex
-;
-    gap: 40px;
-    padding: 40px;
+  display: flex;
+  gap: 40px;
+  padding: 40px;
 
-
-
-    justify-content: center;
+  justify-content: center;
 }
 
 /* Left Section */
@@ -110,7 +107,7 @@
 }
 
 .faq-box {
-  background: #93D5E7;
+  background: #9ae2fa;
   border-radius: var(--radius-lg);
   padding: 32px;
   height: fit-content;
@@ -215,27 +212,27 @@
   .main-container {
     display: none;
   }
-  
+
   .mobile-view {
     display: block;
     padding: 20px;
   }
-  
+
   .mobile-title {
     font-size: 2rem;
     font-weight: 300;
     color: #333;
     margin: 0 0 24px 0;
   }
-  
+
   .mobile-item {
-    background: #FCF8F3;
+    background: #fcf8f3;
     border-radius: 12px;
     border: 1px solid #e0e0e0;
     margin-bottom: 16px;
     overflow: hidden;
   }
-  
+
   .mobile-header {
     display: flex;
     justify-content: space-between;
@@ -244,29 +241,29 @@
     background-color: #f8f9fa;
     cursor: pointer;
   }
-  
+
   .mobile-question {
     font-size: 1rem;
     font-weight: 500;
     color: #333;
   }
-  
+
   .mobile-toggle {
     font-size: 1.25rem;
     font-weight: 300;
     color: #666;
     transition: transform 0.3s ease;
   }
-  
+
   .mobile-toggle.rotated {
     transform: rotate(45deg);
   }
-  
+
   .mobile-answer {
     padding: 16px 20px;
     animation: slideDown 0.3s ease-out;
   }
-  
+
   .mobile-answer p {
     margin: 0;
     font-size: 0.9rem;
@@ -280,7 +277,7 @@
     flex-direction: column;
     gap: 32px;
   }
-  
+
   .left-section,
   .right-section {
     max-width: 100%;

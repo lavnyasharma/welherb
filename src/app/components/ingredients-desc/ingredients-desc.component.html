@@ -2,33 +2,13 @@
   <div class="container">
     <!-- Header -->
     <div class="header">
-      <h2 class="title">Ingredients<br>that nourish you inside-out</h2>
-      
+      <h2 class="title">Ingredients<br />that nourish you inside-out</h2>
+
       <!-- Navigation arrows -->
-      <div class="nav-arrows">
-        <button 
-          class="nav-arrow nav-arrow-left"
-          [class.disabled]="!canScrollLeft()"
-          (click)="scrollLeft()"
-          [disabled]="!canScrollLeft()">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-        <button 
-          class="nav-arrow nav-arrow-right"
-          [class.disabled]="!canScrollRight()"
-          (click)="scrollRight()"
-          [disabled]="!canScrollRight()">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
-            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </button>
-      </div>
     </div>
 
     <!-- Category filters -->
-    <div class="category-filters">
+    <!-- <div class="category-filters">
       <button 
         *ngFor="let category of categories"
         class="category-btn"
@@ -36,49 +16,42 @@
         (click)="selectCategory(category)">
         {{ category }}
       </button>
-    </div>
+    </div> -->
 
     <!-- Ingredients carousel -->
-    <div class="carousel-container">
-      <div class="ingredients-carousel" #scrollContainer>
-        <div class="ingredient-card" *ngFor="let ingredient of ingredients; trackBy: trackByFn">
-          <div class="card-content">
-            <div class="card-image">
-              <img 
-                [src]="ingredient.image" 
-                [alt]="ingredient.name" 
-                loading="lazy"
-                (error)="onImageError($event, ingredient)"
-                (load)="onImageLoad($event, ingredient)"
-                #ingredientImg>
-              
-              <!-- Fallback content if image fails to load -->
-              <div class="image-placeholder" *ngIf="false" style="display: none;">
-                <svg width="60" height="60" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <rect x="3" y="3" width="18" height="18" rx="2" ry="2"/>
-                  <circle cx="8.5" cy="8.5" r="1.5"/>
-                  <polyline points="21,15 16,10 5,21"/>
-                </svg>
-                <span>{{ ingredient.name }}</span>
-              </div>
-            </div>
-            <div class="card-footer">
-              <span class="ingredient-name">{{ ingredient.name }}</span>
-              <button 
-                class="info-btn"
-                (click)="onInfoClick(ingredient, $event)"
-                [title]="ingredient.description"
-                [attr.aria-label]="'More info about ' + ingredient.name">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
-                  <circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/>
-                  <path d="m9,9 0,0a3,3 0 1,1 6,0c0,2-3,3-3,3" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                  <circle cx="12" cy="17" r="1" fill="currentColor"/>
-                </svg>
-              </button>
-            </div>
+    <!-- Ingredients carousel -->
+    <app-infinite-carousel
+      [items]="ingredients"
+      [itemTemplate]="ingredientTemplate"
+      [gap]="20"
+    >
+    </app-infinite-carousel>
+
+    <ng-template #ingredientTemplate let-ingredient>
+      <div class="ingredient-card">
+        <div class="card-content">
+          <div class="card-image">
+            <img
+              [src]="ingredient.image"
+              [alt]="ingredient.name"
+              loading="lazy"
+              (error)="onImageError($event, ingredient)"
+              (load)="onImageLoad($event, ingredient)"
+            />
+          </div>
+          <div class="card-footer">
+            <span class="ingredient-name">{{ ingredient.name }}</span>
+            <button
+              class="info-btn"
+              (click)="onInfoClick(ingredient, $event)"
+              [title]="ingredient.description"
+              [attr.aria-label]="'More info about ' + ingredient.name"
+            >
+              <img src="assets/Group.svg" alt="Info" />
+            </button>
           </div>
         </div>
       </div>
-    </div>
+    </ng-template>
   </div>
 </div>

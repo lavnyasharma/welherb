@@ -1,266 +1,242 @@
-import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
-import { Carousel } from 'primeng/carousel';
+import {
+  Component,
+  OnInit,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  AfterViewInit,
+  HostListener,
+} from "@angular/core";
 
 @Component({
-  selector: 'app-blog',
-  templateUrl: './blog.component.html',
-  styleUrls: ['./blog.component.css']
+  selector: "app-blog",
+  templateUrl: "./blog.component.html",
+  styleUrls: ["./blog.component.css"],
 })
-export class BlogComponent implements OnInit, OnDestroy {
-  @ViewChild('blogCarousel') carousel!: Carousel;
-  
-  activeIndex: number = 0;
-  autoplayInterval: any;
-  
-  // Blog data matching the image design
+export class BlogComponent implements OnInit, OnDestroy, AfterViewInit {
+  @ViewChild("carouselTrack") carouselTrack!: ElementRef;
+  @ViewChild("progressLine") progressLine!: ElementRef;
+
+  // Blog data - expanded with more sample blogs
   blogs = [
     {
-      title: 'Anupans often work synergistically with the medicine',
-      image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400&h=300&fit=crop&crop=center',
-      category: 'Nutrition',
-      author: {
-        name: 'Rasaura',
-        avatar: ''
-      },
-      views: 'View'
+      title: "Anupans often work synergistically with the medicine",
+      image:
+        "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400&h=300&fit=crop&crop=center",
+      category: "Nutrition",
+      author: { name: "Rasaura", avatar: "" },
+      views: "View",
     },
     {
-      title: 'Anupans often work synergistically with the medicine',
-      image: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop&crop=center',
-      category: 'Nutrition',
-      author: {
-        name: 'Rasaura',
-        avatar: ''
-      },
-      views: 'View'
+      title: "The Power of Ayurvedic Herbs in Daily Life",
+      image:
+        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop&crop=center",
+      category: "Wellness",
+      author: { name: "Rasaura", avatar: "" },
+      views: "View",
     },
     {
-      title: 'Anupans often work synergistically with the medicine',
-      image: 'https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=300&fit=crop&crop=center',
-      category: 'Nutrition',
-      author: {
-        name: 'Rasaura',
-        avatar: ''
-      },
-      views: 'View'
+      title: "Natural Remedies for Better Digestion",
+      image:
+        "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=300&fit=crop&crop=center",
+      category: "Nutrition",
+      author: { name: "Rasaura", avatar: "" },
+      views: "View",
     },
     {
-      title: 'Understanding Ayurvedic Principles in Modern Life',
-      image: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&crop=center',
-      category: 'Wellness',
-      author: {
-        name: 'Rasaura',
-        avatar: ''
-      },
-      views: 'View'
+      title: "Understanding Ayurvedic Principles in Modern Life",
+      image:
+        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&crop=center",
+      category: "Wellness",
+      author: { name: "Rasaura", avatar: "" },
+      views: "View",
     },
     {
-      title: 'Natural Remedies for Better Health',
-      image: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop&crop=center',
-      category: 'Remedies',
-      author: {
-        name: 'Rasaura',
-        avatar: ''
-      },
-      views: 'View'
-    }
+      title: "Boost Your Immunity with Traditional Herbs",
+      image:
+        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop&crop=center",
+      category: "Remedies",
+      author: { name: "Rasaura", avatar: "" },
+      views: "View",
+    },
+    {
+      title: "The Science Behind Herbal Supplements",
+      image:
+        "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=400&h=300&fit=crop&crop=center",
+      category: "Science",
+      author: { name: "Rasaura", avatar: "" },
+      views: "View",
+    },
+    {
+      title: "Morning Rituals for a Healthier You",
+      image:
+        "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=400&h=300&fit=crop&crop=center",
+      category: "Lifestyle",
+      author: { name: "Rasaura", avatar: "" },
+      views: "View",
+    },
+    {
+      title: "Detox Your Body Naturally with Ayurveda",
+      image:
+        "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop&crop=center",
+      category: "Detox",
+      author: { name: "Rasaura", avatar: "" },
+      views: "View",
+    },
+    {
+      title: "Stress Management Through Ancient Wisdom",
+      image:
+        "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop&crop=center",
+      category: "Wellness",
+      author: { name: "Rasaura", avatar: "" },
+      views: "View",
+    },
   ];
 
-  // Responsive options for different screen sizes
-  responsiveOptions = [
-    {
-      breakpoint: '1024px',
-      numVisible: 3,
-      numScroll: 1
-    },
-    {
-      breakpoint: '768px',
-      numVisible: 2,
-      numScroll: 1
-    },
-    {
-      breakpoint: '560px',
-      numVisible: 1,
-      numScroll: 1
-    }
-  ];
+  private animationFrame: number = 0;
+  private scrollPosition: number = 0;
+  private scrollSpeed: number = 0.5;
+  progressPosition: number = 0;
+  private isDragging: boolean = false;
+  private isAutoScrollPaused: boolean = false;
+  private cardWidth: number = 350;
+  displayBlogs: any[] = [];
 
-  ngOnInit() {
-    // Start autoplay
-    this.startAutoplay();
+  ngOnInit(): void {
+    // Duplicate blogs for seamless infinite scroll
+    this.displayBlogs = [...this.blogs, ...this.blogs, ...this.blogs];
   }
 
-  ngOnDestroy() {
-    // Clean up autoplay interval
-    if (this.autoplayInterval) {
-      clearInterval(this.autoplayInterval);
+  ngAfterViewInit(): void {
+    this.startAutoScroll();
+  }
+
+  ngOnDestroy(): void {
+    if (this.animationFrame) {
+      cancelAnimationFrame(this.animationFrame);
     }
   }
 
-  /**
-   * Update active index when carousel page changes
-   */
-  updateActiveIndex(event: any) {
-    this.activeIndex = event.page ?? 0;
-    this.resetAutoplay();
-  }
+  private startAutoScroll(): void {
+    const animate = () => {
+      if (!this.isAutoScrollPaused) {
+        this.scrollPosition += this.scrollSpeed;
 
-  /**
-   * Navigate to previous slide
-   */
-  previousSlide() {
-    if (this.carousel) {
-      this.carousel.navBackward(new MouseEvent('click'));
-    }
-    this.resetAutoplay();
-  }
+        if (this.carouselTrack) {
+          const track = this.carouselTrack.nativeElement;
+          const resetPoint = this.blogs.length * this.cardWidth;
 
-  /**
-   * Navigate to next slide
-   */
-  nextSlide() {
-    if (this.carousel) {
-      this.carousel.navForward(new MouseEvent('click'));
-    }
-    this.resetAutoplay();
-  }
+          if (this.scrollPosition >= resetPoint) {
+            this.scrollPosition = 0;
+          }
 
-  /**
-   * Go to specific slide
-   */
-  goToSlide(index: number) {
-    if (this.carousel && index !== this.activeIndex) {
-      const currentPage = this.activeIndex;
-      const targetPage = index;
-      
-      if (targetPage > currentPage) {
-        // Navigate forward
-        for (let i = currentPage; i < targetPage; i++) {
-          setTimeout(() => {
-            this.carousel.navForward(new MouseEvent('click'));
-          }, (i - currentPage) * 100);
-        }
-      } else {
-        // Navigate backward
-        for (let i = currentPage; i > targetPage; i--) {
-          setTimeout(() => {
-            this.carousel.navBackward(new MouseEvent('click'));
-          }, (currentPage - i) * 100);
+          track.style.transform = `translateX(-${this.scrollPosition}px)`;
+          const progressPercentage = (this.scrollPosition / resetPoint) * 300;
+          this.progressPosition = progressPercentage;
         }
       }
+
+      this.animationFrame = requestAnimationFrame(animate);
+    };
+
+    this.animationFrame = requestAnimationFrame(animate);
+  }
+
+  onProgressClick(event: MouseEvent): void {
+    if (this.isDragging) return;
+    this.updateCarouselFromProgress(event);
+  }
+
+  onProgressMouseDown(event: MouseEvent): void {
+    this.isDragging = true;
+    this.isAutoScrollPaused = true;
+    this.updateCarouselFromProgress(event);
+  }
+
+  @HostListener("document:mousemove", ["$event"])
+  onMouseMove(event: MouseEvent): void {
+    if (this.isDragging) {
+      this.updateCarouselFromProgress(event);
     }
-    this.resetAutoplay();
   }
 
-  /**
-   * Start autoplay functionality
-   */
-  private startAutoplay() {
-    this.autoplayInterval = setInterval(() => {
-      this.nextSlide();
-    }, 5000); // 5 seconds
-  }
-
-  /**
-   * Reset autoplay timer
-   */
-  private resetAutoplay() {
-    if (this.autoplayInterval) {
-      clearInterval(this.autoplayInterval);
+  @HostListener("document:mouseup")
+  onMouseUp(): void {
+    if (this.isDragging) {
+      this.isDragging = false;
+      setTimeout(() => {
+        this.isAutoScrollPaused = false;
+      }, 2000);
     }
-    this.startAutoplay();
   }
 
-  /**
-   * Handle touch/swipe events for mobile
-   */
-  onTouchStart(event: TouchEvent) {
-    // Store initial touch position for swipe detection
-    const touch = event.touches[0];
-    (event.target as any).touchStartX = touch.clientX;
-  }
+  onWheel(event: WheelEvent): void {
+    // Only handle horizontal scrolling (trackpad side swipe)
+    // Allow vertical scrolling to pass through for page scroll
+    if (Math.abs(event.deltaX) <= Math.abs(event.deltaY)) {
+      return; // Let vertical scroll pass through
+    }
 
-  onTouchEnd(event: TouchEvent) {
-    // Handle swipe gesture
-    const touch = event.changedTouches[0];
-    const startX = (event.target as any).touchStartX;
-    const endX = touch.clientX;
-    const diffX = startX - endX;
+    event.preventDefault();
+    this.isAutoScrollPaused = true;
 
-    // Minimum swipe distance
-    if (Math.abs(diffX) > 50) {
-      if (diffX > 0) {
-        this.nextSlide();
-      } else {
-        this.previousSlide();
+    this.scrollPosition += event.deltaX * 0.5;
+
+    if (this.carouselTrack) {
+      const track = this.carouselTrack.nativeElement;
+      const resetPoint = this.blogs.length * this.cardWidth;
+
+      if (this.scrollPosition >= resetPoint) {
+        this.scrollPosition = 0;
+      } else if (this.scrollPosition < 0) {
+        this.scrollPosition = resetPoint - 1;
       }
+
+      track.style.transform = `translateX(-${this.scrollPosition}px)`;
+      this.progressPosition = (this.scrollPosition / resetPoint) * 300;
     }
+
+    // Resume auto-scroll after 2 seconds of inactivity
+    clearTimeout((this as any).scrollTimeout);
+    (this as any).scrollTimeout = setTimeout(() => {
+      this.isAutoScrollPaused = false;
+    }, 2000);
   }
 
-  /**
-   * Handle keyboard navigation
-   */
-  onKeyDown(event: KeyboardEvent) {
-    switch (event.key) {
-      case 'ArrowLeft':
-        event.preventDefault();
-        this.previousSlide();
-        break;
-      case 'ArrowRight':
-        event.preventDefault();
-        this.nextSlide();
-        break;
-      case 'Home':
-        event.preventDefault();
-        this.goToSlide(0);
-        break;
-      case 'End':
-        event.preventDefault();
-        this.goToSlide(this.blogs.length - 1);
-        break;
-    }
+  private updateCarouselFromProgress(event: MouseEvent): void {
+    if (!this.progressLine || !this.carouselTrack) return;
+
+    const progressElement = this.progressLine.nativeElement;
+    const rect = progressElement.getBoundingClientRect();
+    const clickX = event.clientX - rect.left;
+    const percentage = Math.max(0, Math.min(1, clickX / rect.width));
+
+    const resetPoint = this.blogs.length * this.cardWidth;
+    this.scrollPosition = percentage * resetPoint;
+
+    const track = this.carouselTrack.nativeElement;
+    track.style.transform = `translateX(-${this.scrollPosition}px)`;
+
+    this.progressPosition = percentage * 300;
   }
 
-  /**
-   * Handle blog card click
-   */
-  onBlogClick(blog: any, index: number) {
-    console.log('Blog clicked:', blog);
-    // Navigate to full blog post
-    // Example: this.router.navigate(['/blog', blog.slug]);
+  onBlogClick(blog: any, index: number): void {
+    console.log("Blog clicked:", blog);
   }
 
-  /**
-   * Handle more blogs button click
-   */
-  onMoreBlogsClick() {
-    console.log('More blogs clicked');
-    // Navigate to blog listing page
-    // Example: this.router.navigate(['/blogs']);
+  onMoreBlogsClick(): void {
+    console.log("More blogs clicked");
   }
 
-  /**
-   * Track by function for performance optimization
-   */
-  trackByBlog(index: number, blog: any) {
-    return blog.title || index;
-  }
-
-  /**
-   * Handle image loading error
-   */
-  onImageError(event: Event) {
+  onImageError(event: Event): void {
     const img = event.target as HTMLImageElement;
-    // Set a fallback image or hide the image
-    img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjhGOUZBIi8+CjxwYXRoIGQ9Ik0xNzUgMTI1SDE4NVYxMzVIMTc1VjEyNVoiIGZpbGw9IiM2Qzc1N0QiLz4KPHBhdGggZD0iTTE2NSAxNDVIMjM1VjE1NUgxNjVWMTQ1WiIgZmlsbD0iIzZDNzU3RCIvPgo8L3N2Zz4K';
-    img.alt = 'Image not available';
+    img.src =
+      "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAwIiBoZWlnaHQ9IjMwMCIgdmlld0JveD0iMCAwIDQwMCAzMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSI0MDAiIGhlaWdodD0iMzAwIiBmaWxsPSIjRjhGOUZBIi8+CjxwYXRoIGQ9Ik0xNzUgMTI1SDE4NVYxMzVIMTc1VjEyNVoiIGZpbGw9IiM2Qzc1N0QiLz4KPHBhdGggZD0iTTE2NSAxNDVIMjM1VjE1NUgxNjVWMTQ1WiIgZmlsbD0iIzZDNzU3RCIvPgo8L3N2Zz4K";
+    img.alt = "Image not available";
   }
 
-  /**
-   * Handle image load success
-   */
-  onImageLoad(event: Event) {
+  onImageLoad(event: Event): void {
     const img = event.target as HTMLImageElement;
-    img.style.opacity = '1';
+    img.style.opacity = "1";
   }
 }

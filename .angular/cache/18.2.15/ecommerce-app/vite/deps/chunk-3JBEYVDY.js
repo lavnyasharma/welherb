@@ -595,7 +595,7 @@ var names = {
   seashell: "#fff5ee",
   sienna: "#a0522d",
   silver: "#c0c0c0",
-  skyblue: "#87ceeb",
+  skyblue: "#9AE2FA",
   slateblue: "#6a5acd",
   slategray: "#708090",
   slategrey: "#708090",

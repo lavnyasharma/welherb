@@ -1,210 +1,319 @@
 <!-- navbar.component.html -->
-<div class="navbar-container" [class.navbar-hidden]="!isNavbarVisible" [class.navbar-visible]="isNavbarVisible">
-    <!-- Mobile Menu Overlay -->
-    <div class="mobile-menu-overlay" 
-         [class.active]="menuOpen && !isDesktopView" 
-         (click)="closeMenu()"></div>
-    
-    <!-- Offer Banner -->
-    <div class="offer" [class.offer-hidden]="!isOfferVisible" [class.offer-visible]="isOfferVisible">
-        Free Pan India Shipping above 499
+<div
+  class="navbar-container"
+  [class.navbar-hidden]="!isNavbarVisible"
+  [class.navbar-visible]="isNavbarVisible"
+>
+  <!-- Mobile Menu Overlay -->
+  <div
+    class="mobile-menu-overlay"
+    [class.active]="menuOpen && !isDesktopView"
+    (click)="closeMenu()"
+  ></div>
+
+  <!-- Offer Banner -->
+  <div
+    class="offer"
+    [class.offer-hidden]="!isOfferVisible"
+    [class.offer-visible]="isOfferVisible"
+  >
+    Free Pan India Shipping above 499
+  </div>
+
+  <div class="nav1">
+    <!-- Logo -->
+    <div class="logo" (click)="navigateHome()">
+      <img
+        src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/welherb%20cmyk%201.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJuZXcvd2VsaGVyYiBjbXlrIDEuc3ZnIiwiaWF0IjoxNzQwMjk2OTg5LCJleHAiOjMzMjc2Mjk2OTg5fQ.LxGSaE-4s1Q4DBwWRarp5ZLIj5fa7_Uw4hyodYuuzUQ"
+        alt="Welherb Logo"
+        width="120px"
+        height="50px"
+        style="mix-blend-mode: darken; cursor: pointer"
+      />
     </div>
-    
-    <div class="nav1">
-        <!-- Logo -->
-        <div class="logo" (click)="navigateHome()">
-            <img 
-                src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/welherb%20cmyk%201.svg?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJuZXcvd2VsaGVyYiBjbXlrIDEuc3ZnIiwiaWF0IjoxNzQwMjk2OTg5LCJleHAiOjMzMjc2Mjk2OTg5fQ.LxGSaE-4s1Q4DBwWRarp5ZLIj5fa7_Uw4hyodYuuzUQ" 
-                alt="Welherb Logo"
-                width="120px" 
-                height="50px"
-                style="mix-blend-mode: darken; cursor: pointer;">
-        </div>
-    
-        <!-- Enhanced Search Bar -->
-        <div class="search search-container" style="display: flex; justify-content: center; position: relative;">
-            <div class="search-input-wrapper" style="width: 40%; position: relative;">
-                <nz-input-group [nzSuffix]="suffixIconSearch" style="width: 100%;">
-                    <input 
-                        #searchInput
-                        type="text" 
-                        nz-input 
-                        placeholder="Search products, categories..." 
-                        [(ngModel)]="searchValue"
-                        (input)="onSearchInput($event)"
-                        (focus)="onSearchFocus()"
-                        (blur)="onSearchBlur()"
-                        autocomplete="off"
-                    />
-                </nz-input-group>
-                <ng-template #suffixIconSearch>
-                    <span class="search-suffix">
-                        <i *ngIf="isSearching" class="pi pi-spin pi-spinner" style="font-size: 14px; color: #24b04b;"></i>
-                        <i *ngIf="!isSearching && searchValue" class="pi pi-times" 
-                           style="font-size: 14px; color: #666; cursor: pointer;" 
-                           (click)="clearSearch()"></i>
-                        <i *ngIf="!isSearching && !searchValue" class="pi pi-search" style="font-size: 14px; color: #666;"></i>
-                    </span>
-                </ng-template>
 
-                <!-- Search Results Dropdown -->
-                <div class="search-results" 
-                     *ngIf="showSearchResults" 
-                     [class.search-results-visible]="showSearchResults">
-                    
-                    <!-- Loading State -->
-                    <div *ngIf="isSearching" class="search-loading">
-                        <i class="pi pi-spin pi-spinner"></i>
-                        <span>Searching...</span>
-                    </div>
+    <!-- Enhanced Search Bar -->
+    <div
+      class="search search-container"
+      style="display: flex; justify-content: center; position: relative"
+    >
+      <div class="search-input-wrapper" style="width: 40%; position: relative">
+        <nz-input-group [nzSuffix]="suffixIconSearch" style="width: 100%">
+          <input
+            #searchInput
+            type="text"
+            nz-input
+            placeholder="Search products, categories..."
+            [(ngModel)]="searchValue"
+            (input)="onSearchInput($event)"
+            (focus)="onSearchFocus()"
+            (blur)="onSearchBlur()"
+            autocomplete="off"
+          />
+        </nz-input-group>
+        <ng-template #suffixIconSearch>
+          <span class="search-suffix">
+            <i
+              *ngIf="isSearching"
+              class="pi pi-spin pi-spinner"
+              style="font-size: 14px; color: #24b04b"
+            ></i>
+            <i
+              *ngIf="!isSearching && searchValue"
+              class="pi pi-times"
+              style="font-size: 14px; color: #666; cursor: pointer"
+              (click)="clearSearch()"
+            ></i>
+            <i
+              *ngIf="!isSearching && !searchValue"
+              class="pi pi-search"
+              style="font-size: 14px; color: #666"
+            ></i>
+          </span>
+        </ng-template>
 
-                    <!-- No Results -->
-                    <div *ngIf="!isSearching && searchResults.length === 0 && searchValue.length >= 3" class="search-no-results">
-                        <i class="pi pi-search"></i>
-                        <span>No products found for "{{ searchValue }}"</span>
-                        <small>Try different keywords or browse our categories</small>
-                    </div>
+        <!-- Search Results Dropdown -->
+        <div
+          class="search-results"
+          *ngIf="showSearchResults"
+          [class.search-results-visible]="showSearchResults"
+        >
+          <!-- Loading State -->
+          <div *ngIf="isSearching" class="search-loading">
+            <i class="pi pi-spin pi-spinner"></i>
+            <span>Searching...</span>
+          </div>
 
-                    <!-- Search Results -->
-                    <div *ngIf="!isSearching && searchResults.length > 0" class="search-results-list">
-                        <div class="search-results-header">
-                            <span>{{ searchResults.length }} result{{ searchResults.length > 1 ? 's' : '' }} found</span>
-                        </div>
-                        
-                        <div 
-                            *ngFor="let product of searchResults.slice(0, 8); trackBy: trackByProductId" 
-                            class="search-result-item"
-                            (click)="selectSearchResult(product)">
-                            
-                            <div class="search-result-image">
-                                <img 
-                                    *ngIf="product.default_image" 
-                                    [src]="product.default_image" 
-                                    [alt]="product.name"
-                                   
-                                />
-                           
-                            </div>
-                            
-                            <div class="search-result-content">
-                                <div class="search-result-name">{{ product.name }}</div>
-                                <div class="search-result-categories">
-                                    <span *ngFor="let category of product.categories; let last = last" class="category-tag">
-                                        {{ category }}<span *ngIf="!last">, </span>
-                                    </span>
-                                </div>
-                                <div class="search-result-description" *ngIf="product.description">
-                                    {{ product.description | slice:0:80 }}{{ product.description.length > 80 ? '...' : '' }}
-                                </div>
-                                <div class="search-result-meta">
-                                    <span class="product-type">{{ product.product_type }}</span>
-                                    <span *ngIf="product.size && product.size.length > 0" class="product-sizes">
-                                        Available in {{ product.size.join(', ') }}
-                                    </span>
-                                </div>
-                            </div>
-                            
-                            <div class="search-result-arrow">
-                                <i class="pi pi-chevron-right"></i>
-                            </div>
-                        </div>
+          <!-- No Results -->
+          <div
+            *ngIf="
+              !isSearching &&
+              searchResults.length === 0 &&
+              searchValue.length >= 3
+            "
+            class="search-no-results"
+          >
+            <i class="pi pi-search"></i>
+            <span>No products found for "{{ searchValue }}"</span>
+            <small>Try different keywords or browse our categories</small>
+          </div>
 
-                        <!-- View All Results -->
-                        <div *ngIf="searchResults.length > 8" class="search-view-all">
-                            <button class="view-all-btn" (click)="viewAllResults()">
-                                View all {{ searchResults.length }} results
-                                <i class="pi pi-arrow-right"></i>
-                            </button>
-                        </div>
-                    </div>
+          <!-- Search Results -->
+          <div
+            *ngIf="!isSearching && searchResults.length > 0"
+            class="search-results-list"
+          >
+            <div class="search-results-header">
+              <span
+                >{{ searchResults.length }} result{{
+                  searchResults.length > 1 ? "s" : ""
+                }}
+                found</span
+              >
+            </div>
 
-                    <!-- Quick Search Suggestions -->
-                    <div *ngIf="searchValue.length < 3 && searchValue.length > 0" class="search-suggestions">
-                        <div class="search-suggestions-header">Type at least 3 characters to search</div>
-                        <div class="search-quick-links">
-                            <span class="quick-link" (click)="searchValue = 'digestick'; onSearchInput({target: {value: 'digestick'}})">Digestick</span>
-                            <span class="quick-link" (click)="searchValue = 'motion ease'; onSearchInput({target: {value: 'motion ease'}})">Motion Ease</span>
-                            <span class="quick-link" (click)="searchValue = 'powder'; onSearchInput({target: {value: 'powder'}})">Powder</span>
-                        </div>
-                    </div>
+            <div
+              *ngFor="
+                let product of searchResults.slice(0, 8);
+                trackBy: trackByProductId
+              "
+              class="search-result-item"
+              (click)="selectSearchResult(product)"
+            >
+              <div class="search-result-image">
+                <img
+                  *ngIf="product.default_image"
+                  [src]="product.default_image"
+                  [alt]="product.name"
+                />
+              </div>
+
+              <div class="search-result-content">
+                <div class="search-result-name">{{ product.name }}</div>
+                <div class="search-result-categories">
+                  <span
+                    *ngFor="let category of product.categories; let last = last"
+                    class="category-tag"
+                  >
+                    {{ category }}<span *ngIf="!last">, </span>
+                  </span>
                 </div>
-            </div>
-        </div>
-    
-        <!-- Cart & Profile/Signup -->
-        <div class="icons">
-            <!-- Cart -->
-            <div class="cart" (click)="handleCartClick()" style="position: relative; cursor: pointer;">
-                <i class="pi pi-shopping-bag" style="font-size: 20px;"></i>
-                <span *ngIf="cartItemCount > 0" 
-                      style="position: absolute;
-                      top: -6px;
-                      right: -10px;
-                      background-color: #24b04b;
-                      color: white;
-                      border-radius: 50%;
-                      padding: 2px 6px;
-                      font-size: 9px;
-                      font-weight: bold;">
-                    {{ cartItemCount }}
-                </span>
-            </div>
-            
-            <!-- If logged in, show profile icon with dropdown -->
-            <div *ngIf="isLoggedIn; else loginTemplate" class="profile-dropdown">
-                <button pButton type="button" icon="pi pi-user" class="p-button-text" style="font-size: 24px; width: 48px; height: 48px;" (click)="profileMenu.toggle($event)"></button>
-                <p-menu #profileMenu [popup]="true" [model]="profileItems"></p-menu>
-            </div>
-        
-            <!-- If not logged in, show Sign Up button -->
-            <ng-template #loginTemplate>
-                <div class="signUp">
-                    <app-button label="Login" (click)="profile()"></app-button>
+                <div
+                  class="search-result-description"
+                  *ngIf="product.description"
+                >
+                  {{ product.description | slice : 0 : 80
+                  }}{{ product.description.length > 80 ? "..." : "" }}
                 </div>
-            </ng-template>
+                <div class="search-result-meta">
+                  <span class="product-type">{{ product.product_type }}</span>
+                  <span
+                    *ngIf="product.size && product.size.length > 0"
+                    class="product-sizes"
+                  >
+                    Available in {{ product.size.join(", ") }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="search-result-arrow">
+                <i class="pi pi-chevron-right"></i>
+              </div>
+            </div>
+
+            <!-- View All Results -->
+            <div *ngIf="searchResults.length > 8" class="search-view-all">
+              <button class="view-all-btn" (click)="viewAllResults()">
+                View all {{ searchResults.length }} results
+                <i class="pi pi-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Quick Search Suggestions -->
+          <div
+            *ngIf="searchValue.length < 3 && searchValue.length > 0"
+            class="search-suggestions"
+          >
+            <div class="search-suggestions-header">
+              Type at least 3 characters to search
+            </div>
+            <div class="search-quick-links">
+              <span
+                class="quick-link"
+                (click)="
+                  searchValue = 'digestick';
+                  onSearchInput({ target: { value: 'digestick' } })
+                "
+                >Digestick</span
+              >
+              <span
+                class="quick-link"
+                (click)="
+                  searchValue = 'motion ease';
+                  onSearchInput({ target: { value: 'motion ease' } })
+                "
+                >Motion Ease</span
+              >
+              <span
+                class="quick-link"
+                (click)="
+                  searchValue = 'powder';
+                  onSearchInput({ target: { value: 'powder' } })
+                "
+                >Powder</span
+              >
+            </div>
+          </div>
         </div>
+      </div>
     </div>
-    
-    <!-- Menu Bar -->
-    <nav class="menubar">
-        <!-- Logo and Hamburger -->
-        <div class="navbar-header">
-            <div class="hamburger" (click)="toggleMenu()">
-                <span [class.active]="menuOpen">&#9776;</span>
-            </div>
+
+    <!-- Cart & Profile/Signup -->
+    <div class="icons">
+      <!-- Cart -->
+      <div
+        class="cart"
+        (click)="handleCartClick()"
+        style="position: relative; cursor: pointer"
+      >
+        <img
+          src="assets/Frame 30.svg"
+          alt="Cart"
+          style="width: 34px; height: 34px"
+        />
+        <span
+          *ngIf="cartItemCount > 0"
+          style="
+            position: absolute;
+            top: -6px;
+            right: -10px;
+            background-color: #24b04b;
+            color: white;
+            border-radius: 50%;
+            padding: 2px 6px;
+            font-size: 9px;
+            font-weight: bold;
+          "
+        >
+          {{ cartItemCount }}
+        </span>
+      </div>
+
+      <!-- If logged in, show profile icon with dropdown -->
+      <div *ngIf="isLoggedIn; else loginTemplate" class="profile-dropdown">
+        <button
+          pButton
+          type="button"
+          icon="pi pi-user"
+          class="p-button-text"
+          style="font-size: 24px; width: 48px; height: 48px"
+          (click)="profileMenu.toggle($event)"
+        ></button>
+        <p-menu #profileMenu [popup]="true" [model]="profileItems"></p-menu>
+      </div>
+
+      <!-- If not logged in, show Sign Up button -->
+      <ng-template #loginTemplate>
+        <div class="signUp">
+          <app-button label="Login" (click)="profile()"></app-button>
         </div>
-      
-        <!-- Navigation Menu -->
-        <ul class="menu" [class.open]="menuOpen || isDesktopView">
-            <!-- SHOP Dropdown (first item) -->
-            <li class="menu-item dropdown" [class.open]="shopDropdownOpen">
-                <a (click)="onShopClick($event)">Shop</a>
-                <div class="dropdown-menu full-width" *ngIf="isDesktopView || shopDropdownOpen">
-                    <div class="dropdown-columns">
-                        <ng-container *ngFor="let subItem of items[0].items">
-                            <div *ngIf="subItem.separator" class="dropdown-separator"></div>
-                            <a *ngIf="subItem.routerLink" [routerLink]="subItem.routerLink" class="dropdown-link" (click)="closeMenu()">
-                                {{ subItem.label }}
-                            </a>
-                            <div *ngIf="subItem.items" class="dropdown-group">
-                                <div class="dropdown-group-title">{{ subItem.label }}</div>
-                                <a *ngFor="let nested of subItem.items" 
-                                   [routerLink]="nested.routerLink" 
-                                   [queryParams]="nested.queryParams"
-                                   class="dropdown-link" 
-                                   (click)="closeMenu()">
-                                   {{ nested.label }}
-                                </a>
-                            </div>
-                        </ng-container>
-                    </div>
-                </div>
-            </li>
-      
-            <!-- Other Top-Level Menu Items -->
-            <li class="menu-item" *ngFor="let item of items.slice(1)">
-                <a [routerLink]="item.routerLink" (click)="closeMenu()">{{ item.label }}</a>
-            </li>
-        </ul>
-    </nav>
+      </ng-template>
+    </div>
+  </div>
+
+  <!-- Menu Bar -->
+  <nav class="menubar">
+    <!-- Logo and Hamburger -->
+    <div class="navbar-header">
+      <div class="hamburger" (click)="toggleMenu()">
+        <span [class.active]="menuOpen">&#9776;</span>
+      </div>
+    </div>
+
+    <!-- Navigation Menu -->
+    <ul class="menu" [class.open]="menuOpen || isDesktopView">
+      <!-- SHOP Dropdown (first item) -->
+      <li class="menu-item dropdown" [class.open]="shopDropdownOpen">
+        <a (click)="onShopClick($event)">Shop</a>
+        <div
+          class="dropdown-menu full-width"
+          *ngIf="isDesktopView || shopDropdownOpen"
+        >
+          <div class="dropdown-columns">
+            <ng-container *ngFor="let subItem of items[0].items">
+              <div *ngIf="subItem.separator" class="dropdown-separator"></div>
+              <a
+                *ngIf="subItem.routerLink"
+                [routerLink]="subItem.routerLink"
+                class="dropdown-link"
+                (click)="closeMenu()"
+              >
+                {{ subItem.label }}
+              </a>
+              <div *ngIf="subItem.items" class="dropdown-group">
+                <div class="dropdown-group-title">{{ subItem.label }}</div>
+                <a
+                  *ngFor="let nested of subItem.items"
+                  [routerLink]="nested.routerLink"
+                  [queryParams]="nested.queryParams"
+                  class="dropdown-link"
+                  (click)="closeMenu()"
+                >
+                  {{ nested.label }}
+                </a>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+      </li>
+
+      <!-- Other Top-Level Menu Items -->
+      <li class="menu-item" *ngFor="let item of items.slice(1)">
+        <a [routerLink]="item.routerLink" (click)="closeMenu()">{{
+          item.label
+        }}</a>
+      </li>
+    </ul>
+  </nav>
 </div>

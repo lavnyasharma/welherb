@@ -1,25 +1,20 @@
 <div class="container">
-  <div class="title-heading-as" >
-    <h1 class="grid-heading" >
-      As &nbsp;<span style="color: #9CCB3B;">Pure&nbsp;</span> as They Are Potent
+  <div class="title-heading-as">
+    <h1 class="grid-heading">
+      As <span style="color: #9ccb3b">Pure</span> as They Are Potent
     </h1>
-    <p class="grid-description" >
-      Made from scratch using whole ingredients—no shortcuts, no processed extracts.
+    <p class="grid-description">
+      Made from scratch using whole ingredients—no shortcuts, no processed
+      extracts.
     </p>
-  
   </div>
 
   <div class="image-grid" style="">
-    <div class="image-item" *ngFor="let image of images | slice:0:-3">
+    <div class="image-item" *ngFor="let image of images | slice : 0 : -3">
       <img [src]="image.url" [alt]="image.name" />
-
     </div>
   </div>
   <div class="btn">
-  <button class="cta-button">
-    Discover Their Goodness
-  </button>
+    <app-button label="Discover Their Goodness" variant="primary"></app-button>
+  </div>
 </div>
-</div>
-
-

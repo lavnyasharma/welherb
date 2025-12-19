@@ -1,15 +1,13 @@
 <div class="auth-page">
   <div class="auth-grid">
-
     <!-- Main Auth Card: toggles between mobile input and OTP view -->
     <div class="auth-card">
-
       <!-- Mobile input (Sign In / Sign Up) -->
       <ng-container *ngIf="!isOtpSent; else otpTemplate">
         <!-- Sign In view -->
         <ng-container *ngIf="!isSignupMode; else signupTemplate">
           <h2>Sign In</h2>
-    
+
           <div class="form-group">
             <label for="signin-mobile">Mobile Number</label>
             <div class="phone-input-wrapper">
@@ -24,8 +22,12 @@
               />
             </div>
           </div>
-          <button class="primary-btn" (click)="onGetOtp('signin')" [disabled]="isSendingOtp">
-            {{ isSendingOtp ? 'Sending OTP...' : 'Get OTP' }}
+          <button
+            class="primary-btn"
+            (click)="onGetOtp('signin')"
+            [disabled]="isSendingOtp"
+          >
+            {{ isSendingOtp ? "Sending OTP..." : "Get OTP" }}
           </button>
           <p class="terms-text">
             Don’t have an account?
@@ -51,8 +53,12 @@
               />
             </div>
           </div>
-          <button class="primary-btn" (click)="onGetOtp('signup')" [disabled]="isSendingOtp">
-            {{ isSendingOtp ? 'Sending OTP...' : 'Get OTP' }}
+          <button
+            class="primary-btn"
+            (click)="onGetOtp('signup')"
+            [disabled]="isSendingOtp"
+          >
+            {{ isSendingOtp ? "Sending OTP..." : "Get OTP" }}
           </button>
           <p class="terms-text">
             Already have an account?
@@ -69,15 +75,14 @@
       <!-- OTP view (replaces mobile input) -->
       <ng-template #otpTemplate>
         <h2>OTP Verification Code</h2>
-        <div class="subtitle">Code has been sent to ***{{ selectedMobile?.slice(-3) }}</div>
+        <div class="subtitle">
+          Code has been sent to ***{{ selectedMobile?.slice(-3) }}
+        </div>
 
-        <!-- Visual 6-box OTP, driven by a single hidden input -->
+        <!-- Visual 4-box OTP, driven by a single hidden input -->
         <div class="otp-inputs" (click)="otpInput?.focus()">
-          <div
-            class="otp-box"
-            *ngFor="let box of [0,1,2,3,4,5]; let i = index"
-          >
-            {{ otpValue[i] || '' }}
+          <div class="otp-box" *ngFor="let box of [0, 1, 2, 3]; let i = index">
+            {{ otpValue[i] || "" }}
           </div>
 
           <!-- Single underlying input controlling all 6 boxes -->
@@ -85,22 +90,30 @@
             #otpInput
             class="otp-hidden-input"
             type="tel"
-            maxlength="6"
+            maxlength="4"
             [ngModel]="otpValue"
             (ngModelChange)="onOtpInput($event)"
           />
         </div>
 
-        <button class="primary-btn" (click)="onVerifyOtp()" [disabled]="isVerifyingOtp">
-          {{ isVerifyingOtp ? 'Verifying...' : 'Verify' }}
+        <button
+          class="primary-btn"
+          (click)="onVerifyOtp()"
+          [disabled]="isVerifyingOtp"
+        >
+          {{ isVerifyingOtp ? "Verifying..." : "Verify" }}
         </button>
 
         <div class="otp-footer">
           <span>Didn't get the otp?</span>
-          <button class="link-btn" (click)="selectedMobile && onGetOtp(otpFlowType)">Resend</button>
+          <button
+            class="link-btn"
+            (click)="selectedMobile && onGetOtp(otpFlowType)"
+          >
+            Resend
+          </button>
         </div>
       </ng-template>
     </div>
-
   </div>
 </div>

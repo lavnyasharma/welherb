@@ -1,26 +1,40 @@
 <div class="ayurveda-container">
   <div class="container">
     <div class="text-content">
-      <h1 style="font-family: lato, sans-serif !important; font-size: 32px;">Ayurveda Simplified</h1>
-      <p>Join our community of Ayurveda enthusiasts to discover healing herbs, step-by-step wellness guides, and more.</p>
-      <p>Also get access to exclusive offers including <strong>15% OFF</strong> on your <strong>FIRST ORDER.</strong></p>
+      <h1 style="font-family: lato, sans-serif !important; font-size: 32px">
+        Ayurveda Simplified
+      </h1>
+      <p>
+        Join our community of Ayurveda enthusiasts to discover healing herbs,
+        step-by-step wellness guides, and more.
+      </p>
+      <p>
+        Also get access to exclusive offers including
+        <strong>15% OFF</strong> on your <strong>FIRST ORDER.</strong>
+      </p>
     </div>
     <div class="form-section">
-      <input 
-        type="text" 
-        placeholder="Name" 
-        [(ngModel)]="name" 
+      <input
+        type="text"
+        placeholder="Name"
+        [(ngModel)]="name"
         (keypress)="onKeyPress($event)"
         #nameInput
-        required>
-      <input 
-        type="email" 
-        placeholder="Email Address" 
-        [(ngModel)]="email" 
+        required
+      />
+      <input
+        type="email"
+        placeholder="Email Address"
+        [(ngModel)]="email"
         (keypress)="onKeyPress($event)"
         #emailInput
-        required>
-      <button type="submit" (click)="onSubmit()">Submit</button>
+        required
+      />
+      <app-button
+        label="Submit"
+        type="submit"
+        (click)="onSubmit()"
+      ></app-button>
     </div>
   </div>
 </div>

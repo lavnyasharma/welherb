@@ -1,0 +1,41 @@
+.carousel-container {
+  width: 100%;
+  position: relative;
+  padding-bottom: 40px;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 24px;
+  padding: 20px 0;
+  width: max-content;
+  will-change: transform;
+}
+
+.progress-line {
+  width: 100%;
+  max-width: 1200px;
+  height: 4px;
+  background: #e0e0e0;
+  margin: 20px auto 0;
+  border-radius: 2px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 1px 0;
+  background-clip: content-box;
+}
+
+.progress-line::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 25%;
+  height: 100%;
+  background: #9ae2fa;
+  border-radius: 2px;
+  transition: transform 0.05s linear;
+  transform: translateX(var(--progress-position, 0%));
+}

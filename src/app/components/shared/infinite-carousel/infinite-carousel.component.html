@@ -1,0 +1,17 @@
+<div class="carousel-container" (wheel)="onWheel($event)">
+  <div class="carousel-track" #carouselTrack>
+    <div *ngFor="let item of displayItems" class="carousel-item">
+      <ng-container
+        *ngTemplateOutlet="itemTemplate; context: { $implicit: item }"
+      ></ng-container>
+    </div>
+  </div>
+
+  <div
+    class="progress-line"
+    #progressLine
+    [style.--progress-position]="progressPosition + '%'"
+    (click)="onProgressClick($event)"
+    (mousedown)="onProgressMouseDown($event)"
+  ></div>
+</div>

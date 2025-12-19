@@ -1,12 +1,12 @@
 .container {
     text-align: center;
-    margin: 10px;
+
   }
   
   .box {
     background-color: #4eae32;
     /* border: 1px solid #4FAE32; */
-    border-radius: 8px;
+
     padding: 20px;
     color: black;
 

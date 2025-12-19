@@ -1,15 +1,15 @@
 .outer-container {
-  background: #93D5E7;
-  padding: 20px;
-  border-radius: 20px;
-  max-width: 600px;
-  margin: 20px auto;
+  background: #9ae2fa;
+  padding: 30px;
+  border-radius: 40px;
+  max-width: 900px;
+  margin: 70px auto;
   box-shadow: 0 10px 30px rgba(125, 211, 252, 0.3);
 }
 
 .card-container {
-  background: #FCF8F3;
-  border-radius: 15px;
+  background: #fcf8f3;
+  border-radius: 40px;
   padding: 25px;
   position: relative;
 }
@@ -33,10 +33,9 @@
 }
 
 .medicine-icon {
-    width: 35px;
-    height: 45px;
-    /* filter: brightness(0) invert(1); */
-
+  width: 35px;
+  height: 45px;
+  /* filter: brightness(0) invert(1); */
 }
 
 .header-text h2 {
