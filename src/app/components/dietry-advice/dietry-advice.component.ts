@@ -1,12 +1,28 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from "@angular/core";
+import { ProfileService, UserProfile } from "../../../services/profile.service";
+import { Observable } from "rxjs";
 
 @Component({
-  selector: 'app-dietry-advice',
-  templateUrl: './dietry-advice.component.html',
-  styleUrls: ['./dietry-advice.component.css']
+  selector: "app-dietry-advice",
+  templateUrl: "./dietry-advice.component.html",
+  styleUrls: ["./dietry-advice.component.css"],
 })
-export class DietryAdviceComponent {
+export class DietryAdviceComponent implements OnInit {
   @Input() dietaryAdvice: string[] = [];
   @Input() helpsHow: string[] = [];
   @Input() helpsWho: string[] = [];
+
+  savedProfiles$: Observable<UserProfile[]>;
+  selectedProfile$: Observable<UserProfile | null>;
+
+  constructor(private profileService: ProfileService) {
+    this.savedProfiles$ = this.profileService.savedProfiles$;
+    this.selectedProfile$ = this.profileService.selectedProfile$;
+  }
+
+  ngOnInit(): void {}
+
+  switchProfile(profile: UserProfile): void {
+    this.profileService.switchProfile(profile);
+  }
 }

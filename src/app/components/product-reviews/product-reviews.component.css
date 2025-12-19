@@ -312,13 +312,13 @@
 }
 
 .verified-badge {
-  background-color: #d1e7dd;
-  color: #0f5132;
-  padding: 2px 8px;
-  border-radius: 12px;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
+background-color: #d1e7dd;
+    color: #4FAE32;
+    padding: 2px 8px;
+    border-radius: 8px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
 }
 
 .entry-title {

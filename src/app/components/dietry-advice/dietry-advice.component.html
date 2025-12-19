@@ -2,13 +2,17 @@
   <!-- Header Section -->
   <div class="header-section">
     <h1 class="main-title">How to Use</h1>
-    <div class="switch-profile">
+    <div class="switch-profile" *ngIf="savedProfiles$ | async as profiles">
       <span class="switch-text">Switch profile:</span>
       <div class="profile-avatars">
-        <div class="avatar avatar-1"></div>
-        <div class="avatar avatar-2"></div>
-        <div class="avatar avatar-3"></div>
-        <div class="avatar avatar-4"></div>
+        <div
+          class="avatar"
+          *ngFor="let profile of profiles; let i = index"
+          (click)="switchProfile(profile)"
+          [class.active-profile]="(selectedProfile$ | async)?.id === profile.id"
+          [style.background-image]="'url(' + profile.avatar + ')'"
+          [title]="profile.name"
+        ></div>
       </div>
     </div>
   </div>
@@ -27,9 +31,12 @@
       <div class="info-section">
         <div class="section-header">
           <div class="plus-icon">
-            <img src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/star%20(1)%204.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvc3RhciAoMSkgNC5zdmciLCJpYXQiOjE3NTYyOTY0MTEsImV4cCI6MzY1OTUzMDc3MzY0MTF9.KlJEocKVqN72HUxE1mIKNbuYn-9Al1V8z-S6KkM6eAk" alt="Plus Icon" />
+            <img
+              src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/star%20(1)%204.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvc3RhciAoMSkgNC5zdmciLCJpYXQiOjE3NTYyOTY0MTEsImV4cCI6MzY1OTUzMDc3MzY0MTF9.KlJEocKVqN72HUxE1mIKNbuYn-9Al1V8z-S6KkM6eAk"
+              alt="Plus Icon"
+            />
           </div>
-          <h3 style="font-family: 'Lato', sans-serif !important;">Dosage</h3>
+          <h3 style="font-family: 'Lato', sans-serif !important">Dosage</h3>
           <span class="tag">Not Personalised Dosage</span>
         </div>
         <div class="section-content">
@@ -46,10 +53,13 @@
       <!-- Avoid Section - if you have more helpsHow items -->
       <div class="info-section" *ngIf="helpsHow?.length > 2">
         <div class="section-header">
-         <div class="plus-icon">
-            <img src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/star%20(1)%204.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvc3RhciAoMSkgNC5zdmciLCJpYXQiOjE3NTYyOTY0MTEsImV4cCI6MzY1OTUzMDc3MzY0MTF9.KlJEocKVqN72HUxE1mIKNbuYn-9Al1V8z-S6KkM6eAk" alt="Plus Icon" />
+          <div class="plus-icon">
+            <img
+              src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/star%20(1)%204.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvc3RhciAoMSkgNC5zdmciLCJpYXQiOjE3NTYyOTY0MTEsImV4cCI6MzY1OTUzMDc3MzY0MTF9.KlJEocKVqN72HUxE1mIKNbuYn-9Al1V8z-S6KkM6eAk"
+              alt="Plus Icon"
+            />
           </div>
-          <h3 style="font-family: 'Lato', sans-serif !important ;">Avoid</h3>
+          <h3 style="font-family: 'Lato', sans-serif !important ">Avoid</h3>
         </div>
         <div class="section-content">
           <p>{{ helpsHow[2] }}</p>
@@ -61,10 +71,13 @@
     <div class="right-section" *ngIf="helpsWho?.length">
       <div class="info-section">
         <div class="section-header">
-         <div class="plus-icon">
-            <img src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/star%20(1)%204.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvc3RhciAoMSkgNC5zdmciLCJpYXQiOjE3NTYyOTY0MTEsImV4cCI6MzY1OTUzMDc3MzY0MTF9.KlJEocKVqN72HUxE1mIKNbuYn-9Al1V8z-S6KkM6eAk" alt="Plus Icon" />
+          <div class="plus-icon">
+            <img
+              src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/star%20(1)%204.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvc3RhciAoMSkgNC5zdmciLCJpYXQiOjE3NTYyOTY0MTEsImV4cCI6MzY1OTUzMDc3MzY0MTF9.KlJEocKVqN72HUxE1mIKNbuYn-9Al1V8z-S6KkM6eAk"
+              alt="Plus Icon"
+            />
           </div>
-          <h3 style="font-family: 'Lato', sans-serif !important;">Must</h3>
+          <h3 style="font-family: 'Lato', sans-serif !important">Must</h3>
         </div>
         <div class="section-content">
           <p *ngIf="helpsWho[0]">{{ helpsWho[0] }}</p>
@@ -72,11 +85,16 @@
       </div>
 
       <div class="info-section" *ngIf="helpsWho?.length > 1">
-        <div class="section-header">  
- <div class="plus-icon">
-            <img src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/star%20(1)%204.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvc3RhciAoMSkgNC5zdmciLCJpYXQiOjE3NTYyOTY0MTEsImV4cCI6MzY1OTUzMDc3MzY0MTF9.KlJEocKVqN72HUxE1mIKNbuYn-9Al1V8z-S6KkM6eAk" alt="Plus Icon" />
+        <div class="section-header">
+          <div class="plus-icon">
+            <img
+              src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/star%20(1)%204.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvc3RhciAoMSkgNC5zdmciLCJpYXQiOjE3NTYyOTY0MTEsImV4cCI6MzY1OTUzMDc3MzY0MTF9.KlJEocKVqN72HUxE1mIKNbuYn-9Al1V8z-S6KkM6eAk"
+              alt="Plus Icon"
+            />
           </div>
-          <h3 style="font-family: 'Lato', sans-serif !important;">For Desired Results</h3>
+          <h3 style="font-family: 'Lato', sans-serif !important">
+            For Desired Results
+          </h3>
         </div>
         <div class="section-content">
           <p>{{ helpsWho[1] }}</p>

@@ -1,13 +1,15 @@
-import { Component, OnInit, HostListener } from "@angular/core";
+import { Component, OnInit, HostListener, OnDestroy } from "@angular/core";
 import { ApiService } from "../../../services/api.service";
 import { ToastrService } from "ngx-toastr";
+import { ProfileService, UserProfile } from "../../../services/profile.service";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-profile",
   templateUrl: "./profile.component.html",
   styleUrls: ["./profile.component.css"],
 })
-export class ProfileComponent implements OnInit {
+export class ProfileComponent implements OnInit, OnDestroy {
   // Define possible tab values as string literals
   readonly TAB_PROFILE = "profile" as const;
   readonly TAB_ORDERS = "orders" as const;
@@ -25,9 +27,13 @@ export class ProfileComponent implements OnInit {
   heightOptions: { label: string; value: string }[] = [];
   weightOptions: { label: string; value: number }[] = [];
 
+  savedProfiles: UserProfile[] = [];
+  private profilesSub: Subscription | undefined;
+
   constructor(
     private apiService: ApiService,
-    private toastService: ToastrService
+    private toastService: ToastrService,
+    private profileService: ProfileService
   ) {}
   // Modal state
   showModal: "gender" | "height" | "weight" | null = null;
@@ -93,36 +99,31 @@ export class ProfileComponent implements OnInit {
   };
 
   // Saved profiles for Switch Profile
-  savedProfiles: any[] = [
-    {
-      id: "1",
-      name: "John Doe",
-      email: "john.doe@example.com",
-      avatar: "https://i.pravatar.cc/100?img=1",
-    },
-    {
-      id: "2",
-      name: "Sarah Smith",
-      email: "sarah.smith@example.com",
-      avatar: "https://i.pravatar.cc/100?img=5",
-    },
-    {
-      id: "3",
-      name: "Michael Brown",
-      email: "michael.brown@example.com",
-      avatar: "https://i.pravatar.cc/100?img=12",
-    },
-    {
-      id: "4",
-      name: "Emma Wilson",
-      email: "emma.wilson@example.com",
-      avatar: "https://i.pravatar.cc/100?img=9",
-    },
-  ];
+
 
   ngOnInit(): void {
     this.generateOptions();
     this.getUserProfile();
+
+    // Subscribe to saved profiles from service
+    this.profilesSub = this.profileService.savedProfiles$.subscribe(
+      (profiles) => {
+        this.savedProfiles = profiles;
+      }
+    );
+
+    // Subscribe to selected profile to update UI if changed externally
+    this.profileService.selectedProfile$.subscribe((profile) => {
+      if (profile) {
+        this.selectedProfile = profile;
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.profilesSub) {
+      this.profilesSub.unsubscribe();
+    }
   }
 
   generateOptions(): void {
@@ -223,14 +224,15 @@ export class ProfileComponent implements OnInit {
           this.profilePicture = res.profilePicture;
         }
 
-        // Populate saved profiles from API
+        // Populate saved profiles from API and Sync Service
         if (res.profiles && Array.isArray(res.profiles)) {
-          this.savedProfiles = res.profiles.map((p: any) => ({
+          const profiles = res.profiles.map((p: any) => ({
             id: p._id,
             name: p.name,
             email: p.email,
             avatar: "https://i.pravatar.cc/100?u=" + (p.email || p.name),
           }));
+          this.profileService.setProfiles(profiles);
         }
       },
       error: (err) => {
@@ -310,10 +312,9 @@ export class ProfileComponent implements OnInit {
       next: (res: any) => {
         this.toastService.success("Profile added successfully!");
 
-        // Add to saved profiles list for "Switch Profile" view
-        // Assuming API returns the created profile or we use payload data
+        // Add to saved profiles list via Service
         const newProfile = {
-          id: res.id || res._id || Date.now(), // Fallback ID
+          id: res.id || res._id || Date.now().toString(),
           name: this.newAddress.name,
           email: this.newAddress.email,
           avatar:
@@ -321,7 +322,7 @@ export class ProfileComponent implements OnInit {
             (this.newAddress.email || this.newAddress.name),
         };
 
-        this.savedProfiles.push(newProfile);
+        this.profileService.addProfile(newProfile);
 
         this.closeAddMoreModal();
 
@@ -359,7 +360,7 @@ export class ProfileComponent implements OnInit {
 
   // Switch to selected profile
   switchToProfile(profile: any): void {
-    this.selectedProfile = profile;
+    this.profileService.switchProfile(profile);
     this.toastService.success(`Switched to ${profile.name}'s profile`);
     this.closeSwitchProfileModal();
 
@@ -599,9 +600,7 @@ export class ProfileComponent implements OnInit {
         this.closeDeleteModal();
 
         // Remove from savedProfiles if it exists there
-        this.savedProfiles = this.savedProfiles.filter(
-          (p) => p.id !== profileId
-        );
+        this.profileService.deleteProfile(profileId);
 
         // If we deleted the current view, reload main profile
         // Assuming the main profile cannot be deleted via this specific endpoint
