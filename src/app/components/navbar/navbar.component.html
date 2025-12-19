@@ -212,7 +212,7 @@
     <!-- Cart & Profile/Signup -->
     <div class="icons">
       <!-- Cart -->
-      <div
+     <div
         class="cart"
         (click)="handleCartClick()"
         style="position: relative; cursor: pointer"
@@ -220,7 +220,7 @@
         <img
           src="assets/Frame 30.svg"
           alt="Cart"
-          style="width: 34px; height: 34px"
+          style="width: 24px; height: 24px"
         />
         <span
           *ngIf="cartItemCount > 0"
@@ -246,8 +246,7 @@
           pButton
           type="button"
           icon="pi pi-user"
-          class="p-button-text"
-          style="font-size: 24px; width: 48px; height: 48px"
+          class="p-button-text nav-icon-btn"
           (click)="profileMenu.toggle($event)"
         ></button>
         <p-menu #profileMenu [popup]="true" [model]="profileItems"></p-menu>

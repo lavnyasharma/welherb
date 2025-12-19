@@ -234,7 +234,7 @@
   padding: 8px 16px;
   border: 1px solid #ccc;
   border-radius: 20px;
-  background: white;
+  background: var(--color-background);
   cursor: pointer;
   font-size: 14px;
   display: flex;

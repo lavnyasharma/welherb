@@ -1,26 +1,56 @@
 <div class="profile-page">
   <!-- Floating Sidebar Navigation -->
   <div class="sidebar-floating">
-    <div class="sidebar-item" [class.active]="activeTab === TAB_PROFILE" (click)="selectTab(TAB_PROFILE)">
+    <div
+      class="sidebar-item"
+      [class.active]="activeTab === TAB_PROFILE"
+      (click)="selectTab(TAB_PROFILE)"
+    >
       <i class="pi pi-user"></i>
       <span>My Profile</span>
     </div>
-    
-    <div class="sidebar-item" [class.active]="activeTab === TAB_ORDERS" (click)="selectTab(TAB_ORDERS)">
+
+    <div
+      class="sidebar-item"
+      [class.active]="activeTab === TAB_ORDERS"
+      (click)="selectTab(TAB_ORDERS)"
+    >
       <i class="pi pi-file"></i>
       <span>Orders</span>
     </div>
-    
-    <div class="sidebar-item" (click)="openSwitchProfile()">
-      <i class="pi pi-arrows-v"></i>
+
+    <!-- Switch Profile Toggle (Matches other items) -->
+    <div
+      class="sidebar-item"
+      (click)="toggleSwitchProfile()"
+      [class.expanded-toggle]="isSwitchProfileExpanded"
+    >
+      <i class="pi pi-sort-alt"></i>
       <span>Switch Profile</span>
+      <i
+        class="pi pi-chevron-down ml-auto"
+        [class.rotate-180]="isSwitchProfileExpanded"
+        style="font-size: 12px; margin-left: auto"
+      ></i>
     </div>
-    
+
+    <!-- Profile List (Accordion Content) -->
+    <div class="sidebar-profile-list" *ngIf="isSwitchProfileExpanded">
+      <div
+        class="sidebar-profile-item"
+        *ngFor="let profile of savedProfiles"
+        (click)="switchToProfile(profile)"
+        [class.active]="profile.id === profileData.id"
+      >
+        {{ profile.name }}
+      </div>
+    </div>
+
     <div class="sidebar-item" (click)="openAddMoreModal()">
       <i class="pi pi-plus-circle"></i>
       <span>Add More</span>
     </div>
-    
+
     <div class="sidebar-item" (click)="logout()">
       <i class="pi pi-sign-out"></i>
       <span>Logout</span>
@@ -32,71 +62,124 @@
     <!-- Profile Tab -->
     <div *ngIf="activeTab === TAB_PROFILE" class="content-section">
       <div class="profile-header">
-        <h2>My Profile</h2>
+        <h2 style="font-family: lato, sans-serif !important;">My Profile</h2>
         <div class="avatar-upload">
           <div class="profile-avatar">
-            <img [src]="selectedProfile?.avatar || 'assets/dummy-avatar.png'" alt="Profile" />
+            <img
+              [src]="selectedProfile?.avatar || 'assets/dummy-avatar.png'"
+              alt="Profile"
+            />
             <div class="camera-icon" (click)="openImageUpload()">
-              <i class="pi pi-camera" style="color: #1B5E20; font-size: 1.2rem;"></i>
+              <i
+                class="pi pi-camera"
+                style="color: #1b5e20; font-size: 1.2rem"
+              ></i>
             </div>
           </div>
         </div>
       </div>
-      
+
       <!-- For Personalised Dosage Section -->
       <div class="personalized-section">
-        <h3>For Personalised Dosage:</h3>
+        <h3 style="font-family: lato, sans-serif !important;"> For Personalised Dosage:</h3>
         <div class="dosage-row">
           <div class="dosage-field">
             <span class="dosage-label">Gender</span>
-            <p-dropdown 
-              [options]="genderOptions" 
-              [(ngModel)]="selectedGender" 
-              optionLabel="label" 
+            <p-dropdown
+              [options]="genderOptions"
+              [(ngModel)]="selectedGender"
+              optionLabel="label"
               optionValue="value"
               placeholder="Select"
-              styleClass="dosage-dropdown">
+              styleClass="dosage-dropdown"
+            >
             </p-dropdown>
           </div>
           <div class="dosage-field">
             <span class="dosage-label">Height</span>
-            <input type="text" [(ngModel)]="profileData.height" name="height" class="dosage-input" placeholder="" />
+            <input
+              type="text"
+              [(ngModel)]="profileData.height"
+              name="height"
+              class="dosage-input"
+              placeholder=""
+            />
           </div>
           <div class="dosage-field">
             <span class="dosage-label">Weight</span>
-            <input type="text" [(ngModel)]="profileData.weight" name="weight" class="dosage-input" placeholder="" />
+            <input
+              type="text"
+              [(ngModel)]="profileData.weight"
+              name="weight"
+              class="dosage-input"
+              placeholder=""
+            />
           </div>
         </div>
       </div>
 
-      <form class="profile-form" (ngSubmit)="saveChanges()" #profileForm="ngForm">
-        <div class="form-section-title">Personal  Info:</div>
-        
+      <form
+        class="profile-form"
+        (ngSubmit)="saveChanges()"
+        #profileForm="ngForm"
+      >
+        <div class="form-section-title">Personal Info:</div>
+
         <div class="form-row-horizontal">
           <label class="form-label">Name</label>
-          <input type="text" [(ngModel)]="profileData.fullName" name="fullName" class="form-input" placeholder="Chandani Kapoor" />
+          <input
+            type="text"
+            [(ngModel)]="profileData.fullName"
+            name="fullName"
+            class="form-input"
+            placeholder="Chandani Kapoor"
+          />
         </div>
 
         <div class="form-row-horizontal">
           <label class="form-label">Address</label>
           <div class="input-with-icon">
-            <input type="text" [(ngModel)]="profileData.address" name="address" class="form-input" placeholder="Street 09, Banur, Mohali, 42 Chandigarh, India-132912" />
+            <input
+              type="text"
+              [(ngModel)]="profileData.address"
+              name="address"
+              class="form-input"
+              placeholder="Street 09, Banur, Mohali, 42 Chandigarh, India-132912"
+            />
             <i class="pi pi-chevron-down input-icon"></i>
           </div>
         </div>
 
         <div class="form-row-horizontal">
           <label class="form-label">Phone</label>
-          <input type="tel" [(ngModel)]="profileData.phone" name="phone" class="form-input" placeholder="9387472342" />
+          <input
+            type="tel"
+            [(ngModel)]="profileData.phone"
+            name="phone"
+            class="form-input"
+            placeholder="9387472342"
+          />
         </div>
 
         <div class="form-row-horizontal">
           <label class="form-label">Email</label>
-          <input type="email" [(ngModel)]="profileData.email" name="email" class="form-input" placeholder="@welherb.com" />
+          <input
+            type="email"
+            [(ngModel)]="profileData.email"
+            name="email"
+            class="form-input"
+            placeholder="@welherb.com"
+          />
         </div>
 
         <div class="form-actions">
-          <button type="button" class="btn-secondary" (click)="openDeleteModal()">Delete Profile</button>
+          <button
+            type="button"
+            class="btn-secondary"
+            (click)="openDeleteModal()"
+          >
+            Delete Profile
+          </button>
           <button type="submit" class="btn-primary">Save Changes</button>
         </div>
       </form>
@@ -105,7 +188,7 @@
     <!-- Orders Tab -->
     <div *ngIf="activeTab === TAB_ORDERS" class="content-section">
       <h2>All Orders</h2>
-      
+
       <div *ngIf="isLoadingOrders" class="loading-state">
         <div class="loading-spinner"></div>
         <p>Loading orders...</p>
@@ -116,10 +199,16 @@
       </div>
 
       <div *ngIf="!isLoadingOrders && orders.length > 0" class="orders-list">
-        <div class="order-item" *ngFor="let order of orders" (click)="viewOrderDetails(order)">
+        <div
+          class="order-item"
+          *ngFor="let order of orders"
+          (click)="viewOrderDetails(order)"
+        >
           <div class="order-thumbnail"></div>
           <div class="order-info">
-            <div class="order-id">Order ID: {{ order.orderId || order._id }}</div>
+            <div class="order-id">
+              Order ID: {{ order.orderId || order._id }}
+            </div>
             <div class="order-meta">
               <span>₹{{ order.totalAmount || 0 }}</span>
               <span>•</span>
@@ -132,26 +221,46 @@
             </span>
             <div class="order-date">{{ formatDate(order.createdAt) }}</div>
           </div>
-          <svg class="chevron-right" width="8" height="12" viewBox="0 0 8 12" fill="none">
-            <path d="M1 1L6 6L1 11" stroke="currentColor" stroke-width="2"/>
+          <svg
+            class="chevron-right"
+            width="8"
+            height="12"
+            viewBox="0 0 8 12"
+            fill="none"
+          >
+            <path d="M1 1L6 6L1 11" stroke="currentColor" stroke-width="2" />
           </svg>
         </div>
       </div>
     </div>
 
     <!-- Order Details View -->
-    <div *ngIf="activeTab === TAB_ORDER_DETAILS && selectedOrder" class="content-section order-details">
+    <div
+      *ngIf="activeTab === TAB_ORDER_DETAILS && selectedOrder"
+      class="content-section order-details"
+    >
       <div class="order-details-header">
         <div class="order-header-left">
           <h3>Order ID: {{ selectedOrder.orderId }}</h3>
           <div class="order-track">Track: {{ selectedOrder.trackingId }}</div>
         </div>
         <div class="order-header-right">
-          <span class="status-badge large" [ngClass]="getStatusClass(selectedOrder.status)">
+          <span
+            class="status-badge large"
+            [ngClass]="getStatusClass(selectedOrder.status)"
+          >
             {{ getOrderStatus(selectedOrder.status) }}
           </span>
-          <div class="order-date">{{ formatDate(selectedOrder.createdAt) }}</div>
-          <button class="btn-cancel" *ngIf="selectedOrder.status === 'pending' || selectedOrder.status === 'confirmed'">
+          <div class="order-date">
+            {{ formatDate(selectedOrder.createdAt) }}
+          </div>
+          <button
+            class="btn-cancel"
+            *ngIf="
+              selectedOrder.status === 'pending' ||
+              selectedOrder.status === 'confirmed'
+            "
+          >
             Cancel Order
           </button>
         </div>
@@ -159,30 +268,63 @@
 
       <!-- Order Progress -->
       <div class="order-progress">
-        <div class="progress-step" [class.completed]="isStepCompleted('confirmed', selectedOrder.status)">
+        <div
+          class="progress-step"
+          [class.completed]="isStepCompleted('confirmed', selectedOrder.status)"
+        >
           <div class="progress-icon">
-            <div class="progress-dot" [class.active]="selectedOrder.status === 'confirmed'"></div>
+            <div
+              class="progress-dot"
+              [class.active]="selectedOrder.status === 'confirmed'"
+            ></div>
           </div>
           <div class="progress-label">Confirmed</div>
         </div>
-        <div class="progress-line" [class.completed]="isStepCompleted('transit', selectedOrder.status)"></div>
-        <div class="progress-step" [class.completed]="isStepCompleted('transit', selectedOrder.status)">
+        <div
+          class="progress-line"
+          [class.completed]="isStepCompleted('transit', selectedOrder.status)"
+        ></div>
+        <div
+          class="progress-step"
+          [class.completed]="isStepCompleted('transit', selectedOrder.status)"
+        >
           <div class="progress-icon">
-            <div class="progress-dot" [class.active]="selectedOrder.status === 'shipped'"></div>
+            <div
+              class="progress-dot"
+              [class.active]="selectedOrder.status === 'shipped'"
+            ></div>
           </div>
           <div class="progress-label">In Transit</div>
         </div>
-        <div class="progress-line" [class.completed]="isStepCompleted('delivery', selectedOrder.status)"></div>
-        <div class="progress-step" [class.completed]="isStepCompleted('delivery', selectedOrder.status)">
+        <div
+          class="progress-line"
+          [class.completed]="isStepCompleted('delivery', selectedOrder.status)"
+        ></div>
+        <div
+          class="progress-step"
+          [class.completed]="isStepCompleted('delivery', selectedOrder.status)"
+        >
           <div class="progress-icon">
-            <div class="progress-dot" [class.active]="selectedOrder.status === 'out_for_delivery'"></div>
+            <div
+              class="progress-dot"
+              [class.active]="selectedOrder.status === 'out_for_delivery'"
+            ></div>
           </div>
           <div class="progress-label">Out for delivery</div>
         </div>
-        <div class="progress-line" [class.completed]="selectedOrder.status === 'delivered'"></div>
-        <div class="progress-step" [class.completed]="selectedOrder.status === 'delivered'">
+        <div
+          class="progress-line"
+          [class.completed]="selectedOrder.status === 'delivered'"
+        ></div>
+        <div
+          class="progress-step"
+          [class.completed]="selectedOrder.status === 'delivered'"
+        >
           <div class="progress-icon">
-            <div class="progress-dot" [class.active]="selectedOrder.status === 'delivered'"></div>
+            <div
+              class="progress-dot"
+              [class.active]="selectedOrder.status === 'delivered'"
+            ></div>
           </div>
           <div class="progress-label">Delivered</div>
         </div>
@@ -195,8 +337,11 @@
           <div class="summary-item" *ngFor="let item of selectedOrder.products">
             <div class="item-image-placeholder"></div>
             <div class="item-details">
-              <div class="item-name">{{ item.name || 'ESR Count' }}</div>
-              <div class="item-meta">Size: {{ item.size || 'XM Skin' }} • Qty: {{ item.quantity || 1 }}</div>
+              <div class="item-name">{{ item.name || "ESR Count" }}</div>
+              <div class="item-meta">
+                Size: {{ item.size || "XM Skin" }} • Qty:
+                {{ item.quantity || 1 }}
+              </div>
             </div>
             <div class="item-price">₹{{ item.price || 0 }}</div>
           </div>
@@ -255,27 +400,43 @@
   </div>
 
   <!-- Add More Modal -->
-  <div class="modal-overlay" *ngIf="showAddMoreModal" (click)="closeAddMoreModal()">
-    <div class="modal-content profile-form-modal" (click)="$event.stopPropagation()">
+  <div
+    class="modal-overlay"
+    *ngIf="showAddMoreModal"
+    (click)="closeAddMoreModal()"
+  >
+    <div
+      class="modal-content profile-form-modal"
+      (click)="$event.stopPropagation()"
+    >
       <div class="modal-header">
         <h3>Add New Profile</h3>
         <button class="close-btn" (click)="closeAddMoreModal()">×</button>
       </div>
-      
+
       <div class="modal-body">
         <div class="form-section">
           <h4>Personal Information</h4>
           <div class="form-row">
             <div class="form-group">
               <label>Full Name*</label>
-              <input type="text" [(ngModel)]="newAddress.name" name="name" placeholder="Enter full name" />
+              <input
+                type="text"
+                [(ngModel)]="newAddress.name"
+                name="name"
+                placeholder="Enter full name"
+              />
             </div>
           </div>
-          
+
           <div class="form-row-inline">
             <div class="form-group">
               <label>Gender*</label>
-              <select [(ngModel)]="newAddress.gender" name="gender" class="form-select">
+              <select
+                [(ngModel)]="newAddress.gender"
+                name="gender"
+                class="form-select"
+              >
                 <option value="">Select Gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
@@ -284,11 +445,21 @@
             </div>
             <div class="form-group">
               <label>Height (cm)</label>
-              <input type="number" [(ngModel)]="newAddress.height" name="height" placeholder="e.g. 170" />
+              <input
+                type="number"
+                [(ngModel)]="newAddress.height"
+                name="height"
+                placeholder="e.g. 170"
+              />
             </div>
             <div class="form-group">
               <label>Weight (kg)</label>
-              <input type="number" [(ngModel)]="newAddress.weight" name="weight" placeholder="e.g. 65" />
+              <input
+                type="number"
+                [(ngModel)]="newAddress.weight"
+                name="weight"
+                placeholder="e.g. 65"
+              />
             </div>
           </div>
         </div>
@@ -298,14 +469,24 @@
           <div class="form-row">
             <div class="form-group">
               <label>Email Address*</label>
-              <input type="email" [(ngModel)]="newAddress.email" name="email" placeholder="Enter email address" />
+              <input
+                type="email"
+                [(ngModel)]="newAddress.email"
+                name="email"
+                placeholder="Enter email address"
+              />
             </div>
           </div>
-          
+
           <div class="form-row">
             <div class="form-group">
               <label>Phone Number*</label>
-              <input type="tel" [(ngModel)]="newAddress.phone" name="phone" placeholder="Enter phone number" />
+              <input
+                type="tel"
+                [(ngModel)]="newAddress.phone"
+                name="phone"
+                placeholder="Enter phone number"
+              />
             </div>
           </div>
         </div>
@@ -315,112 +496,185 @@
           <div class="form-row">
             <div class="form-group">
               <label>Complete Address*</label>
-              <textarea [(ngModel)]="newAddress.address" name="address" placeholder="House/Flat No., Building, Street, Area" rows="2"></textarea>
+              <textarea
+                [(ngModel)]="newAddress.address"
+                name="address"
+                placeholder="House/Flat No., Building, Street, Area"
+                rows="2"
+              ></textarea>
             </div>
           </div>
-          
+
           <div class="form-row-inline">
             <div class="form-group">
               <label>Landmark</label>
-              <input type="text" [(ngModel)]="newAddress.landmark" name="landmark" placeholder="Nearby landmark" />
+              <input
+                type="text"
+                [(ngModel)]="newAddress.landmark"
+                name="landmark"
+                placeholder="Nearby landmark"
+              />
             </div>
             <div class="form-group">
               <label>Area*</label>
-              <input type="text" [(ngModel)]="newAddress.area" name="area" placeholder="Area/Locality" />
+              <input
+                type="text"
+                [(ngModel)]="newAddress.area"
+                name="area"
+                placeholder="Area/Locality"
+              />
             </div>
           </div>
-          
+
           <div class="form-row-inline">
             <div class="form-group">
               <label>City*</label>
-              <input type="text" [(ngModel)]="newAddress.city" name="city" placeholder="City" />
+              <input
+                type="text"
+                [(ngModel)]="newAddress.city"
+                name="city"
+                placeholder="City"
+              />
             </div>
             <div class="form-group">
               <label>Pincode*</label>
-              <input type="text" [(ngModel)]="newAddress.pincode" name="pincode" placeholder="Pincode" maxlength="6" />
+              <input
+                type="text"
+                [(ngModel)]="newAddress.pincode"
+                name="pincode"
+                placeholder="Pincode"
+                maxlength="6"
+              />
             </div>
           </div>
         </div>
       </div>
-      
+
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" (click)="closeAddMoreModal()">Cancel</button>
-        <button type="button" class="btn btn-primary" (click)="saveAddress()">Save Profile</button>
+        <button
+          type="button"
+          class="btn btn-secondary"
+          (click)="closeAddMoreModal()"
+        >
+          Cancel
+        </button>
+        <button type="button" class="btn btn-primary" (click)="saveAddress()">
+          Save Profile
+        </button>
       </div>
     </div>
   </div>
 
   <!-- Switch Profile Modal -->
-  <div class="modal-overlay" *ngIf="showSwitchProfileModal" (click)="closeSwitchProfileModal()">
-    <div class="modal-content switch-profile-modal" (click)="$event.stopPropagation()">
-      <h3>Switch Profile</h3>
-      <p class="modal-subtitle">Select a profile to switch to</p>
-      
-      <div class="profile-list">
-        <div class="profile-item" *ngFor="let profile of savedProfiles" (click)="switchToProfile(profile)">
-          <div class="profile-avatar-small">
-            <img [src]="profile.avatar" alt="{{ profile.name }}" />
-          </div>
-          <div class="profile-info">
-            <div class="profile-name">{{ profile.name }}</div>
-            <div class="profile-email">{{ profile.email }}</div>
-          </div>
-          <svg class="chevron-right" width="8" height="12" viewBox="0 0 8 12" fill="none">
-            <path d="M1 1L6 6L1 11" stroke="currentColor" stroke-width="2"/>
-          </svg>
-        </div>
-        
-        <div class="profile-item add-new" (click)="addNewProfile()">
-          <div class="profile-avatar-small add-icon">
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-              <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            </svg>
-          </div>
-          <div class="profile-info">
-            <div class="profile-name">Add New Profile</div>
-          </div>
+  <div
+    class="modal-overlay"
+    *ngIf="showSwitchProfileModal"
+    (click)="closeSwitchProfileModal()"
+  >
+    <div
+      class="modal-content switch-profile-modal"
+      (click)="$event.stopPropagation()"
+    >
+      <div class="switch-header">
+        <i class="pi pi-sort-alt switch-icon"></i>
+        <span>Switch Profile</span>
+      </div>
+
+      <div class="simple-profile-list">
+        <div
+          class="simple-profile-item"
+          *ngFor="let profile of savedProfiles"
+          (click)="switchToProfile(profile)"
+          [class.active-profile]="profile.name === profileData.fullName"
+        >
+          {{ profile.name }}
         </div>
       </div>
     </div>
   </div>
 
   <!-- Gender Selection Modal -->
-  <div class="modal-overlay" *ngIf="showModal === 'gender'" (click)="closeModal()">
+  <div
+    class="modal-overlay"
+    *ngIf="showModal === 'gender'"
+    (click)="closeModal()"
+  >
     <div class="modal-content" (click)="$event.stopPropagation()">
       <h3>Select Gender</h3>
       <div class="modal-options">
-        <button class="modal-option" [class.active]="selectedGender === 'male'" (click)="selectOption('gender', 'male')">
+        <button
+          class="modal-option"
+          [class.active]="selectedGender === 'male'"
+          (click)="selectOption('gender', 'male')"
+        >
           Male
         </button>
-        <button class="modal-option" [class.active]="selectedGender === 'female'" (click)="selectOption('gender', 'female')">
+        <button
+          class="modal-option"
+          [class.active]="selectedGender === 'female'"
+          (click)="selectOption('gender', 'female')"
+        >
           Female
         </button>
-        <button class="modal-option" [class.active]="selectedGender === 'other'" (click)="selectOption('gender', 'other')">
+        <button
+          class="modal-option"
+          [class.active]="selectedGender === 'other'"
+          (click)="selectOption('gender', 'other')"
+        >
           Other
         </button>
       </div>
     </div>
   </div>
 
-
-
   <!-- Delete Confirmation Modal -->
-  <div class="delete-modal-overlay" *ngIf="showDeleteModal" (click)="closeDeleteModal()">
+  <div
+    class="delete-modal-overlay"
+    *ngIf="showDeleteModal"
+    (click)="closeDeleteModal()"
+  >
     <div class="delete-modal-content" (click)="$event.stopPropagation()">
       <div class="delete-modal-header">
         <h3>Delete Profile</h3>
         <button class="delete-close-btn" (click)="closeDeleteModal()">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M18 6L6 18M6 6L18 18" stroke="#666666" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M18 6L6 18M6 6L18 18"
+              stroke="#666666"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
           </svg>
         </button>
       </div>
       <div class="delete-modal-body">
-        <p>Are you sure you want to delete your profile? This action cannot be undone.</p>
+        <p>
+          Are you sure you want to delete your profile? This action cannot be
+          undone.
+        </p>
       </div>
       <div class="delete-modal-actions">
-        <button type="button" class="delete-modal-cancel" (click)="closeDeleteModal()">Cancel</button>
-        <button type="button" class="delete-modal-confirm" (click)="confirmDelete()">Delete</button>
+        <button
+          type="button"
+          class="delete-modal-cancel"
+          (click)="closeDeleteModal()"
+        >
+          Cancel
+        </button>
+        <button
+          type="button"
+          class="delete-modal-confirm"
+          (click)="confirmDelete()"
+        >
+          Delete
+        </button>
       </div>
     </div>
   </div>

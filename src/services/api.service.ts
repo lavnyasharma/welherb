@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import { HttpClient, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Subject } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class ApiService {
   private proxyPrefix = "/welherb";
@@ -59,14 +59,20 @@ export class ApiService {
   }
 
   getAllProducts(category?: string) {
-    const params = category ? new HttpParams().set('category', category) : undefined;
-    return this.http.get<any[]>(this.proxyPrefix + "/products/0/100", { params });
+    const params = category
+      ? new HttpParams().set("category", category)
+      : undefined;
+    return this.http.get<any[]>(this.proxyPrefix + "/products/0/100", {
+      params,
+    });
   }
 
   addToCart(productId: string, size: string) {
     const payload = { productId, size };
     const headers = this.authHeaders(true);
-    return this.http.post<any>(`${this.proxyPrefix}/user/cart/add`, payload, { headers });
+    return this.http.post<any>(`${this.proxyPrefix}/user/cart/add`, payload, {
+      headers,
+    });
   }
 
   getCartItems() {
@@ -76,17 +82,24 @@ export class ApiService {
 
   removeCartItem(id: string) {
     const headers = this.authHeaders();
-    return this.http.delete<any>(`${this.proxyPrefix}/user/cart/${id}`, { headers });
+    return this.http.delete<any>(`${this.proxyPrefix}/user/cart/${id}`, {
+      headers,
+    });
   }
 
   getOneProduct(id: string) {
     const headers = this.authHeaders();
-    return this.http.get<any>(`${this.proxyPrefix}/products/${id}`, { headers });
+    return this.http.get<any>(`${this.proxyPrefix}/products/${id}`, {
+      headers,
+    });
   }
 
   searchSomething(searchValue: string) {
     const headers = this.authHeaders();
-    return this.http.get<any>(`${this.proxyPrefix}/products/0/100?searchValue=${searchValue}`, { headers });
+    return this.http.get<any>(
+      `${this.proxyPrefix}/products/0/100?searchValue=${searchValue}`,
+      { headers }
+    );
   }
 
   getUserProfile() {
@@ -96,46 +109,86 @@ export class ApiService {
 
   getDosage(id: string) {
     const headers = this.authHeaders();
-    return this.http.get<any>(`${this.proxyPrefix}/user/dosage/${id}`, { headers });
+    return this.http.get<any>(`${this.proxyPrefix}/user/dosage/${id}`, {
+      headers,
+    });
   }
 
   updateUserProfile(payload: any) {
     const headers = this.authHeaders(true);
-    return this.http.post<any>(`${this.proxyPrefix}/user/update`, payload, { headers });
+    return this.http.post<any>(`${this.proxyPrefix}/user/update`, payload, {
+      headers,
+    });
+  }
+
+  addUserProfile(payload: any) {
+    const headers = this.authHeaders(true);
+    return this.http.post<any>(
+      `${this.proxyPrefix}/user/profile/add`,
+      payload,
+      { headers }
+    );
+  }
+
+  deleteUserProfile(id: string) {
+    const headers = this.authHeaders();
+    return this.http.delete<any>(`${this.proxyPrefix}/user/profile/${id}`, {
+      headers,
+    });
   }
 
   changeUserPassword(payload: any) {
     const headers = this.authHeaders(true);
-    return this.http.post<any>(`${this.proxyPrefix}/user/changePassword`, payload, { headers });
+    return this.http.post<any>(
+      `${this.proxyPrefix}/user/changePassword`,
+      payload,
+      { headers }
+    );
   }
 
   // ---------------- Delivery APIs ---------------- //
   getDeliveryAvailability(pincode: string) {
-    return this.http.get<any>(`${this.proxyPrefix}/delivery/availability/${pincode}`);
+    return this.http.get<any>(
+      `${this.proxyPrefix}/delivery/availability/${pincode}`
+    );
   }
 
   getEstimateTime(pincode: string) {
-    return this.http.get<any>(`${this.proxyPrefix}/delivery/estimate-time/${pincode}`);
+    return this.http.get<any>(
+      `${this.proxyPrefix}/delivery/estimate-time/${pincode}`
+    );
   }
 
-  getDeliveryAmount(pincode: string, type: 'Pre-Paid' | 'COD') {
-    return this.http.get<any>(`${this.proxyPrefix}/delivery/delivery-amount/${pincode}/${type}`);
+  getDeliveryAmount(pincode: string, type: "Pre-Paid" | "COD") {
+    return this.http.get<any>(
+      `${this.proxyPrefix}/delivery/delivery-amount/${pincode}/${type}`
+    );
   }
 
   // ---------------- Address APIs ---------------- //
   getAddresses() {
     const headers = this.authHeaders();
-    return this.http.get<any>(`${this.proxyPrefix}/user/addresses`, { headers });
+    return this.http.get<any>(`${this.proxyPrefix}/user/addresses`, {
+      headers,
+    });
   }
 
   addAddress(payload: any) {
     const headers = this.authHeaders(true);
-    return this.http.post<any>(`${this.proxyPrefix}/user/addresses/add`, payload, { headers });
+    return this.http.post<any>(
+      `${this.proxyPrefix}/user/addresses/add`,
+      payload,
+      { headers }
+    );
   }
 
   updateAddress(payload: any) {
     const headers = this.authHeaders(true);
-    return this.http.post<any>(`${this.proxyPrefix}/user/addresses/update`, payload, { headers });
+    return this.http.post<any>(
+      `${this.proxyPrefix}/user/addresses/update`,
+      payload,
+      { headers }
+    );
   }
 
   // ---------------- Orders APIs ---------------- //
@@ -146,19 +199,25 @@ export class ApiService {
 
   getOrderById(orderId: string) {
     const headers = this.authHeaders();
-    return this.http.get<any>(`${this.proxyPrefix}/user/orders/${orderId}`, { headers });
+    return this.http.get<any>(`${this.proxyPrefix}/user/orders/${orderId}`, {
+      headers,
+    });
   }
 
   createOrder(payload: any) {
     const headers = this.authHeaders(true);
-    return this.http.post<any>(`${this.proxyPrefix}/user/orders/create`, payload, { headers });
+    return this.http.post<any>(
+      `${this.proxyPrefix}/user/orders/create`,
+      payload,
+      { headers }
+    );
   }
 
   // ---------------- Helper: Auth Headers ---------------- //
   private authHeaders(json: boolean = false): HttpHeaders {
-    const token = localStorage.getItem("auth_token") || '';
-    let headersConfig: any = { 'Authorization': token };
-    if (json) headersConfig['Content-Type'] = 'application/json';
+    const token = localStorage.getItem("auth_token") || "";
+    let headersConfig: any = { Authorization: token };
+    if (json) headersConfig["Content-Type"] = "application/json";
     return new HttpHeaders(headersConfig);
   }
 }

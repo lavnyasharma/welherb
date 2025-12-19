@@ -1,7 +1,7 @@
 /* Main Blog Section */
 .blog-section {
   background: #fcf8f4;
-  padding: 40px 80px;
+  padding: 40px 0;
 }
 
 .container {
@@ -12,6 +12,7 @@
 /* Header Section */
 .blog-header {
   margin-bottom: 40px;
+  padding: 0 100px;
 }
 
 .header-content {
@@ -70,7 +71,7 @@
 }
 
 .nav-btn:hover {
-  background: #f8f9fa;
+  background: var(--color-background);
   transform: translateY(-1px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
@@ -90,7 +91,7 @@
 .carousel-track {
   display: flex;
   gap: 24px;
-  padding: 20px 0;
+  padding: 20px 0 20px 100px;
   width: max-content;
   will-change: transform;
 }
@@ -143,7 +144,7 @@
   position: relative;
   height: 220px;
   overflow: hidden;
-  background: #f8f9fa;
+  background: var(--color-background);
 }
 
 .blog-image {
@@ -154,7 +155,7 @@
   transition: transform 0.3s ease, opacity 0.3s ease;
   border-radius: 12px;
   display: block;
-  background: #f8f9fa;
+  background: var(--color-background);
   opacity: 0;
 }
 

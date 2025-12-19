@@ -30,11 +30,13 @@
   background-color: transparent;
   border: 2px solid var(--color-text-primary);
   color: var(--color-text-primary);
+  transition: all 0.3s ease;
 }
 
 .custom-btn.outline:hover {
   background-color: var(--color-text-primary);
   color: var(--color-text-on-cta);
+  transform: scale(1.08);
 }
 
 .btn-icon-svg {

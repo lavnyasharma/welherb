@@ -244,9 +244,54 @@
   color: var(--color-cta);
 }
 
+.cart {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+.nav-icon-img {
+  display: none; /* Hide if still present */
+}
+
+/* Shared style for both Cart icon and Profile button */
+.nav-icon-btn {
+  font-size: 26px !important; 
+  width: 40px !important;
+  height: 40px !important;
+  color: #333 !important;
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer;
+}
+
+.cart {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -2px;
+  right: -5px;
+  background-color: #24b04b;
+  color: white;
+  border-radius: 50%;
+  padding: 2px 6px;
+  font-size: 10px;
+  font-weight: bold;
+  border: 1px solid white;
+}
+
 /* Sign Up Button */
 .signUp button {
-
   z-index: 10;
 }
 
@@ -328,7 +373,9 @@
     gap: 20px;
   }
 
-  .cart, .profile-dropdown button, .signUp button {
+  .cart,
+  .profile-dropdown button,
+  .signUp button {
     /* Ensure minimum touch target size */
     min-width: 44px;
     min-height: 44px;
@@ -511,7 +558,7 @@ html {
 
 .search-result-categories {
   font-size: 12px;
-  color: #4FAE32;
+  color: #4fae32;
   margin-bottom: 4px;
 }
 
@@ -535,7 +582,7 @@ html {
 
 .product-type {
   background: #e8f5e8;
-  color: #4FAE32;
+  color: #4fae32;
   padding: 2px 6px;
   border-radius: 3px;
   font-weight: 500;
@@ -562,7 +609,7 @@ html {
 
 .view-all-btn {
   width: 100%;
-  background: #4FAE32;
+  background: #4fae32;
   color: white;
   border: none;
   padding: 10px 16px;
@@ -604,7 +651,7 @@ html {
 
 .quick-link {
   background: #e8f5e8;
-  color: #4FAE32;
+  color: #4fae32;
   padding: 6px 12px;
   border-radius: 16px;
   font-size: 13px;
@@ -613,7 +660,7 @@ html {
 }
 
 .quick-link:hover {
-  background: #4FAE32;
+  background: #4fae32;
   color: white;
   transform: translateY(-1px);
 }
@@ -626,28 +673,28 @@ html {
     border-radius: 12px;
     max-height: 400px;
   }
-  
+
   .search-result-item {
     padding: 16px 12px;
   }
-  
+
   .search-result-image {
     width: 45px;
     height: 45px;
   }
-  
+
   .search-result-name {
     font-size: 14px;
   }
-  
+
   .search-result-description {
     font-size: 12px;
   }
-  
+
   .search-quick-links {
     gap: 6px;
   }
-  
+
   .quick-link {
     font-size: 12px;
     padding: 5px 10px;
@@ -660,17 +707,17 @@ html {
     right: -15px;
     max-height: 350px;
   }
-  
+
   .search-result-item {
     padding: 12px 10px;
   }
-  
+
   .search-result-image {
     width: 40px;
     height: 40px;
     margin-right: 10px;
   }
-  
+
   .search-result-meta {
     flex-direction: column;
     gap: 4px;
@@ -693,5 +740,5 @@ html {
 }
 
 .search-results::-webkit-scrollbar-thumb:hover {
-  background: #4FAE32;
+  background: #4fae32;
 }

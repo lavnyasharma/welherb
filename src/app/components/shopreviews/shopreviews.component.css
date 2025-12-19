@@ -1,7 +1,5 @@
 .testimonials-container {
-
   margin: 0 auto;
-  
 }
 
 /* Bottom Section */
@@ -109,7 +107,7 @@
 }
 
 .review-item {
-  /* background: white; */
+  /* background: var(--color-background); */
   border-radius: 16px;
   padding: 20px;
   /* box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08); */

@@ -5,7 +5,7 @@
   margin: 0 auto;
   padding: 40px 100px;
   background-color: #fdf8f3; /* Light beige/cream background */
-  font-family: "Inter", sans-serif; /* Assuming Inter or similar sans-serif */
+  font-family: "Lato", sans-serif;
 }
 
 /* Summary Cards */
@@ -234,7 +234,7 @@
   padding: 8px 16px;
   border: 1px solid #ccc;
   border-radius: 20px;
-  background: white;
+  background: var(--color-background);
   cursor: pointer;
   font-size: 14px;
   display: flex;

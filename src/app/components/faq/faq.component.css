@@ -124,7 +124,7 @@
 }
 
 .faq-items {
-  background: #fff;
+  background: var(--color-background);
   border-radius: 20px;
   padding: 30px;
   display: flex;
@@ -230,7 +230,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 16px 20px;
-    background-color: #f8f9fa;
+    background-color: var(--color-background);
     cursor: pointer;
   }
 

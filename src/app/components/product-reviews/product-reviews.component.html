@@ -82,11 +82,18 @@
           <div class="header-info">
             <div class="stars-date-row">
               <div class="entry-stars">
-                <span
+                <img
                   *ngFor="let s of getStarsArray(review.stars)"
-                  class="star-filled-green"
-                  >★</span
-                >
+                  src="assets/Vector (2).svg"
+                  alt="star"
+                  class="star-icon"
+                  style="
+                    width: 18px;
+                    height: 18px;
+                    object-fit: contain;
+                    margin-right: 2px;
+                  "
+                />
               </div>
               <span class="entry-date">{{ review.date }}</span>
             </div>
@@ -99,7 +106,12 @@
           </div>
         </div>
 
-        <h4 class="entry-title">{{ review.title }}</h4>
+        <h4
+          style="font-family: lato, sans-serif !important"
+          class="entry-title"
+        >
+          {{ review.title }}
+        </h4>
         <p class="entry-content">{{ review.content }}</p>
 
         <hr *ngIf="!last" class="entry-divider" />
