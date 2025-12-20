@@ -313,7 +313,7 @@
 
 .verified-badge {
 background-color: #d1e7dd;
-    color: #4FAE32;
+    color: var(--color-cta);
     padding: 2px 8px;
     border-radius: 8px;
     font-size: 10px;

@@ -52,7 +52,7 @@
 
 .auth-card h2 {
   margin-bottom: 20px;
-  color: #3a3938;
+  color: var(--color-text-primary);
   font-family: "Arima", cursive;
   font-weight: 700;
   font-size: 32px;
@@ -74,7 +74,7 @@ p {
 label {
   display: block;
   font-size: 14px;
-  color: #4fae32;
+  color: var(--color-cta);
   margin-bottom: 5px;
   font-weight: bold;
 }
@@ -89,7 +89,7 @@ input {
 
 input:focus {
   outline: none;
-  border-color: #4fae32;
+  border-color: var(--color-cta);
   box-shadow: 0 0 5px rgba(79, 174, 50, 0.5);
 }
 
@@ -101,7 +101,7 @@ input:focus {
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  background-color: #4fae32;
+  background-color: var(--color-cta);
   color: white;
   font-weight: 600;
   transition: background-color 0.3s;
@@ -113,7 +113,7 @@ input:focus {
 }
 
 a {
-  color: #4fae32;
+  color: var(--color-cta);
   text-decoration: none;
 }
 
@@ -197,7 +197,7 @@ a:hover {
 .link-btn {
   border: none;
   background: none;
-  color: #4fae32;
+  color: var(--color-cta);
   cursor: pointer;
   padding-left: 6px;
   font-weight: 500;

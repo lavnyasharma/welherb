@@ -116,7 +116,7 @@
 /* -- Digestick Card (Green - Small) -- */
 .review-card-digestick {
   width: 360px; /* Reduced from 400px */
-  height: 260px;
+  min-height: 260px;
 }
 
 .card-frame-green {
@@ -247,6 +247,6 @@
 
   .review-card-digestick {
     width: 240px;
-    height: 320px;
+    min-height: 320px;
   }
 }

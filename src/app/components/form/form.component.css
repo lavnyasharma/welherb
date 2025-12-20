@@ -87,7 +87,7 @@ ease;
 .form-section button {
       width: 40%;
     padding: 10px;
-    background-color: #4FAE32;
+    background-color: var(--color-cta);
     color: white;
     border: none;
     border-radius: 16px;

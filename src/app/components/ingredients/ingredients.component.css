@@ -24,7 +24,7 @@
 }
 
 .cta-button {
-  background-color: #4FAE32;
+  background-color: var(--color-cta);
   color: white;
   border: none;
   border-radius: 16px;
@@ -36,7 +36,7 @@
 }
 
 .cta-button:hover {
-  background-color: #4FAE32;
+  background-color: var(--color-cta);
 }
 
 .arrow {

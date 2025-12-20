@@ -4,11 +4,11 @@
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    background: var(--color-accent);
-    border-radius: var(--radius-md);
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 40px;
+  background: var(--color-accent);
+  border-radius: var(--radius-md);
 }
 
 /* Main Content */
@@ -37,7 +37,6 @@
   display: flex;
   align-items: flex-start;
   gap: 20px;
-
 }
 
 .info-icon {
@@ -49,7 +48,13 @@
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: #8BC34A;
+  color: #8bc34a;
+}
+
+.info-icon img {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
 }
 
 .info-icon svg {
@@ -82,7 +87,6 @@
   background: #fcf9f4;
   border-radius: 12px;
   padding: 40px;
-
 }
 
 .form-card {
@@ -136,7 +140,7 @@
 
 .form-control:focus {
   outline: none;
-  border-color: #8BC34A;
+  border-color: #8bc34a;
   /* box-shadow: 0 0 0 3px rgba(139, 195, 74, 0.1); */
 }
 
@@ -163,57 +167,38 @@ select.form-control option {
   font-family: inherit;
 }
 
-/* Submit Button */
-.submit-btn {
-  background: var(--color-accent);
-  color: var(--color-background);
-  border: none;
-  padding: 15px 40px;
-  border-radius: var(--radius-sm);
-  font-size: var(--font-size-md);
-  font-family: var(--font-primary);
-  font-weight: var(--font-weight-bold);
-  cursor: pointer;
-  transition: var(--transition-normal);
+/* Submit Button - Using app-button component */
+app-button {
   margin-top: 10px;
-  align-self: flex-start;
-}
-
-.submit-btn:hover:not(:disabled) {
-  background: #7CB342;
-  transform: translateY(-2px);
-
-}
-
-.submit-btn:active:not(:disabled) {
-  transform: translateY(0);
-}
-
-.submit-btn:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
+  display: block;
 }
 
 .success-message {
   background: #e8f5e9;
-  color: #2E7D32;
+  color: #2e7d32;
   padding: 15px 20px;
   border-radius: 8px;
   margin-top: 15px;
   display: flex;
   align-items: center;
   gap: 12px;
-  border: 1px solid #8BC34A;
+  border: 1px solid #8bc34a;
   animation: slideIn 0.4s ease;
 }
 
 @keyframes slideIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .success-icon {
-  background: #8BC34A;
+  background: #8bc34a;
   color: #fcf9f4;
   width: 24px;
   height: 24px;
@@ -257,12 +242,10 @@ select.form-control option {
 }
 
 .faq-item {
-
   border-radius: 10px;
   overflow: hidden;
   /* box-shadow: 0 2px 8px rgba(0,0,0,0.08); */
   border: 1px solid #000000;
-
 }
 
 .faq-question {
@@ -308,9 +291,9 @@ select.form-control option {
 }
 
 .faq-toggle.active {
-  background: #8BC34A;
+  background: #8bc34a;
   color: #fcf9f4;
-  border-color: #8BC34A;
+  border-color: #8bc34a;
 }
 
 .faq-answer {
@@ -339,7 +322,7 @@ select.form-control option {
     grid-template-columns: 340px 1fr;
     gap: 30px;
   }
-  
+
   .contact-form-section {
     padding: 35px 30px;
   }
@@ -350,42 +333,42 @@ select.form-control option {
     grid-template-columns: 1fr;
     gap: 30px;
   }
-  
+
   .contact-info-section {
     order: 2;
   }
-  
+
   .contact-form-section {
     order: 1;
     padding: 30px 25px;
   }
-  
+
   .form-row {
     grid-template-columns: 1fr;
     gap: 15px;
   }
-  
+
   .info-card {
     padding: 20px;
   }
-  
+
   .faq-section {
     padding: 50px 0;
     margin-top: 40px;
   }
-  
+
   .section-title {
     font-size: 1.6rem;
   }
-  
+
   .section-title .subtitle {
     font-size: 1.5rem;
   }
-  
+
   .faq-question {
     padding: 18px 20px;
   }
-  
+
   .faq-answer.open {
     padding: 0 20px 18px;
   }
@@ -395,73 +378,73 @@ select.form-control option {
   .contact-us-container {
     padding: 20px 0;
   }
-  
+
   .container {
     padding: 0 15px;
   }
-  
+
   .contact-form-section {
     padding: 25px 20px;
   }
-  
+
   .form-title {
     font-size: 1.5rem;
     margin-bottom: 25px;
   }
-  
+
   .info-card {
     padding: 18px;
     gap: 15px;
   }
-  
+
   .info-icon {
     width: 45px;
     height: 45px;
   }
-  
+
   .info-content h3 {
     font-size: 0.95rem;
   }
-  
+
   .info-content p {
     font-size: 0.9rem;
   }
-  
+
   .submit-btn {
     width: 100%;
     padding: 14px 30px;
   }
-  
+
   .faq-section {
     padding: 40px 0;
   }
-  
+
   .section-title {
     font-size: 1.4rem;
     margin-bottom: 30px;
   }
-  
+
   .section-title .subtitle {
     font-size: 1.3rem;
   }
-  
+
   .faq-question {
     padding: 15px 18px;
   }
-  
+
   .faq-question h3 {
     font-size: 0.95rem;
   }
-  
+
   .faq-toggle {
     width: 28px;
     height: 28px;
   }
-  
+
   .faq-answer.open {
     padding: 0 18px 15px;
   }
-  
+
   .faq-answer p {
     font-size: 0.9rem;
   }
@@ -480,19 +463,21 @@ select.form-control option {
 }
 
 .loading::after {
-  content: '';
+  content: "";
   position: absolute;
   top: 50%;
   left: 50%;
   width: 20px;
   height: 20px;
   margin: -10px 0 0 -10px;
-  border: 2px solid #8BC34A;
+  border: 2px solid #8bc34a;
   border-radius: 50%;
   border-top-color: transparent;
   animation: spin 0.8s linear infinite;
 }
 
 @keyframes spin {
-  to { transform: rotate(360deg); }
+  to {
+    transform: rotate(360deg);
+  }
 }

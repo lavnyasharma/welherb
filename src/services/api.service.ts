@@ -192,10 +192,12 @@ export class ApiService {
   }
 
   // ---------------- Orders APIs ---------------- //
-  getOrders() {
+  getOrders(page: number = 1, limit: number = 10) {
     const headers = this.authHeaders();
-    return this.http.get<any>(`${this.proxyPrefix}/user/orders`, { headers });
+    const offset = (page - 1) * limit;
+    return this.http.get<any>(`${this.proxyPrefix}/user/orders/${offset}/${limit}`, { headers });
   }
+
 
   getOrderById(orderId: string) {
     const headers = this.authHeaders();

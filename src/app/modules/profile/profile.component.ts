@@ -51,6 +51,10 @@ export class ProfileComponent implements OnInit, OnDestroy {
   orders: any[] = [];
   selectedOrder: any = null;
   isLoadingOrders = false;
+  currentOrderPage = 1;
+  ordersPerPage = 10;
+  hasMoreOrders = true;
+  totalOrders = 0;
 
   // Password data
   passwordData = {
@@ -414,7 +418,8 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   // View order details
   viewOrderDetails(order: any): void {
-    this.apiService.getOrderById(order.orderId || order._id).subscribe({
+    const orderId = order.orderId || order.order_id || order._id;
+    this.apiService.getOrderById(orderId).subscribe({
       next: (response: any) => {
         this.selectedOrder = response;
         this.activeTab = "order-details";
@@ -435,6 +440,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   getOrderStatus(status: string): string {
     const statusMap: { [key: string]: string } = {
       pending: "Pending",
+      Ordered: "Confirmed",
       confirmed: "Confirmed",
       shipped: "In Transit",
       out_for_delivery: "Out for Delivery",
@@ -460,6 +466,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   getStatusClass(status: string): string {
     const statusClasses: { [key: string]: string } = {
       pending: "status-pending",
+      Ordered: "status-confirmed",
       confirmed: "status-confirmed",
       shipped: "status-shipped",
       out_for_delivery: "status-shipped",
@@ -474,6 +481,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   isStepCompleted(step: string, currentStatus: string): boolean {
     const statusOrder = [
       "pending",
+      "Ordered",
       "confirmed",
       "shipped",
       "out_for_delivery",
@@ -483,9 +491,14 @@ export class ProfileComponent implements OnInit, OnDestroy {
       confirmed: "confirmed",
       transit: "shipped",
       delivery: "out_for_delivery",
+      Ordered: "Ordered",
     };
 
     const stepStatus = stepStatusMap[step];
+
+    // Handle 'Ordered' mapping to 'confirmed' step visually if needed
+    if (step === "confirmed" && currentStatus === "Ordered") return true;
+
     const currentIndex = statusOrder.indexOf(currentStatus);
     const stepIndex = statusOrder.indexOf(stepStatus);
 
@@ -614,7 +627,41 @@ export class ProfileComponent implements OnInit, OnDestroy {
     });
   }
 
+  // Load more orders on scroll
+  loadMoreOrders(): void {
+    if (!this.isLoadingOrders && this.hasMoreOrders) {
+      this.currentOrderPage++;
+      this.loadOrders();
+    }
+  }
+
+  // Scroll event handler for orders list
+  @HostListener("window:scroll", ["$event"])
+  onScroll(event: any): void {
+    if (this.activeTab !== this.TAB_ORDERS) {
+      return;
+    }
+
+    const scrollPosition = window.pageYOffset + window.innerHeight;
+    const pageHeight = document.documentElement.scrollHeight;
+
+    // Load more when user is 200px from bottom
+    if (
+      scrollPosition >= pageHeight - 200 &&
+      !this.isLoadingOrders &&
+      this.hasMoreOrders
+    ) {
+      this.loadMoreOrders();
+    }
+  }
+
   // Logout
+  copyOrderId(orderId: string): void {
+    navigator.clipboard.writeText(orderId).then(() => {
+      this.toastService.success("Order ID copied to clipboard");
+    });
+  }
+
   logout(): void {
     if (confirm("Are you sure you want to logout?")) {
       // Clear local storage or session

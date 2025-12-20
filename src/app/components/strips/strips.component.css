@@ -5,7 +5,7 @@
   
   .box {
     background-color: #4eae32;
-    /* border: 1px solid #4FAE32; */
+    /* border: 1px solid var(--color-cta); */
 
     padding: 20px;
     color: black;

@@ -3,18 +3,17 @@
   <div class="main-content">
     <div class="container">
       <div class="content-grid">
-        
         <!-- Contact Information Section -->
         <div class="contact-info-section">
           <!-- Phone Card -->
           <div class="info-card">
             <div class="info-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-              </svg>
+              <img src="assets/Group 655.svg" alt="Phone" />
             </div>
             <div class="info-content">
-              <h3>Phone Number</h3>
+              <h3 style="font-family: lato, sans-serif !important">
+                Phone Number
+              </h3>
               <p>+91 9876543421</p>
             </div>
           </div>
@@ -22,13 +21,12 @@
           <!-- Email Card -->
           <div class="info-card">
             <div class="info-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
+              <img src="assets/Group 652.svg" alt="Email" />
             </div>
             <div class="info-content">
-              <h3>Email Address</h3>
+              <h3 style="font-family: lato, sans-serif !important">
+                Email Address
+              </h3>
               <p>www.wellherb.com</p>
             </div>
           </div>
@@ -36,14 +34,14 @@
           <!-- Location Card -->
           <div class="info-card">
             <div class="info-icon">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
+              <img src="assets/Group 654.svg" alt="Location" />
             </div>
             <div class="info-content">
-              <h3>Location</h3>
-              <p>32 Wellness Street<br>Ayurveda Plaza, Mumbai<br>Maharastra 320076,<br>India</p>
+              <h3 style="font-family: lato, sans-serif !important">Location</h3>
+              <p>
+                32 Wellness Street<br />Ayurveda Plaza, Mumbai<br />Maharastra
+                320076,<br />India
+              </p>
             </div>
           </div>
         </div>
@@ -51,49 +49,61 @@
         <!-- Contact Form Section -->
         <div class="contact-form-section">
           <div class="form-card">
-            <h2 class="form-title">Contact us</h2>
-            
-            <form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="contact-form">
-              
+            <h2
+              class="form-title"
+              style="font-family: lato, sans-serif !important"
+            >
+              Contact us
+            </h2>
+
+            <form
+              [formGroup]="contactForm"
+              (ngSubmit)="onSubmit()"
+              class="contact-form"
+            >
               <div class="form-row">
                 <div class="form-group">
-                  <input 
-                    type="text" 
-                    id="name" 
+                  <input
+                    type="text"
+                    id="name"
                     formControlName="name"
                     class="form-control"
                     [class.error]="isFieldInvalid('name')"
-                    placeholder="Name*">
+                    placeholder="Name*"
+                  />
                 </div>
-                
+
                 <div class="form-group">
-                  <input 
-                    type="tel" 
-                    id="phone" 
+                  <input
+                    type="tel"
+                    id="phone"
                     formControlName="phone"
                     class="form-control"
                     [class.error]="isFieldInvalid('phone')"
-                    placeholder="Phone*">
+                    placeholder="Phone*"
+                  />
                 </div>
               </div>
 
               <div class="form-row">
                 <div class="form-group">
-                  <input 
-                    type="email" 
-                    id="email" 
+                  <input
+                    type="email"
+                    id="email"
                     formControlName="email"
                     class="form-control"
                     [class.error]="isFieldInvalid('email')"
-                    placeholder="Email*">
+                    placeholder="Email*"
+                  />
                 </div>
-                
+
                 <div class="form-group">
-                  <select 
-                    id="about" 
+                  <select
+                    id="about"
                     formControlName="about"
                     class="form-control"
-                    [class.error]="isFieldInvalid('about')">
+                    [class.error]="isFieldInvalid('about')"
+                  >
                     <option value="" disabled selected>About*</option>
                     <option value="product-inquiry">Product Inquiry</option>
                     <option value="order-support">Order Support</option>
@@ -106,22 +116,22 @@
               </div>
 
               <div class="form-group full-width">
-                <textarea 
-                  id="message" 
+                <textarea
+                  id="message"
                   formControlName="message"
                   class="form-control textarea"
                   [class.error]="isFieldInvalid('message')"
                   rows="5"
-                  placeholder="Message*"></textarea>
+                  placeholder="Message*"
+                ></textarea>
               </div>
 
-              <button 
-                type="submit" 
-                class="submit-btn"
-                [disabled]="contactForm.invalid || isSubmitting">
-                <span *ngIf="!isSubmitting">Send Message</span>
-                <span *ngIf="isSubmitting">Sending...</span>
-              </button>
+              <app-button
+                [label]="isSubmitting ? 'Sending...' : 'Send Message'"
+                type="submit"
+                variant="primary"
+              >
+              </app-button>
 
               <div class="success-message" *ngIf="showSuccessMessage">
                 <span class="success-icon">✓</span>
@@ -130,7 +140,6 @@
             </form>
           </div>
         </div>
-
       </div>
     </div>
   </div>
@@ -138,22 +147,43 @@
   <!-- FAQ Section -->
   <div class="faq-section">
     <div class="container1">
-      <h2 class="section-title">
-        Frequently Asked Questions<br>
+      <h2
+        class="section-title"
+        style="font-family: lato, sans-serif !important"
+      >
+        Frequently Asked Questions<br />
         <span class="subtitle">(FAQs)</span>
       </h2>
-      
+
       <div class="faq-grid">
         <div class="faq-item" *ngFor="let faq of faqs; let i = index">
           <div class="faq-question" (click)="toggleFaq(i)">
-            <h3>{{ faq.question }}</h3>
+            <h3 style="font-family: lato, sans-serif !important">
+              {{ faq.question }}
+            </h3>
             <span class="faq-toggle" [class.active]="faq.isOpen">
-              <svg *ngIf="!faq.isOpen" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg
+                *ngIf="!faq.isOpen"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="12" y1="8" x2="12" y2="16"></line>
                 <line x1="8" y1="12" x2="16" y2="12"></line>
               </svg>
-              <svg *ngIf="faq.isOpen" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <svg
+                *ngIf="faq.isOpen"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+              >
                 <circle cx="12" cy="12" r="10"></circle>
                 <line x1="8" y1="12" x2="16" y2="12"></line>
               </svg>
