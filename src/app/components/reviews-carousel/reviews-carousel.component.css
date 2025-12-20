@@ -27,6 +27,7 @@
 
 .reviews-subtitle {
   font-size: var(--font-size-md);
+  padding-left: 7px;
   font-family: "Lato", sans-serif;
   color: var(--color-text-muted);
   line-height: var(--line-height-normal);

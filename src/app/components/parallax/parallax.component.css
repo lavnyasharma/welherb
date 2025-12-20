@@ -134,7 +134,7 @@
   font-weight: 600;
   color: #333;
   line-height: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   max-width: max-content;
   text-align: start;
 }
@@ -148,6 +148,7 @@
 .text-2{
   font-size: 1rem;
   font-weight: 400;
+  padding-left: 4px;
   color: #333;
   display: flex;
   justify-content: start;
