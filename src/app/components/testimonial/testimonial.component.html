@@ -1,39 +1,63 @@
-<div class="" style="background: #fcf8f4;">
+<div class="" style="background: #fcf8f4">
   <div class="heading">
-    <h1 class="title"><span style="color: #9CCB3B;">Trust&nbsp;</span>that we have earned</h1>
-  
+    <h1 class="title">
+      <span style="color: #9ccb3b">Trust&nbsp;</span>that we have earned
+    </h1>
   </div>
   <div class="testimonial-container">
     <!-- Desktop View (Grid) -->
     <div *ngIf="!isMobileView()" class="testimonial-grid">
       <div *ngFor="let testimonial of testimonials" class="testimonial-card">
         <div class="stars">
-          <span *ngFor="let star of [].constructor(testimonial.stars); let i = index">⭐</span>
+          <span
+            *ngFor="
+              let star of [].constructor(testimonial.stars);
+              let i = index
+            "
+            >⭐</span
+          >
         </div>
         <p class="review">{{ testimonial.review }}</p>
         <div class="user-info">
           <img [src]="testimonial.image" alt="User Image" class="profile-img" />
           <div>
             <h3 class="name">{{ testimonial.name }}</h3>
-            <p class="subtext">Benefited from ESR COUNT</p>
+            <p class="subtext">Benefited from ESR Count</p>
           </div>
         </div>
       </div>
     </div>
-  
+
     <!-- Mobile View (Carousel) -->
-    <p-carousel *ngIf="isMobileView()" [value]="testimonials" [numVisible]="1" [numScroll]="1" [circular]="true" [autoplayInterval]="3000">
+    <p-carousel
+      *ngIf="isMobileView()"
+      [value]="testimonials"
+      [numVisible]="1"
+      [numScroll]="1"
+      [circular]="true"
+      [autoplayInterval]="3000"
+    >
       <ng-template let-testimonial pTemplate="item">
         <div class="testimonial-card">
-          <div class="stars" style="display: flex;">
-            <span *ngFor="let star of [].constructor(testimonial.stars); let i = index">⭐</span>
+          <div class="stars" style="display: flex">
+            <span
+              *ngFor="
+                let star of [].constructor(testimonial.stars);
+                let i = index
+              "
+              >⭐</span
+            >
           </div>
           <p class="review">{{ testimonial.review }}</p>
           <div class="user-info">
-            <img [src]="testimonial.image" alt="User Image" class="profile-img" />
+            <img
+              [src]="testimonial.image"
+              alt="User Image"
+              class="profile-img"
+            />
             <div>
               <h3 class="name">{{ testimonial.name }}</h3>
-              <p class="subtext">Benefited from ESR COUNT</p>
+              <p class="subtext">Benefited from ESR Count</p>
             </div>
           </div>
         </div>
@@ -42,6 +66,6 @@
   </div>
   <div class="btns">
     <button (click)="showNow()" class="call">Shop Now</button>
-    <button (click)=" viewMore()" class="call">View More</button>
+    <button (click)="viewMore()" class="call">View More</button>
   </div>
 </div>

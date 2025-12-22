@@ -2,7 +2,7 @@
   display: flex;
   align-items: center;
   gap: 20px;
-  padding: 40px 100px;
+  padding: 60px 100px;
 
   background: #fcf8f4;
 }
@@ -38,7 +38,7 @@
 }
 
 .help-heading {
-  font-size: 2rem;
+  font-size: 36px;
   font-weight: 600;
   color: #333;
   margin-bottom: 16px;
@@ -47,7 +47,7 @@
 }
 
 .help-text {
-  font-size: 1.1rem;
+  font-size: 16px;
   line-height: 1.6;
   color: #666;
   margin-bottom: 0;

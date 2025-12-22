@@ -8,7 +8,7 @@
   gap: 40px;
   margin-bottom: 60px;
   align-items: center;
-  padding: 40px 100px;
+  padding: 60px 100px;
 }
 
 /* Ratings Section */
@@ -84,7 +84,7 @@
   display: flex;
   gap: 40px;
   align-items: flex-start;
-  padding: 40px 100px;
+  padding: 60px 100px;
 }
 
 .recent-feedback,
@@ -235,7 +235,7 @@
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-transform: uppercase;
+  
   letter-spacing: 0.5px;
 }
 

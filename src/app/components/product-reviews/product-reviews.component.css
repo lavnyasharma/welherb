@@ -3,7 +3,7 @@
 .feedback-section {
   max-width: 100%;
   margin: 0 auto;
-  padding: 40px 100px;
+  padding: 60px 100px;
   background-color: #fdf8f3; /* Light beige/cream background */
   font-family: "Lato", sans-serif;
 }
@@ -322,7 +322,7 @@
   border-radius: 8px;
   font-size: 10px;
   font-weight: 600;
-  text-transform: uppercase;
+ 
 }
 
 .entry-title {

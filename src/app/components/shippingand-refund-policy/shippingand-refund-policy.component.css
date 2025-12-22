@@ -1,7 +1,7 @@
 /* shipping-refund-policy.component.css */
 
 .shipping-refund-container {
-  padding: 40px 100px;
+  padding: 60px 100px;
   font-family: lato, sans-serif;
   color: #333;
   min-height: 100vh;
@@ -17,7 +17,6 @@
 
 /* Accordion Styles */
 .accordion-item {
-
   border: 1px solid #000000;
   border-radius: 8px;
   margin-bottom: 15px;
@@ -25,12 +24,10 @@
   transition: all 0.3s ease;
 }
 
-
-
 .accordion-header {
   width: 100%;
   padding: 18px 24px;
-background: none;
+  background: none;
   border: none;
   cursor: pointer;
   display: flex;
@@ -43,15 +40,11 @@ background: none;
   text-align: left;
 }
 
-
-
 .accordion-header:focus {
   outline: none;
-
 }
 
 .accordion-item.open .accordion-header {
-
   border-bottom: 1px solid #ddd;
 }
 
@@ -84,7 +77,8 @@ background: none;
   overflow: hidden;
 
   border-top: none;
-  transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out, border 0.4s ease-in-out;
+  transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out,
+    border 0.4s ease-in-out;
   padding: 0 24px;
 }
 

@@ -465,7 +465,7 @@
 } /* Container */
 .shop-container {
   margin: 0 auto;
-  padding: 40px 100px;
+  padding: 60px 100px;
   font-family: "Arial", sans-serif;
   background-color: var(--color-background);
 }

@@ -1250,7 +1250,7 @@ textarea:focus {
 /* Empty Checkout Message Styles */
 .empty-checkout-message {
   text-align: center;
-  padding: 40px 100px;
+  padding: 60px 100px;
   background: var(--color-background);
   border-radius: 12px;
   border: 2px dashed #dee2e6;
@@ -1501,7 +1501,7 @@ textarea:focus {
   }
 
   .empty-cart {
-    padding: 40px 100px;
+    padding: 60px 100px;
   }
 
   .empty-checkout-icon {
@@ -2911,7 +2911,7 @@ address-item {
 
 .order-success {
   text-align: center;
-  padding: 40px 100px;
+  padding: 60px 100px;
   /* background: linear-gradient(135deg, #f8fff8 0%, #e8f5e8 100%); */
   border-radius: 12px;
   border: 2px solid #7cb342;

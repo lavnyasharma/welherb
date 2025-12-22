@@ -39,7 +39,7 @@ export class ReviewsCarouselComponent
       name: "Rajeev Singh",
       image:
         "assets/happy-man-student-with-afro-hairdo-shows-white-teeth-being-good-mood-after-classes.svg",
-      benefit: "Benefited from ESR COUNT",
+      benefit: "Benefited from ESR Count",
       quote: "It has reduced my mom's ESR to normal in 1 month!",
       rating: 5,
       type: "esr",
@@ -49,7 +49,7 @@ export class ReviewsCarouselComponent
       name: "Priya Sharma",
       image:
         "assets/happy-man-student-with-afro-hairdo-shows-white-teeth-being-good-mood-after-classes.svg",
-      benefit: "Benefited from DIGESTICK",
+      benefit: "Benefited from Digestick",
       quote:
         "Good for body pains, inflammation, ESR...our whole family uses without second thought!",
       rating: 5,
@@ -60,7 +60,7 @@ export class ReviewsCarouselComponent
       name: "Amit Kumar",
       image:
         "assets/happy-man-student-with-afro-hairdo-shows-white-teeth-being-good-mood-after-classes.svg",
-      benefit: "Benefited from ESR COUNT",
+      benefit: "Benefited from ESR Count",
       quote:
         "Amazing results! My inflammation markers improved significantly within weeks.",
       rating: 5,
@@ -71,7 +71,7 @@ export class ReviewsCarouselComponent
       name: "Sneha Patel",
       image:
         "assets/happy-man-student-with-afro-hairdo-shows-white-teeth-being-good-mood-after-classes.svg",
-      benefit: "Benefited from DIGESTICK",
+      benefit: "Benefited from Digestick",
       quote:
         "Excellent for digestion and overall wellness. Highly recommended!",
       rating: 5,

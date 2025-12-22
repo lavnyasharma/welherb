@@ -1,9 +1,7 @@
 /* privacy-policy.component.css */
 
-
-
 .privacy-policy-container {
-  padding: 40px 100px;
+  padding: 60px 100px;
   font-family: lato, sans-serif;
   color: #333;
 }
@@ -12,16 +10,14 @@
   font-size: 42px;
   font-weight: 600;
   color: #222;
-  
+
   line-height: 1.2;
 }
 
 .policy-section {
-
   padding: 30px;
 
   border-radius: 4px;
-
 }
 
 .section-heading {
