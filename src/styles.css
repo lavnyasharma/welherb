@@ -17,7 +17,7 @@
   --color-background-alt: #fbf9f3;
 
   /* Primary Colors */
-  --color-cta1:#3A3938;
+  --color-cta1: #3a3938;
   --color-cta: #4fae32; /* Call To Action - Green */
   --color-cta-hover: #3d8a2a; /* CTA Hover State */
   --color-accent: #9aca3b; /* Character/Accent Color */
@@ -25,7 +25,7 @@
 
   /* Text Colors */
   --color-text-primary: #3a3938; /* Primary Text Color */
-  --color-text-secondary: #747270; /* Navigation/Secondary Text */
+  --color-text-secondary: #7e7c79; /* Navigation/Secondary Text */
   --color-text-muted: #666666; /* Muted/Subtle Text */
   --color-text-light: #888888; /* Light Text */
   --color-text-on-cta: #ffffff; /* Text on CTA buttons */

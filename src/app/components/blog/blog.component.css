@@ -206,23 +206,25 @@
 }
 
 .blog-author {
-  color: #7e7c79;
+  color: #3A3938;
 }
 
 .blog-views {
-  color: #7e7c79;
+  color: #3A3938;
 }
 
 .blog-separator {
   margin: 0 8px;
-  color: #dee2e6;
+color: #3A3938;
+;
 }
 
 /* Blog Title */
 .blog-title {
   font-size: 18px;
   font-weight: 600;
-  color: #2c3e50;
+   color: #3A3938;
+;
   line-height: 1.4;
   margin: 0;
   flex-grow: 1;

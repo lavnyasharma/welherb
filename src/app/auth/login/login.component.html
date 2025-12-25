@@ -6,7 +6,14 @@
       <ng-container *ngIf="!isOtpSent; else otpTemplate">
         <!-- Sign In view -->
         <ng-container *ngIf="!isSignupMode; else signupTemplate">
-          <h2>Sign In</h2>
+          <h2
+            style="
+              font-family: 'lato', sans-serif !important;
+              text-align: center;
+            "
+          >
+            Sign In
+          </h2>
 
           <div class="form-group">
             <label for="signin-mobile">Mobile Number</label>
@@ -37,7 +44,14 @@
 
         <!-- Sign Up view -->
         <ng-template #signupTemplate>
-          <h2>Sign Up</h2>
+          <h2
+            style="
+              font-family: 'lato', sans-serif !important;
+              text-align: center;
+            "
+          >
+            Sign Up
+          </h2>
           <div class="subtitle">&amp; unlock your personalised dosage</div>
           <div class="form-group">
             <label for="signup-mobile">Mobile Number</label>
@@ -74,7 +88,11 @@
 
       <!-- OTP view (replaces mobile input) -->
       <ng-template #otpTemplate>
-        <h2>OTP Verification Code</h2>
+        <h2
+          style="font-family: 'lato', sans-serif !important; text-align: center"
+        >
+          OTP Verification Code
+        </h2>
         <div class="subtitle">
           Code has been sent to ***{{ selectedMobile?.slice(-3) }}
         </div>
