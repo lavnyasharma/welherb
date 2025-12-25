@@ -48,11 +48,11 @@ export class ShopComponent implements OnInit {
   showModal = false;
 
   ngOnInit(): void {
-    const token = localStorage.getItem("auth_token");
-    if (!token) {
-      this.router.navigate(["/login"]);
-      return;
-    }
+    // const token = localStorage.getItem("auth_token");
+    // if (!token) {
+    //   this.router.navigate(["/login"]);
+    //   return;
+    // }
 
     const productId = this.route.snapshot.paramMap.get("id");
 

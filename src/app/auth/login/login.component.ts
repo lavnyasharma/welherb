@@ -2,6 +2,7 @@ import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { AuthService } from "../../../services/auth.service";
 import { ToastrService } from "ngx-toastr";
+import { CartService } from "../../../services/cart.service";
 
 @Component({
   selector: "app-login",
@@ -23,7 +24,8 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private authService: AuthService,
-    private toastr: ToastrService
+    private toastr: ToastrService,
+    private cartService: CartService
   ) {}
 
   get otp(): string {
@@ -95,6 +97,7 @@ export class LoginComponent {
     this.authService.verifyOtp(this.selectedMobile, otp).subscribe(
       () => {
         this.toastr.success("Login successful!", "Success");
+        this.cartService.syncLocalCart(); // Sync dummy cart to server
         this.isVerifyingOtp = false;
         this.router.navigate(["/home"]);
       },

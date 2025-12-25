@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, forkJoin } from "rxjs";
 import { ApiService } from "./api.service";
 
 @Injectable({
@@ -16,35 +16,102 @@ export class CartService {
     this.loadCartItems();
   }
 
-  private loadCartItems() {
-    this.apiService.getCartItems().subscribe(
-      (items: any[]) => {
-        console.log("Cart API Response:", items);
-        this.cartItems = items.map((item) => item._id);
-        console.log("Cart Item IDs:", this.cartItems);
-        this.cartItemsSubject.next([...this.cartItems]);
-        this.cartLoaded.next(true); // <-- cart is loaded
-      },
-      (error) => {
-        console.error("Error fetching cart items:", error);
-        this.cartLoaded.next(true); // even on error, to avoid infinite loading
-      }
-    );
+  loadCartItems() {
+    const token = localStorage.getItem("auth_token");
+    if (token) {
+      this.apiService.getCartItems().subscribe(
+        (items: any[]) => {
+          console.log("Cart API Response:", items);
+          this.cartItems = items.map((item) => item._id);
+          console.log("Cart Item IDs:", this.cartItems);
+          this.cartItemsSubject.next([...this.cartItems]);
+          this.cartLoaded.next(true);
+        },
+        (error) => {
+          console.error("Error fetching cart items:", error);
+          this.cartLoaded.next(true);
+        }
+      );
+    } else {
+      // Load from local storage
+      const localCart = JSON.parse(localStorage.getItem("dummy_cart") || "[]");
+      this.cartItems = localCart.map((item: any) => item.productId);
+      this.cartItemsSubject.next([...this.cartItems]);
+      this.cartLoaded.next(true);
+    }
   }
 
   addToCart(productId: string, size: string) {
-    if (!this.cartItems.includes(productId)) {
-      this.apiService.addToCart(productId, size).subscribe(() => {
+    const token = localStorage.getItem("auth_token");
+    if (token) {
+      // Authenticated: Call API
+      if (!this.cartItems.includes(productId)) {
+        this.apiService.addToCart(productId, size).subscribe(() => {
+          this.cartItems.push(productId);
+          this.cartItemsSubject.next([...this.cartItems]);
+          console.log(
+            "Product added to cart (API). Current cart:",
+            this.cartItems
+          );
+        });
+      }
+    } else {
+      // Unauthenticated: Use Local Storage
+      let localCart = JSON.parse(localStorage.getItem("dummy_cart") || "[]");
+      if (!localCart.some((item: any) => item.productId === productId)) {
+        localCart.push({ productId, size });
+        localStorage.setItem("dummy_cart", JSON.stringify(localCart));
+
         this.cartItems.push(productId);
-        this.cartItemsSubject.next([...this.cartItems]); // Emit updated cart data
-        console.log("Product added to cart. Current cart:", this.cartItems);
-      });
+        this.cartItemsSubject.next([...this.cartItems]);
+        console.log(
+          "Product added to cart (Local). Current cart:",
+          this.cartItems
+        );
+      }
     }
   }
+
   removeFromCart(productId: string) {
-    this.apiService.removeCartItem(productId).subscribe(() => {
+    const token = localStorage.getItem("auth_token");
+    if (token) {
+      this.apiService.removeCartItem(productId).subscribe(() => {
+        this.cartItems = this.cartItems.filter((id) => id !== productId);
+        this.cartItemsSubject.next([...this.cartItems]);
+      });
+    } else {
+      // Remove from Local Storage
+      let localCart = JSON.parse(localStorage.getItem("dummy_cart") || "[]");
+      localCart = localCart.filter((item: any) => item.productId !== productId);
+      localStorage.setItem("dummy_cart", JSON.stringify(localCart));
+
       this.cartItems = this.cartItems.filter((id) => id !== productId);
-      this.cartItemsSubject.next([...this.cartItems]); // Emit updated cart
+      this.cartItemsSubject.next([...this.cartItems]);
+    }
+  }
+
+  syncLocalCart() {
+    const localCart = JSON.parse(localStorage.getItem("dummy_cart") || "[]");
+    if (localCart.length === 0) {
+      this.loadCartItems(); // Just refresh server items
+      return;
+    }
+
+    const observables = localCart.map((item: any) =>
+      this.apiService.addToCart(item.productId, item.size)
+    );
+
+    // Using forkJoin to wait for all additions
+    forkJoin(observables).subscribe({
+      next: () => {
+        console.log("Synced local cart to server.");
+        localStorage.removeItem("dummy_cart");
+        this.loadCartItems(); // Reload from server to get merged state
+      },
+      error: (err) => {
+        console.error("Sync failed", err);
+        this.loadCartItems();
+      },
     });
   }
 

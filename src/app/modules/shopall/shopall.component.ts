@@ -343,17 +343,18 @@ export class ShopallComponent implements OnInit, OnDestroy {
 
   addToCart(productId: string, size: string): void {
     // Check if user is authenticated by looking for auth_token in localStorage
-    const authToken = localStorage.getItem("auth_token");
+    // Check if user is authenticated by looking for auth_token in localStorage
+    // const authToken = localStorage.getItem("auth_token");
 
-    if (!authToken) {
-      // User is not authenticated, redirect to login
-      this.toastr.warning(
-        "Please login to add items to cart",
-        "Authentication Required"
-      );
-      this.router.navigate(["/login"]);
-      return;
-    }
+    // if (!authToken) {
+    //   // User is not authenticated, redirect to login
+    //   this.toastr.warning(
+    //     "Please login to add items to cart",
+    //     "Authentication Required"
+    //   );
+    //   this.router.navigate(["/login"]);
+    //   return;
+    // }
 
     // User is authenticated, proceed with adding to cart
     if (this.isInCart(productId)) {
