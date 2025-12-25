@@ -29,7 +29,8 @@
   font-size: 14px;
   font-weight: 500;
   transition: all 0.3s ease;
-  white-space: nowrap;
+  display: flex;
+  align-items: center;
 }
 
 .capsule-btn:hover,
@@ -652,4 +653,91 @@
 .option-label {
   color: #3a3938;
   font-weight: 500;
+}
+
+/* User Profile Section */
+.user-profile-section {
+  position: relative;
+  /* margin-left: auto; */
+}
+
+.profile-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: background-color 0.2s;
+}
+
+.profile-trigger:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.profile-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-trigger i {
+  font-size: 12px;
+  color: #3a3938;
+  transition: transform 0.2s;
+}
+
+.profile-trigger i.rotated {
+  transform: rotate(180deg);
+}
+
+.profile-dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background: white;
+  border: 1px solid #f0f0f0;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  width: 200px;
+  z-index: 1000;
+  overflow: hidden;
+  padding: 8px 0;
+}
+
+.dropdown-item {
+  padding: 10px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  border-bottom: 1px solid #f5f5f5;
+  display: flex;
+  align-items: center;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background-color: #f9f9f9;
+}
+
+.profile-name {
+  font-size: 14px;
+  color: #4a4a4a;
+  font-weight: 500;
+  font-family: "Lato", sans-serif;
+}
+
+/* Ensure dosage trigger alignment */
+.dosage-trigger-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.dosage-text {
+  flex: 1;
 }

@@ -2,17 +2,25 @@
   <!-- Header Section -->
   <div class="header-section">
     <h1 class="main-title">How to Use</h1>
-    <div class="switch-profile" *ngIf="savedProfiles$ | async as profiles">
-      <span class="switch-text">Switch profile:</span>
-      <div class="profile-avatars">
+    <div
+      class="switch-profile-dropdown"
+      *ngIf="savedProfiles$ | async as profiles"
+    >
+      <div class="dropdown-trigger" (click)="toggleDropdown()">
+        <span class="current-profile-name">{{
+          (selectedProfile$ | async)?.name || "Select Profile"
+        }}</span>
+        <i class="fa fa-chevron-down" [class.rotated]="isDropdownOpen"></i>
+      </div>
+
+      <div class="dropdown-menu" *ngIf="isDropdownOpen">
         <div
-          class="avatar"
-          *ngFor="let profile of profiles; let i = index"
-          (click)="switchProfile(profile)"
-          [class.active-profile]="(selectedProfile$ | async)?.id === profile.id"
-          [style.background-image]="'url(' + profile.avatar + ')'"
-          [title]="profile.name"
-        ></div>
+          class="dropdown-item"
+          *ngFor="let profile of profiles"
+          (click)="selectProfile(profile)"
+        >
+          <span class="profile-name">{{ profile.name }}</span>
+        </div>
       </div>
     </div>
   </div>
@@ -59,7 +67,7 @@
               alt="Plus Icon"
             />
           </div>
-          <h3 style="font-family: 'Lato', sans-serif !important ">Avoid</h3>
+          <h3 style="font-family: 'Lato', sans-serif !important">Avoid</h3>
         </div>
         <div class="section-content">
           <p>{{ helpsHow[2] }}</p>

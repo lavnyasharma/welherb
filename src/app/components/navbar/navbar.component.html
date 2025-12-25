@@ -125,7 +125,13 @@
                   *ngIf="product.default_image"
                   [src]="product.default_image"
                   [alt]="product.name"
+                  onerror="this.style.display='none'; this.nextElementSibling.style.display='block';"
                 />
+                <i
+                  class="pi pi-image"
+                  style="font-size: 24px; color: #e0e0e0; display: none"
+                  [style.display]="!product.default_image ? 'block' : 'none'"
+                ></i>
               </div>
 
               <div class="search-result-content">
@@ -212,7 +218,7 @@
     <!-- Cart & Profile/Signup -->
     <div class="icons">
       <!-- Cart -->
-     <div
+      <div
         class="cart"
         (click)="handleCartClick()"
         style="position: relative; cursor: pointer"

@@ -158,32 +158,39 @@
             >
             <span class="dosage-subtitle">Click to learn more</span>
           </div>
-          <div class="dosage-icons">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#3A3938"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-              <circle cx="12" cy="7" r="4"></circle>
-            </svg>
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="#3A3938"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <polyline points="6 9 12 15 18 9"></polyline>
-            </svg>
+
+          <div class="user-profile-section" (click)="$event.stopPropagation()">
+            <div class="profile-trigger" (click)="toggleDropdown($event)">
+              <div class="profile-icon">
+                <svg
+                  width="24"
+                  height="24"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#3A3938"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                  <circle cx="12" cy="7" r="4"></circle>
+                </svg>
+              </div>
+              <i
+                class="fa fa-chevron-down"
+                [class.rotated]="isDropdownOpen"
+              ></i>
+            </div>
+
+            <div class="profile-dropdown-menu" *ngIf="isDropdownOpen">
+              <div
+                class="dropdown-item"
+                *ngFor="let profile of savedProfiles$ | async"
+                (click)="selectProfile(profile)"
+              >
+                <span class="profile-name">{{ profile.name }}</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -814,7 +814,7 @@
   border: 1px solid #ddd;
   background: #fcf8f3;
   color: #666;
-  border-radius: 20px;
+  border-radius: 16px;
   font-size: 0.85rem;
   font-weight: 500;
   cursor: pointer;
@@ -1138,6 +1138,25 @@
 .category-btn:focus {
   outline: 2px solid #24b04b;
   outline-offset: 2px;
+}
+
+/* Cart Icon Hover Effect */
+.add-to-cart-btn .hover-icon {
+  display: none;
+}
+
+.add-to-cart-btn:hover .default-icon {
+  display: none;
+}
+
+.add-to-cart-btn:hover .hover-icon {
+  display: block;
+}
+
+.add-to-cart-btn .cart-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
 }
 
 /* High contrast mode support */

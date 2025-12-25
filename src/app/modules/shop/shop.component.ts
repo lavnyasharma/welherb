@@ -3,7 +3,8 @@ import { ActivatedRoute, Router } from "@angular/router";
 import { ApiService } from "../../../services/api.service";
 import { CartService } from "../../../services/cart.service";
 import { ToastrService } from "ngx-toastr";
-import { combineLatest } from "rxjs";
+import { combineLatest, Observable } from "rxjs";
+import { ProfileService, UserProfile } from "../../../services/profile.service";
 
 @Component({
   selector: "app-shop",
@@ -27,13 +28,21 @@ export class ShopComponent implements OnInit {
   isInCart: boolean = false;
   private productId: string | null = null;
 
+  savedProfiles$: Observable<UserProfile[]>;
+  selectedProfile$: Observable<UserProfile | null>;
+  isDropdownOpen = false;
+
   constructor(
     private route: ActivatedRoute,
     private apiService: ApiService,
     private cartService: CartService,
     private toastr: ToastrService,
-    private router: Router
-  ) {}
+    private router: Router,
+    private profileService: ProfileService
+  ) {
+    this.savedProfiles$ = this.profileService.savedProfiles$;
+    this.selectedProfile$ = this.profileService.selectedProfile$;
+  }
 
   priceMap: any = {};
   showModal = false;
@@ -163,6 +172,20 @@ export class ShopComponent implements OnInit {
 
   closeModal() {
     this.showModal = false;
+  }
+
+  toggleDropdown(event: Event): void {
+    event.stopPropagation();
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  selectProfile(profile: UserProfile): void {
+    this.profileService.switchProfile(profile);
+    this.isDropdownOpen = false;
+    // Optionally reload dosage for new profile
+    if (this.product?.id) {
+      this.openModal(this.product.id);
+    }
   }
 
   buyNow() {

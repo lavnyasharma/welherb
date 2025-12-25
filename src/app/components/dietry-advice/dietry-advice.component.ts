@@ -15,6 +15,8 @@ export class DietryAdviceComponent implements OnInit {
   savedProfiles$: Observable<UserProfile[]>;
   selectedProfile$: Observable<UserProfile | null>;
 
+  isDropdownOpen = false;
+
   constructor(private profileService: ProfileService) {
     this.savedProfiles$ = this.profileService.savedProfiles$;
     this.selectedProfile$ = this.profileService.selectedProfile$;
@@ -22,7 +24,12 @@ export class DietryAdviceComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  switchProfile(profile: UserProfile): void {
+  toggleDropdown(): void {
+    this.isDropdownOpen = !this.isDropdownOpen;
+  }
+
+  selectProfile(profile: UserProfile): void {
     this.profileService.switchProfile(profile);
+    this.isDropdownOpen = false;
   }
 }
