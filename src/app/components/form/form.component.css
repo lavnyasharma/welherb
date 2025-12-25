@@ -22,7 +22,7 @@
   background: none;
   padding: 60px 80px;
   border-radius: 40px;
-  border: 2px solid #333;
+  border: 2px solid #3a3938;
   width: 100%;
 
   gap: 60px;
@@ -37,7 +37,7 @@
   font-size: 48px;
   font-weight: 600;
   margin-bottom: 24px;
-  color: #333;
+  color: #3a3938;
   line-height: 1.2;
 }
 
@@ -54,7 +54,7 @@
 
 .text-content strong {
   font-weight: 600;
-  color: #333;
+  color: #3a3938;
 }
 
 .form-section {
@@ -74,7 +74,7 @@
   outline: none;
   transition: border-color 0.3s ease;
   background-color: #fcf8f3;
-  color: #333;
+  color: #3a3938;
 }
 
 .form-section input::placeholder {

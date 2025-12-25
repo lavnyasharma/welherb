@@ -37,7 +37,7 @@
 
 .blog-subtitle {
   font-size: 18px;
-  color: #6c757d;
+  color: #7e7c79;
   line-height: 1.5;
   font-weight: 400;
   margin: 0;
@@ -77,7 +77,7 @@
 }
 
 .nav-btn svg {
-  color: #6c757d;
+  color: #7e7c79;
 }
 
 /* Blog Carousel */
@@ -206,11 +206,11 @@
 }
 
 .blog-author {
-  color: #6c757d;
+  color: #7e7c79;
 }
 
 .blog-views {
-  color: #6c757d;
+  color: #7e7c79;
 }
 
 .blog-separator {

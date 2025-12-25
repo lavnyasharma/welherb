@@ -30,7 +30,7 @@
 
 .star-count {
   font-weight: 600;
-  color: #333;
+  color: #3a3938;
   width: 12px;
   font-size: 0.9rem;
 }
@@ -57,7 +57,7 @@
 
 .rating-count {
   font-weight: 600;
-  color: #333;
+  color: #3a3938;
   min-width: 40px;
   text-align: right;
   font-size: 0.9rem;
@@ -95,7 +95,7 @@
 .section-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: #333;
+  color: #3a3938;
   margin: 0 0 24px 0;
 }
 
@@ -142,7 +142,7 @@
 
 .reviewer-name {
   font-weight: 600;
-  color: #333;
+  color: #3a3938;
   margin: 0;
   font-size: 1rem;
 }
@@ -176,7 +176,7 @@
 .form-label {
   display: block;
   font-weight: 600;
-  color: #333;
+  color: #3a3938;
   margin-bottom: 8px;
   font-size: 0.9rem;
 }
@@ -235,7 +235,7 @@
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.3s ease;
-  
+
   letter-spacing: 0.5px;
 }
 
@@ -375,7 +375,7 @@
   .promo-title {
     font-size: 24px;
     font-weight: 700;
-    color: #333;
+    color: #3a3938;
     margin: 0 0 10px 0;
   }
 

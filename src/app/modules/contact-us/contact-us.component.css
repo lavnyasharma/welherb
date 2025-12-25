@@ -131,7 +131,7 @@
   transition: all 0.3s ease;
   background: #fcf9f4;
   font-family: inherit;
-  color: #333;
+  color: #3a3938;
 }
 
 .form-control::placeholder {
@@ -158,7 +158,7 @@ select.form-control {
 }
 
 select.form-control option {
-  color: #333;
+  color: #3a3938;
 }
 
 .textarea {
@@ -265,7 +265,7 @@ app-button {
 .faq-question h3 {
   font-size: 1rem;
   font-weight: 500;
-  color: #333;
+  color: #3a3938;
   margin: 0;
   flex: 1;
   padding-right: 20px;

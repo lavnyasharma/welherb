@@ -7,7 +7,7 @@ body {
   font-family: "Lato", sans-serif !important;
   margin: 0;
   padding: 0;
-  color: #333;
+  color: #3a3938;
 }
 
 /* Apply Lato to text elements manually or via inheritance, avoid * selector which breaks icons */
@@ -84,7 +84,7 @@ label,
   font-size: 28px;
   font-weight: 600;
   margin: 0;
-  color: #333;
+  color: #3a3938;
   font-family: "Lato", sans-serif;
 }
 
@@ -139,7 +139,7 @@ label,
 .form-section-title {
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: #3a3938;
   margin-bottom: 20px;
   padding-bottom: 10px;
   border-bottom: 1px solid #eee;
@@ -190,7 +190,7 @@ label,
 
 .btn-secondary {
   background-color: #f5f5f5;
-  color: #333;
+  color: #3a3938;
   border: 1px solid #ddd;
   padding: 12px 24px;
   border-radius: 6px;
@@ -281,7 +281,7 @@ label,
 }
 
 :host ::ng-deep .dosage-dropdown .p-dropdown-label {
-  color: #333 !important;
+  color: #3a3938 !important;
   font-weight: 500;
   padding: 4px 8px;
   font-size: 14px;
@@ -296,7 +296,7 @@ label,
 .form-section-title {
   font-size: 18px;
   font-weight: 600;
-  color: #333;
+  color: #3a3938;
   margin-bottom: 20px;
   padding-bottom: 0;
   border-bottom: none;
@@ -324,7 +324,7 @@ label,
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   font-size: 14px;
-  color: #333;
+  color: #3a3938;
   background: var(--color-background);
   transition: border-color 0.2s;
 }
@@ -477,7 +477,7 @@ label,
 
 .profile-info h2 {
   margin: 0 0 20px 0;
-  color: #333;
+  color: #3a3938;
   font-size: 24px;
 }
 
@@ -500,7 +500,7 @@ label,
 }
 
 .value {
-  color: #333;
+  color: #3a3938;
   margin-left: 10px;
 }
 
@@ -626,7 +626,7 @@ label,
   margin: 0;
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: #3a3938;
   font-family: "Lato", sans-serif;
 }
 
@@ -647,7 +647,7 @@ label,
 
 .delete-modal-body p {
   margin: 0;
-  color: #333;
+  color: #3a3938;
   font-size: 14px;
   line-height: 1.5;
   font-family: "Lato", sans-serif;
@@ -665,7 +665,7 @@ label,
   background: #f5f5f5;
   border: 1px solid #e0e0e0;
   border-radius: 4px;
-  color: #333;
+  color: #3a3938;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -714,7 +714,7 @@ label,
 .delete-modal .modal-header h3 {
   margin: 0;
   font-size: 18px;
-  color: #333;
+  color: #3a3938;
   font-weight: 600;
 }
 
@@ -742,7 +742,7 @@ label,
   background: #f5f5f5;
   border: 1px solid #ddd;
   border-radius: 6px;
-  color: #333;
+  color: #3a3938;
   font-size: 14px;
   font-weight: 500;
   cursor: pointer;
@@ -808,7 +808,7 @@ label,
 .modal-header h3 {
   margin: 0;
   font-size: 20px;
-  color: #333;
+  color: #3a3938;
 }
 
 .close-btn {
@@ -839,7 +839,7 @@ label,
 .form-section h4 {
   margin: 0 0 16px 0;
   font-size: 16px;
-  color: #333;
+  color: #3a3938;
   font-weight: 500;
   position: relative;
   padding-bottom: 8px;
@@ -932,7 +932,7 @@ label,
 
 .btn-secondary {
   background: #f5f5f5;
-  color: #333;
+  color: #3a3938;
 }
 
 .btn-secondary:hover {
@@ -1215,7 +1215,7 @@ label,
 .profile-name {
   font-size: 14px;
   font-weight: 500;
-  color: #333;
+  color: #3a3938;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -1461,7 +1461,7 @@ label,
   gap: 10px;
   font-size: 20px;
   font-weight: 500;
-  color: #333;
+  color: #3a3938;
   border-bottom: 1px solid transparent;
 }
 
@@ -1473,7 +1473,7 @@ label,
 
 .sidebar-item.expanded-toggle {
   background-color: #e9f3d8;
-  color: #333;
+  color: #3a3938;
 }
 
 .sidebar-profile-list {
@@ -1502,7 +1502,7 @@ label,
 
 .sidebar-profile-item.active {
   font-weight: 600;
-  color: #333;
+  color: #3a3938;
   text-decoration: underline;
 }
 
@@ -1862,7 +1862,7 @@ label,
   margin: 0;
   font-size: 18px;
   font-weight: 700;
-  color: #333;
+  color: #3a3938;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -1875,7 +1875,7 @@ label,
 }
 
 .copy-icon-small:hover {
-  color: #333;
+  color: #3a3938;
 }
 
 .order-date-track {
@@ -1908,7 +1908,7 @@ label,
 .btn-cancel-outline {
   background: #ffffff;
   border: 1px solid #7cb342;
-  color: #333;
+  color: #3a3938;
   padding: 6px 16px;
   border-radius: 6px;
   font-size: 13px;
@@ -1921,7 +1921,7 @@ label,
 
 .btn-cancel-outline:hover {
   background: #f1f8e9;
-  color: #333;
+  color: #3a3938;
 }
 
 /* Square Progress Bar */
@@ -1976,7 +1976,7 @@ label,
 }
 
 .progress-step-square.completed .step-label {
-  color: #333;
+  color: #3a3938;
   font-weight: 600;
 }
 
@@ -1994,7 +1994,7 @@ label,
 .order-summary-card h4 {
   font-size: 18px;
   font-weight: 600;
-  color: #333;
+  color: #3a3938;
   margin-bottom: 24px;
   margin-top: 0;
 }
@@ -2029,7 +2029,7 @@ label,
 .item-name-large {
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: #3a3938;
   margin-bottom: 6px;
 }
 
@@ -2051,7 +2051,7 @@ label,
 .current-price {
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: #3a3938;
 }
 
 .original-price {
@@ -2077,7 +2077,7 @@ label,
 }
 
 .total-row .value {
-  color: #333;
+  color: #3a3938;
   font-weight: 500;
 }
 
@@ -2091,7 +2091,7 @@ label,
   justify-content: space-between;
   font-size: 18px;
   font-weight: 700;
-  color: #333;
+  color: #3a3938;
   padding-top: 16px;
   border-top: 1px solid #eee;
   margin-top: 8px;
@@ -2107,7 +2107,7 @@ label,
 .personal-details-card h4 {
   font-size: 18px;
   font-weight: 600;
-  color: #333;
+  color: #3a3938;
   margin-bottom: 24px;
   margin-top: 0;
 }

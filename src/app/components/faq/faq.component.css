@@ -118,7 +118,7 @@
   font-size: 2rem;
   font-weight: bold;
   font-family: var(--font-display);
-  color: #333;
+  color: #3a3938;
   margin: 0 0 20px 0;
   text-align: left;
 }
@@ -154,7 +154,7 @@
   font-size: 1rem;
   font-weight: 500;
   font-family: var(--font-primary);
-  color: #333;
+  color: #3a3938;
 }
 
 .faq-toggle {
@@ -213,7 +213,7 @@
   .mobile-title {
     font-size: 2rem;
     font-weight: 300;
-    color: #333;
+    color: #3a3938;
     margin: 0 0 24px 0;
   }
 
@@ -237,7 +237,7 @@
   .mobile-question {
     font-size: 1rem;
     font-weight: 500;
-    color: #333;
+    color: #3a3938;
   }
 
   .mobile-toggle {

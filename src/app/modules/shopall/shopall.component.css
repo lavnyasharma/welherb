@@ -299,7 +299,7 @@
 
 .clear-all-btn:hover {
   background: #e9ecef;
-  color: #333;
+  color: #3a3938;
 }
 
 /* Filter Sections */
@@ -319,7 +319,7 @@
   align-items: center;
   gap: 8px;
   margin: 0 0 16px 0;
-  color: #333;
+  color: #3a3938;
   font-size: 1rem;
   font-weight: 600;
 }
@@ -558,7 +558,7 @@
 
 .results-header h2 {
   margin: 0;
-  color: #333;
+  color: #3a3938;
   font-size: 2rem;
   font-weight: 600;
 }
@@ -620,7 +620,7 @@
 
 .no-products-content h3 {
   margin: 0 0 12px 0;
-  color: #333;
+  color: #3a3938;
   font-size: 1.5rem;
 }
 
@@ -730,7 +730,7 @@
   margin: 0;
   font-size: 1.1rem;
   font-weight: 600;
-  color: #333;
+  color: #3a3938;
   line-height: 1.4;
   display: -webkit-box;
   -webkit-line-clamp: 2;
@@ -1143,15 +1143,15 @@
 /* High contrast mode support */
 @media (prefers-contrast: high) {
   .product-card {
-    border: 2px solid #333;
+    border: 2px solid #3a3938;
   }
 
   .sidebar {
-    border: 1px solid #333;
+    border: 1px solid #3a3938;
   }
 
   .filter-tag,
   .category-tag {
-    border: 1px solid #333;
+    border: 1px solid #3a3938;
   }
 }

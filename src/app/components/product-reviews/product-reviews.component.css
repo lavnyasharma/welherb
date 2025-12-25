@@ -116,7 +116,7 @@
 .bar-stars {
   font-size: 14px;
   font-weight: 600;
-  color: #333;
+  color: #3a3938;
 }
 
 .star-icon-green {
@@ -218,7 +218,7 @@
 .list-title {
   font-size: 24px;
   font-weight: 400;
-  color: #333;
+  color: #3a3938;
   margin: 0;
 }
 
@@ -227,7 +227,7 @@
   align-items: center;
   gap: 10px;
   font-size: 14px;
-  color: #333;
+  color: #3a3938;
 }
 
 .sort-btn {
@@ -312,7 +312,7 @@
 .entry-name {
   font-weight: 600;
   font-size: 14px;
-  color: #333;
+  color: #3a3938;
 }
 
 .verified-badge {
@@ -322,13 +322,12 @@
   border-radius: 8px;
   font-size: 10px;
   font-weight: 600;
- 
 }
 
 .entry-title {
   font-size: 16px;
   font-weight: 600;
-  color: #333;
+  color: #3a3938;
   margin: 0 0 10px 0;
 }
 
@@ -395,8 +394,8 @@
 }
 
 .page-arrow {
-  border: 1px solid #333;
-  color: #333;
+  border: 1px solid #3a3938;
+  color: #3a3938;
   /* Arrows in image are circled */
 }
 

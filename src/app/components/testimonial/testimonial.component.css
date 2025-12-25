@@ -6,7 +6,10 @@
 /* Grid for Desktop View */
 .testimonial-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Responsive grid */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(280px, 1fr)
+  ); /* Responsive grid */
   gap: 20px;
   max-width: 1200px;
   margin: 0 auto;
@@ -59,12 +62,10 @@
   margin-top: 15px;
   justify-content: flex-start; /* Align content to the left */
 }
-.title{
-  
-  
-display: flex;
-justify-content: center;
-align-items: center;
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .profile-img {
   width: 50px;
@@ -110,7 +111,12 @@ align-items: center;
     padding: 0 !important;
   }
 
-  .testimonial-container p-carousel .p-carousel-content .p-carousel-container .p-carousel-items-content .p-carousel-items-container {
+  .testimonial-container
+    p-carousel
+    .p-carousel-content
+    .p-carousel-container
+    .p-carousel-items-content
+    .p-carousel-items-container {
     width: 100% !important;
   }
 
@@ -133,7 +139,7 @@ align-items: center;
     position: static !important; /* Remove relative positioning */
     transform: none !important; /* Remove any transforms */
     transition: none !important; /* Remove hover effects */
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1) !important; /* Simple shadow */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important; /* Simple shadow */
   }
 
   .review {
@@ -149,7 +155,7 @@ align-items: center;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    color: #333 !important; /* Ensure good contrast */
+    color: #3a3938 !important; /* Ensure good contrast */
   }
 
   .name {
@@ -266,22 +272,21 @@ align-items: center;
   }
 }
 
-.btns{
+.btns {
   display: flex;
-      justify-content: center;
-      margin-top: 20px;
+  justify-content: center;
+  margin-top: 20px;
 }
 
-.call{
+.call {
   margin-right: 10px;
   background-color: #02b101;
   color: white;
   border: none;
-     border-radius: 16px;
+  border-radius: 16px;
 
   padding: 0.5em 1em;
   font-size: 1em;
   cursor: pointer;
   transition: background-color 0.3s;
- 
 }

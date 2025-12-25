@@ -800,7 +800,7 @@ function cloneSVG(svg) {
   return svg.cloneNode(true);
 }
 function replaceFillColor(raw) {
-  return raw.replace(/['"]#333['"]/g, '"primaryColor"').replace(/['"]#E6E6E6['"]/g, '"secondaryColor"').replace(/['"]#D9D9D9['"]/g, '"secondaryColor"').replace(/['"]#D8D8D8['"]/g, '"secondaryColor"');
+  return raw.replace(/['"]#3A3938['"]/g, '"primaryColor"').replace(/['"]#E6E6E6['"]/g, '"secondaryColor"').replace(/['"]#D9D9D9['"]/g, '"secondaryColor"').replace(/['"]#D8D8D8['"]/g, '"secondaryColor"');
 }
 function getNameAndNamespace(type) {
   const split = type.split(":");
