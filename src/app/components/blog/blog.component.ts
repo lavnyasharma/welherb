@@ -7,6 +7,7 @@ import {
   AfterViewInit,
   HostListener,
 } from "@angular/core";
+import { ApiService } from "../../../services/api.service";
 
 @Component({
   selector: "app-blog",
@@ -18,80 +19,9 @@ export class BlogComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild("progressLine") progressLine!: ElementRef;
 
   // Blog data - expanded with more sample blogs
-  blogs = [
-    {
-      title: "Anupans often work synergistically with the medicine",
-      image:
-        "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400&h=300&fit=crop&crop=center",
-      category: "Nutrition",
-      author: { name: "Rasaura", avatar: "" },
-      views: "View",
-    },
-    {
-      title: "The Power of Ayurvedic Herbs in Daily Life",
-      image:
-        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&h=300&fit=crop&crop=center",
-      category: "Wellness",
-      author: { name: "Rasaura", avatar: "" },
-      views: "View",
-    },
-    {
-      title: "Natural Remedies for Better Digestion",
-      image:
-        "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=300&fit=crop&crop=center",
-      category: "Nutrition",
-      author: { name: "Rasaura", avatar: "" },
-      views: "View",
-    },
-    {
-      title: "Understanding Ayurvedic Principles in Modern Life",
-      image:
-        "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&h=300&fit=crop&crop=center",
-      category: "Wellness",
-      author: { name: "Rasaura", avatar: "" },
-      views: "View",
-    },
-    {
-      title: "Boost Your Immunity with Traditional Herbs",
-      image:
-        "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop&crop=center",
-      category: "Remedies",
-      author: { name: "Rasaura", avatar: "" },
-      views: "View",
-    },
-    {
-      title: "The Science Behind Herbal Supplements",
-      image:
-        "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=400&h=300&fit=crop&crop=center",
-      category: "Science",
-      author: { name: "Rasaura", avatar: "" },
-      views: "View",
-    },
-    {
-      title: "Morning Rituals for a Healthier You",
-      image:
-        "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=400&h=300&fit=crop&crop=center",
-      category: "Lifestyle",
-      author: { name: "Rasaura", avatar: "" },
-      views: "View",
-    },
-    {
-      title: "Detox Your Body Naturally with Ayurveda",
-      image:
-        "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop&crop=center",
-      category: "Detox",
-      author: { name: "Rasaura", avatar: "" },
-      views: "View",
-    },
-    {
-      title: "Stress Management Through Ancient Wisdom",
-      image:
-        "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=300&fit=crop&crop=center",
-      category: "Wellness",
-      author: { name: "Rasaura", avatar: "" },
-      views: "View",
-    },
-  ];
+  // Blog data
+  blogs: any[] = [];
+  displayBlogs: any[] = [];
 
   private animationFrame: number = 0;
   private scrollPosition: number = 0;
@@ -100,11 +30,39 @@ export class BlogComponent implements OnInit, OnDestroy, AfterViewInit {
   private isDragging: boolean = false;
   private isAutoScrollPaused: boolean = false;
   private cardWidth: number = 350;
-  displayBlogs: any[] = [];
+
+  constructor(private apiService: ApiService) {} // Inject ApiService
 
   ngOnInit(): void {
-    // Duplicate blogs for seamless infinite scroll
-    this.displayBlogs = [...this.blogs, ...this.blogs, ...this.blogs];
+    this.loadBlogs();
+  }
+
+  loadBlogs() {
+    this.apiService.getRandomBlogs().subscribe({
+      next: (data: any[]) => {
+        // Map API response to match UI structure if needed
+        // Assuming API returns array of objects close to what we need
+        this.blogs = data.map((blog) => ({
+          title: blog.title || blog.name, // Fallback if name is used
+          image:
+            blog.image ||
+            blog.thumbnail ||
+            "https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400&h=300&fit=crop&crop=center",
+          category: blog.category || "Wellness",
+          author: blog.author || { name: "Rasaura", avatar: "" },
+          views: "View",
+          id: blog._id || blog.id,
+        }));
+
+        // Duplicate blogs for seamless infinite scroll
+        this.displayBlogs = [...this.blogs, ...this.blogs, ...this.blogs];
+      },
+      error: (err) => {
+        console.error("Failed to fetch blogs", err);
+        // Fallback to empty or maybe keep some hardcoded as fallback?
+        // User asked to remove hardcoded, so we leave it empty or handle error gracefully.
+      },
+    });
   }
 
   ngAfterViewInit(): void {

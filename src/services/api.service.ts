@@ -195,9 +195,11 @@ export class ApiService {
   getOrders(page: number = 1, limit: number = 10) {
     const headers = this.authHeaders();
     const offset = (page - 1) * limit;
-    return this.http.get<any>(`${this.proxyPrefix}/user/orders/${offset}/${limit}`, { headers });
+    return this.http.get<any>(
+      `${this.proxyPrefix}/user/orders/${offset}/${limit}`,
+      { headers }
+    );
   }
-
 
   getOrderById(orderId: string) {
     const headers = this.authHeaders();
@@ -213,6 +215,11 @@ export class ApiService {
       payload,
       { headers }
     );
+  }
+
+  // ---------------- Blogs API ---------------- //
+  getRandomBlogs() {
+    return this.http.get<any[]>(`${this.proxyPrefix}/homepage/random_blogs`);
   }
 
   // ---------------- Helper: Auth Headers ---------------- //

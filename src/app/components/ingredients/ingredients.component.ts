@@ -16,7 +16,9 @@ export class IngredientsComponent implements OnInit {
         name: item.name,
         url: "/welherb" + item.url,
       }));
+          console.log(this.images);
     });
+
   }
 
   ngOnInit(): void {
