@@ -589,24 +589,125 @@
   box-shadow: 0 6px 15px rgba(36, 176, 75, 0.3);
 }
 
-/* Product Grid */
-.product-grid {
-  display: grid;
-  gap: 24px;
-  grid-template-columns: repeat(3, 1fr);
-  transition: all 0.3s ease;
+@media (max-width: 768px) {
+  .shop-container {
+    padding: 10px;
+  }
+
+  /* Force 2 columns on mobile/tablet unless very small */
+  .product-grid,
+  .product-grid.grid-3,
+  .product-grid.grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+
+  /* Hide Desktop specific elements */
+  .desktop-filter-header {
+    display: none;
+  }
+
+  /* Show Mobile Header */
+  .mobile-filter-header {
+    display: flex;
+  }
+
+  .mobile-apply-filters {
+    display: block;
+    position: sticky;
+    bottom: 0;
+    background: white;
+    padding: 16px;
+    border-top: 1px solid #eee;
+    z-index: 10;
+  }
+
+  /* Sidebar Drawer for Mobile */
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    height: 100vh;
+    max-height: 100vh;
+    background: white;
+    z-index: 1005;
+    width: 300px; /* Drawer width */
+    max-width: 85vw;
+    padding: 20px;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-y: auto;
+    margin-right: 0;
+    display: block; /* Ensure it's not hidden by width: 0 if logic differs */
+  }
+
+  .sidebar.mobile-active {
+    transform: translateX(0);
+    width: 300px;
+    flex: 0 0 300px;
+    opacity: 1;
+  }
+
+  .sidebar-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1004;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s;
+  }
+
+  .sidebar-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* Category Nav - Scrollable */
+  .category-nav {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding: 15px 0;
+    gap: 20px;
+    margin-bottom: 20px;
+    /* Hide scrollbar */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .category-nav::-webkit-scrollbar {
+    display: none;
+  }
+
+  .category-btn {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
 }
 
-.product-grid.grid-2 {
-  grid-template-columns: repeat(2, 1fr);
-}
+@media (max-width: 480px) {
+  /* Smaller mobile: still 2 columns but maybe smaller gap? */
+  .product-grid {
+    gap: 10px;
+  }
 
-.product-grid.grid-3 {
-  grid-template-columns: repeat(3, 1fr);
-}
+  .product-card {
+    padding: 10px;
+  }
 
-.product-grid.grid-4 {
-  grid-template-columns: repeat(4, 1fr);
+  .product-name {
+    font-size: 0.9rem;
+  }
+
+  .current-price {
+    font-size: 1rem;
+  }
 }
 
 /* Product Card */

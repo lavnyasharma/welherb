@@ -271,6 +271,12 @@ export class NavbarComponent implements OnInit, AfterViewInit {
 
     this.isOfferVisible = currentScroll < this.scrollThreshold;
 
+    // Prevent hiding navbar if menu is open
+    if (this.menuOpen) {
+      this.isNavbarVisible = true;
+      return;
+    }
+
     if (
       currentScroll > this.lastScrollTop &&
       currentScroll > this.navbarHideThreshold

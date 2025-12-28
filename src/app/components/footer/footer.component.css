@@ -66,10 +66,10 @@
 }
 
 .footer-logo {
-    /* max-width: 180px; */
-    margin-bottom: 20px;
-    height: 65px;
-    width: 120px;
+  /* max-width: 180px; */
+  margin-bottom: 20px;
+  height: 65px;
+  width: 120px;
 }
 
 .social-icons {
@@ -111,6 +111,10 @@
 
 /* Responsive Design */
 @media screen and (max-width: 768px) {
+  .footer {
+    padding: 40px 20px; /* Reduced padding for mobile */
+  }
+
   .footer-container {
     flex-direction: column;
     align-items: center;
@@ -119,6 +123,7 @@
 
   .footer-col {
     min-width: 100%;
+    margin: 20px 0; /* Add vertical spacing between stacked columns */
   }
 
   .social-icons {

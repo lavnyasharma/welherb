@@ -36,7 +36,7 @@
 
 /* Navbar visibility states */
 .navbar-visible {
-  transform: translateY(0);
+  transform: none;
 }
 
 .navbar-hidden {
@@ -220,6 +220,15 @@
 .search {
   flex-grow: 1;
   margin: 0 20px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.search-input-wrapper {
+  width: 50%; /* Adjusted for better desktop width */
+  position: relative;
+  max-width: 600px;
 }
 
 /* Icons (Cart, Account, etc.) */
@@ -297,51 +306,77 @@
     padding: 10px;
     min-width: 44px;
     min-height: 44px;
+    z-index: 1003; /* Higher than menu z-index */
   }
 
   .menu {
     flex-direction: column;
-    display: none;
-    padding: 1rem;
+    display: flex;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 280px; /* Drawer width */
+    max-width: 80%;
     background: var(--color-background);
-    width: 100%;
-    position: relative;
-    z-index: 999;
+    padding: 80px 20px 20px; /* Top padding for logo/close area */
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    transform: translateX(-100%); /* Hidden by default */
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1002;
+    overflow-y: auto;
+    border-right: 1px solid var(--color-border);
   }
 
   .menu.open {
-    display: flex;
-    animation: slideDown 0.3s ease-out;
+    transform: translateX(0); /* Slide in */
+    animation: none; /* Disable previous animation */
+  }
+
+  /* Overlay for drawer */
+  .mobile-menu-overlay {
+    display: block;
+    z-index: 1001; /* Behind menu, in front of content */
   }
 
   .menu-item {
     width: 100%;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05); /* Separators */
   }
 
   .menu-item a {
-    padding: 12px 16px;
-    min-height: 44px;
+    padding: 16px 0;
+    min-height: 50px;
     display: flex;
     align-items: center;
+    font-size: 1.1rem; /* Larger text for mobile */
   }
 
   .dropdown-menu {
     position: static;
     width: 100%;
-    padding: 0.5rem 0;
+    padding: 0 0 10px 10px; /* Indent sub-items */
     box-shadow: none;
+    border-left: 2px solid var(--color-accent); /* visual cue for hierarchy */
+    background: transparent;
+    display: none;
+    animation: none;
   }
 
-  .dropdown-columns {
-    flex-direction: column;
-    gap: 1rem;
+  /* Show dropdown items when parent is open or simple toggle */
+  .menu-item.dropdown.open .dropdown-menu {
+    display: flex;
   }
 
   .dropdown-link {
-    padding: 10px 16px;
-    min-height: 44px;
-    display: flex;
-    align-items: center;
+    padding: 12px 0;
+    font-size: 1rem;
+    color: var(--color-text-secondary) !important;
+  }
+
+  .dropdown-link:hover {
+    background: transparent;
+    text-decoration: none !important;
   }
 
   .search {
@@ -349,25 +384,57 @@
   }
 
   .nav1 {
-    padding: 8px 15px;
+    padding: 10px 15px;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.05);
   }
 
   .menubar {
-    padding: 8px 15px;
+    padding: 0;
+    height: 0; /* Hide menubar container height as separate bar, merge into header concept */
   }
 
-  .icons {
-    gap: 20px;
+  /* Reposition Hamburger to align with Header */
+  .navbar-header {
+    position: absolute;
+    top: -65px; /* Pull up into Nav1 area */
+    left: 15px;
+    z-index: 1003;
   }
 
-  .cart,
-  .profile-dropdown button,
-  .signUp button {
-    min-width: 44px;
-    min-height: 44px;
+  .nav1 {
+    min-height: 80px; /* Ensure sufficient height for logo */
+    justify-content: center; /* Center logo by default in flex */
+    padding-left: 0; /* reset padding */
+  }
+
+  /* Make sure logo is centered */
+  .nav1 .logo {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+}
+
+/* Adjust Icons */
+@media (max-width: 768px) {
+  .icons {
+    position: absolute;
+    right: 15px;
+    top: 35px; /* Align with hamburger/logo */
+  }
+}
+
+/* Adjust Nav1 to make space for hamburger if absolutely positioned or handling layout */
+@media (max-width: 768px) {
+  .nav1 {
+    padding-left: 60px; /* Space for hamburger */
+    justify-content: flex-end; /* Logo will center if absolute or flex */
+  }
+
+  .nav1 .logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 

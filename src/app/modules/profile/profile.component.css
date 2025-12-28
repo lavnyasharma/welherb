@@ -2206,6 +2206,40 @@ label,
     text-align: center;
   }
 
+  /* Fix matching Horizontal Form Layout on Mobile */
+  .form-row-horizontal {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .form-label {
+    width: 100%;
+    margin-bottom: 4px;
+  }
+
+  .input-with-icon,
+  .form-input {
+    width: 100%;
+  }
+
+  /* Fix Dosage Section on Mobile */
+  .dosage-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .dosage-field {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .dosage-input,
+  :host ::ng-deep .dosage-dropdown .p-dropdown {
+    width: 120px !important;
+  }
+
   .option-buttons {
     flex-wrap: wrap;
     justify-content: center;

@@ -376,7 +376,8 @@ app-button {
 
 @media (max-width: 480px) {
   .contact-us-container {
-    padding: 20px 0;
+    padding-top: 110px;
+    padding-bottom: 30px;
   }
 
   .container {
