@@ -1,6 +1,6 @@
 .footer {
   width: 100%;
-  background-color: var(--color-background-alt);
+  background-color: #fdf8f3;
   color: var(--color-text-primary);
   padding: 60px 100px;
   z-index: 10;
