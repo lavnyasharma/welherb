@@ -23,14 +23,23 @@ export class ProductCardComponent implements OnInit {
     private toastr: ToastrService
   ) {
     this.apiservice.products$.subscribe((data) => {
+      const cleanList = (list: string[]) =>
+        list ? list.map((item) => item.replace(/^-+/, "").trim()) : [];
+
       for (let cat of this.mainCategories) {
-        this.categoryProductMap[cat] = data.filter(
+        const filtered = data.filter(
           (prod: any) =>
             prod.categories &&
             prod.categories
               .map((c: string) => c.toLowerCase())
               .includes(cat.toLowerCase())
         );
+
+        this.categoryProductMap[cat] = filtered.map((prod: any) => ({
+          ...prod,
+          helps_who: cleanList(prod.helps_who),
+          helps_how: cleanList(prod.helps_how),
+        }));
       }
       this.updateSubProducts();
     });

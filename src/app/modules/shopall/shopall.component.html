@@ -9,7 +9,11 @@
   <!-- Filter Toggle Header (Desktop) -->
   <div class="desktop-filter-header">
     <button class="filter-toggle-btn" (click)="toggleDesktopFilters()">
-      <i class="fa fa-filter"></i>
+      <img
+        src="assets/Vector (9).svg"
+        alt="Filter"
+        style="width: 16px; height: 16px"
+      />
       Filter
     </button>
     <div class="view-options">
@@ -19,7 +23,7 @@
         (click)="setGridView('2')"
         title="2 columns"
       >
-        <i class="fa fa-th-large"></i>
+        <img src="assets/Group 204.svg" alt="2 Columns" />
       </button>
       <button
         class="view-btn"
@@ -27,7 +31,7 @@
         (click)="setGridView('3')"
         title="3 columns"
       >
-        <i class="fa fa-th"></i>
+        <img src="assets/Group 205.svg" alt="3 Columns" />
       </button>
       <button
         class="view-btn"
@@ -35,7 +39,7 @@
         (click)="setGridView('4')"
         title="4 columns"
       >
-        <i class="fa fa-th"></i>
+        <img src="assets/Group 206.svg" alt="4 Columns" />
       </button>
     </div>
   </div>
@@ -43,7 +47,11 @@
   <!-- Mobile Filter Header -->
   <div class="mobile-filter-header">
     <button class="filter-toggle-btn" (click)="toggleMobileFilters()">
-      <i class="fa fa-filter"></i>
+      <img
+        src="assets/Vector (9).svg"
+        alt="Filter"
+        style="width: 16px; height: 16px"
+      />
       Filters & Sort
       <span class="filter-count" *ngIf="hasActiveFilters()">{{
         getActiveFilterCount()
@@ -56,47 +64,59 @@
   </div>
 
   <!-- Category Navigation -->
-  <!-- <div class="category-nav">
-    <button 
-      class="category-btn" 
-      [class.active]="selectedCategory === 'all'"
-      (click)="selectCategory('all')"
+  <div class="category-nav">
+    <button
+      class="category-btn"
+      [class.active]="selectedHeaderCategory === 'all'"
+      (click)="selectHeaderCategory('all')"
     >
       Shop All
     </button>
-    <button 
-      class="category-btn" 
-      [class.active]="selectedCategory === 'esr'"
-      (click)="selectCategory('esr')"
+    <button
+      class="category-btn"
+      [class.active]="selectedHeaderCategory === 'esr'"
+      (click)="selectHeaderCategory('esr')"
     >
       ESR
     </button>
-    <button 
-      class="category-btn" 
-      [class.active]="selectedCategory === 'sugar'"
-      (click)="selectCategory('sugar')"
+    <button
+      class="category-btn"
+      [class.active]="selectedHeaderCategory === 'sugar'"
+      (click)="selectHeaderCategory('sugar')"
     >
       Sugar
     </button>
-    <button 
-      class="category-btn" 
-      [class.active]="selectedCategory === 'thyroid'"
-      (click)="selectCategory('thyroid')"
+    <button
+      class="category-btn"
+      [class.active]="selectedHeaderCategory === 'thyroid'"
+      (click)="selectHeaderCategory('thyroid')"
     >
       Thyroid
     </button>
-    <div class="dropdown">
-      <button class="category-btn dropdown-toggle" (click)="toggleOthersDropdown()">
+    <div class="dropdown" [class.active]="showOthersDropdown">
+      <button
+        class="category-btn dropdown-toggle"
+        (click)="toggleOthersDropdown()"
+      >
         Others
         <i class="fa fa-chevron-down"></i>
       </button>
       <div class="dropdown-menu" *ngIf="showOthersDropdown">
-        <button class="dropdown-item" (click)="selectCategory('liver')">Liver</button>
-        <button class="dropdown-item" (click)="selectCategory('heart')">Heart</button>
-        <button class="dropdown-item" (click)="selectCategory('immunity')">Immunity</button>
+        <button class="dropdown-item" (click)="selectHeaderCategory('liver')">
+          Liver
+        </button>
+        <button class="dropdown-item" (click)="selectHeaderCategory('heart')">
+          Heart
+        </button>
+        <button
+          class="dropdown-item"
+          (click)="selectHeaderCategory('immunity')"
+        >
+          Immunity
+        </button>
       </div>
     </div>
-  </div> -->
+  </div>
 
   <!-- Main Layout -->
   <div class="main-layout">
@@ -111,82 +131,180 @@
       [class.mobile-active]="showMobileFilters"
       [class.desktop-active]="showDesktopFilters"
     >
-      <div class="sidebar-header">
-        <h3>Filters & Sort</h3>
-        <button class="close-filters" (click)="closeMobileFilters()">
-          <i class="fa fa-times"></i>
-        </button>
+      <!-- Always show sidebar in desktop for this design, logic might need adjustment if it was toggle-only before. 
+           But assuming we want it always visible like the image. -->
+
+      <div class="sidebar-header" style="margin-bottom: 10px">
+        <h3
+          style="
+            font-family: Lato !important;
+            font-size: 16px;
+            font-weight: 600;
+            color: #555;
+          "
+        >
+          Filter
+        </h3>
+        <i class="fa fa-chevron-down"></i>
+        <!-- The image has "Filter v", suggesting it might be collapsible too, but usually it's a header -->
       </div>
 
-      <!-- Clear All Filters -->
-      <div class="clear-filters" *ngIf="hasActiveFilters()">
-        <button class="clear-all-btn" (click)="clearAllFilters()">
-          <i class="fa fa-refresh"></i>
-          Clear All Filters
-        </button>
-      </div>
-
-      <!-- Sort Section -->
-      <div class="filter-section sort-section">
-        <h4>
-          <i class="fa fa-sort"></i>
-          Sort By
-        </h4>
-        <div class="sort-options">
-          <label class="radio-option">
+      <!-- By Concern -->
+      <div class="filter-group">
+        <div class="filter-group-header" (click)="toggleConcern()">
+          <span style="font-family: Lato !important">By Concern</span>
+          <i
+            class="fa"
+            [class.fa-chevron-down]="!isConcernExpanded"
+            [class.fa-chevron-up]="isConcernExpanded"
+          ></i>
+        </div>
+        <div class="filter-group-content" *ngIf="isConcernExpanded">
+          <label class="checkbox-container" *ngFor="let item of concernFilters">
             <input
-              type="radio"
-              name="sort"
-              value="featured"
-              [(ngModel)]="selectedSort"
-              (change)="sortProducts()"
+              type="checkbox"
+              [checked]="item.checked"
+              (change)="onFilterChange('concern', item.name, $event)"
             />
-            <span class="radio-custom"></span>
-            Featured
-          </label>
-          <label class="radio-option">
-            <input
-              type="radio"
-              name="sort"
-              value="low"
-              [(ngModel)]="selectedSort"
-              (change)="sortProducts()"
-            />
-            <span class="radio-custom"></span>
-            Price: Low to High
-          </label>
-          <label class="radio-option">
-            <input
-              type="radio"
-              name="sort"
-              value="high"
-              [(ngModel)]="selectedSort"
-              (change)="sortProducts()"
-            />
-            <span class="radio-custom"></span>
-            Price: High to Low
-          </label>
-          <label class="radio-option">
-            <input
-              type="radio"
-              name="sort"
-              value="name"
-              [(ngModel)]="selectedSort"
-              (change)="sortProducts()"
-            />
-            <span class="radio-custom"></span>
-            Name A-Z
+            <span class="checkmark" [class.active]="item.checked">
+              <i
+                class="fa fa-check"
+                *ngIf="item.checked"
+                style="color: white; font-size: 10px"
+              ></i>
+            </span>
+            <span class="filter-label">{{ item.name }}</span>
           </label>
         </div>
       </div>
 
-      <!-- Price Range Filter -->
-      <div class="filter-section price-section">
-        <h4>
-          <i class="fa fa-rupee"></i>
-          Price Range
-        </h4>
+      <!-- By Benefit -->
+      <div class="filter-group">
+        <div class="filter-group-header" (click)="toggleBenefit()">
+          <span style="font-family: Lato !important">By Benefit</span>
+          <i
+            class="fa"
+            [class.fa-chevron-down]="!isBenefitExpanded"
+            [class.fa-chevron-up]="isBenefitExpanded"
+          ></i>
+        </div>
+        <div class="filter-group-content" *ngIf="isBenefitExpanded">
+          <label class="checkbox-container" *ngFor="let item of benefitFilters">
+            <input
+              type="checkbox"
+              [checked]="item.checked"
+              (change)="onFilterChange('benefit', item.name, $event)"
+            />
+            <span class="checkmark" [class.active]="item.checked">
+              <i
+                class="fa fa-check"
+                *ngIf="item.checked"
+                style="color: white; font-size: 10px"
+              ></i>
+            </span>
+            <span class="filter-label">{{ item.name }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- By Categories -->
+      <div class="filter-group">
+        <div class="filter-group-header" (click)="toggleCategory()">
+          <span style="font-family: Lato !important">By Categories</span>
+          <i
+            class="fa"
+            [class.fa-chevron-down]="!isCategoryExpanded"
+            [class.fa-chevron-up]="isCategoryExpanded"
+          ></i>
+        </div>
+        <div class="filter-group-content" *ngIf="isCategoryExpanded">
+          <label
+            class="checkbox-container"
+            *ngFor="let item of categorySidebarFilters"
+          >
+            <input
+              type="checkbox"
+              [checked]="item.checked"
+              (change)="onFilterChange('category', item.name, $event)"
+            />
+            <span class="checkmark" [class.active]="item.checked">
+              <i
+                class="fa fa-check"
+                *ngIf="item.checked"
+                style="color: white; font-size: 10px"
+              ></i>
+            </span>
+            <span class="filter-label">{{ item.name }}</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Sort By (Keeping existing functionality but styling it to match) -->
+      <div class="filter-group">
+        <div class="filter-group-header">
+          <span style="font-family: Lato !important">Sort By</span>
+          <i class="fa fa-chevron-down"></i>
+        </div>
+        <div class="filter-group-content">
+          <label class="checkbox-container">
+            <input
+              type="checkbox"
+              [checked]="selectedSort === 'featured'"
+              (change)="selectedSort = 'featured'; sortProducts()"
+            />
+            <span
+              class="checkmark"
+              [class.active]="selectedSort === 'featured'"
+            ></span>
+            <span class="filter-label">Featured</span>
+          </label>
+          <label class="checkbox-container">
+            <input
+              type="checkbox"
+              [checked]="selectedSort === 'low'"
+              (change)="selectedSort = 'low'; sortProducts()"
+            />
+            <span
+              class="checkmark"
+              [class.active]="selectedSort === 'low'"
+            ></span>
+            <span class="filter-label">Best Selling</span>
+            <!-- Mapped 'low' to best selling or price? Original code had price. Image has 'Best Selling'. Let's keep existing logic but update label if desired. -->
+          </label>
+          <label class="checkbox-container">
+            <input
+              type="checkbox"
+              [checked]="selectedSort === 'name'"
+              (change)="selectedSort = 'name'; sortProducts()"
+            />
+            <span
+              class="checkmark"
+              [class.active]="selectedSort === 'name'"
+            ></span>
+            <span class="filter-label">Name: A - Z</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Price Range (Keeping existing) -->
+      <div class="filter-group">
+        <div class="filter-group-header">
+          <span style="font-family: Lato !important">Prize Range</span>
+        </div>
         <div class="price-slider-container">
+          <div
+            class="price-values"
+            style="
+              display: flex;
+              justify-content: space-between;
+              font-family: Lato !important;
+              font-size: 12px;
+              margin-bottom: 5px;
+            "
+          >
+            <span>₹0</span>
+            <span>₹5000</span>
+          </div>
           <input
             type="range"
             class="price-slider"
@@ -196,61 +314,52 @@
             step="100"
             (input)="onPriceChange()"
             (change)="filterByPrice()"
+            style="width: 100%; accent-color: #55aa55"
           />
-          <div class="price-display">
-            <span class="price-min">₹0</span>
-            <span class="price-current">₹{{ priceRange }}</span>
-            <span class="price-max">₹5000</span>
-          </div>
         </div>
       </div>
 
-      <!-- Category Filter -->
-      <div
-        class="filter-section category-section"
-        *ngIf="availableCategories.length > 0"
-      >
-        <h4>
-          <i class="fa fa-tags"></i>
-          Categories
-        </h4>
-        <div class="category-checkboxes">
-          <label
-            class="checkbox-option"
-            *ngFor="let category of availableCategories"
-          >
-            <input
-              type="checkbox"
-              [value]="category"
-              (change)="onCategoryChange($event)"
-              [checked]="selectedCategories.includes(category)"
-            />
-            <span class="checkbox-custom"></span>
-            {{ category }}
-            <span class="category-count"
-              >({{ getCategoryCount(category) }})</span
-            >
-          </label>
-        </div>
-      </div>
-
-      <!-- Apply Filters Button (Mobile) -->
-      <div class="mobile-apply-filters">
-        <button class="apply-filters-btn" (click)="applyMobileFilters()">
-          Apply Filters ({{ filteredProducts.length }})
+      <div style="display: flex; gap: 10px; margin-top: 20px">
+        <button
+          (click)="clearAllFilters()"
+          style="
+            flex: 1;
+            padding: 8px;
+            border: 1px solid #ccc;
+            background: white;
+            border-radius: 4px;
+            font-family: Lato !important;
+            cursor: pointer;
+          "
+        >
+          Clear
+        </button>
+        <button
+          style="
+            flex: 1;
+            padding: 8px;
+            border: none;
+            background: #55aa55;
+            color: white;
+            border-radius: 4px;
+            font-family: Lato !important;
+            cursor: pointer;
+          "
+        >
+          Apply
         </button>
       </div>
     </div>
 
+    <!-- Apply Filters Button (Mobile) -->
+    <div class="mobile-apply-filters">
+      <button class="apply-filters-btn" (click)="applyMobileFilters()">
+        Apply Filters ({{ filteredProducts.length }})
+      </button>
+    </div>
+
     <!-- Main Content Area -->
     <div class="main-content">
-      <!-- Breadcrumb -->
-      <nav class="breadcrumb">
-        <a href="/home">Home</a>
-        <i class="fa fa-angle-right"></i>
-        <span>All Products</span>
-      </nav>
-
       <!-- Active Filters Tags -->
       <div class="active-filters" *ngIf="hasActiveFilters()">
         <div class="filter-tags">

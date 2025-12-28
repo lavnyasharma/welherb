@@ -247,14 +247,18 @@
       </div>
 
       <!-- If logged in, show profile icon with dropdown -->
-      <div *ngIf="isLoggedIn; else loginTemplate" class="profile-dropdown">
-        <button
-          pButton
-          type="button"
-          icon="pi pi-user"
-          class="p-button-text nav-icon-btn"
-          (click)="profileMenu.toggle($event)"
-        ></button>
+      <!-- If logged in, show profile icon with dropdown -->
+      <div
+        *ngIf="isLoggedIn; else loginTemplate"
+        class="profile-dropdown"
+        (click)="profileMenu.toggle($event)"
+        style="cursor: pointer; display: flex; align-items: center"
+      >
+        <img
+          src="assets/Group (1).svg"
+          alt="Profile"
+          style="width: 21px; height: 21px"
+        />
         <p-menu #profileMenu [popup]="true" [model]="profileItems"></p-menu>
       </div>
 

@@ -1,28 +1,57 @@
 <div class="product-card-container" [ngStyle]="getBackgroundStyle()">
   <ng-container *ngIf="selectedProduct; else noProduct">
-    <!-- naContent Area with Helps Who and Helps How -->
-    <div class="product-content">
-      <!-- Left Side: Helps Who -->
-      <div class="product-desc-left desktop-only">
+    <!-- Layer 1: Product Image (centered, fills container) -->
+    <img
+      *ngIf="selectedProduct.default_image"
+      [src]="'/welherb' + selectedProduct.default_image"
+      [alt]="selectedProduct.name"
+      class="product-image-layer"
+      onerror="this.style.display='none'"
+    />
+
+    <!-- Layer 2: Content Overlay (Helps Who | Helps How) -->
+    <div class="content-overlay desktop-only">
+      <!-- Left Column: Helps Who -->
+      <div class="content-left">
         <h1>Helps Who?</h1>
         <div class="if-you">If You:</div>
         <ul>
           <li *ngFor="let point of selectedProduct.helps_who">{{ point }}</li>
         </ul>
         <div class="button-group">
-          <app-button label="Learn More" variant="outline" (click)="learnMore()"></app-button>
-          <app-button label="Buy Now" bgColor="#FCF8F4" textColor="#3A3938" borderColor="#FCF8F4" (click)="buyNow()"></app-button>
+          <app-button
+            label="Learn More-"
+            variant="outline"
+            (click)="learnMore()"
+          ></app-button>
+          <app-button
+            label="Buy Now"
+            bgColor="#FCF8F4"
+            textColor="#3A3938"
+            borderColor="#FCF8F4"
+            (click)="buyNow()"
+          ></app-button>
         </div>
       </div>
 
-
-      <!-- Right Side: Helps How -->
-      <div class="product-desc-right desktop-only">
+      <!-- Right Column: Helps How -->
+      <div class="content-right">
         <h1>Helps How?</h1>
         <ul>
           <li *ngFor="let point of selectedProduct.helps_how">{{ point }}</li>
         </ul>
       </div>
+    </div>
+
+    <!-- Sub-product selectors (if multiple products in category) -->
+    <div class="sub-product-tabs" *ngIf="subProducts.length > 1">
+      <button
+        *ngFor="let prod of subProducts; let ix = index"
+        [class.selected]="ix === selectedProductIndex"
+        (click)="selectProduct(ix)"
+      >
+        {{ prod.name }}
+      </button>
     </div>
   </ng-container>
 
@@ -33,22 +62,13 @@
     </div>
   </ng-template>
 
-  <!-- Sub-product selectors (if multiple products in category) -->
-  <div class="sub-product-tabs" *ngIf="subProducts.length > 1">
-    <button
-      *ngFor="let prod of subProducts; let ix = index"
-      [class.selected]="ix === selectedProductIndex"
-      (click)="selectProduct(ix)">
-      {{ prod.name }}
-    </button>
-  </div>
-
   <!-- Category Tabs at Bottom -->
   <div class="category-tabs">
     <button
       *ngFor="let cat of mainCategories; let idx = index"
       [class.selected]="selectedCategoryIndex === idx"
-      (click)="selectCategory(idx)">
+      (click)="selectCategory(idx)"
+    >
       {{ cat }}
     </button>
   </div>

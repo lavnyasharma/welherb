@@ -1,3 +1,4 @@
+/* Container: Background image layer */
 .product-card-container {
   min-height: 95vh;
   width: 100%;
@@ -7,45 +8,53 @@
   justify-content: flex-start;
   align-items: center;
   overflow: hidden;
-  z-index: 1; /* Ensure this section stays contained */
+  z-index: 1;
 }
 
-.product-title {
-  font-size: 3rem;
-  font-weight: var(--font-weight-bold);
-  font-family: var(--font-display);
-  margin-top: 2vh;
-  margin-bottom: 1vh;
-  color: var(--color-text-primary);
-  text-align: center;
+/* Layer 1: Product Image - Absolute positioned, same size as container */
+.product-image-layer {
+  position: absolute;
+  top: 63px;
+  left: 50%;
+  transform: translateX(-50%);
+  height: calc(100% - 40px);
+  width: 100%;
+
+
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Layer 2: Content Overlay */
+.content-overlay {
+  position: relative;
   z-index: 10;
-}
-
-.product-content {
+  width: 100%;
+  max-width: 1400px;
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  width: 100%;
-
-  margin-top: 40px;
-  padding: 0 80px;
+  padding: 100px 80px 120px;
   box-sizing: border-box;
-  z-index: 10;
+  min-height: 70vh;
 }
 
-.product-desc-left,
-.product-desc-right {
-  flex: 0 0 280px; /* Fixed width for both columns */
-  max-width: 300px;
+/* Left Content: Helps Who */
+.content-left {
+  flex: 0 0 300px;
+  max-width: 320px;
+  text-align: left;
 }
 
-/* Remove center spacer - bottle is in background */
-.product-center-spacer {
-  display: none;
+/* Right Content: Helps How */
+.content-right {
+  flex: 0 0 300px;
+  max-width: 320px;
+  text-align: left;
 }
 
-.product-desc-left h1,
-.product-desc-right h1 {
+.content-left h1,
+.content-right h1 {
   font-size: var(--font-size-3xl);
   font-weight: var(--font-weight-bold);
   margin-bottom: 16px;
@@ -56,24 +65,24 @@
 }
 
 .if-you {
-  font-size: var(--font-size-md);
+  font-size: var(--font-size-2xl);
   margin-bottom: 12px;
   color: var(--color-text-primary);
   font-family: var(--font-primary);
 }
 
-.product-desc-left ul,
-.product-desc-right ul {
+.content-left ul,
+.content-right ul {
   list-style: disc;
   padding-left: 20px;
-  font-size: var(--font-size-md);
+  font-size: 20px;
   line-height: 1.9;
   color: var(--color-text-primary);
   font-family: var(--font-primary);
 }
 
-.product-desc-left ul li,
-.product-desc-right ul li {
+.content-left ul li,
+.content-right ul li {
   margin-bottom: 8px;
 }
 
@@ -81,7 +90,7 @@
   display: flex;
   gap: 16px;
   margin-top: 32px;
-  justify-content: flex-start; /* Align to the left */
+  justify-content: flex-start;
 }
 
 .learn-more-btn,
@@ -124,7 +133,7 @@
   text-align: center;
   color: var(--color-text-primary);
   font-family: var(--font-primary);
-  padding: 60px 100px; /* Increased padding */
+  padding: 60px 100px;
   background: rgba(255, 255, 255, 0.95);
   border-radius: var(--radius-lg);
   box-shadow: 0 4px 20px var(--color-shadow);
@@ -132,6 +141,7 @@
   z-index: 10;
 }
 
+/* Sub-product tabs */
 .sub-product-tabs {
   position: absolute;
   bottom: 80px;
@@ -161,6 +171,7 @@
   border-color: var(--color-text-primary);
 }
 
+/* Category tabs at bottom */
 .category-tabs {
   display: flex;
   gap: 50px;
@@ -198,7 +209,7 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: calc(100% - 20px); /* Underline only under text, not the icon */
+  width: calc(100% - 20px);
   height: 2px;
   background-color: var(--color-text-primary);
 }
@@ -209,12 +220,12 @@
   position: absolute;
   bottom: 0;
   left: 0;
-  width: calc(100% - 20px); /* Underline only under text, not the icon */
+  width: calc(100% - 20px);
   height: 2px;
   background-color: rgba(58, 57, 56, 0.4);
 }
 
-/* small circled arrow icon after each tab label */
+/* Small circled arrow icon after each tab label */
 .category-tabs button::after {
   content: "";
   display: inline-block;
@@ -228,33 +239,82 @@
   vertical-align: middle;
 }
 
-/* Mobile: Hide helps sections, show only title and category tabs */
+/* Mobile Styles */
 @media (max-width: 768px) {
   .desktop-only {
     display: none !important;
   }
 
-  .product-title {
-    font-size: 2rem;
-    margin-top: 6vh;
+  .mobile-only {
+    display: flex !important;
   }
 
+  .product-image-layer {
+    top: 10%;
+    height: 60%;
+  }
+
+  /* Category Tabs - Scrollable row */
   .category-tabs {
-    bottom: 0;
+    bottom: 80px;
     left: 0;
-    padding: 12px 0;
-    background: rgba(255, 255, 255, 0.95);
-    border-top: 1px solid var(--color-border);
-    gap: 8px;
-    flex-wrap: wrap;
+    padding: 10px 15px;
+    background: transparent;
+    border-top: none;
+    gap: 15px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    justify-content: flex-start;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Hide scrollbar */
+  .category-tabs::-webkit-scrollbar {
+    display: none;
   }
 
   .category-tabs button {
-    font-size: var(--font-size-sm);
-    padding: 10px 18px;
+    font-size: 1rem;
+    padding: 8px 12px;
+    white-space: nowrap;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 4px;
+    flex-shrink: 0;
   }
 
   .sub-product-tabs {
-    margin-top: 16vh;
+    bottom: 140px;
+    margin-top: 0;
+  }
+
+  /* Mobile Buttons Container */
+  .mobile-buttons {
+    position: absolute;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    padding: 0 20px;
+    z-index: 30;
+  }
+
+  .mobile-buttons app-button {
+    flex: 1;
+  }
+
+  ::ng-deep .mobile-btn button {
+    width: 100% !important;
+    padding: 12px 0 !important;
+    font-size: 1.1rem !important;
+  }
+}
+
+/* Desktop */
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none;
   }
 }

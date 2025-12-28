@@ -37,8 +37,37 @@ export class ShopallComponent implements OnInit, OnDestroy {
   selectedSort = "featured";
   priceRange = 5000;
   selectedCategories: string[] = [];
-  showDesktopFilters = false;
+  showDesktopFilters = true;
   availableCategories: string[] = [];
+
+  // New Header Categories
+  selectedHeaderCategory: string = "all"; // 'all', 'esr', 'sugar', 'thyroid', 'others'
+  showOthersDropdown = false;
+
+  // Sidebar Filter Sections (Mock data based on image, mapped to functionality)
+  concernFilters = [
+    { name: "Blood Deficiency", checked: false },
+    { name: "Blood Pressure", checked: false },
+    { name: "Body Fatigue", checked: false },
+    { name: "Cholestrol", checked: false },
+    { name: "Diabetes", checked: false },
+  ];
+
+  benefitFilters = [
+    { name: "Blood Deficiency", checked: false }, // Using same names as image for now
+    { name: "Blood Pressure", checked: false },
+    { name: "Body Fatigue", checked: false },
+  ];
+
+  categorySidebarFilters = [
+    { name: "Blood Deficiency", checked: false },
+    { name: "Blood Pressure", checked: false },
+    { name: "Body Fatigue", checked: false },
+  ];
+
+  isConcernExpanded = true;
+  isBenefitExpanded = true;
+  isCategoryExpanded = true;
 
   // Products and Display
   products: Product[] = [];
@@ -238,20 +267,107 @@ export class ShopallComponent implements OnInit, OnDestroy {
     this.applyAllFilters();
   }
 
+  // Header Category Selection
+  selectHeaderCategory(category: string): void {
+    this.selectedHeaderCategory = category;
+    this.showOthersDropdown = false;
+    this.applyAllFilters();
+  }
+
+  toggleOthersDropdown(): void {
+    this.showOthersDropdown = !this.showOthersDropdown;
+  }
+
+  // Sidebar Accordion Toggles
+  toggleConcern(): void {
+    this.isConcernExpanded = !this.isConcernExpanded;
+  }
+  toggleBenefit(): void {
+    this.isBenefitExpanded = !this.isBenefitExpanded;
+  }
+  toggleCategory(): void {
+    this.isCategoryExpanded = !this.isCategoryExpanded;
+  }
+
+  // Unified Filter Change Handler
+  onFilterChange(
+    type: "concern" | "benefit" | "category",
+    name: string,
+    event: any
+  ): void {
+    const checked = event.target.checked;
+    let targetArray: any[] = [];
+
+    if (type === "concern") targetArray = this.concernFilters;
+    else if (type === "benefit") targetArray = this.benefitFilters;
+    else if (type === "category") targetArray = this.categorySidebarFilters;
+
+    const item = targetArray.find((i) => i.name === name);
+    if (item) item.checked = checked;
+
+    this.updateSelectedCategoriesFromSidebar();
+    this.applyAllFilters();
+  }
+
+  private updateSelectedCategoriesFromSidebar(): void {
+    // Collect all checked items from all 3 sections
+    const allChecked = [
+      ...this.concernFilters.filter((i) => i.checked),
+      ...this.benefitFilters.filter((i) => i.checked),
+      ...this.categorySidebarFilters.filter((i) => i.checked),
+    ].map((i) => i.name);
+
+    // Remove duplicates
+    this.selectedCategories = [...new Set(allChecked)];
+  }
+
+  getCategoryCount(category: string): number {
+    return this.products.filter((product) =>
+      product.category.some((c) => c.toLowerCase() === category.toLowerCase())
+    ).length;
+  }
+
+  // Modified Apply All Filters to include Header Category
   private applyAllFilters(): void {
     let filtered = [...this.products];
+
+    // Header Category Filter
+    if (this.selectedHeaderCategory !== "all") {
+      if (this.selectedHeaderCategory === "others") {
+        // Logic for 'everyone else' - exclude the main ones if needed, or just specific map
+        // For now, let's assume 'others' isn't a direct filter value but a UI state holder,
+        // and the dropdown items (liver, heart, etc) will call selectHeaderCategory with their specific values.
+        // If 'others' is clicked directly, maybe show all non-main categories?
+        // Let's treat valid 'others' sub-selections as the filter.
+      } else {
+        filtered = filtered.filter((product) =>
+          product.category.some((c) =>
+            c.toLowerCase().includes(this.selectedHeaderCategory.toLowerCase())
+          )
+        );
+      }
+    }
 
     // Price filter
     filtered = filtered.filter(
       (product) => product.displayPrice <= this.priceRange
     );
 
-    // Category filter
+    // Sidebar Category filters (Concern, Benefit, Categories)
+    // If any sidebar items are selected, we INTERSECT or UNION? Usually UNION for checkboxes.
     if (this.selectedCategories.length > 0) {
       filtered = filtered.filter((product) =>
-        product.category.some((cat) => this.selectedCategories.includes(cat))
+        product.category.some((cat) =>
+          this.selectedCategories.some(
+            (sel) => sel.toLowerCase() === cat.toLowerCase()
+          )
+        )
       );
     }
+
+    // If we have BOTH header category AND sidebar categories, we intersect them.
+    // (Already handled by sequential filtering above)
+    // Removed duplicate declaration if any
 
     this.filteredProducts = filtered;
     this.currentPage = 1;
@@ -267,19 +383,35 @@ export class ShopallComponent implements OnInit, OnDestroy {
 
   // Filter Management
   hasActiveFilters(): boolean {
-    return this.priceRange < 5000 || this.selectedCategories.length > 0;
+    return (
+      this.priceRange < 5000 ||
+      this.selectedCategories.length > 0 ||
+      this.selectedHeaderCategory !== "all"
+    );
   }
 
   getActiveFilterCount(): number {
     let count = 0;
     if (this.priceRange < 5000) count++;
     count += this.selectedCategories.length;
+    if (this.selectedHeaderCategory !== "all") count++;
     return count;
   }
 
   clearAllFilters(): void {
     this.priceRange = 5000;
     this.selectedCategories = [];
+    this.selectedHeaderCategory = "all";
+
+    // Reset checks
+    [
+      this.concernFilters,
+      this.benefitFilters,
+      this.categorySidebarFilters,
+    ].forEach((list) => {
+      list.forEach((i) => (i.checked = false));
+    });
+
     this.selectedSort = "featured";
     this.applyAllFilters();
     this.toastr.info("All filters cleared", "Filters");
@@ -291,16 +423,17 @@ export class ShopallComponent implements OnInit, OnDestroy {
   }
 
   removeCategory(category: string): void {
-    this.selectedCategories = this.selectedCategories.filter(
-      (cat) => cat !== category
-    );
+    // Uncheck from all lists
+    [
+      this.concernFilters,
+      this.benefitFilters,
+      this.categorySidebarFilters,
+    ].forEach((list) => {
+      const item = list.find((i) => i.name === category);
+      if (item) item.checked = false;
+    });
+    this.updateSelectedCategoriesFromSidebar();
     this.applyAllFilters();
-  }
-
-  getCategoryCount(category: string): number {
-    return this.products.filter((product) =>
-      product.category.includes(category)
-    ).length;
   }
 
   // Mobile UI
