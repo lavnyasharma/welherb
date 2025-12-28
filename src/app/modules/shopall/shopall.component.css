@@ -48,8 +48,6 @@
   min-height: 44px;
 }
 
-
-
 .filter-count {
   background: #24b04b;
   color: white;
@@ -461,20 +459,38 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
+/* Standardized Simple Spinner */
 .loading-spinner {
-  text-align: center;
-  color: #666;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
 }
 
-.loading-spinner i {
-  font-size: 2rem;
-  color: #24b04b;
-  margin-bottom: 16px;
+.simple-spinner {
+  width: 48px;
+  height: 48px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #24b04b; /* Theme Color */
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .loading-spinner p {
   margin: 0;
   font-size: 1.1rem;
+  color: #666;
+  font-family: inherit;
 }
 
 /* No Products */

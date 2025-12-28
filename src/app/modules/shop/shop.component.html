@@ -1,5 +1,10 @@
 <div class="shop-container">
-  <div class="shop-layout">
+  <!-- Loading State -->
+  <div class="loading-overlay" *ngIf="isLoading">
+    <div class="simple-spinner"></div>
+  </div>
+
+  <div class="shop-layout" *ngIf="!isLoading && product">
     <!-- Left Section: Product Images -->
     <div class="product-images">
       <!-- Main Product Image -->
@@ -241,6 +246,7 @@
 <app-prod-desc [color]="'#9AE2FA'"></app-prod-desc>
 <app-ingredients-desc></app-ingredients-desc>
 <app-dietry-advice
+  *ngIf="product"
   [dietaryAdvice]="product.dietary_advice"
   [helpsHow]="product.helps_how"
   [helpsWho]="product.helps_who"
@@ -248,6 +254,6 @@
 </app-dietry-advice>
 <app-betterliving></app-betterliving>
 
-<app-faq [faq]="product.faq"></app-faq>
+<app-faq *ngIf="product" [faq]="product.faq"></app-faq>
 <app-shopreviews></app-shopreviews>
 <!-- <app-contact-doctor></app-contact-doctor> -->
