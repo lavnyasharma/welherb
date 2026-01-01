@@ -29,8 +29,8 @@
 
 /* Footer Columns */
 .footer-col {
-  flex: 1;
-  min-width: 200px;
+  /* flex: 1; Removed to allow uniform spacing */
+  /* min-width: 200px; Removed */
   margin: 10px;
 }
 

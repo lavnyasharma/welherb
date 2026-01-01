@@ -581,152 +581,131 @@
         <button class="close-btn" (click)="closeAddMoreModal()">×</button>
       </div>
 
-      <div class="modal-body">
-        <div class="form-section">
-          <h4>Personal Information</h4>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Full Name*</label>
-              <input
-                type="text"
-                [(ngModel)]="newAddress.name"
-                name="name"
-                placeholder="Enter full name"
-              />
+      <div class="modal-body" style="padding-bottom: 0; padding-top: 10px;">
+        <!-- Section 1: Dosage -->
+        <div class="form-section dosage-section-modal">
+          <h4 style="font-family: lato, sans-serif !important">Fill to get your personailsed dosage:</h4>
+          <div class="dosage-row-inline">
+            <div class="dosage-field">
+              <span class="label">Gender</span>
+              <div class="custom-select-wrapper">
+                <select
+                  [(ngModel)]="newAddress.gender"
+                  name="gender"
+                  class="dosage-select"
+                >
+                  <option value="">Select</option>
+                  <option value="male">Male</option>
+                  <option value="female">Female</option>
+                  <option value="other">Other</option>
+                </select>
+                <i class="pi pi-chevron-down select-icon"></i>
+              </div>
             </div>
-          </div>
-
-          <div class="form-row-inline">
-            <div class="form-group">
-              <label>Gender*</label>
-              <select
-                [(ngModel)]="newAddress.gender"
-                name="gender"
-                class="form-select"
-              >
-                <option value="">Select Gender</option>
-                <option value="male">Male</option>
-                <option value="female">Female</option>
-                <option value="other">Other</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label>Height (cm)</label>
+            <div class="dosage-field">
+              <span class="label">Height</span>
               <input
                 type="number"
                 [(ngModel)]="newAddress.height"
                 name="height"
-                placeholder="e.g. 170"
+                class="dosage-input"
               />
             </div>
-            <div class="form-group">
-              <label>Weight (kg)</label>
+            <div class="dosage-field">
+              <span class="label">Weight</span>
               <input
                 type="number"
                 [(ngModel)]="newAddress.weight"
                 name="weight"
-                placeholder="e.g. 65"
+                class="dosage-input no-border"
+                placeholder="Weight"
               />
             </div>
           </div>
         </div>
 
-        <div class="form-section">
-          <h4>Contact Information</h4>
+        <div class="section-divider"></div>
+
+        <!-- Section 2: Personal Info -->
+        <div class="form-section personal-info-section">
+          <h4 style="font-family: lato, sans-serif !important">Add personal info*</h4>
+
+          <!-- Name -->
           <div class="form-row">
-            <div class="form-group">
-              <label>Email(Optional)</label>
-              <input
-                type="email"
-                [(ngModel)]="newAddress.email"
-                name="email"
-                placeholder="Enter email address"
-              />
-            </div>
+            <input
+              type="text"
+              [(ngModel)]="newAddress.name"
+              name="name"
+              placeholder="Name*"
+              class="full-width-input"
+            />
           </div>
 
+          <!-- Phone & Email -->
+          <div class="form-row-grid">
+            <input
+              type="tel"
+              [(ngModel)]="newAddress.phone"
+              name="phone"
+              placeholder="Phone Number*"
+            />
+            <input
+              type="email"
+              [(ngModel)]="newAddress.email"
+              name="email"
+              placeholder="Email(Optional)"
+            />
+          </div>
+
+          <!-- Address -->
           <div class="form-row">
-            <div class="form-group">
-              <label>Phone Number*</label>
-              <input
-                type="tel"
-                [(ngModel)]="newAddress.phone"
-                name="phone"
-                placeholder="Enter phone number"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div class="form-section">
-          <h4>Delivery Address</h4>
-          <div class="form-row">
-            <div class="form-group">
-              <label>Address*(Flat/House number/Street)</label>
-              <textarea
-                [(ngModel)]="newAddress.address"
-                name="address"
-                placeholder="House/Flat No., Building, Street, Area"
-                rows="2"
-              ></textarea>
-            </div>
+            <textarea
+              [(ngModel)]="newAddress.address"
+              name="address"
+              placeholder="Address*(Flat/House number/Street)"
+              rows="3"
+              class="full-width-input"
+            ></textarea>
           </div>
 
-          <div class="form-row-inline">
-            <div class="form-group">
-              <label>Landmark(Optional)</label>
-              <input
-                type="text"
-                [(ngModel)]="newAddress.landmark"
-                name="landmark"
-                placeholder="Nearby landmark"
-              />
-            </div>
-            <div class="form-group">
-              <label>Area(Optional)</label>
-              <input
-                type="text"
-                [(ngModel)]="newAddress.area"
-                name="area"
-                placeholder="Area/Locality"
-              />
-            </div>
+          <!-- Area & Landmark -->
+          <div class="form-row-grid">
+            <input
+              type="text"
+              [(ngModel)]="newAddress.area"
+              name="area"
+              placeholder="Area(Optional)"
+            />
+            <input
+              type="text"
+              [(ngModel)]="newAddress.landmark"
+              name="landmark"
+              placeholder="Landmark(Optional)"
+            />
           </div>
 
-          <div class="form-row-inline">
-            <div class="form-group">
-              <label>City*</label>
-              <input
-                type="text"
-                [(ngModel)]="newAddress.city"
-                name="city"
-                placeholder="City"
-              />
-            </div>
-            <div class="form-group">
-              <label>Pin Code*</label>
-              <input
-                type="text"
-                [(ngModel)]="newAddress.pincode"
-                name="pincode"
-                placeholder="Pincode"
-                maxlength="6"
-              />
-            </div>
+          <!-- Pin & City -->
+          <div class="form-row-grid">
+            <input
+              type="text"
+              [(ngModel)]="newAddress.pincode"
+              name="pincode"
+              placeholder="Pin Code*"
+              maxlength="6"
+            />
+            <input
+              type="text"
+              [(ngModel)]="newAddress.city"
+              name="city"
+              placeholder="City*"
+            />
           </div>
         </div>
       </div>
 
-      <div class="modal-footer">
-        <button
-          type="button"
-          class="btn btn-secondary"
-          (click)="closeAddMoreModal()"
-        >
-          Cancel
-        </button>
-        <button type="button" class="btn btn-primary" (click)="saveAddress()">
-          Save Profile
+      <div class="modal-footer no-border">
+        <button type="button" class="btn btn-continue" (click)="saveAddress()">
+          Continue
         </button>
       </div>
     </div>

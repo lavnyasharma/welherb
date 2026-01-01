@@ -19,7 +19,7 @@
   /* Primary Colors */
   --color-cta1: #3a3938;
   --color-cta: #4fae32; /* Call To Action - Green */
-  --color-cta-hover: #3d8a2a; /* CTA Hover State */
+  --color-cta-hover: #4fae32; /* CTA Hover State */
   --color-accent: #9aca3b; /* Character/Accent Color */
   --color-accent-light: #8bc34a; /* Light accent variation */
 
@@ -259,8 +259,8 @@ ul {
 }
 
 .ant-input-affix-wrapper {
-  border-radius: var(--radius-sm);
-  height: 40px;
+  border-radius: var(--radius-md);
+  height: 42px;
   background: none;
 }
 .ant-input-affix-wrapper > .ant-input:not(textarea) {

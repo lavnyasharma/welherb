@@ -81,7 +81,7 @@ label,
 }
 
 .profile-header h2 {
-  font-size: 28px;
+  font-size: 36px;
   font-weight: 600;
   margin: 0;
   color: #3a3938;
@@ -90,13 +90,13 @@ label,
 
 .avatar-upload {
   position: relative;
-  width: 200px;
-  height: 200px;
+  width: 150px;
+  height: 150px;
 }
 
 .profile-avatar {
-  width: 200px !important;
-  height: 200px !important;
+  width: 150px !important;
+  height: 150px !important;
   border-radius: 50%;
   overflow: hidden;
   position: relative;
@@ -424,7 +424,7 @@ label,
 
 .option-btn:hover,
 .option-wrapper:hover {
-  background: #fafafa;
+  background: #FCF8F3;
   border-color: #d0d0d0;
 }
 
@@ -559,8 +559,8 @@ label,
   background: var(--color-background);
   border-radius: 12px;
   width: 100%;
-  max-width: 600px;
-  max-height: 85vh;
+  max-width: 800px;
+  max-height: 90vh;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -587,7 +587,7 @@ label,
   flex-shrink: 0;
   padding: 16px 24px;
   border-top: 1px solid #e0e0e0;
-  background: #fafafa;
+  background: #FCF8F3;
 }
 
 /* Delete Confirmation Modal */
@@ -981,7 +981,7 @@ label,
     sans-serif;
   position: relative;
   gap: 40px;
-  padding: 40px;
+  padding: 120px 100px;
   box-sizing: border-box;
 }
 
@@ -992,7 +992,7 @@ label,
   align-self: flex-start;
   width: 280px;
   background-color: #fcf8f4;
-  padding: 20px 0;
+  padding: 32px 0 20px 0; /* Increased top padding to align with content header */
   border-radius: 16px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
   z-index: 100;
@@ -1265,7 +1265,7 @@ label,
 
   border-radius: 16px;
 
-  overflow: hidden;
+  /* overflow: hidden; Removed to allow box-shadow to be visible */
   transition: all 0.3s ease;
 }
 
@@ -1273,7 +1273,8 @@ label,
   width: 100%;
   background-color: #fcf8f4;
   border-radius: 16px;
-  padding: 50px;
+  padding: 40px 50px 50px 50px; /* Reduced top padding to align with sidebar */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
 
   margin: 0 auto;
 }
@@ -1440,9 +1441,9 @@ label,
 }
 
 .option-btn.active {
-  border-color: #7cb342;
+  border-color: #4FAE32;
   background-color: #f1f8e9;
-  color: #7cb342;
+  color: #4FAE32;
 }
 
 .option-btn .dropdown {
@@ -1452,8 +1453,8 @@ label,
 
 .profile-avatar {
   position: relative;
-  width: 200px !important;
-  height: 200px !important;
+  width: 150px !important;
+  height: 150px !important;
 }
 
 .profile-avatar img {
@@ -1497,7 +1498,7 @@ label,
 }
 
 .sidebar-profile-item:hover {
-  color: #7cb342;
+  color: #4FAE32;
 }
 
 .sidebar-profile-item.active {
@@ -1551,7 +1552,7 @@ label,
 .form-group textarea:focus,
 .form-group select:focus {
   outline: none;
-  border-color: #7cb342;
+  border-color: #4FAE32;
   box-shadow: 0 0 0 3px rgba(124, 179, 66, 0.1);
 }
 
@@ -1568,7 +1569,7 @@ label,
 
 .btn-primary {
   padding: 12px 32px;
-  background-color: #7cb342;
+  background-color: #4FAE32;
   color: #fcf8f4;
   border: none;
   border-radius: 8px;
@@ -1775,7 +1776,7 @@ label,
   width: 40px;
   height: 40px;
   border: 3px solid #f0f0f0;
-  border-top: 3px solid #7cb342;
+  border-top: 3px solid #4FAE32;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
   margin: 0 auto 20px;
@@ -1907,7 +1908,7 @@ label,
 
 .btn-cancel-outline {
   background: #ffffff;
-  border: 1px solid #7cb342;
+  border: 1px solid #4FAE32;
   color: #3a3938;
   padding: 6px 16px;
   border-radius: 6px;
@@ -2318,4 +2319,170 @@ label,
     width: 28px;
     height: 28px;
   }
+}
+/* Modal Redesign Styles */
+
+/* Modal Content Override */
+.profile-form-modal {
+  background: #FCF8F3; /* Light beige background from image */
+  border-radius: 12px;
+}
+
+.profile-form-modal .modal-header {
+  border-bottom: none;
+  padding: 24px 24px 0 24px;
+}
+
+.profile-form-modal .modal-header h3 {
+  display: none; /* Hide original header text if needed, or keep it */
+}
+
+/* Dosage Section */
+.dosage-section-modal h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.dosage-row-inline {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+}
+
+.dosage-field {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dosage-field .label {
+  font-size: 14px;
+  color: #666;
+}
+
+.dosage-input {
+  width: 80px;
+  height: 40px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px;
+  text-align: center;
+  font-size: 14px;
+  background: transparent;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.dosage-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background: transparent;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 8px 32px 8px 12px;
+  font-size: 14px;
+  color: #333;
+  height: 40px;
+  min-width: 100px;
+  cursor: pointer;
+}
+
+.select-icon {
+  position: absolute;
+  right: 12px;
+  pointer-events: none;
+  font-size: 12px;
+  color: #666;
+}
+
+/* Section Divider */
+.section-divider {
+  height: 1px;
+  background: #eee;
+  margin: 20px -24px; /* Extend to edges */
+}
+
+/* Personal Info Section */
+.personal-info-section h4 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+/* Form Grid */
+.form-row {
+  margin-bottom: 16px;
+}
+
+.form-row-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.mobile-full {
+  width: 100%;
+}
+
+.full-width-input {
+  width: 100%;
+}
+
+/* Input Styles */
+.profile-form-modal input,
+.profile-form-modal textarea {
+  width: 100%;
+  padding: 12px 16px;
+  border: 1px solid #CAC6C2; /* Light border */
+  border-radius: 8px;
+  font-size: 14px;
+  background: #FCF8F3; /* Very light background */
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.profile-form-modal input:focus,
+.profile-form-modal textarea:focus {
+  border-color: #4FAE32;
+}
+
+.profile-form-modal input::placeholder,
+.profile-form-modal textarea::placeholder {
+  color: #999;
+}
+
+/* Footer & Button */
+.modal-footer.no-border {
+  border-top: none;
+  padding: 0 24px 24px 24px;
+  background: transparent;
+}
+
+.btn-continue {
+  width: 100%;
+  background: #4FAE32; /* Green */
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 16px;
+  font-size: 16px;
+      display: flex;
+    align-items: center;
+    justify-content: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.btn-continue:hover {
+  background: #448844;
 }

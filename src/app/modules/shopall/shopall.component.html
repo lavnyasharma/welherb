@@ -314,7 +314,7 @@
             step="100"
             (input)="onPriceChange()"
             (change)="filterByPrice()"
-            style="width: 100%; accent-color: #55aa55"
+            style="width: 100%; accent-color: var(--color-cta)"
           />
         </div>
       </div>
@@ -339,7 +339,7 @@
             flex: 1;
             padding: 8px;
             border: none;
-            background: #55aa55;
+            background: var(--color-cta);
             color: white;
             border-radius: 4px;
             font-family: Lato !important;
@@ -500,7 +500,7 @@
                 ></i>
               </div>
               <span style="font-family: Lato !important" class="rating-count"
-                >({{ product.reviewCount || 90 }})</span
+                >{{ product.rating }}/5({{ product.reviewCount || 90 }})</span
               >
             </div>
             <!-- Price and Rating Section -->
