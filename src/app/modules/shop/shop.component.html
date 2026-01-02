@@ -254,6 +254,10 @@
 </app-dietry-advice>
 <app-betterliving></app-betterliving>
 
-<app-faq *ngIf="product" [faq]="product.faq"></app-faq>
+<app-faq
+  *ngIf="product"
+  [faq]="product.faq"
+  [importantInfo]="product.important_info"
+></app-faq>
 <app-shopreviews></app-shopreviews>
 <!-- <app-contact-doctor></app-contact-doctor> -->

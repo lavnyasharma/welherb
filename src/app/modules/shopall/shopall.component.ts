@@ -14,7 +14,7 @@ interface ProductBadge {
 interface Product {
   name: string;
   id: string;
-  price: { [key: string]: number } | number;
+  price: any; // Allow flexible structure to handle { count, price } objects
   category: string[];
   image: string;
   rating?: number;
@@ -143,10 +143,31 @@ export class ShopallComponent implements OnInit, OnDestroy {
   }
 
   private mapProductFromAPI(item: any): Product {
-    const sizes = item.size || [];
+    const priceObj = item.price || {};
+    const sizeKeys = Object.keys(priceObj);
+    // Use item.size if present and non-empty, otherwise use keys from price object
+    let sizes = item.size && item.size.length > 0 ? item.size : sizeKeys;
+
+    // Sort sizes numerically if they look like numbers (e.g., "30" before "60")
+    sizes.sort((a: string, b: string) => {
+      const numA = parseInt(a);
+      const numB = parseInt(b);
+      return isNaN(numA) || isNaN(numB) ? a.localeCompare(b) : numA - numB;
+    });
+
     const firstSize = sizes.length ? sizes[0] : "";
     const price =
       typeof item.price === "object" ? item.price : { [firstSize]: item.price };
+
+    // Get correct display price for first size
+    let displayPrice = 0;
+    if (firstSize && price[firstSize]) {
+      const pData = price[firstSize];
+      displayPrice =
+        typeof pData === "object" && pData.price ? pData.price : pData || 0;
+    } else if (typeof item.price === "number") {
+      displayPrice = item.price;
+    }
 
     // Generate badges
     const badges: ProductBadge[] = [];
@@ -168,11 +189,7 @@ export class ShopallComponent implements OnInit, OnDestroy {
       reviewCount: item.reviewCount || 0,
       sizes: sizes,
       selectedSize: firstSize,
-      displayPrice: firstSize
-        ? typeof price === "object"
-          ? price[firstSize]
-          : price
-        : 0,
+      displayPrice: displayPrice,
       badges: badges,
       featured: item.featured || false,
       isNew: item.isNew || this.isNewProduct(item.createdAt),
@@ -462,7 +479,9 @@ export class ShopallComponent implements OnInit, OnDestroy {
   updatePrice(product: Product, selectedSize: string): void {
     product.selectedSize = selectedSize;
     if (typeof product.price === "object") {
-      product.displayPrice = product.price[selectedSize];
+      const pData = product.price[selectedSize];
+      product.displayPrice =
+        pData && pData.price ? pData.price : pData || product.displayPrice;
     }
   }
 

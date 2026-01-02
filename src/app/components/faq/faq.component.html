@@ -4,74 +4,24 @@
 
     <div class="info-items">
       <div
+        *ngFor="let item of importantInfo; let i = index"
         class="info-item"
-        [class.expanded]="activeIndex === 0"
-        (click)="toggle(0)"
+        [class.expanded]="activeImportantIndex === i"
+        (click)="toggleImportant(i)"
       >
         <div class="info-header">
-          <span style="font-family: lato !important" class="info-title"
-            >Disclaimer</span
-          >
+          <span style="font-family: lato !important" class="info-title">
+            {{ item.title }}
+          </span>
           <img
             src="assets/Group.svg"
             alt="+"
             class="toggle-icon"
-            [class.rotated]="activeIndex === 0"
+            [class.rotated]="activeImportantIndex === i"
           />
         </div>
-        <div class="info-content" *ngIf="activeIndex === 0">
-          <p>
-            Always use Ayurvedic medicines as directed by a qualified
-            practitioner. Consult your doctor if you are pregnant, nursing, or
-            have any medical conditions. Keep out of reach of children. Store in
-            a cool, dry place.
-          </p>
-        </div>
-      </div>
-
-      <div
-        class="info-item"
-        [class.expanded]="activeIndex === 1"
-        (click)="toggle(1)"
-      >
-        <div class="info-header">
-          <span style="font-family: lato !important" class="info-title"
-            >Additional Notes</span
-          >
-
-          <img
-            src="assets/Group.svg"
-            alt="+"
-            class="toggle-icon"
-            [class.rotated]="activeIndex === 1"
-            style="font-family: lato !important"
-          />
-        </div>
-        <div class="info-content" *ngIf="activeIndex === 1">
-          <p>
-            This product contains natural ingredients and may vary in color,
-            taste, and texture. This is normal and does not affect the quality
-            or efficacy of the product.
-          </p>
-        </div>
-      </div>
-
-      <div class="info-item expanded-item">
-        <div class="info-header">
-          <span style="font-family: lato !important" class="info-title"
-            >Safety Information</span
-          >
-          <span style="font-family: lato !important" class="toggle-icon rotated"
-            >-</span
-          >
-        </div>
-        <div class="info-content visible">
-          <p>
-            Always use Ayurvedic medicines as directed by a qualified
-            practitioner. Consult your doctor if you are pregnant, nursing, or
-            have any medical conditions. Keep out of reach of children. Store in
-            a cool, dry place.
-          </p>
+        <div class="info-content" *ngIf="activeImportantIndex === i">
+          <p>{{ item.description }}</p>
         </div>
       </div>
     </div>
@@ -81,79 +31,35 @@
     <div class="faq-box">
       <div class="faq-items">
         <h2 style="font-family: lato !important" class="faq-title">FAQs</h2>
+
         <div
-          class="faq-item"
-          [class.expanded]="activeIndex === 3"
-          (click)="toggle(3)"
+          *ngIf="faq?.length === 0"
+          class="no-faq"
+          style="padding: 10px; color: #666"
         >
-          <div class="faq-header">
-            <span style="font-family: lato !important" class="faq-question"
-              >Disclaimer</span
-            >
-            <img
-              src="assets/Group.svg"
-              alt="+"
-              class="faq-toggle"
-              [class.rotated]="activeIndex === 3"
-              style="font-family: lato !important"
-            />
-          </div>
-          <div class="faq-answer" *ngIf="activeIndex === 3">
-            <p>
-              Always use Ayurvedic medicines as directed by a qualified
-              practitioner. Consult your doctor if you are pregnant, nursing, or
-              have any medical conditions.
-            </p>
-          </div>
+          No FAQs available.
         </div>
 
         <div
+          *ngFor="let item of faq; let i = index"
           class="faq-item"
-          [class.expanded]="activeIndex === 4"
-          (click)="toggle(4)"
+          [class.expanded]="activeFaqIndex === i"
+          (click)="toggleFaq(i)"
         >
           <div class="faq-header">
-            <span style="font-family: lato !important" class="faq-question"
-              >Additional Notes</span
-            >
+            <span style="font-family: lato !important" class="faq-question">
+              {{ item.question }}
+            </span>
             <img
               src="assets/Group.svg"
               alt="+"
               class="faq-toggle"
-              [class.rotated]="activeIndex === 4"
+              [class.rotated]="activeFaqIndex === i"
               style="font-family: lato !important"
             />
           </div>
-          <div class="faq-answer" *ngIf="activeIndex === 4">
-            <p>
-              This product contains natural ingredients and may vary in
-              appearance. This is completely normal.
-            </p>
-          </div>
-        </div>
-
-        <div
-          class="faq-item"
-          [class.expanded]="activeIndex === 5"
-          (click)="toggle(5)"
-        >
-          <div class="faq-header">
-            <span style="font-family: lato !important" class="faq-question"
-              >Safety Guidelines</span
-            >
-            <img
-              src="assets/Group.svg"
-              alt="+"
-              class="faq-toggle"
-              [class.rotated]="activeIndex === 5"
-              style="font-family: lato !important"
-            />
-          </div>
-          <div class="faq-answer" *ngIf="activeIndex === 5">
-            <p>
-              Store in a cool, dry place away from direct sunlight. Keep out of
-              reach of children.
-            </p>
+          <div class="faq-answer" *ngIf="activeFaqIndex === i">
+            <p>{{ item.answer }}</p>
           </div>
         </div>
       </div>
@@ -165,8 +71,27 @@
 <div class="mobile-view">
   <h1 class="mobile-title">Important info</h1>
 
+  <div *ngFor="let item of importantInfo; let i = index" class="mobile-item">
+    <div class="mobile-header" (click)="toggleImportant(i)">
+      <span style="font-family: lato !important" class="mobile-question">{{
+        item.title
+      }}</span>
+      <img
+        src="assets/Group.svg"
+        alt="+"
+        class="mobile-toggle"
+        [class.rotated]="activeImportantIndex === i"
+        style="font-family: lato !important"
+      />
+    </div>
+    <div class="mobile-answer" *ngIf="activeImportantIndex === i">
+      <p>{{ item.description }}</p>
+    </div>
+  </div>
+
+  <h2 class="mobile-title" style="margin-top: 20px">FAQs</h2>
   <div *ngFor="let item of faq; let i = index" class="mobile-item">
-    <div class="mobile-header" (click)="toggle(i)">
+    <div class="mobile-header" (click)="toggleFaq(i)">
       <span style="font-family: lato !important" class="mobile-question">{{
         item.question
       }}</span>
@@ -174,11 +99,11 @@
         src="assets/Group.svg"
         alt="+"
         class="mobile-toggle"
-        [class.rotated]="activeIndex === i"
+        [class.rotated]="activeFaqIndex === i"
         style="font-family: lato !important"
       />
     </div>
-    <div class="mobile-answer" *ngIf="activeIndex === i">
+    <div class="mobile-answer" *ngIf="activeFaqIndex === i">
       <p>{{ item.answer }}</p>
     </div>
   </div>

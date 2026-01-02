@@ -66,17 +66,25 @@ export class ShopComponent implements OnInit {
           next: (data: any) => {
             this.priceMap = data.price;
 
+            // Determine valid sizes from size array or price keys
+            const sizeOptions =
+              data.size && data.size.length > 0
+                ? data.size
+                : Object.keys(data.price);
+            const defaultSize = sizeOptions[0];
+
             this.product = {
               id: data._id,
               title: data.name,
               subtitle: data.description,
               faq: data.faq,
-              price: data.price[data.size[0]],
+              price: data.price[defaultSize]?.price,
               priceMap: data.price,
-              capsuleOptions: data.size,
+              capsuleOptions: sizeOptions,
               dietary_advice: data.dietary_advice,
               helps_how: data.helps_how,
               helps_who: data.helps_who,
+              important_info: data.important_info,
               features: {
                 reduces: [
                   "Joint pain & inflammation",
@@ -105,7 +113,7 @@ export class ShopComponent implements OnInit {
               "assets/arth-ease-thumb4.jpg",
             ];
             this.selectedImage = this.productImages[0];
-            this.selectedCapsule = data.size?.[0] || 30;
+            this.selectedCapsule = Number(defaultSize) || 30;
 
             // Check cart status for the NEW product
             this.checkCartStatus();
@@ -157,10 +165,14 @@ export class ShopComponent implements OnInit {
     this.selectedImage = image;
   }
 
-  selectCapsule(capsule: number) {
-    this.selectedCapsule = capsule;
+  selectCapsule(capsule: number | string) {
+    this.selectedCapsule = Number(capsule);
     if (this.product && this.product.priceMap) {
-      this.product.price = this.product.priceMap[capsule] || this.product.price;
+      const priceData = this.product.priceMap[capsule];
+      this.product.price =
+        priceData && priceData.price
+          ? priceData.price
+          : priceData || this.product.price;
     }
   }
 
