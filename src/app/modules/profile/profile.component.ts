@@ -82,6 +82,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   // Toggle for Switch Profile accordion
   isSwitchProfileExpanded = false;
+  isSwitchProfile = false;
 
   // Modal states
   showAddMoreModal = false;
@@ -210,12 +211,32 @@ export class ProfileComponent implements OnInit, OnDestroy {
   getUserProfile(): void {
     this.apiService.getUserProfile().subscribe({
       next: (res: any) => {
+        this.isSwitchProfile = false;
+        let addressStr = res.address || "";
+        let pincodeStr = res.pincode || "";
+        let cityStr = res.city || "";
+        let stateStr = res.state || "";
+
+        if (
+          res.delivery_addresses &&
+          Array.isArray(res.delivery_addresses) &&
+          res.delivery_addresses.length > 0
+        ) {
+          const defaultAddr = res.delivery_addresses[0];
+          addressStr = defaultAddr.address || addressStr;
+          pincodeStr = defaultAddr.pincode || pincodeStr;
+          cityStr = defaultAddr.city || cityStr;
+          stateStr = defaultAddr.state || stateStr;
+        }
+
         this.profileData = {
           fullName: res.name || "",
           email: res.email || "",
           phone: res.mobile || "",
-          address: res.address || "",
-          pincode: res.pincode || "",
+          address: addressStr,
+          pincode: pincodeStr,
+          city: cityStr,
+          state: stateStr,
           height: res.height || "",
           weight: res.weight || "",
           gender: res.gender || "",
@@ -233,6 +254,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
             id: p._id,
             name: p.name,
             email: p.email,
+            mobile: p.mobile,
+            address: p.address,
+            gender: p.gender,
+            height: p.height,
+            weight: p.weight,
             avatar: "https://i.pravatar.cc/100?u=" + (p.email || p.name),
           }));
           this.profileService.setProfiles(profiles);
@@ -361,15 +387,36 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   // Switch to selected profile
   switchToProfile(profile: any): void {
+    this.isSwitchProfile = true;
     this.profileService.switchProfile(profile);
     this.toastService.success(`Switched to ${profile.name}'s profile`);
     this.closeSwitchProfileModal();
 
     // Update the form with selected profile data
+    let addressStr = profile.address;
+    let pincodeStr = "";
+    let mobileStr = profile.mobile;
+
+    // Handle nested address object if present
+    if (profile.address && typeof profile.address === "object") {
+      addressStr = profile.address.address;
+      pincodeStr = profile.address.pincode;
+      // If mobile is not at root, check inside address
+      if (!mobileStr) {
+        mobileStr = profile.address.mobile;
+      }
+    }
+
     this.profileData = {
       ...this.profileData,
       fullName: profile.name,
       email: profile.email,
+      phone: mobileStr,
+      address: addressStr,
+      pincode: pincodeStr,
+      height: profile.height,
+      weight: profile.weight,
+      gender: profile.gender,
       id: profile.id,
       // Add other profile fields as needed
     } as any;
@@ -519,26 +566,70 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   // Save profile changes
   saveChanges(): void {
-    const payload = {
-      name: this.profileData.fullName,
-      email: this.profileData.email,
-      mobile: this.profileData.phone,
-      address: this.profileData.address,
-      pincode: this.profileData.pincode,
-      height: this.profileData.height,
-      weight: this.profileData.weight,
-      gender: this.profileData.gender,
-    };
+    if (this.isSwitchProfile) {
+      const payload = {
+        _id: (this.profileData as any).id,
+        name: this.profileData.fullName,
+        mobile: this.profileData.phone,
+        email: this.profileData.email,
+        pincode: Number(this.profileData.pincode),
 
-    this.apiService.updateUserProfile(payload).subscribe({
-      next: (res) => {
-        this.toastService.success("Profile updated successfully!");
-      },
-      error: (err) => {
-        console.error("Error updating profile:", err);
-        this.toastService.error("Failed to update profile");
-      },
-    });
+        address: {
+          name: this.profileData.fullName,
+          mobile: this.profileData.phone,
+          email: this.profileData.email,
+          address: this.profileData.address,
+          pincode: this.profileData.pincode,
+          city: (this.profileData as any).city || "Jammu",
+          state: "Jammu and Kashmir",
+        },
+
+        height: this.profileData.height,
+        weight: this.profileData.weight,
+        gender: this.profileData.gender,
+      };
+
+      this.apiService.updateSubProfile(payload).subscribe({
+        next: (res) => {
+          this.toastService.success("Profile updated successfully!");
+        },
+        error: (err) => {
+          console.error("Error updating profile:", err);
+          this.toastService.error("Failed to update profile");
+        },
+      });
+    } else {
+      const payload = {
+        name: this.profileData.fullName,
+        email: this.profileData.email,
+        mobile: this.profileData.phone,
+        delivery_addresses: [
+          {
+            name: this.profileData.fullName,
+            mobile: this.profileData.phone,
+            email: this.profileData.email,
+            address: this.profileData.address,
+            pincode: this.profileData.pincode,
+            city: (this.profileData as any).city || "Jammu",
+            state: "Jammu and Kashmir",
+          },
+        ],
+        pincode: this.profileData.pincode,
+        height: this.profileData.height,
+        weight: this.profileData.weight,
+        gender: this.profileData.gender,
+      };
+
+      this.apiService.updateUserProfile(payload).subscribe({
+        next: (res) => {
+          this.toastService.success("Profile updated successfully!");
+        },
+        error: (err) => {
+          console.error("Error updating profile:", err);
+          this.toastService.error("Failed to update profile");
+        },
+      });
+    }
   }
 
   // Change password

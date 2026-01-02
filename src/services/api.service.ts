@@ -121,6 +121,17 @@ export class ApiService {
     });
   }
 
+  updateSubProfile(payload: any) {
+    const headers = this.authHeaders(true);
+    return this.http.post<any>(
+      `${this.proxyPrefix}/user/profile/update`,
+      payload,
+      {
+        headers,
+      }
+    );
+  }
+
   addUserProfile(payload: any) {
     const headers = this.authHeaders(true);
     return this.http.post<any>(

@@ -7,6 +7,11 @@ export interface UserProfile {
   name: string;
   email?: string;
   avatar?: string;
+  mobile?: string;
+  address?: any; // Can be string or object depending on backend
+  gender?: string;
+  height?: string;
+  weight?: string;
 }
 
 @Injectable({
@@ -33,6 +38,11 @@ export class ProfileService {
             id: p._id || p.id,
             name: p.name,
             email: p.email,
+            mobile: p.mobile || (p.address && p.address.mobile),
+            address: p.address, // Store the raw address object/string
+            gender: p.gender,
+            height: p.height,
+            weight: p.weight,
             // Generate a random avatar using pravatar.cc with a random image index (1-70) if not present
             avatar:
               p.avatar ||
