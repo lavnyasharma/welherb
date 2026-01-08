@@ -5,12 +5,9 @@ export interface IngredientDetail {
   name: string;
   image: string;
   benefits: string[];
-  greatFor: {
-    digestive: boolean;
-    respiratory: boolean;
-    cardiovascular: boolean;
-  };
-  foundIn: {
+  great_for: string[];
+  description?: string;
+  foundIn?: {
     name: string;
     image: string;
     price: string;
@@ -28,128 +25,13 @@ export class IngredientsPageComponent implements OnInit {
   isModalOpen: boolean = false;
   selectedIngredient: any = null;
 
-  // Static ingredient details - you can expand this or make it dynamic
-  ingredientDetails: { [key: string]: IngredientDetail } = {
-    Ajwain: {
-      name: "Ajwain",
-      image: "/assets/images/ajwain.jpg",
-      benefits: [
-        "Renowned for its soothing carminative properties, Ajwain helps alleviate bloating, indigestion and colic pain. It is also safe and beneficial for pregnant women to help ease digestive discomfort.",
-        "Rich in thymol and other micronutrients, it offers potent antimicrobial and antispasmodic benefits that support respiratory and cardiovascular function.",
-      ],
-      greatFor: {
-        digestive: true,
-        respiratory: true,
-        cardiovascular: true,
-      },
-      foundIn: [
-        {
-          name: "Liv Renew",
-          image: "/assets/images/liv-renew.jpg",
-          price: "₹449",
-        },
-        {
-          name: "Liv Renew",
-          image: "/assets/images/liv-renew.jpg",
-          price: "₹449",
-        },
-        {
-          name: "Liv Renew",
-          image: "/assets/images/liv-renew.jpg",
-          price: "₹449",
-        },
-        {
-          name: "Liv Renew",
-          image: "/assets/images/liv-renew.jpg",
-          price: "₹449",
-        },
-      ],
-    },
-    Turmeric: {
-      name: "Turmeric",
-      image: "/assets/images/turmeric.jpg",
-      benefits: [
-        "Contains curcumin, a powerful anti-inflammatory compound that helps reduce inflammation throughout the body.",
-        "Supports joint health and mobility while providing antioxidant protection against free radicals.",
-      ],
-      greatFor: {
-        digestive: true,
-        respiratory: false,
-        cardiovascular: true,
-      },
-      foundIn: [
-        {
-          name: "Joint Care",
-          image: "/assets/images/joint-care.jpg",
-          price: "₹549",
-        },
-        {
-          name: "Immunity Boost",
-          image: "/assets/images/immunity.jpg",
-          price: "₹399",
-        },
-      ],
-    },
-    Ashwagandha: {
-      name: "Ashwagandha",
-      image: "/assets/images/ashwagandha.jpg",
-      benefits: [
-        "An adaptogenic herb that helps the body manage stress and promotes better sleep quality.",
-        "Supports healthy energy levels and helps maintain normal cortisol levels in the body.",
-      ],
-      greatFor: {
-        digestive: false,
-        respiratory: false,
-        cardiovascular: true,
-      },
-      foundIn: [
-        {
-          name: "Stress Relief",
-          image: "/assets/images/stress-relief.jpg",
-          price: "₹629",
-        },
-        {
-          name: "Energy Boost",
-          image: "/assets/images/energy.jpg",
-          price: "₹479",
-        },
-      ],
-    },
-  };
-
-  // Default ingredient detail for unknown ingredients
-  defaultIngredientDetail: IngredientDetail = {
-    name: "Unknown Ingredient",
-    image: "/assets/images/default.jpg",
-    benefits: [
-      "This ingredient has been used in traditional Ayurvedic medicine for centuries.",
-      "Known for its natural healing properties and health benefits.",
-    ],
-    greatFor: {
-      digestive: true,
-      respiratory: true,
-      cardiovascular: true,
-    },
-    foundIn: [
-      {
-        name: "Liv Renew",
-        image: "/assets/images/liv-renew.jpg",
-        price: "₹449",
-      },
-      {
-        name: "Health Booster",
-        image: "/assets/images/health-boost.jpg",
-        price: "₹399",
-      },
-    ],
-  };
-
   constructor(private apiservice: ApiService) {
     this.apiservice.ingredients$.subscribe((data) => {
-      // Map the data to retrieve only the name and url for each item
-      this.images = data.map((item: { name: string; url: string }) => ({
-        name: item.name,
+      // Map the data to retrieve the full object
+      this.images = data.map((item: any) => ({
+        ...item,
         image: "/welherb" + item.url,
+        // Ensure great_for is distinct if needed, or just use as is from API
       }));
       this.isLoading = false;
     });
@@ -189,24 +71,16 @@ export class IngredientsPageComponent implements OnInit {
 
   // Get ingredient detail for the selected ingredient
   getCurrentIngredientDetail(): IngredientDetail {
-    if (!this.selectedIngredient) {
-      return this.defaultIngredientDetail;
+    if (this.selectedIngredient) {
+      return this.selectedIngredient;
     }
 
-    const detail = this.ingredientDetails[this.selectedIngredient.name];
-    if (detail) {
-      // Update the image to use the actual ingredient image
-      return {
-        ...detail,
-        image: this.selectedIngredient.image,
-      };
-    }
-
-    // Return default with the ingredient's actual name and image
+    // Return a safe default if nothing is selected (though modal shouldn't open then)
     return {
-      ...this.defaultIngredientDetail,
-      name: this.selectedIngredient.name,
-      image: this.selectedIngredient.image,
+      name: "",
+      image: "",
+      benefits: [],
+      great_for: [],
     };
   }
 

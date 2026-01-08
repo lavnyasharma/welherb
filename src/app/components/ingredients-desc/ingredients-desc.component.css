@@ -103,15 +103,69 @@
 /* Ingredient cards */
 .ingredient-card {
   flex: 0 0 200px;
-  background: #fcf8f3;
+  min-width: 200px; /* Ensure min-width is set */
+  height: 300px;
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  transition: transform 0.6s;
+  transform-style: preserve-3d;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border-radius: 40px;
+}
+
+.ingredient-card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-front,
+.card-back {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
   border-radius: 40px;
   overflow: hidden;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
-  cursor: pointer;
-  border: 2px solid transparent;
-  height: 300px;
-  border-color: #9ae2fa;
+}
+
+.card-front {
+  background: #fcf8f3;
+  border: 2px solid #9ae2fa; /* moved border to front face */
+}
+
+.card-back {
+  background: #9ae2fa;
+  color: #0c4a6e;
+  transform: rotateY(180deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.back-content {
+  text-align: center;
+}
+
+.back-content h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.back-content p {
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
 }
 
 .card-content {
@@ -157,7 +211,7 @@
   transition: transform 0.3s ease;
   position: relative;
   z-index: 1;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+
   max-width: 100%;
   max-height: 100%;
 }
@@ -216,8 +270,6 @@
 
 /* Large Desktop */
 @media (min-width: 1400px) {
-
-
   .ingredient-card {
     flex: 0 0 220px;
     min-width: 220px;

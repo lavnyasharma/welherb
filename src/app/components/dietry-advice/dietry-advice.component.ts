@@ -11,6 +11,7 @@ export class DietryAdviceComponent implements OnInit {
   @Input() dietaryAdvice: string[] = [];
   @Input() helpsHow: string[] = [];
   @Input() helpsWho: string[] = [];
+  @Input() howToUse: { title: string; description: string }[] = [];
 
   savedProfiles$: Observable<UserProfile[]>;
   selectedProfile$: Observable<UserProfile | null>;

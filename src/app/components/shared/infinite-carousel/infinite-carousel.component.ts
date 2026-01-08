@@ -37,8 +37,13 @@ export class InfiniteCarouselComponent
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes["items"] && this.items) {
-      // Triple the items for infinite loop effect
-      this.displayItems = [...this.items, ...this.items, ...this.items];
+      if (this.items.length > 3) {
+        // Triple the items for infinite loop effect
+        this.displayItems = [...this.items, ...this.items, ...this.items];
+      } else {
+        // Small number of items, no duplication
+        this.displayItems = [...this.items];
+      }
       // Recalculate card width if view is initialized
       if (this.carouselTrack) {
         setTimeout(() => this.measureCardWidth(), 100);
@@ -85,7 +90,7 @@ export class InfiniteCarouselComponent
       if (
         !this.isAutoScrollPaused &&
         this.cardWidth > 0 &&
-        this.items.length > 0
+        this.items.length > 1
       ) {
         this.scrollPosition += this.scrollSpeed;
         this.updateCarouselState();

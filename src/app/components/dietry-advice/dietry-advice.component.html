@@ -32,8 +32,55 @@
     </ng-container>
   </div>
 
-  <!-- Content Card -->
-  <div class="content-card">
+  <!-- How To Use Section - Two columns: title on top, description below each -->
+  <div class="content-card how-to-use-card" *ngIf="howToUse?.length">
+    <!-- Left Column - First Item -->
+    <div class="left-section" *ngIf="howToUse[0]">
+      <div class="info-section">
+        <div class="section-header">
+          <div class="plus-icon">
+            <img
+              src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/star%20(1)%204.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvc3RhciAoMSkgNC5zdmciLCJpYXQiOjE3NTYyOTY0MTEsImV4cCI6MzY1OTUzMDc3MzY0MTF9.KlJEocKVqN72HUxE1mIKNbuYn-9Al1V8z-S6KkM6eAk"
+              alt="Plus Icon"
+            />
+          </div>
+          <h3 style="font-family: 'Lato', sans-serif !important">
+            {{ howToUse[0].title }}
+          </h3>
+          <span class="tag">Not Personalised Dosage</span>
+        </div>
+        <div class="section-content">
+          <p style="white-space: pre-line">{{ howToUse[0].description }}</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column - Second Item -->
+    <div class="right-section" *ngIf="howToUse[1]">
+      <div class="info-section">
+        <div class="section-header">
+          <div class="plus-icon">
+            <img
+              src="https://wrijpsiiuvmeqaeklnqi.supabase.co/storage/v1/object/sign/new/star%20(1)%204.svg?token=eyJraWQiOiJzdG9yYWdlLXVybC1zaWduaW5nLWtleV9jNTNkMmE3MS00ODk1LTRmN2YtYWExYS01ZjA1ZDhlYWE2YTciLCJhbGciOiJIUzI1NiJ9.eyJ1cmwiOiJuZXcvc3RhciAoMSkgNC5zdmciLCJpYXQiOjE3NTYyOTY0MTEsImV4cCI6MzY1OTUzMDc3MzY0MTF9.KlJEocKVqN72HUxE1mIKNbuYn-9Al1V8z-S6KkM6eAk"
+              alt="Plus Icon"
+            />
+          </div>
+          <h3 style="font-family: 'Lato', sans-serif !important">
+            {{ howToUse[1].title }}
+          </h3>
+        </div>
+        <div class="section-content">
+          <p style="white-space: pre-line">{{ howToUse[1].description }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fallback: Legacy Content Card for helpsHow/helpsWho -->
+  <div
+    class="content-card"
+    *ngIf="!howToUse?.length && (helpsHow?.length || helpsWho?.length)"
+  >
     <!-- Left Section - Helps How -->
     <div class="left-section" *ngIf="helpsHow?.length">
       <div class="info-section">

@@ -21,7 +21,11 @@
           />
         </div>
         <div class="info-content" *ngIf="activeImportantIndex === i">
-          <p>{{ item.description }}</p>
+          <ul class="bullet-list">
+            <li *ngFor="let line of formatImportantInfoLines(item.description)">
+              {{ line }}
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -59,7 +63,9 @@
             />
           </div>
           <div class="faq-answer" *ngIf="activeFaqIndex === i">
-            <p>{{ item.answer }}</p>
+            <p style="white-space: pre-line">
+              {{ formatFaqAnswer(item.answer) }}
+            </p>
           </div>
         </div>
       </div>
@@ -85,7 +91,11 @@
       />
     </div>
     <div class="mobile-answer" *ngIf="activeImportantIndex === i">
-      <p>{{ item.description }}</p>
+      <ul class="bullet-list">
+        <li *ngFor="let line of formatImportantInfoLines(item.description)">
+          {{ line }}
+        </li>
+      </ul>
     </div>
   </div>
 
@@ -104,7 +114,7 @@
       />
     </div>
     <div class="mobile-answer" *ngIf="activeFaqIndex === i">
-      <p>{{ item.answer }}</p>
+      <p style="white-space: pre-line">{{ formatFaqAnswer(item.answer) }}</p>
     </div>
   </div>
 </div>

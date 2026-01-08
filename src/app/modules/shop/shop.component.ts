@@ -84,7 +84,13 @@ export class ShopComponent implements OnInit {
               dietary_advice: data.dietary_advice,
               helps_how: data.helps_how,
               helps_who: data.helps_who,
+              product_benefits: data.product_benefits,
               important_info: data.important_info,
+              ingredients: data.ingredients?.map((ing: any) => ({
+                ...ing,
+                image: "/welherb" + ing.url,
+              })),
+              how_to_use: data.how_to_use || [],
               features: {
                 reduces: [
                   "Joint pain & inflammation",

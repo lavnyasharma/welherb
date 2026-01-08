@@ -52,25 +52,16 @@
       </div>
 
       <!-- Product Description -->
-      <div class="product-description" style="margin-top: 10px">
-        <p class="subtitle">A blend of Ayurvedic ingredients that helps</p>
+      <div
+        class="product-description"
+        style="margin-top: 10px"
+        *ngIf="product?.product_benefits?.length > 0"
+      >
+        <p class="subtitle">{{ product.product_benefits[0] }}</p>
         <ul class="benefits-list">
-          <li>
+          <li *ngFor="let benefit of product.product_benefits.slice(1)">
             <img src="assets/star (1) 1.svg" alt="+" class="benefit-icon" />
-            Reduce High ESR & inflammation
-          </li>
-          <li>
-            <img src="assets/star (1) 1.svg" alt="+" class="benefit-icon" />
-            Relieves Joint pain, swelling & fatigue
-          </li>
-          <li>
-            <img src="assets/star (1) 1.svg" alt="+" class="benefit-icon" />
-            Reduces Pus cells in reproductive & urinary tract
-          </li>
-          <li>
-            <img src="assets/star (1) 1.svg" alt="+" class="benefit-icon" />
-            Support Inflammation-related concerns like Arthritis, PCOS and
-            others.
+            {{ benefit }}
           </li>
         </ul>
       </div>
@@ -244,12 +235,16 @@
 </div>
 <app-strips [color]="'#9AE2FA'"></app-strips>
 <app-prod-desc [color]="'#9AE2FA'"></app-prod-desc>
-<app-ingredients-desc></app-ingredients-desc>
+<app-ingredients-desc
+  *ngIf="product && product.ingredients && product.ingredients.length > 0"
+  [ingredients]="product.ingredients"
+></app-ingredients-desc>
 <app-dietry-advice
   *ngIf="product"
   [dietaryAdvice]="product.dietary_advice"
   [helpsHow]="product.helps_how"
   [helpsWho]="product.helps_who"
+  [howToUse]="product.how_to_use"
 >
 </app-dietry-advice>
 <app-betterliving></app-betterliving>
